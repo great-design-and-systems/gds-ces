@@ -33,7 +33,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js?x$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 loaders: [
                     'react-hot',

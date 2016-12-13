@@ -1,6 +1,8 @@
 import '../css/app.scss';
+
+import { Api } from '../../common/ApiService';
 import React from 'react';
-import {Api} from '../../common/ApiService';
+import ReactDOM from 'react-dom';
 
 class App extends React.Component {
     constructor() {
@@ -13,7 +15,7 @@ class App extends React.Component {
 
 new Api().init('/api.json', err => {
     if (!err) {
-        React.render(<App />, document.getElementsByTagName('body')[0]);
+        ReactDOM.render(<App />, document.getElementsByTagName('app')[0]);
     }
     else {
         console.error(err);

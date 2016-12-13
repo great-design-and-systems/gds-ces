@@ -1,4 +1,4 @@
-import Vendors from 'AppVendors';
+import Vendors from './AppVendors';
 import lodash from 'lodash';
 
 export class Api {
@@ -10,7 +10,7 @@ export class Api {
         }
     }
     init(source, callback) {
-        const fetch = new Vendor().getFetch();
+        const fetch = new Vendors().getFetch();
         fetch(source)
             .then(res => {
                 window.gdsApi = res.json();
