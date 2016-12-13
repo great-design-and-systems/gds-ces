@@ -1,0 +1,465 @@
+{
+  "timeServicePort": {
+    "domain": "Time",
+    "links": {
+      "checkIn": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/checkIn"
+      },
+      "getTimeIn": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/getTimeIn?param=dateFrom::dateFrom&param=dateTo::dateTo"
+      },
+      "checkInPurpose": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/checkInPurpose?param=timeInID::timeInID"
+      },
+      "getTimeInfo": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/getTimeInfo?param=timeInID::timeInID"
+      },
+      "checkInVisitor": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/checkInVisitor"
+      },
+      "getTodayRecords": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/getTodayRecords?param=currentTimeMilis::currentTimeMilis"
+      },
+      "getTimeInCountByPersonType": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/getTimeInCountByPersonType?param=dateFrom::dateFrom&param=dateTo::dateTo"
+      },
+      "getTimeInCountByTime": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/timeServicePort/getTimeInCountByTime?param=dateFrom::dateFrom&param=dateTo::dateTo"
+      }
+    }
+  },
+  "securityServicePort": {
+    "domain": "Security",
+    "links": {
+      "validateHost": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/securityServicePort/validateHost?param=host::host"
+      },
+      "validatePassword": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/securityServicePort/validatePassword"
+      },
+      "createUserSession": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/securityServicePort/createUserSession"
+      },
+      "validateSession": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/securityServicePort/validateSession?param=sessionId::sessionId"
+      }
+    }
+  },
+  "schoolConfigServicePort": {
+    "domain": "School Config",
+    "links": {
+      "createSchoolProfile": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/createSchoolProfile"
+      },
+      "getSchoolProfile": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getSchoolProfile?param=schoolId::schoolId"
+      },
+      "updateSchoolProfile": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/updateSchoolProfile?param=schoolId::schoolId"
+      },
+      "deleteSchoolProfile": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/deleteSchoolProfile?param=schoolId::schoolId"
+      },
+      "createSchoolYear": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/createSchoolYear"
+      },
+      "getSchoolYear": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getSchoolYear?param=schoolYearId::schoolYearId"
+      },
+      "getSchoolYearBySchoolId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getSchoolYearBySchoolId?param=schoolId::schoolId"
+      },
+      "updateSchoolYear": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/updateSchoolYear?param=schoolYearId::schoolYearId"
+      },
+      "deleteSchoolYear": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/deleteSchoolYear?param=schoolYearId::schoolYearId"
+      },
+      "createSchoolSem": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/createSchoolSem"
+      },
+      "getSchoolSem": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getSchoolSem?param=schoolSemId::schoolSemId"
+      },
+      "getSchoolSemBySchoolYearId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getSchoolSemBySchoolYearId?param=schoolYearId::schoolYearId"
+      },
+      "updateSchoolSem": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/updateSchoolSem?param=schoolSemId::schoolSemId"
+      },
+      "deleteSchoolSem": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/deleteSchoolSem?param=schoolSemId::schoolSemId"
+      },
+      "createEducationLevel": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/createEducationLevel"
+      },
+      "getEducationLevel": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getEducationLevel?param=educationLevelId::educationLevelId"
+      },
+      "getEducationLevelBySchoolId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getEducationLevelBySchoolId?param=schoolId::schoolId"
+      },
+      "updateEducationLevel": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/updateEducationLevel?param=educationLevelId::educationLevelId"
+      },
+      "deleteEducationLevel": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/deleteEducationLevel?param=educationLevelId::educationLevelId"
+      },
+      "createDepartment": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/createDepartment"
+      },
+      "getDepartment": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getDepartment?param=departmentId::departmentId"
+      },
+      "getDepartmentBySchoolId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getDepartmentBySchoolId?param=schoolId::schoolId"
+      },
+      "updateDepartment": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/updateDepartment?param=departmentId::departmentId"
+      },
+      "deleteDepartment": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/deleteDepartment?param=departmentId::departmentId"
+      },
+      "createTheme": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/createTheme"
+      },
+      "getTheme": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getTheme?param=themeId::themeId"
+      },
+      "getThemeBySchoolId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getThemeBySchoolId?param=schoolId::schoolId"
+      },
+      "updateTheme": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/updateTheme?param=themeId::themeId"
+      },
+      "deleteTheme": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/deleteTheme?param=themeId::themeId"
+      },
+      "createCode": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/createCode"
+      },
+      "getCodes": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getCodes?param=codeType::codeType&param=schoolId::schoolId"
+      },
+      "getCode": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/getCode?param=schoolId::schoolId&param=codeType::codeType&param=codeName::codeName"
+      },
+      "updateCode": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/updateCode?param=codeId::codeId"
+      },
+      "deleteCode": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/schoolConfigServicePort/deleteCode?param=codeId::codeId"
+      }
+    }
+  },
+  "facultyServicePort": {
+    "domain": "Faculty",
+    "links": {
+      "getProfileByFacultyId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/facultyServicePort/getProfileByFacultyId?param=facultyId::facultyId"
+      },
+      "createFaculty": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/facultyServicePort/createFaculty"
+      },
+      "updateFaculty": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/facultyServicePort/updateFaculty?param=facultyId::facultyId"
+      },
+      "deleteFaculty": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/facultyServicePort/deleteFaculty?param=facultyId::facultyId"
+      },
+      "getFaculties": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/facultyServicePort/getFaculties"
+      },
+      "validateFacultyId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/facultyServicePort/validateFacultyId?param=facultyId::facultyId"
+      }
+    }
+  },
+  "exportServicePort": {
+    "domain": "Export",
+    "links": {
+      "createExportCSV": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/createExportCSV"
+      },
+      "addExportItemCSV": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/addExportItemCSV?param=exportId::exportId"
+      },
+      "updateExportCSVFileInfo": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/updateExportCSVFileInfo?param=exportId::exportId"
+      },
+      "failExportTracker": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/failExportTracker?param=exportId::exportId"
+      },
+      "getExportCompleted": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/getExportCompleted"
+      },
+      "getExportInProgress": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/getExportInProgress"
+      },
+      "getExportFailed": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/getExportFailed"
+      },
+      "removeExportTrackerById": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/removeExportTrackerById?param=exportId::exportId"
+      },
+      "removeCompletedExportTracker": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/exportServicePort/removeCompletedExportTracker"
+      }
+    }
+  },
+  "loggerServicePort": {
+    "domain": "Logger Service",
+    "links": {
+      "createInfo": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/loggerServicePort/createInfo?param=serviceName::serviceName&param=serviceName::serviceName"
+      },
+      "createError": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/loggerServicePort/createError?param=serviceName::serviceName&param=serviceName::serviceName"
+      },
+      "createWarn": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/loggerServicePort/createWarn?param=serviceName::serviceName&param=serviceName::serviceName"
+      },
+      "createDebug": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/loggerServicePort/createDebug?param=serviceName::serviceName&param=serviceName::serviceName"
+      },
+      "getLogger": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/loggerServicePort/getLogger?param=serviceName::serviceName"
+      },
+      "getLoggerByTime": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/loggerServicePort/getLoggerByTime?param=serviceName::serviceName&param=date::date"
+      }
+    }
+  },
+  "userServicePort": {
+    "domain": "User",
+    "links": {
+      "register": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/userServicePort/register"
+      },
+      "userProfile": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/userServicePort/userProfile?param=username::username"
+      },
+      "userPassword": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/userServicePort/userPassword?param=username::username"
+      },
+      "deleteUser": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/userServicePort/deleteUser?param=userId::userId"
+      },
+      "changePassword": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/userServicePort/changePassword?param=username::username"
+      },
+      "updateProfile": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/userServicePort/updateProfile?param=username::username"
+      }
+    }
+  },
+  "fileServicePort": {
+    "domain": "File",
+    "links": {
+      "uploadSingleFile": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/fileServicePort/uploadSingleFile?param=userId::userId"
+      },
+      "updateSingleFileContent": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/fileServicePort/updateSingleFileContent?param=fileId::fileId"
+      },
+      "downloadFile": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/fileServicePort/downloadFile?param=fileId::fileId"
+      },
+      "readFile": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/fileServicePort/readFile?param=fileId::fileId"
+      },
+      "deleteFile": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/fileServicePort/deleteFile?param=fileId::fileId"
+      }
+    }
+  },
+  "importServicePort": {
+    "domain": "Import",
+    "links": {
+      "createImportCSV": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/importServicePort/createImportCSV"
+      },
+      "runImportCsv": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/importServicePort/runImportCsv"
+      },
+      "getImportCompleted": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/importServicePort/getImportCompleted"
+      },
+      "getImportFailed": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/importServicePort/getImportFailed"
+      },
+      "getImportProgress": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/importServicePort/getImportProgress"
+      },
+      "getImportLogs": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/importServicePort/getImportLogs?param=importId::importId"
+      },
+      "removeImportTracker": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/importServicePort/removeImportTracker?param=importId::importId"
+      }
+    }
+  },
+  "studentServicePort": {
+    "domain": "Students",
+    "links": {
+      "getProfileByStudentId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/studentServicePort/getProfileByStudentId?param=studentId::studentId"
+      },
+      "createStudent": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/studentServicePort/createStudent"
+      },
+      "updateStudent": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/studentServicePort/updateStudent?param=studentId::studentId"
+      },
+      "deleteStudent": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/studentServicePort/deleteStudent?param=studentId::studentId"
+      },
+      "getStudents": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/studentServicePort/getStudents"
+      },
+      "validateStudentId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/studentServicePort/validateStudentId?param=studentId::studentId"
+      }
+    }
+  },
+  "eventServicePort": {
+    "domain": "Events",
+    "links": {
+      "createJob": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/createJob"
+      },
+      "removeJob": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/removeJob?param=eventJobId::eventJobId"
+      },
+      "getContextFieldById": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/getContextFieldById?param=contextId::contextId"
+      },
+      "removeContextFieldById": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/removeContextFieldById?param=contextId::contextId"
+      },
+      "updateContextField": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/updateContextField?param=contextId::contextId"
+      },
+      "updateJobStatus": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/updateJobStatus?param=eventJobId::eventJobId&param=status::status"
+      },
+      "getJobs": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/getJobs"
+      },
+      "getJobById": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/getJobById?param=eventJobId::eventJobId"
+      },
+      "getJobsByStatus": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/getJobsByStatus?param=status::status"
+      },
+      "getContextFieldByJobId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/getContextFieldByJobId?param=eventJobId::eventJobId"
+      },
+      "updateProcedureContext": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/eventServicePort/updateProcedureContext?param=eventJobId::eventJobId"
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 module.exports = {
     entry: getEntrySources(['./src/app/js/app.jsx']),
     output: {
@@ -32,7 +33,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.jsx?$/,
+                test: /\.js?x$/,
                 exclude: /(node_modules|bower_components)/,
                 loaders: [
                     'react-hot',
@@ -48,6 +49,7 @@ function getEntrySources(sources) {
         sources.push('webpack-dev-server/client?http://localhost:3001');
         sources.push('webpack/hot/only-dev-server');
     }
+    sources.push('whatwg-fetch');
 
     return sources;
 }
