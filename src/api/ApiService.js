@@ -1,4 +1,4 @@
-import Vendors from './AppVendors';
+import Vendors from '../common/AppVendors';
 import lodash from 'lodash';
 
 export class Api {

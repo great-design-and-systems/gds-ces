@@ -1,9 +1,9 @@
 import '../css/app.scss';
 
-import { Api } from '../../common/ApiService';
+import { Api } from '../../api/ApiService';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import AppStores from '../../common/AppStores';
 class App extends React.Component {
     constructor() {
         super();
