@@ -13,7 +13,7 @@ class App extends React.Component {
     }
 }
 
-new Api().init('/api.json', err => {
+new Api().init('https://demo-gds-api.herokuapp.com/gds', err => {
     if (!err) {
         ReactDOM.render(<App />, document.getElementsByTagName('app')[0]);
     }
