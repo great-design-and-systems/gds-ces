@@ -38,14 +38,39 @@ class DomainLink {
     }
     execute(options, callback) {
         const link = this;
-        const fetch = new Vendors().getFetch
-        let url;
+        const fetch = new Vendors().getFetch();
+        let url = link.url;
         const fetchOption = {};
         fetchOption.headers = options.headers || {};
 
         if (options && options.params) {
             lodash.forEach(options.params, function (value, key) {
                 url = url.replace(':' + key, value);
+            });
+        }
+        if (options && options.query) {
+            lodash.forEach(options.query, function (value, key) {
+                if (value instanceof Array) {
+                    value.forEach(queryVal => {
+                        if (url.indexOf('?') == -1) {
+                            url += '?';
+                        } else {
+                            url += '&';
+                        }
+                        url += key;
+                        url += '=';
+                        url += queryVal;
+                    });
+                } else {
+                    if (url.indexOf('?') == -1) {
+                        url += '?';
+                    } else {
+                        url += '&';
+                    }
+                    url += key;
+                    url += '=';
+                    url += value;
+                }
             });
         }
 
@@ -63,7 +88,9 @@ class DomainLink {
         fetchOption.method = link.method;
 
         fetch(url, fetchOption).then((res) => {
-            callback()
+            res.json().then(jsonData => {
+                callback(undefined, jsonData);
+            });
         }).catch(err => {
             callback(err);
         });

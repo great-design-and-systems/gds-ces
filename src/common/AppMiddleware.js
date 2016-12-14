@@ -1,8 +1,8 @@
-import {applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
-import promise from 'redux-promise-middleware';
+import ApiMiddleware from '../api/ApiMiddleware';
+import { applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
-const AppMiddleware = applyMiddleware(promise(), thunk, logger());
+const AppMiddleware = applyMiddleware(thunk, logger(), ApiMiddleware);
 
 export default AppMiddleware;
