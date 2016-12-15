@@ -35,9 +35,12 @@ const ApiMiddleware = (store) => (next) => (action) => {
                     }
                 });
             }
+            next(action);
         });
+    } else {
+        next(action);
     }
-    next(action);
+
 
 };
 

@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 module.exports = {
-    entry: getEntrySources(['./src/app/js/app.jsx']),
+    entry: getEntrySources(['./src/app/js/app.js']),
     output: {
         publicPath: 'http://localhost:3001/',
         filename: 'build/bundle.js'
@@ -9,7 +9,7 @@ module.exports = {
     module: {
         preLoaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 loader: 'source-map'
             }
@@ -37,12 +37,27 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 loaders: [
                     'react-hot',
-                    'babel?presets[]=stage-0,presets[]=react,presets[]=es2015,plugins[]=react-html-attrs,plugins[]=transform-class-properties,plugins[]=transform-decorators-legacy',
+                    'babel?presets[]=stage-0,presets[]=react,presets[]=es2015,plugins[]=react-html-attrs,plugins[]=transform-decorators-legacy,plugins[]=transform-class-properties',
                 ]
             }
         ]
-    }
+    },
+    plugins: getPlugins()
 };
+
+function getPlugins() {
+    var plugins = [];
+    plugins.push(new webpack.DefinePlugin({
+        'process.env': {
+            GDS_API: process.env.GDS_API,
+            SCHOOL_ID: process.env.SCHOOL_ID
+        }
+    }));
+    if (process.env.NODE_ENV === 'production') {
+        plugins.push(new webpack.optimize.UglifyJsPlugin());
+    }
+    return plugins;
+}
 
 function getEntrySources(sources) {
     if (process.env.NODE_ENV !== 'production') {

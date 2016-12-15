@@ -297,6 +297,100 @@
       }
     }
   },
+  "itemServicePort": {
+    "domain": "Items",
+    "links": {
+      "createItem": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/itemServicePort/createItem"
+      },
+      "getItems": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/itemServicePort/getItems"
+      },
+      "getItemsById": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/itemServicePort/getItemsById?param=itemId::itemId"
+      },
+      "updateItem": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/itemServicePort/updateItem?param=itemId::itemId"
+      },
+      "removeItem": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/itemServicePort/removeItem?param=itemId::itemId"
+      },
+      "getItemByName": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/itemServicePort/getItemByName?param=itemName::itemName"
+      }
+    }
+  },
+  "categoryServicePort": {
+    "domain": "CATEGORY",
+    "links": {
+      "createCategory": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/createCategory"
+      },
+      "getCategoryList": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/getCategoryList"
+      },
+      "getCategoryById": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/getCategoryById?param=categoryId::categoryId"
+      },
+      "updateCategory": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/updateCategory?param=categoryId::categoryId"
+      },
+      "removeCategory": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/removeCategory?param=categoryId::categoryId"
+      },
+      "getCategoryByName": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/getCategoryByName?param=categoryName::categoryName"
+      },
+      "createField": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/createField"
+      },
+      "getFieldById": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/getFieldById?param=fieldId::fieldId"
+      },
+      "updateField": {
+        "method": "PUT",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/updateField?param=fieldId::fieldId"
+      },
+      "removeField": {
+        "method": "DELETE",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/removeField?param=fieldId::fieldId"
+      },
+      "getFieldsByCategoryId": {
+        "method": "GET",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/getFieldsByCategoryId?param=categoryId::categoryId"
+      },
+      "createItemCategory": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/createItemCategory"
+      },
+      "getItemCategory": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/getItemCategory"
+      },
+      "updateItemCategory": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/updateItemCategory"
+      },
+      "removeItemCategory": {
+        "method": "POST",
+        "url": "http://demo-gds-api.herokuapp.com/gds/categoryServicePort/removeItemCategory"
+      }
+    }
+  },
   "userServicePort": {
     "domain": "User",
     "links": {
