@@ -1,21 +1,29 @@
 import React from 'react';
 import AppFormComponent from '../../app-form/js/AppFormComponent';
-
-
-export default class ItemCategoryFormComponent extends AppFormComponent {
+import {Field} from '../../app-form/js/AppForm';
+export default class ItemCategoryFormComponent extends React.Component {
+    constructor() {
+        super();
+    }
     componentWillMount() {
-        this.formlyConfig = {
-            name: 'itemCategoryForm',
-            fields: [
-                {
-                    key: 'name',
-                    type: 'text',
-                    label: 'Category',
-                    placeholder: 'Category name'
-                }
-            ]
-        };
-        this.setState({ title: 'Create category' });
+        this.setState({
+            category: {
+                categoryName: 'HI'
+            }
+        });
+        this.headerTitle = 'Create category';
+    }
+    render() {
+        const formFields = [];
+        let field = new Field('input');
+        field.setName('categoryName');
+        field.setType('text');
+        field.setLabel('Category')
+        formFields.push(field);
+        return (
+            <div>
+                <AppFormComponent formModel={this.state.category} formFields={formFields} headerTitle={this.headerTitle}/>
+                {this.state.category.categoryName}
+            </div>)
     }
 }
-

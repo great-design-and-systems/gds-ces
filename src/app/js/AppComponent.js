@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
 @connect((state) => {
     return { students: state.api.Students };
 })

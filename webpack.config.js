@@ -1,8 +1,9 @@
 var webpack = require('webpack');
+var path = require('path');
 module.exports = {
+    context: __dirname,
     entry: getEntrySources(['./src/app/js/app.js']),
     output: {
-        publicPath: 'http://localhost:3001/',
         filename: 'build/bundle.js'
     },
     devtool: 'eval',
@@ -17,7 +18,6 @@ module.exports = {
         loaders: [
             {
                 test: /\.scss$/,
-                include: /src/,
                 loaders: [
                     'style',
                     'css',
@@ -40,9 +40,21 @@ module.exports = {
                     'babel?presets[]=stage-0,presets[]=react,presets[]=es2015,plugins[]=react-html-attrs,plugins[]=transform-decorators-legacy,plugins[]=transform-class-properties',
                 ]
             }
-        ]
+        ],
+        externals: {
+            foundation: 'Foundation'
+        }
     },
-    plugins: getPlugins()
+    plugins: getPlugins(),
+    sassLoader: {
+        includePaths: [path.resolve(__dirname, './src')],
+        resolve: {
+            root: path.resolve(__dirname),
+            modulesDirectories: ['node_modules', 'bower_components'],
+            extensions: ['', '.js', '.json', '.scss', '.html'],
+            alias: {}
+        }
+    }
 };
 
 function getPlugins() {
@@ -53,6 +65,7 @@ function getPlugins() {
             SCHOOL_ID: process.env.SCHOOL_ID
         }
     }));
+    plugins.push(new webpack.optimize.OccurenceOrderPlugin());
     if (process.env.NODE_ENV === 'production') {
         plugins.push(new webpack.optimize.UglifyJsPlugin());
     }
@@ -65,6 +78,6 @@ function getEntrySources(sources) {
         sources.push('webpack/hot/only-dev-server');
     }
     sources.push('whatwg-fetch');
-
+    sources.push('foundation-sites');
     return sources;
 }
