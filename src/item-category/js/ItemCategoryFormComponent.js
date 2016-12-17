@@ -1,7 +1,10 @@
 import AppFormComponent from '../../app-form/js/AppFormComponent';
 import { Field } from '../../app-form/js/AppForm';
 import React from 'react';
-
+import { connect } from 'react-redux';
+@connect((state) => {
+    return {};
+})
 export default class ItemCategoryFormComponent extends React.Component {
     constructor() {
         super();
@@ -15,9 +18,6 @@ export default class ItemCategoryFormComponent extends React.Component {
                 isItem2: true
             }
         });
-        this.fieldTemplates = {
-
-        };
     }
     render() {
         const formFields = [];
@@ -63,6 +63,19 @@ export default class ItemCategoryFormComponent extends React.Component {
         field.setName('categoryType');
         field.setLabel('Category Type');
         field.setValue(this.state.category.categoryType);
+        field.setProperties({
+            options: {
+                'Electronics': 'electronics',
+                'Books': 'books',
+                'Food': 'food'
+            }
+        });
+        formFields.push(field);
+
+        field = new Field('radio');
+        field.setName('categoryRadio');
+        field.setLabel('Category Radio');
+        field.setValue(this.state.category.categoryRadio);
         field.setProperties({
             options: {
                 'Electronics': 'electronics',

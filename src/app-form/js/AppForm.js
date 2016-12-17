@@ -1,5 +1,6 @@
 import AppFormCheckBox from './components/AppFormCheckbox';
 import AppFormInput from './components/AppFormInput';
+import AppFormRadio from './components/AppFormRadio';
 import AppFormSelect from './components/AppFormSelect';
 import React from 'react';
 import lodash from 'lodash';
@@ -74,5 +75,8 @@ const DEFAULT_TEMPLATES = {
     },
     select: (field) => {
         return <AppFormSelect field={field} />
+    },
+    radio: (field) => {
+        return <AppFormRadio field={field} />
     }
 };
