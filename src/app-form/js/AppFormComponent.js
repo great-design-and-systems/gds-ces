@@ -1,33 +1,38 @@
+import { Field, FieldCreator } from './AppForm';
+
 import React from 'react';
 import lodash from 'lodash';
-import {Field} from './AppForm';
 
 export default class AppForm extends React.Component {
     constructor() {
         super();
     }
-    componentWillMount() {
-        if (!this.props.formModel) {
-            throw new Error('Property formModel is required.');
+    onChangeForm(event) {
+        if (this.props.onFormUpdate) {
+            const modProps = lodash.map(this.props.formFields, 'properties');
+            const newModel = {};
+            lodash.forEach(modProps, (prop) => {
+                lodash.set(newModel, prop.name, prop.value);
+            });
+            this.props.onFormUpdate(newModel);
         }
     }
     renderFields() {
         const fields = [];
         if (this.props.formFields) {
-            const formModel = this.props.formModel;
             lodash.forEach(this.props.formFields, (formField) => {
                 if (formField instanceof Field) {
                     const fieldProperties = formField.getProperties();
-                    fieldProperties.onChange = (event) => {
-                        
-                    };
-                    const formFieldElement = React.createElement(formField.tag, fieldProperties);
-                    fields.push(<div class="medium-6 columns form-field" key={fieldProperties.name.hashCode() }>
-                        <label for={fieldProperties.name}>
-                            {formField.label}
-                            {formFieldElement}
-                        </label>
-                    </div>);
+                    if (!formField.hasDivParent) {
+                        formField.key = fieldProperties.name.hashCode();
+                    }
+                    const formFieldElement = new FieldCreator(formField, this.props.fieldTemplates).getElement();
+
+                    fields.push(
+                        formField.hasDivParent ?
+                            <div class="form-field" key={fieldProperties.name.hashCode()}>
+                                {formFieldElement}
+                            </div> : formFieldElement);
                 }
                 else {
                     throw new Error('Element must be an instance of AppForm.Field');
@@ -39,10 +44,12 @@ export default class AppForm extends React.Component {
     render() {
         return (
             <div class="app-form">
-                <h2>{this.props.headerTitle}</h2>
-                <form name="appForm">
-                    <div class="rows">
-                        {this.renderFields() }
+                <form onChange={this.onChangeForm.bind(this)} name="appForm">
+                    <div class="row">
+                        {this.renderFields()}
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="float-right button">Save</button>
                     </div>
                 </form>
             </div>

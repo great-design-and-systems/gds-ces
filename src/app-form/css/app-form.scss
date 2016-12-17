@@ -1,7 +1,10 @@
 .app-form {
     .form-field {
-        label, .field-element {
-                width: 100%;
-            }
+        label.input {
+            width: 100%;
+        }
+        .field-element[type='text'] {
+            width: 100%;
+        }
     }
 }
