@@ -4,15 +4,15 @@ export default class AppFormCheckBox extends React.Component {
     createComponent(field) {
         const fieldProps = field.getProperties();
         if (field.getValue() === true) {
-            fieldProps.value = 'on';
+            fieldProps.checked = 'checked';
         }
         else {
-            fieldProps.value = undefined;
+            fieldProps.checked = undefined;
         }
         fieldProps.type = 'checkbox'
         if (!fieldProps.onChange) {
             fieldProps.onChange = function (event) {
-                field.setValue(!field.getValue());
+                field.setValue(!!event.target.checked);
             }
         }
         if (!fieldProps.id) {
@@ -26,8 +26,7 @@ export default class AppFormCheckBox extends React.Component {
                     {field.label}
                 </label>
             </span>
-        )
-
+        );
     }
 
     render() {

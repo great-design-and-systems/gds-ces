@@ -11,7 +11,8 @@ export default class ItemCategoryFormComponent extends React.Component {
             category: {
                 categoryName: 'Hi',
                 categoryType: 'books',
-                isItem: true
+                isItem: true,
+                isItem2: true
             }
         });
         this.fieldTemplates = {
