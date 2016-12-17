@@ -1,7 +1,9 @@
+import { Field, FieldValidator } from '../../app-form/js/AppForm';
+
 import AppFormComponent from '../../app-form/js/AppFormComponent';
-import { Field } from '../../app-form/js/AppForm';
 import React from 'react';
 import { connect } from 'react-redux';
+
 @connect((state) => {
     return {};
 })
@@ -14,6 +16,7 @@ export default class ItemCategoryFormComponent extends React.Component {
             category: {
                 categoryName: 'Hi',
                 categoryType: 'books',
+                categoryRadio: 'foods',
                 isItem: true,
                 isItem2: true
             }
@@ -28,6 +31,12 @@ export default class ItemCategoryFormComponent extends React.Component {
         field.setProperties({
             required: true,
             placeholder: 'Enter category name here'
+        });
+
+        field.setValidator({
+            required: new FieldValidator('onBlur', 'Category name is required', (event, done) => {
+                done(event.target.value != null && !!event.target.value.length);
+            })
         });
 
         formFields.push(field);
@@ -59,6 +68,12 @@ export default class ItemCategoryFormComponent extends React.Component {
         field.setHasDivParent(false);
         formFields.push(field);
 
+        field = new Field('column');
+        field.setProperties({
+            className: 'medium-12 large-4 small-12 columns'
+        });
+        formFields.push(field);
+
         field = new Field('select');
         field.setName('categoryType');
         field.setLabel('Category Type');
@@ -69,6 +84,12 @@ export default class ItemCategoryFormComponent extends React.Component {
                 'Books': 'books',
                 'Food': 'food'
             }
+        });
+        formFields.push(field);
+
+        field = new Field('column');
+        field.setProperties({
+            className: 'medium-12 large-4  small-12 columns'
         });
         formFields.push(field);
 
@@ -83,10 +104,12 @@ export default class ItemCategoryFormComponent extends React.Component {
                 'Food': 'food'
             }
         });
+
         formFields.push(field);
+
         return formFields;
     }
-    
+
     render() {
         const formFields = this.getFormFields();
         return (

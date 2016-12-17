@@ -26,7 +26,7 @@ export class Field {
     setProperties(properties) {
         lodash.forIn(properties, (value, field) => {
             if (field === 'className') {
-                value = +' field-element';
+                value += ' field-element';
             }
             lodash.set(this.properties, field, value);
         });
@@ -38,12 +38,15 @@ export class Field {
     setClass() {
         let classProp = lodash.get(this.properties, 'className');
         if (!classProp) {
-            classProp = ' field-element';
+            classProp = 'field-element';
             lodash.set(this.properties, 'className', classProp);
         }
     }
     getValue() {
         return this.properties.value;
+    }
+    setValidator(validator) {
+        this.validator = validator;
     }
 }
 
@@ -63,6 +66,29 @@ export class FieldCreator {
 
     getElement() {
         return lodash.get(this.fieldTemplates, this.field.tag)(this.field);
+    }
+}
+
+export class FieldValidator {
+    constructor(event, message, handler) {
+        this.event = event;
+        this.message = message;
+        this.handler = handler;
+    }
+    setMessage(message) {
+        this.message = message;
+    }
+
+    setEvent(event) {
+        this.event = event;
+    }
+
+    setHandler(handler) {
+        this.handler = handler;
+    }
+
+    done(valid) {
+        return Object.assign({}, this, { valid });
     }
 }
 

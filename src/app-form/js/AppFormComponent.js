@@ -1,5 +1,6 @@
 import { Field, FieldCreator } from './AppForm';
 
+import AppFormMessages from './components/AppFormMessages';
 import React from 'react';
 import lodash from 'lodash';
 
@@ -18,26 +19,41 @@ export default class AppForm extends React.Component {
         }
     }
     renderFields() {
-        const fields = [];
+        let fields = [];
+        const columns = [];
+        let columnsProps = {};
         if (this.props.formFields) {
             lodash.forEach(this.props.formFields, (formField) => {
                 if (formField instanceof Field) {
                     const fieldProperties = formField.getProperties();
-                    if (!formField.hasDivParent) {
-                        formField.key = fieldProperties.name.hashCode();
+                    if (formField.tag === 'column') {
+                        fieldProperties.className = fieldProperties.className.replace('field-element', 'field-column');
+                        columnsProps = fieldProperties;
+                        columns.push(React.createElement('div', fieldProperties, fields));
+                        fields = [];
+                    } else {
+                        if (!formField.hasDivParent) {
+                            formField.key = fieldProperties.name.hashCode();
+                        }
+                        const formFieldElement = new FieldCreator(formField, this.props.fieldTemplates).getElement();
+                        fields.push(
+                            formField.hasDivParent ?
+                                <div class="form-field" key={fieldProperties.name.hashCode()}>
+                                    {formFieldElement}
+                                </div> : formFieldElement);
+                        if (formField.validator) {
+                            fields.push(<AppFormMessages validator={formField.validator} />)
+                        }
                     }
-                    const formFieldElement = new FieldCreator(formField, this.props.fieldTemplates).getElement();
-
-                    fields.push(
-                        formField.hasDivParent ?
-                            <div class="form-field" key={fieldProperties.name.hashCode()}>
-                                {formFieldElement}
-                            </div> : formFieldElement);
                 }
                 else {
                     throw new Error('Element must be an instance of AppForm.Field');
                 }
             });
+        }
+        if (columns.length && fields.length) {
+            columns.push(React.createElement('div', columnsProps, fields));
+            return columns;
         }
         return fields;
     }
