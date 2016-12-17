@@ -19,7 +19,7 @@ export default class ItemCategoryFormComponent extends React.Component {
             }
         });
     }
-    render() {
+    getFormFields() {
         const formFields = [];
         let field = new Field('input');
         field.setName('categoryName');
@@ -84,6 +84,11 @@ export default class ItemCategoryFormComponent extends React.Component {
             }
         });
         formFields.push(field);
+        return formFields;
+    }
+    
+    render() {
+        const formFields = this.getFormFields();
         return (
             <div>
                 <AppFormComponent
