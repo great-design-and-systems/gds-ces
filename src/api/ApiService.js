@@ -88,9 +88,15 @@ class DomainLink {
         fetchOption.method = link.method;
 
         fetch(url, fetchOption).then((res) => {
-            res.json().then(jsonData => {
-                callback(undefined, jsonData);
-            });
+            if (res.status >= 200 && res.status < 300) {
+                res.json().then(jsonData => {
+                    callback(undefined, jsonData);
+                });
+            } else {
+                res.json().then(jsonData => {
+                    callback(new Error(jsonData.data), jsonData);
+                });
+            }
         }).catch(err => {
             callback(err);
         });

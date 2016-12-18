@@ -20,6 +20,9 @@ export default class AppFormCheckBox extends React.Component {
         if (!fieldProps.id) {
             fieldProps.id = fieldProps.name;
         }
+        if (field.validator) {
+            this.props.validator.validate(this, field, fieldProps, this.props.dispatch);
+        }
         const element = React.createElement('input', fieldProps);
         return (
             <span key={field.key} >

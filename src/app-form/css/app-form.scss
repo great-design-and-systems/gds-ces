@@ -11,8 +11,22 @@
         .field-element[type='text'] {
             width: 100%;
         }
-        .error-message{
-            color:orangered;
-        }
     }
+      .form-message{
+            &.alert {
+                color:$alert-color;
+            }
+            &.warning {
+                color:$warning-color;
+            }
+            &.primary{
+                color:$primary-color;
+            }
+            &.secondary{
+                color:$secondary-color;
+            }
+            &.success {
+               color:$success-color; 
+            }
+        }
 }

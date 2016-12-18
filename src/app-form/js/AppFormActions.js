@@ -5,10 +5,13 @@ export function dirty() {
     }
 }
 
-export function invalid(validator) {
+export function invalid(fieldName, validator) {
     return {
         type: 'FORM_INVALID',
-        payload: validator
+        payload: {
+            validator: validator,
+            field: fieldName
+        }
     }
 }
 
@@ -18,8 +21,9 @@ export function validate() {
     }
 }
 
-export function valid() {
+export function valid(fieldName) {
     return {
-        type: 'FORM_VALID'
+        type: 'FORM_VALID',
+        payload: fieldName
     }
 }

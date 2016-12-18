@@ -17,6 +17,10 @@ export default class AppFormRadio extends React.Component {
             fieldProps.id = fieldProps.name;
         }
 
+        if (field.validator) {
+            this.props.validator.validate(this, field, fieldProps, this.props.dispatch);
+        }
+
         if (fieldProps.options) {
             lodash.forIn(fieldProps.options, (value, field) => {
                 options.push(

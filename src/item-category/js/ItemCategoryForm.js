@@ -4,19 +4,37 @@ import AppFormComponent from '../../app-form/js/AppFormComponent';
 import React from 'react';
 import { connect } from 'react-redux';
 
-export default class ItemCategoryFormComponent extends React.Component {
+export default class ItemCategoryForm extends React.Component {
     constructor() {
         super();
     }
     componentWillMount() {
+        this.sampleId = '001';
         this.setState({
-            category: {
-                categoryName: 'Hi',
-                categoryRadio: 'foods',
-                isItem: true,
-                isItem2: true
-            }
+            category: {}
         });
+    }
+    createFormManager() {
+        return {
+            id: this.sampleId,
+            create: {
+                action: '{CATEGORY.createCategory}'
+            },
+            update: {
+                action: '{CATEGORY.updateCategory}',
+                params: { categoryId: this.sampleId }
+            },
+            delete: {
+                action: '{CATEGORY.removeCategory}',
+                params: { categoryId: this.sampleId }
+            },
+            deletePopup: {
+                title: 'Category',
+                message: 'Do you want to remove this item?',
+                okButton: 'Oh yeah!',
+                cancelButton: 'No, wait!'
+            }
+        };
     }
     getFormFields() {
         const formFields = [];
@@ -28,11 +46,10 @@ export default class ItemCategoryFormComponent extends React.Component {
             required: true,
             placeholder: 'Enter category name here'
         });
-
         field.setValidator({
-            required: new FieldValidator('onBlur', 'Category name is required', (event, done) => {
+            required: new FieldValidator('onChange', 'Category name is required', (event, done) => {
                 done(event.target.value != null && !!event.target.value.length);
-            })
+            }, 'warning')
         });
 
         formFields.push(field);
@@ -111,19 +128,19 @@ export default class ItemCategoryFormComponent extends React.Component {
 
         return formFields;
     }
-
     render() {
         const formFields = this.getFormFields();
         return (
             <div>
                 <AppFormComponent
+                    formManager={this.createFormManager()}
                     fieldTemplates={this.fieldTemplates}
                     onFormUpdate={this.onCategoryFormUpdate.bind(this)}
                     formFields={formFields} />
             </div>)
     }
     onCategoryFormUpdate(model) {
-        console.log('model', model);
         this.setState({ category: model });
+        console.log('category', this.state.category);
     }
 }

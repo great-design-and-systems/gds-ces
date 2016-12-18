@@ -73,11 +73,12 @@ export class FieldCreator {
 }
 
 export class FieldValidator {
-    constructor(event, message, handler) {
+    constructor(event, message, handler, type) {
         this.event = event;
         this.message = message;
         this.handler = handler;
         this.invalid = false;
+        this.type = type;
     }
     setMessage(message) {
         this.message = message;
@@ -111,9 +112,9 @@ export class Validator {
                                 field.setInvalid(true);
                                 validator.setInvalid(true);
                                 fieldProps.className = fieldProps.className += ' invalid';
-                                dispatch(invalid(field.validator));
+                                dispatch(invalid(fieldProps.name, field.validator));
                             } else {
-                                dispatch(valid());
+                                dispatch(valid(fieldProps.name));
                             }
                             context.forceUpdate();
                         });
