@@ -1,24 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import lodash from 'lodash';
 
-export default class AppFormMessages extends React.Component {
-    componentWillMount() {
-        if (!this.props.validator) {
-            throw new Error('Property validator is required.');
-        }
+@connect((state) => {
+    return {
+        validator: state.form.validator
     }
+})
+export default class AppFormMessages extends React.Component {
     renderMessages() {
         const messages = [];
-        lodash.forIn(this.props.validator, (validator, field) => {
-            console.log('validator: ' + field, validator);
-            if (validator.valid === false) {
-                messages.push(<li name={field} key={field.hashCode()}>{validator.message}</li>);
-            }
-        });
+        if (this.props.validator) {
+            lodash.forIn(this.props.validator, (validator, field) => {
+                if (!!validator.invalid) {
+                    messages.push(<li class="error-message" name={field} key={field.hashCode()}>{validator.message}</li>);
+                }
+            });
+        }
         return messages;
     }
     render() {
-        const messages = this.renderMessages();
-        return (<div><ul>{messages}</ul></div>);
+        return (<div><ul>{this.renderMessages()}</ul></div>);
     }
 }

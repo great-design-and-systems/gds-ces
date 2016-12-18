@@ -2,6 +2,7 @@ import { Field, FieldCreator } from './AppForm';
 
 import AppFormMessages from './components/AppFormMessages';
 import React from 'react';
+import { connect } from 'react-redux';
 import lodash from 'lodash';
 
 export default class AppForm extends React.Component {
@@ -35,15 +36,12 @@ export default class AppForm extends React.Component {
                         if (!formField.hasDivParent) {
                             formField.key = fieldProperties.name.hashCode();
                         }
-                        const formFieldElement = new FieldCreator(formField, this.props.fieldTemplates).getElement();
+                        const formFieldElement = new FieldCreator(this.props.formFields, formField, this.props.fieldTemplates).getElement();
                         fields.push(
                             formField.hasDivParent ?
                                 <div class="form-field" key={fieldProperties.name.hashCode()}>
                                     {formFieldElement}
                                 </div> : formFieldElement);
-                        if (formField.validator) {
-                            fields.push(<AppFormMessages validator={formField.validator} />)
-                        }
                     }
                 }
                 else {
@@ -57,10 +55,15 @@ export default class AppForm extends React.Component {
         }
         return fields;
     }
+    onSubmit(event) {
+        event.preventDefault();
+        this.forceUpdate();
+    }
     render() {
         return (
             <div class="app-form">
-                <form onChange={this.onChangeForm.bind(this)} name="appForm">
+                <AppFormMessages />
+                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this)} onChange={this.onChangeForm.bind(this)} name="appForm">
                     <div class="row">
                         {this.renderFields()}
                     </div>

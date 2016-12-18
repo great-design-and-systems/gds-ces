@@ -1,3 +1,5 @@
+import { invalid, valid, validate } from './AppFormActions';
+
 import AppFormCheckBox from './components/AppFormCheckbox';
 import AppFormInput from './components/AppFormInput';
 import AppFormRadio from './components/AppFormRadio';
@@ -10,6 +12,7 @@ export class Field {
         this.tag = tag;
         this.properties = {};
         this.hasDivParent = true;
+        this.invalid = false;
     }
     setHasDivParent(hasDivParent) {
         this.hasDivParent = hasDivParent;
@@ -48,14 +51,15 @@ export class Field {
     setValidator(validator) {
         this.validator = validator;
     }
+    setInvalid(invalid) {
+        this.invalid = invalid;
+    }
 }
 
 export class FieldCreator {
-    constructor(field, templates) {
-        if (!(field instanceof Field)) {
-            throw new Error('Argument must be an instance of Field');
-        }
+    constructor(formFields, field, templates) {
         this.field = field;
+        this.formFields = formFields;
         this.fieldTemplates = { ...DEFAULT_TEMPLATES };
         if (templates) {
             lodash.forIn(templates, (value, field) => {
@@ -63,9 +67,8 @@ export class FieldCreator {
             });
         }
     }
-
     getElement() {
-        return lodash.get(this.fieldTemplates, this.field.tag)(this.field);
+        return lodash.get(this.fieldTemplates, this.field.tag)(this.field, new Validator());
     }
 }
 
@@ -74,6 +77,7 @@ export class FieldValidator {
         this.event = event;
         this.message = message;
         this.handler = handler;
+        this.invalid = false;
     }
     setMessage(message) {
         this.message = message;
@@ -86,23 +90,52 @@ export class FieldValidator {
     setHandler(handler) {
         this.handler = handler;
     }
+    setInvalid(invalid) {
+        this.invalid = invalid;
+    }
+}
+export class Validator {
+    validate(context, field, fieldProps, dispatch) {
+        lodash.forIn(field.validator, (validator, fv) => {
+            const existingFunction = lodash.get(fieldProps, validator.event);
+            if (validator.event) {
+                lodash.set(fieldProps, validator.event, (event) => {
+                    if (existingFunction) {
+                        existingFunction(event);
+                    }
+                    event.persist();
+                    dispatch(validate());
+                    setTimeout(() => {
+                        validator.handler(event, (okay) => {
+                            if (!okay) {
+                                field.setInvalid(true);
+                                validator.setInvalid(true);
+                                fieldProps.className = fieldProps.className += ' invalid';
+                                dispatch(invalid(field.validator));
+                            } else {
+                                dispatch(valid());
+                            }
+                            context.forceUpdate();
+                        });
+                    }, validator.delay ? validator.delay : 400);
 
-    done(valid) {
-        return Object.assign({}, this, { valid });
+                });
+            }
+        });
     }
 }
 
 const DEFAULT_TEMPLATES = {
-    input: (field) => {
-        return <AppFormInput field={field} />
+    input: (field, validator) => {
+        return <AppFormInput field={field} validator={validator} />
     },
-    checkbox: (field) => {
-        return <AppFormCheckBox field={field} />
+    checkbox: (field, validator) => {
+        return <AppFormCheckBox field={field} validator={validator} />
     },
-    select: (field) => {
-        return <AppFormSelect field={field} />
+    select: (field, validator) => {
+        return <AppFormSelect field={field} validator={validator} />
     },
-    radio: (field) => {
-        return <AppFormRadio field={field} />
+    radio: (field, validator) => {
+        return <AppFormRadio field={field} validator={validator} />
     }
 };

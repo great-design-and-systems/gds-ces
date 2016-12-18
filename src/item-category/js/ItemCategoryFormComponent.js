@@ -4,9 +4,6 @@ import AppFormComponent from '../../app-form/js/AppFormComponent';
 import React from 'react';
 import { connect } from 'react-redux';
 
-@connect((state) => {
-    return {};
-})
 export default class ItemCategoryFormComponent extends React.Component {
     constructor() {
         super();
@@ -15,7 +12,6 @@ export default class ItemCategoryFormComponent extends React.Component {
         this.setState({
             category: {
                 categoryName: 'Hi',
-                categoryType: 'books',
                 categoryRadio: 'foods',
                 isItem: true,
                 isItem2: true
@@ -84,6 +80,12 @@ export default class ItemCategoryFormComponent extends React.Component {
                 'Books': 'books',
                 'Food': 'food'
             }
+        });
+        field.setValidator({
+            restriction: new FieldValidator('onChange', 'Book is not allowed for now', (event, done) => {
+                console.log('restriction', event.target.value);
+                done(event.target.value !== 'books');
+            })
         });
         formFields.push(field);
 

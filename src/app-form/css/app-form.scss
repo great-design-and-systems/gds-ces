@@ -3,8 +3,16 @@
         label.input {
             width: 100%;
         }
+        .field-element {
+           &.invalid {
+                border: 1px orangered solid;
+            }
+        }
         .field-element[type='text'] {
             width: 100%;
+        }
+        .error-message{
+            color:orangered;
         }
     }
 }
