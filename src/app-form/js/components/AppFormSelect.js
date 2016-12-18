@@ -1,7 +1,9 @@
 import AppFormMessages from './AppFormMessages';
 import React from 'react';
+import { connect } from 'react-redux';
 import lodash from 'lodash';
 
+@connect()
 export default class AppFormSelect extends React.Component {
     createComponent(field) {
         const fieldProps = field.getProperties();
@@ -21,7 +23,7 @@ export default class AppFormSelect extends React.Component {
             });
         }
         if (field.validator) {
-            this.props.validator.validate(this, field, fieldProps);
+            this.props.validator.validate(this, field, fieldProps, this.props.dispatch);
         }
         return (
             <label key={field.key} for={fieldProps.id} class={field.tag}>

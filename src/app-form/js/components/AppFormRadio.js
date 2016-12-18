@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import lodash from 'lodash';
 
+@connect()
 export default class AppFormRadio extends React.Component {
     createComponent(field) {
         const fieldProps = field.getProperties();
