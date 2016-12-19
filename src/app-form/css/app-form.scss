@@ -1,6 +1,6 @@
 .app-form {
-    .error{
-        color:$alert-color;
+    .error {
+        color: $alert-color;
     }
     .form-field {
         label {
@@ -9,32 +9,35 @@
             }
         }
         .field-element {
-           &.invalid {
+            &.invalid {
                 border: 1px orangered solid;
             }
         }
-        .field-element[type='text'] {
+        .field-element[type='text'] .field-element[type='email'] {
             width: 100%;
         }
     }
-      .form-message{
-          padding: 4px 0;
-          color: white;
-          text-indent: 25px;
-            &.alert {
-                background: $alert-color;
-            }
-            &.warning {
-                 background:$warning-color;
-            }
-            &.primary{
-                 background:$primary-color;
-            }
-            &.secondary{
-                 background:$secondary-color;
-            }
-            &.success {
-                background:$success-color; 
-            }
+    .form-message {
+        padding: 4px 0;
+        color: white;
+        text-indent: 25px;
+        &.alert {
+            background: $alert-color;
         }
+        &.warning {
+            background: $warning-color;
+        }
+        &.primary {
+            background: $primary-color;
+        }
+        &.secondary {
+            background: $secondary-color;
+        }
+        &.success {
+            background: $success-color;
+        }
+    }
+    .form-buttons{
+        padding: 15px 0;
+    }
 }

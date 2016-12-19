@@ -1,0 +1,12 @@
+.item-category-fields {
+    .category-field {
+        padding: 15px;
+        border: 1px $secondary-color solid;
+        &.odd {
+            background: lighten($primary-color, 12.5%);
+        }
+        &.even {
+            background: lighten($primary-color, 30.5%);
+        }
+    }
+}

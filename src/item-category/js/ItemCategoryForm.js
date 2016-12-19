@@ -1,10 +1,10 @@
 import { Field, FieldValidator } from '../../app-form/js/AppForm';
 
 import AppFormComponent from '../../app-form/js/AppFormComponent';
+import ItemCategoryFields from '../../item-category-fields/js/ItemCategoryFields';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ItemCategoryFields from '../../item-category-fields/js/ItemCategoryFields';
 export default class ItemCategoryForm extends React.Component {
     constructor() {
         super();
@@ -75,7 +75,7 @@ export default class ItemCategoryForm extends React.Component {
     }
     withItemCategoryForm(WrappedComponent) {
         function withItemCategoryForm(props) {
-            return <WrappedComponent {...props} itemCategoryForm/>
+            return <WrappedComponent {...props} itemCategoryForm />
         }
         const wrappedComponentName = WrappedComponent.displayName
             || WrappedComponent.name
@@ -88,12 +88,14 @@ export default class ItemCategoryForm extends React.Component {
         const formFields = this.getFormFields();
         return (
             <div>
-                {this.withItemCategoryForm(AppFormComponent)({
-                    formManager: this.formManager,
-                    fieldTemplates: this.fieldTemplates,
-                    onFormUpdate: this.onCategoryFormUpdate.bind(this),
-                    formFields: formFields
-                }) }
+                <div class="rows large-8 medium-12 small-12">
+                    {this.withItemCategoryForm(AppFormComponent)({
+                        formManager: this.formManager,
+                        fieldTemplates: this.fieldTemplates,
+                        onFormUpdate: this.onCategoryFormUpdate.bind(this),
+                        formFields: formFields
+                    })}
+                </div>
             </div>)
     }
 }

@@ -1,39 +1,63 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {Field} from './../../app-form/js/AppForm';
+import AppFormCheckbox from '../../app-form/js/components/AppFormCheckbox';
 import AppFormInput from './../../app-form/js/components/AppFormInput';
 import AppFormSelect from './../../app-form/js/components/AppFormSelect';
-import AppFormCheckbox from '../../app-form/js/components/AppFormCheckbox';
+import { Field } from './../../app-form/js/AppForm';
+import React from 'react';
+import { connect } from 'react-redux';
+
 @connect()
 export default class ItemCategoryFields extends React.Component {
     componentWillMount() {
-        this.categoryFields = [];
-        this.addField();
+        this.setState({
+            categoryFields: [this.createField()]
+        });
     }
     getTypeSelect(field) {
-        return <AppFormSelect validator={this.props.validator} field={selectField}/>
+        return <AppFormSelect validator={this.props.validator} field={selectField} />
     }
-    createFieldForm(field) {
-        return (<div class="category-field rows">
-            <div class="columns">
-                {this.withItemCategoryFields(AppFormInput)({
-                    validator: this.props.validator,
-                    field: field.name
-                }) }
-            </div>
-            <div class="columns">
-                {this.withItemCategoryFields(AppFormSelect)({
-                    validator: this.props.validator,
-                    field: field.fieldType
-                }) }
-                {this.withItemCategoryFields(AppFormCheckbox)({
-                    validator: this.props.validator,
-                    field: field.isFilter
-                }) }
-            </div>
-        </div>)
+    createFieldForm(field, index) {
+        const key = ('category_field_' + index).hashCode();
+        const remove = () => {
+            this.state.categoryFields.splice(index, 1);
+            this.forceUpdate();
+        }
+        let className = 'category-field column large-4 medium-12 small-12 end';
+        if (index % 2 === 0) {
+            className += ' even';
+        } else {
+            className += ' odd';
+        }
+        const buttons = [];
+        if (index === this.state.categoryFields.length - 1) {
+            buttons.push(<button key={('add' + index).hashCode()} class="button" type="button" onClick={this.addField.bind(this)}>Add</button>);
+        } else {
+            buttons.push(<button key={('remove' + index).hashCode()} class="button alert" type="button" onClick={remove.bind(this)}>Remove</button>);
+        }
+
+        return (
+            <div key={key} className={className}>
+                <div>
+                    {this.withItemCategoryFields(AppFormInput)({
+                        validator: this.props.validator,
+                        field: field.name
+                    })}
+                </div>
+                <div>
+                    {this.withItemCategoryFields(AppFormSelect)({
+                        validator: this.props.validator,
+                        field: field.fieldType
+                    })}
+                    {this.withItemCategoryFields(AppFormCheckbox)({
+                        validator: this.props.validator,
+                        field: field.isFilter
+                    })}
+                    <div class="button-group">
+                        {buttons}
+                    </div>
+                </div>
+            </div>)
     }
-    addField() {
+    createField() {
         const nameField = new Field('input');
         nameField.setLabel('Field name');
         nameField.setName('name');
@@ -47,7 +71,7 @@ export default class ItemCategoryFields extends React.Component {
         typeField.setProperties({
             options: {
                 'Text': 'text',
-                'YesOrNo': 'yesNo',
+                'Boolean': 'boolean',
                 'Number': 'number',
                 'Date': 'date'
             }
@@ -59,29 +83,34 @@ export default class ItemCategoryFields extends React.Component {
         filterField.setName('isFilter');
         filterField.setValue(true);
         filterField.setHasDivParent(false);
-        this.categoryFields.push({
+        return {
             name: nameField,
             fieldType: typeField,
             isFilter: filterField
-        });
+        };
+    }
+    addField() {
+        this.state.categoryFields.push(this.createField());
+        this.forceUpdate();
     }
     renderFields() {
         const fields = [];
-        this.categoryFields.forEach(field => {
-            fields.push(this.createFieldForm(field));
+        console.log('renderFields', this.state);
+        this.state.categoryFields.forEach((field, index) => {
+            fields.push(this.createFieldForm(field, index));
         });
         return fields;
     }
     render() {
         return (
-            <fieldset>
+            <fieldset class="item-category-fields">
                 <legend>Fields</legend>
-                {this.renderFields() }
+                {this.renderFields()}
             </fieldset>);
     }
     withItemCategoryFields(WrappedComponent) {
         function withItemCategoryFields(props) {
-            return <WrappedComponent {...props} itemCategoryForm/>
+            return <WrappedComponent {...props} itemCategoryForm />
         }
         const wrappedComponentName = WrappedComponent.displayName
             || WrappedComponent.name
