@@ -1,7 +1,12 @@
 .app-form {
+    .error{
+        color:$alert-color;
+    }
     .form-field {
-        label.input {
-            width: 100%;
+        label {
+            & input {
+                width: 100%;
+            }
         }
         .field-element {
            &.invalid {
@@ -13,20 +18,23 @@
         }
     }
       .form-message{
+          padding: 4px 0;
+          color: white;
+          text-indent: 25px;
             &.alert {
-                color:$alert-color;
+                background: $alert-color;
             }
             &.warning {
-                color:$warning-color;
+                 background:$warning-color;
             }
             &.primary{
-                color:$primary-color;
+                 background:$primary-color;
             }
             &.secondary{
-                color:$secondary-color;
+                 background:$secondary-color;
             }
             &.success {
-               color:$success-color; 
+                background:$success-color; 
             }
         }
 }

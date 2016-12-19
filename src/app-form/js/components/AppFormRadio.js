@@ -37,7 +37,7 @@ export default class AppFormRadio extends React.Component {
 
         return (
             <fieldset key={field.key} class={field.tag}>
-                <legend>{field.label}</legend>
+                <legend>{field.label} {field.isRequired() ? <span class="error">*</span> : ''}</legend>
                 {options}
             </fieldset>
         )

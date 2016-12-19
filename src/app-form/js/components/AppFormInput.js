@@ -26,9 +26,10 @@ export default class AppFormInput extends React.Component {
 
         const inputElement = React.createElement(field.tag, fieldProps);
         return (
-            <label key={fieldProps.name.hashCode()} for={fieldProps.id}
+            <label key={fieldProps.name.hashCode() } for={fieldProps.id}
                 class={fieldProps.tag}>
                 {field.label}
+                {field.isRequired() ? <span class="error">*</span> : ''}
                 {inputElement}
             </label>
         )

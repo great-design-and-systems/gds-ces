@@ -5,9 +5,12 @@ const initialState = {
     error: null
 };
 
+const DEFAULT_STATE = {
+    error: null,
+    pendning: false
+};
 
-
-const ApiServiceReducer = (state = {}, action) => {
+const ApiServiceReducer = (state = DEFAULT_STATE, action) => {
     let domainState;
     const api = new Api();
     state = { ...state };
@@ -23,6 +26,7 @@ const ApiServiceReducer = (state = {}, action) => {
         if (executableState) {
             if (action.type.indexOf('_PENDING') > -1) {
                 const newState = { ...initialState, pending: true };
+                state.pending = true;
                 lodash.set(domainState, action.payload.executable, newState);
             }
             else if (action.type.indexOf('_FULFILLED') > -1) {
@@ -30,6 +34,7 @@ const ApiServiceReducer = (state = {}, action) => {
                     ...initialState, done: true,
                     data: action.payload.result
                 };
+                state.pending = false;
                 state.error = null;
                 lodash.set(domainState, action.payload.executable, newState);
             }
@@ -42,6 +47,7 @@ const ApiServiceReducer = (state = {}, action) => {
                     state.error = {};
                 }
                 const errorExec = {};
+                state.pending = false;
                 lodash.set(errorExec, action.payload.executable, { invalid: true, message: action.payload.error.message });
                 lodash.set(state.error, action.payload.domain, errorExec);
                 lodash.set(domainState, action.payload.executable, newState);

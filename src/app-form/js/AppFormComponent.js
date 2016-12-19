@@ -9,7 +9,8 @@ import lodash from 'lodash';
 
 @connect((state) => {
     return {
-        form: state.form
+        form: state.form,
+        api: state.api
     };
 })
 export default class AppForm extends React.Component {
@@ -39,27 +40,22 @@ export default class AppForm extends React.Component {
         let columnsProps = {};
         if (this.props.formFields) {
             lodash.forEach(this.props.formFields, (formField) => {
-                if (formField instanceof Field) {
-                    const fieldProperties = formField.getProperties();
-                    if (formField.tag === 'column') {
-                        fieldProperties.className = fieldProperties.className.replace('field-element', 'field-column');
-                        columnsProps = fieldProperties;
-                        columns.push(React.createElement('div', fieldProperties, fields));
-                        fields = [];
-                    } else {
-                        if (!formField.hasDivParent) {
-                            formField.key = fieldProperties.name.hashCode();
-                        }
-                        const formFieldElement = new FieldCreator(this.props.formFields, formField, this.props.fieldTemplates).getElement();
-                        fields.push(
-                            formField.hasDivParent ?
-                                <div class="form-field" key={fieldProperties.name.hashCode()}>
-                                    {formFieldElement}
-                                </div> : formFieldElement);
+                const fieldProperties = formField.getProperties();
+                if (formField.tag === 'column') {
+                    fieldProperties.className = fieldProperties.className.replace('field-element', 'field-column');
+                    columnsProps = fieldProperties;
+                    columns.push(React.createElement('div', fieldProperties, fields));
+                    fields = [];
+                } else {
+                    if (!formField.hasDivParent) {
+                        formField.key = fieldProperties.name.hashCode();
                     }
-                }
-                else {
-                    throw new Error('Element must be an instance of AppForm.Field');
+                    const formFieldElement = new FieldCreator(this.props.formFields, formField, this.props.fieldTemplates).getElement();
+                    fields.push(
+                        formField.hasDivParent ?
+                            <div class="form-field" key={fieldProperties.name.hashCode() }>
+                                {formFieldElement}
+                            </div> : formFieldElement);
                 }
             });
         }
@@ -106,20 +102,33 @@ export default class AppForm extends React.Component {
             }
         }))
     }
+    withAppForm(WrappedComponent) {
+        function withAppForm(props) {
+            return <WrappedComponent {...props} appForm />
+        }
+        const wrappedComponentName = WrappedComponent.displayName
+            || WrappedComponent.name
+            || 'Component';
+
+        withAppForm.displayName = 'withAppForm(${wrappedComponentName})';
+        return withAppForm;
+    }
     render() {
         const buttons = [];
-        buttons.push(<button disabled={this.props.form.invalid} type="submit" class="button">
+        buttons.push(<button disabled={this.props.form.invalid || this.props.api.pending} type="submit" class="button">
             {this.managed ? 'Update' : 'Save'}</button>);
         if (this.managed) {
-            buttons.push(<button onClick={this.onDelete.bind(this)} type="button" class="button alert">Delete</button>);
+            buttons.push(<button onClick={this.onDelete.bind(this) } type="button" class="button alert">Delete</button>);
         }
         return (
             <div class="app-form">
-                <AppFormMessages />
-                <AppModal id="appFormModal" />
-                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this)} onChange={this.onChangeForm.bind(this)} name="appForm">
+                {this.withAppForm(AppModal)({
+                    id: 'appFormModal'
+                }) }
+                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this) } onChange={this.onChangeForm.bind(this) } name="appForm">
                     <div class="row">
-                        {this.renderFields()}
+                        {this.withAppForm(AppFormMessages)() }
+                        {this.renderFields() }
                     </div>
                     <div class="row">
                         <div class="button-group">

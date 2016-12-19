@@ -20,7 +20,7 @@ export default class AppFormMessages extends React.Component {
                         } else {
                             className += ' alert';
                         }
-                        messages.push(<li class={className} name={fieldValidator} key={fieldValidator.hashCode()}>{validator.message}</li>);
+                        messages.push(<div class={className} name={fieldValidator} key={fieldValidator.hashCode() }>{validator.message}</div>);
                     }
                 });
             });
@@ -28,6 +28,6 @@ export default class AppFormMessages extends React.Component {
         return messages;
     }
     render() {
-        return (<div><ul>{this.renderMessages()}</ul></div>);
+        return (<div class="rows">{this.renderMessages() }</div>);
     }
 }

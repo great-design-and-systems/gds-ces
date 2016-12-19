@@ -19,7 +19,7 @@ export default class AppFormSelect extends React.Component {
         }
         if (fieldProps.options) {
             lodash.forIn(fieldProps.options, (value, field) => {
-                options.push(<option key={value.hashCode()} value={value}>{field}</option>)
+                options.push(<option key={value.hashCode() } value={value}>{field}</option>)
             });
         }
         if (field.validator) {
@@ -27,7 +27,7 @@ export default class AppFormSelect extends React.Component {
         }
         return (
             <label key={field.key} for={fieldProps.id} class={field.tag}>
-                {field.label}
+                {field.label}{field.isRequired() ? <span class="error">*</span> : ''}
                 <select multiple={fieldProps.multiple} onChange={fieldProps.onChange} value={fieldProps.value} name={fieldProps.name} class={fieldProps.class} id={fieldProps.id}>
                     {options}
                 </select>

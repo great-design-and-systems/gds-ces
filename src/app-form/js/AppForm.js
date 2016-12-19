@@ -54,6 +54,12 @@ export class Field {
     setInvalid(invalid) {
         this.invalid = invalid;
     }
+    setRequired(required) {
+        lodash.set(this.properties, 'required', required);
+    }
+    isRequired() {
+        return !!lodash.get(this.properties, 'required');
+    }
 }
 
 export class FieldCreator {
