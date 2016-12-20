@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 @connect()
 export default class ItemCategoryFields extends React.Component {
     componentWillMount() {
+        this.setState({ categoryFields: [] });
         if (this.props.field.getValue()) {
             this.state.categoryFields = [];
             this.props.field.getValue().forEach((field, index) => {
@@ -17,14 +18,9 @@ export default class ItemCategoryFields extends React.Component {
                 categoryField.fieldType.setValue(field.fieldType);
                 categoryField.isFilter.setValue(field.isFilter);
             });
-        } else {
-            this.setState({
-                categoryFields: [this.createField()]
-            });
-        }
-
+        } 
     }
-    componentDidUpdate() {
+    componentWillUpdate() {
         const fieldValue = [];
         if (this.state.categoryFields) {
             this.state.categoryFields.forEach(field => {
@@ -35,55 +31,14 @@ export default class ItemCategoryFields extends React.Component {
                 fieldValue.push(value);
             });
         }
-        this.props.field.setValue(fieldValue);   
-    }
-    createFieldForm(field, index) {
-        const key = ('category_field_' + index).hashCode();
-        const remove = () => {
-            this.state.categoryFields.splice(index, 1);
-            this.forceUpdate();
-        }
-        let className = 'category-field column large-6 medium-12 small-12 end';
-        if (index % 2 === 0) {
-            className += ' even';
-        } else {
-            className += ' odd';
-        }
-        const buttons = [];
-        if (index === this.state.categoryFields.length - 1) {
-            buttons.push(<span key={('add' + index).hashCode()} ><a onClick={this.addField.bind(this)}>Add</a></span>);
-            if (index > 0) {
-                buttons.push(<span key={('remove' + index).hashCode()} ><a class="error" onClick={remove.bind(this)}>Remove</a></span>);
-            }
-        }
-        return (
-            <div key={key} className={className}>
-                <div class="category-field-controls float-right">
-                    {buttons}
-                </div>
-                <div>
-                    {this.withItemCategoryFields(AppFormInput)({
-                        validator: this.props.validator,
-                        field: field.name
-                    })}
-                </div>
-                <div>
-                    {this.withItemCategoryFields(AppFormSelect)({
-                        validator: this.props.validator,
-                        field: field.fieldType
-                    })}
-                    {this.withItemCategoryFields(AppFormCheckbox)({
-                        validator: this.props.validator,
-                        field: field.isFilter
-                    })}
-                </div>
-            </div>)
+        this.props.field.setValue(fieldValue);
     }
     createField() {
         const nameField = new Field('input');
         nameField.setLabel('Field name');
         nameField.setName('name');
         nameField.setProperties({
+            id: 'name_' + this.state.categoryFields.length,
             placeholder: 'Enter field name here'
         });
         nameField.setRequired(true);
@@ -91,6 +46,7 @@ export default class ItemCategoryFields extends React.Component {
         typeField.setLabel('Field type');
         typeField.setName('fieldType');
         typeField.setProperties({
+            id: 'fieldType_' + this.state.categoryFields.length,
             options: {
                 'Text': 'text',
                 'Boolean': 'boolean',
@@ -105,11 +61,56 @@ export default class ItemCategoryFields extends React.Component {
         filterField.setName('isFilter');
         filterField.setValue(true);
         filterField.setHasDivParent(false);
+        filterField.setProperties({
+            id: 'isFilter_' + this.state.categoryFields.length
+        });
         return {
             name: nameField,
             fieldType: typeField,
             isFilter: filterField
         };
+    }
+    createFieldForm(field, index) {
+        const key = ('category_field_' + index).hashCode();
+        const remove = () => {
+            this.state.categoryFields.splice(index, 1);
+            this.forceUpdate();
+        }
+        let className = 'category-field column large-12 medium-12 small-12 end';
+        if (index % 2 === 0) {
+            className += ' even';
+        } else {
+            className += ' odd';
+        }
+        const buttons = [];
+        if (index === this.state.categoryFields.length - 1) {
+            buttons.push(<span key={('add' + index).hashCode() } ><a onClick={this.addField.bind(this) }>Add</a></span>);
+            if (index > 0) {
+                buttons.push(<span key={('remove' + index).hashCode() } ><a class="error" onClick={remove.bind(this) }>Remove</a></span>);
+            }
+        }
+        return (
+            <div key={key} className={className}>
+                <div class="category-field-controls float-right">
+                    {buttons}
+                </div>
+                <div>
+                    {this.withItemCategoryFields(AppFormInput)({
+                        validator: this.props.validator,
+                        field: field.name
+                    }) }
+                </div>
+                <div>
+                    {this.withItemCategoryFields(AppFormSelect)({
+                        validator: this.props.validator,
+                        field: field.fieldType
+                    }) }
+                    {this.withItemCategoryFields(AppFormCheckbox)({
+                        validator: this.props.validator,
+                        field: field.isFilter
+                    }) }
+                </div>
+            </div>)
     }
     addField() {
         this.state.categoryFields.push(this.createField());
@@ -126,7 +127,7 @@ export default class ItemCategoryFields extends React.Component {
         return (
             <fieldset class="item-category-fields">
                 <legend>Fields</legend>
-                {this.renderFields()}
+                {this.renderFields() }
             </fieldset>);
     }
     withItemCategoryFields(WrappedComponent) {

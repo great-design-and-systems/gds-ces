@@ -7,7 +7,8 @@ const FORM_STATE = {
     invalid: false,
     valid: false,
     pending: false,
-    error: null
+    error: null,
+    model: {}
 }
 
 const AppFormReducer = (state = FORM_STATE, action) => {
@@ -38,6 +39,10 @@ const AppFormReducer = (state = FORM_STATE, action) => {
         case 'FORM_VALIDATE':
             state = { ...state, pending: true };
             break;
+        case 'SET_MODEL_VALUE':
+            state = { ...state};
+            action.payload.field.setValue(action.payload.value);
+        break;
     }
     return state;
 }

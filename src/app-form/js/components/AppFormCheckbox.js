@@ -13,15 +13,15 @@ export default class AppFormCheckBox extends React.Component {
         }
         fieldProps.type = 'checkbox'
         if (!fieldProps.onChange) {
-            fieldProps.onChange = function (event) {
-                field.setValue(!!event.target.checked);
+            fieldProps.onChange = (event) => {
+                this.props.formManager.setModelValue(field, !!event.target.checked);
             }
         }
         if (!fieldProps.id) {
             fieldProps.id = fieldProps.name;
         }
         if (field.validator) {
-            this.props.validator.validate(this, field, fieldProps, this.props.dispatch);
+            this.props.formManager.validate(field, fieldProps, this.props.dispatch);
         }
         const element = React.createElement('input', fieldProps);
         return (

@@ -8,8 +8,8 @@ export default class AppFormRadio extends React.Component {
         const fieldProps = field.getProperties();
         const options = [];
         if (!fieldProps.onChange) {
-            fieldProps.onChange = function (event) {
-                field.setValue(event.target.value);
+            fieldProps.onChange = (event) => {
+                this.props.formManager.setModelValue(field, event.target.value);
             }
         }
 
@@ -18,19 +18,19 @@ export default class AppFormRadio extends React.Component {
         }
 
         if (field.validator) {
-            this.props.validator.validate(this, field, fieldProps, this.props.dispatch);
+            this.props.formManager.validate(field, fieldProps, this.props.dispatch);
         }
 
         if (fieldProps.options) {
             lodash.forIn(fieldProps.options, (value, field) => {
                 options.push(
-                    <span key={value.hashCode()}>
+                    <span key={value.hashCode() }>
                         <input name={fieldProps.name}
-                            type="radio" checked={value === fieldProps.value}
+                            type="radio" checked={fieldProps.value ? value === fieldProps.value : null}
                             onChange={fieldProps.onChange}
-                            class={fieldProps.class} id={value.hashCode()}
+                            class={fieldProps.class} id={value.hashCode() }
                             value={value}></input>
-                        <label for={value.hashCode()}>{field}</label>
+                        <label for={value.hashCode() }>{field}</label>
                     </span>)
             });
         }

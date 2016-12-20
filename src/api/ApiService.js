@@ -86,7 +86,6 @@ class DomainLink {
         }
 
         fetchOption.method = link.method;
-
         fetch(url, fetchOption).then((res) => {
             if (res.status >= 200 && res.status < 300) {
                 res.json().then(jsonData => {

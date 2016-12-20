@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
-
 @connect()
 export default class AppFormInput extends React.Component {
     createComponent(field) {
@@ -15,13 +14,13 @@ export default class AppFormInput extends React.Component {
         }
 
         if (!fieldProps.onChange) {
-            fieldProps.onChange = function (event) {
-                field.setValue(event.target.value);
+            fieldProps.onChange = (event) => {
+                this.props.formManager.setModelValue(field, event.target.value);
             }
         }
 
         if (field.validator) {
-            this.props.validator.validate(this, field, fieldProps, this.props.dispatch);
+            this.props.formManager.validate(field, fieldProps, this.props.dispatch);
         }
 
         const inputElement = React.createElement(field.tag, fieldProps);

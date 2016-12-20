@@ -15,6 +15,7 @@ export default class ItemCategoryForm extends React.Component {
         });
         this.createFormManager();
         this.createFieldTemplates();
+        this.createFormFields();
     }
     createFormManager() {
         this.formManager = {
@@ -45,12 +46,11 @@ export default class ItemCategoryForm extends React.Component {
             }
         };
     }
-    getFormFields() {
-        const formFields = [];
+    createFormFields() {
+        this.formFields = [];
         let field = new Field('input');
         field.setName('name');
         field.setLabel('Category')
-        field.setValue(this.state.category.name);
         field.setProperties({
             required: true,
             placeholder: 'Enter category name here'
@@ -60,19 +60,13 @@ export default class ItemCategoryForm extends React.Component {
                 done(event.target.value != null && !!event.target.value.length);
             })
         });
-        formFields.push(field);
+        field.setValue("Hello World!");
+        this.formFields.push(field);
 
         field = new Field('categoryFields');
         field.setName('fields');
         field.setLabel('Fields')
-        field.setValue(this.state.category.fields);
-        formFields.push(field);
-
-        return formFields;
-    }
-    onCategoryFormUpdate(model) {
-        console.log(model);
-        this.setState({ category: model });
+        this.formFields.push(field);
     }
     withItemCategoryForm(WrappedComponent) {
         function withItemCategoryForm(props) {
@@ -86,16 +80,14 @@ export default class ItemCategoryForm extends React.Component {
         return withItemCategoryForm;
     }
     render() {
-        const formFields = this.getFormFields();
         return (
             <div>
                 <div class="rows large-8 medium-12 small-12">
                     {this.withItemCategoryForm(AppFormComponent)({
                         formManager: this.formManager,
                         fieldTemplates: this.fieldTemplates,
-                        onFormUpdate: this.onCategoryFormUpdate.bind(this),
-                        formFields: formFields
-                    })}
+                        formFields: this.formFields
+                    }) }
                 </div>
             </div>)
     }

@@ -9,8 +9,8 @@ export default class AppFormSelect extends React.Component {
         const fieldProps = field.getProperties();
         const options = [];
         if (!fieldProps.onChange) {
-            fieldProps.onChange = function (event) {
-                field.setValue(event.target.value);
+            fieldProps.onChange = (event) => {
+                this.props.formManager.setModelValue(field, event.target.value);
             }
         }
 
@@ -23,7 +23,7 @@ export default class AppFormSelect extends React.Component {
             });
         }
         if (field.validator) {
-            this.props.validator.validate(this, field, fieldProps, this.props.dispatch);
+            this.props.formManager.validate(field, fieldProps, this.props.dispatch);
         }
         return (
             <label key={field.key} for={fieldProps.id} class={field.tag}>

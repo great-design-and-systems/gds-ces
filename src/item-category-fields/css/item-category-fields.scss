@@ -1,12 +1,12 @@
 .item-category-fields {
     .category-field {
         padding: 15px;
-        border: 1px $secondary-color solid;
+        border-bottom: 1px $secondary-color solid;
         &.odd {
-            background: lighten($primary-color, 12.5%);
+            background: darken(whitesmoke, 10.0%);
         }
         &.even {
-            background: lighten($primary-color, 30.5%);
+            background: darken(whitesmoke, 2.0%);
         }
         .category-field-controls {
             span {

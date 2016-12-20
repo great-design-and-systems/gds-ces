@@ -26,13 +26,6 @@ export default class AppForm extends React.Component {
     }
     componentWillMount() {
         this.managed = this.props.formManager && !!this.props.formManager.id;
-        this.createModel();
-    }
-    onChangeForm(event) {
-        if (this.props.onFormUpdate) {
-            this.createModel();
-            this.props.onFormUpdate(this.model);
-        }
     }
     renderFields() {
         let fields = [];
@@ -50,10 +43,10 @@ export default class AppForm extends React.Component {
                     if (!formField.hasDivParent) {
                         formField.key = fieldProperties.name.hashCode();
                     }
-                    const formFieldElement = new FieldCreator(this.props.formFields, formField, this.props.fieldTemplates).getElement();
+                    const formFieldElement = new FieldCreator(this.props.formFields, formField, this.props.dispatch, this.props.fieldTemplates).getElement();
                     fields.push(
                         formField.hasDivParent ?
-                            <div class="form-field" key={fieldProperties.name.hashCode()}>
+                            <div class="form-field" key={fieldProperties.name.hashCode() }>
                                 {formFieldElement}
                             </div> : formFieldElement);
                 }
@@ -67,6 +60,7 @@ export default class AppForm extends React.Component {
     }
     onSubmit(event) {
         event.preventDefault();
+        this.createModel();
         const dispatch = this.props.dispatch;
         const formManager = this.props.formManager;
         if (this.managed) {
@@ -118,16 +112,16 @@ export default class AppForm extends React.Component {
         buttons.push(<button disabled={this.props.form.invalid || this.props.api.pending} type="submit" class="button">
             {this.managed ? 'Update' : 'Save'}</button>);
         if (this.managed) {
-            buttons.push(<button onClick={this.onDelete.bind(this)} type="button" class="button alert">Delete</button>);
+            buttons.push(<button onClick={this.onDelete.bind(this) } type="button" class="button alert">Delete</button>);
         }
         return (
             <div class="app-form">
                 {this.withAppForm(AppModal)({
                     id: 'appFormModal'
-                })}
-                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this)} onChange={this.onChangeForm.bind(this)} name="appForm">
-                    {this.withAppForm(AppFormMessages)()}
-                    {this.renderFields()}
+                }) }
+                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this) } name="appForm">
+                    {this.withAppForm(AppFormMessages)() }
+                    {this.renderFields() }
                     <div class="form-buttons button-group">
                         {buttons}
                     </div>
@@ -136,7 +130,6 @@ export default class AppForm extends React.Component {
         )
     }
 }
-
 
 function setNewModelFormId(newModel, formManager) {
     if (formManager && formManager.id) {

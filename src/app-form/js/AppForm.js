@@ -1,4 +1,4 @@
-import { invalid, valid, validate } from './AppFormActions';
+import { invalid, valid, validate, setModelValue  } from './AppFormActions';
 
 import AppFormCheckBox from './components/AppFormCheckbox';
 import AppFormInput from './components/AppFormInput';
@@ -63,7 +63,7 @@ export class Field {
 }
 
 export class FieldCreator {
-    constructor(formFields, field, templates) {
+    constructor(formFields, field, dispatch, templates) {
         this.field = field;
         this.formFields = formFields;
         this.fieldTemplates = { ...DEFAULT_TEMPLATES };
@@ -72,9 +72,10 @@ export class FieldCreator {
                 lodash.set(this.fieldTemplates, field, value);
             });
         }
+        this.dispatch = dispatch;
     }
     getElement() {
-        return lodash.get(this.fieldTemplates, this.field.tag)(this.field, new Validator());
+        return lodash.get(this.fieldTemplates, this.field.tag)(this.field, new FormManager(this.dispatch));
     }
 }
 
@@ -101,8 +102,14 @@ export class FieldValidator {
         this.invalid = invalid;
     }
 }
-export class Validator {
-    validate(context, field, fieldProps, dispatch) {
+export class FormManager {
+    constructor(dispatch) {
+        this.dispatch = dispatch;
+    }
+    setModelValue(field, fieldValue) {
+        this.dispatch(setModelValue(field, fieldValue));
+    }
+    validate(field, fieldProps, dispatch) {
         lodash.forIn(field.validator, (validator, fv) => {
             const existingFunction = lodash.get(fieldProps, validator.event);
             if (validator.event) {
@@ -115,14 +122,12 @@ export class Validator {
                     setTimeout(() => {
                         validator.handler(event, (okay) => {
                             if (!okay) {
-                                field.setInvalid(true);
                                 validator.setInvalid(true);
                                 fieldProps.className = fieldProps.className += ' invalid';
                                 dispatch(invalid(fieldProps.name, field.validator));
                             } else {
                                 dispatch(valid(fieldProps.name));
                             }
-                            context.forceUpdate();
                         });
                     }, validator.delay ? validator.delay : 400);
 
@@ -133,16 +138,16 @@ export class Validator {
 }
 
 const DEFAULT_TEMPLATES = {
-    input: (field, validator) => {
-        return <AppFormInput field={field} validator={validator} />
+    input: (field, formManager) => {
+        return <AppFormInput field={field} formManager={formManager} />
     },
-    checkbox: (field, validator) => {
-        return <AppFormCheckBox field={field} validator={validator} />
+    checkbox: (field, formManager) => {
+        return <AppFormCheckBox field={field}  formManager={formManager} />
     },
-    select: (field, validator) => {
-        return <AppFormSelect field={field} validator={validator} />
+    select: (field, formManager) => {
+        return <AppFormSelect field={field}  formManager={formManager} />
     },
-    radio: (field, validator) => {
-        return <AppFormRadio field={field} validator={validator} />
+    radio: (field, formManager) => {
+        return <AppFormRadio field={field}  formManager={formManager} />
     }
 };

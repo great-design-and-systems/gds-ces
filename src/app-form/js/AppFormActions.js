@@ -27,3 +27,14 @@ export function valid(fieldName) {
         payload: fieldName
     }
 }
+
+export function setModelValue(field, fieldValue) {
+    return {
+        type: 'SET_MODEL_VALUE',
+        payload: {
+            field: field,
+            name: field.properties.name,
+            value: fieldValue
+        }
+    };
+}
