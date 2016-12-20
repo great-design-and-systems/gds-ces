@@ -35,10 +35,7 @@ export default class ItemCategoryFields extends React.Component {
                 fieldValue.push(value);
             });
         }
-        this.props.field.setValue(fieldValue);
-    }
-    getTypeSelect(field) {
-        return <AppFormSelect validator={this.props.validator} field={selectField} />
+        this.props.field.setValue(fieldValue);   
     }
     createFieldForm(field, index) {
         const key = ('category_field_' + index).hashCode();
@@ -46,7 +43,7 @@ export default class ItemCategoryFields extends React.Component {
             this.state.categoryFields.splice(index, 1);
             this.forceUpdate();
         }
-        let className = 'category-field column large-4 medium-12 small-12 end';
+        let className = 'category-field column large-6 medium-12 small-12 end';
         if (index % 2 === 0) {
             className += ' even';
         } else {
@@ -59,7 +56,6 @@ export default class ItemCategoryFields extends React.Component {
                 buttons.push(<span key={('remove' + index).hashCode()} ><a class="error" onClick={remove.bind(this)}>Remove</a></span>);
             }
         }
-
         return (
             <div key={key} className={className}>
                 <div class="category-field-controls float-right">
