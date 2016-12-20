@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 export default class ItemCategoryFields extends React.Component {
     componentWillMount() {
         this.setState({ categoryFields: [] });
+    }
+    componentDidMount() {
         if (this.props.field.getValue()) {
             this.state.categoryFields = [];
             this.props.field.getValue().forEach((field, index) => {
@@ -18,7 +20,9 @@ export default class ItemCategoryFields extends React.Component {
                 categoryField.fieldType.setValue(field.fieldType);
                 categoryField.isFilter.setValue(field.isFilter);
             });
-        } 
+        } else {
+            this.state.categoryFields.push(this.createField());
+        }
     }
     componentWillUpdate() {
         const fieldValue = [];
