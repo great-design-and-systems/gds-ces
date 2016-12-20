@@ -71,6 +71,7 @@ export default class ItemCategoryForm extends React.Component {
         return formFields;
     }
     onCategoryFormUpdate(model) {
+        console.log(model);
         this.setState({ category: model });
     }
     withItemCategoryForm(WrappedComponent) {

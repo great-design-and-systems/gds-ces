@@ -8,9 +8,34 @@ import { connect } from 'react-redux';
 @connect()
 export default class ItemCategoryFields extends React.Component {
     componentWillMount() {
-        this.setState({
-            categoryFields: [this.createField()]
-        });
+        if (this.props.field.getValue()) {
+            this.state.categoryFields = [];
+            this.props.field.getValue().forEach((field, index) => {
+                this.addField();
+                const categoryField = this.state.categoryFields[index];
+                categoryField.name.setValue(field.name);
+                categoryField.fieldType.setValue(field.fieldType);
+                categoryField.isFilter.setValue(field.isFilter);
+            });
+        } else {
+            this.setState({
+                categoryFields: [this.createField()]
+            });
+        }
+
+    }
+    componentDidUpdate() {
+        const fieldValue = [];
+        if (this.state.categoryFields) {
+            this.state.categoryFields.forEach(field => {
+                const value = {};
+                value.name = field.name.getValue();
+                value.fieldType = field.fieldType.getValue();
+                value.isFilter = field.isFilter.getValue();
+                fieldValue.push(value);
+            });
+        }
+        this.props.field.setValue(fieldValue);
     }
     getTypeSelect(field) {
         return <AppFormSelect validator={this.props.validator} field={selectField} />
@@ -29,13 +54,17 @@ export default class ItemCategoryFields extends React.Component {
         }
         const buttons = [];
         if (index === this.state.categoryFields.length - 1) {
-            buttons.push(<button key={('add' + index).hashCode()} class="button" type="button" onClick={this.addField.bind(this)}>Add</button>);
-        } else {
-            buttons.push(<button key={('remove' + index).hashCode()} class="button alert" type="button" onClick={remove.bind(this)}>Remove</button>);
+            buttons.push(<span key={('add' + index).hashCode()} ><a onClick={this.addField.bind(this)}>Add</a></span>);
+            if (index > 0) {
+                buttons.push(<span key={('remove' + index).hashCode()} ><a class="error" onClick={remove.bind(this)}>Remove</a></span>);
+            }
         }
 
         return (
             <div key={key} className={className}>
+                <div class="category-field-controls float-right">
+                    {buttons}
+                </div>
                 <div>
                     {this.withItemCategoryFields(AppFormInput)({
                         validator: this.props.validator,
@@ -51,9 +80,6 @@ export default class ItemCategoryFields extends React.Component {
                         validator: this.props.validator,
                         field: field.isFilter
                     })}
-                    <div class="button-group">
-                        {buttons}
-                    </div>
                 </div>
             </div>)
     }
@@ -95,7 +121,6 @@ export default class ItemCategoryFields extends React.Component {
     }
     renderFields() {
         const fields = [];
-        console.log('renderFields', this.state);
         this.state.categoryFields.forEach((field, index) => {
             fields.push(this.createFieldForm(field, index));
         });

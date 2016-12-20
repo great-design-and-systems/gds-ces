@@ -8,5 +8,10 @@
         &.even {
             background: lighten($primary-color, 30.5%);
         }
+        .category-field-controls {
+            span {
+                margin: 1px
+            }
+        }
     }
 }
