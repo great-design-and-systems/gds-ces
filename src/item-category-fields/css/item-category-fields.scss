@@ -10,8 +10,14 @@
         }
         .category-field-controls {
             span {
-                margin: 1px
+                margin: 8px
             }
+        }
+        .add-button {
+            color:$success-color;
+        }
+        .remove-button {
+            color:$alert-color;
         }
     }
 }

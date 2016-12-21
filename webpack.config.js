@@ -39,7 +39,12 @@ module.exports = {
                     'react-hot',
                     'babel?presets[]=stage-0,presets[]=react,presets[]=es2015,plugins[]=react-html-attrs,plugins[]=transform-decorators-legacy,plugins[]=transform-class-properties',
                 ]
-            }
+            },
+            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader?mimetype=image/svg+xml'},
+            {test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
+            {test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/font-woff"},
+            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/octet-stream"},
+            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"}
         ],
         externals: {
             foundation: 'Foundation'

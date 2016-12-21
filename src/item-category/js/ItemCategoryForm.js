@@ -41,8 +41,8 @@ export default class ItemCategoryForm extends React.Component {
     }
     createFieldTemplates() {
         this.fieldTemplates = {
-            categoryFields: (field, validator) => {
-                return <ItemCategoryFields field={field} validator={validator} />
+            categoryFields: (field, formManager) => {
+                return <ItemCategoryFields field={field} formManager={formManager} />
             }
         };
     }

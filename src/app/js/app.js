@@ -1,4 +1,5 @@
 import '../css/app.scss';
+import 'font-awesome/scss/font-awesome.scss';
 import 'script!jquery'
 import 'script!foundation-sites'
 
