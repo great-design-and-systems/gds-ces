@@ -80,7 +80,7 @@ export default class ItemCategoryFields extends React.Component {
             this.state.categoryFields.splice(index, 1);
             this.forceUpdate();
         }
-        let className = 'category-field column large-4 medium-12 small-12 end';
+        let className = 'category-field large-12 medium-12 small-12 end';
         if (index % 2 === 0) {
             className += ' even';
         } else {
@@ -88,17 +88,15 @@ export default class ItemCategoryFields extends React.Component {
         }
         const buttons = [];
         if (index === this.state.categoryFields.length - 1) {
-            buttons.push(<span key={('add' + index).hashCode() } ><a class="add-button"  onClick={this.addField.bind(this) }><i class="fa fa-plus"></i></a></span>);
+            buttons.push(<a key={('add' + index).hashCode() }  class="add-button"  onClick={this.addField.bind(this) }><i class="fa fa-plus"></i></a>);
             if (index > 0) {
-                buttons.push(<span key={('remove' + index).hashCode() } ><a class="remove-button" onClick={remove.bind(this) }><i class="fa fa-minus"></i></a></span>);
+                buttons.push(<a key={('remove' + index).hashCode() }class="remove-button" onClick={remove.bind(this) }><i class="fa fa-minus"></i></a>);
             }
         }
         return (
             <div key={key} className={className}>
                 {this.renderFieldName(field) }
-                <span class="columns category-field-controls">
-                    {buttons}
-                </span>
+                {buttons}
             </div>)
     }
     addField() {
