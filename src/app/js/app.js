@@ -11,7 +11,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const GDS_API = process.env.GDS_API || 'https://demo-gds-api.herokuapp.com/gds';
+const GDS_API = process.env.GDS_API || 'http://localhost:3005/gds';
 
 $(document).foundation();
 

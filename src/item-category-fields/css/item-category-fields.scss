@@ -3,14 +3,14 @@
         padding: 15px;
         border-bottom: 1px $secondary-color solid;
         &.odd {
-            background: darken(whitesmoke, 10.0%);
+            background: darken(whitesmoke, 8.0%);
         }
         &.even {
             background: darken(whitesmoke, 2.0%);
         }
         .category-field-controls {
-            span {
-                margin: 8px
+            a {
+                margin: 2px
             }
         }
         .add-button {
@@ -19,9 +19,5 @@
         .remove-button {
             color:$alert-color;
         }
-    }
-
-    input {
-        width:300px
     }
 }

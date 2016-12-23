@@ -4,6 +4,7 @@ import AppFormSelect from './../../app-form/js/components/AppFormSelect';
 import { Field } from './../../app-form/js/AppForm';
 import React from 'react';
 import { connect } from 'react-redux';
+import lodash from 'lodash';
 
 @connect(state => {
     return {
@@ -15,64 +16,24 @@ export default class ItemCategoryFields extends React.Component {
         this.setState({ categoryFields: [] });
     }
     componentDidMount() {
-        if (this.props.field.getValue()) {
-            this.state.categoryFields = [];
-            this.props.field.getValue().forEach((field, index) => {
-                this.addField();
-                const categoryField = this.state.categoryFields[index];
-                categoryField.name.setValue(field.name);
-                categoryField.fieldType.setValue(field.fieldType);
-                categoryField.isFilter.setValue(field.isFilter);
-            });
+        console.log('component did mount', this);
+        if (this.props.field.getValue() && this.props.field.getValue().length) {
+            this.setState({ categoryFields: this.props.field.getValue() });
         } else {
             this.addField();
         }
     }
-    componentWillReceiveProps(props) {
-        if (props.form.lastTouch) {
-            const fields = [];
-            this.state.categoryFields.forEach(field => {
-                fields.push(this.createValue(field));
-            });
-            this.props.formManager.setModelValue(this.props.field, fields);
-        }
-    }
     createField() {
-        const nameField = new Field('input');
-        nameField.setLabel('Field name');
-        nameField.setName('name');
-        nameField.setProperties({
-            id: 'name_' + this.state.categoryFields.length,
-            placeholder: 'Enter field name here'
-        });
-        nameField.setRequired(true);
-        const typeField = new Field('select');
-        typeField.setLabel('Field type');
-        typeField.setName('fieldType');
-        typeField.setProperties({
-            id: 'fieldType_' + this.state.categoryFields.length,
-            options: {
-                'Text': 'text',
-                'Boolean': 'boolean',
-                'Number': 'number',
-                'Date': 'date'
-            }
-        });
-        typeField.setValue('number');
-        typeField.setRequired(true);
-        const filterField = new Field('checkbox');
-        filterField.setLabel('Has filter');
-        filterField.setName('isFilter');
-        filterField.setValue(true);
-        filterField.setHasDivParent(false);
-        filterField.setProperties({
-            id: 'isFilter_' + this.state.categoryFields.length
-        });
         return {
-            name: nameField,
-            fieldType: typeField,
-            isFilter: filterField
+            name: { value: '' },
+            fieldType: { value: 'text' },
+            isFilter: { value: true }
         };
+    }
+    addField() {
+        this.state.categoryFields.push(this.createField());
+        this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
+        this.forceUpdate();
     }
     createFieldForm(field, index) {
         const key = ('category_field_' + index).hashCode();
@@ -88,28 +49,18 @@ export default class ItemCategoryFields extends React.Component {
         }
         const buttons = [];
         if (index === this.state.categoryFields.length - 1) {
-            buttons.push(<a key={('add' + index).hashCode() }  class="add-button"  onClick={this.addField.bind(this) }><i class="fa fa-plus"></i></a>);
+            buttons.push(<a key={('add' + index).hashCode()} class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>);
             if (index > 0) {
-                buttons.push(<a key={('remove' + index).hashCode() }class="remove-button" onClick={remove.bind(this) }><i class="fa fa-minus"></i></a>);
+                buttons.push(<a key={('remove' + index).hashCode()} class="remove-button" onClick={remove.bind(this)}><i class="fa fa-minus"></i></a>);
             }
         }
         return (
-            <div key={key} className={className}>
-                {this.renderFieldName(field) }
-                {buttons}
-            </div>)
-    }
-    addField() {
-        const field = this.createField();
-        this.state.categoryFields.push(field);
-        this.forceUpdate();
-    }
-    createValue(field) {
-        const value = {};
-        value.name = field.name.getValue();
-        value.fieldType = field.fieldType.getValue();
-        value.isFilter = field.isFilter.getValue();
-        return value;
+            <tr key={key} className={className}>
+                <td>{this.renderFieldName(field.name, key)}</td>
+                <td>{this.renderFieldType(field.fieldType, key)}</td>
+                <td>{this.renderFieldFilter(field.isFilter, key)}</td>
+                <td><div class="category-field-controls">{buttons}</div></td>
+            </tr>)
     }
     renderFields() {
         const fields = [];
@@ -122,14 +73,59 @@ export default class ItemCategoryFields extends React.Component {
         return (
             <fieldset class="item-category-fields">
                 <legend>Fields</legend>
-                {this.renderFields() }
+                <table>
+                    <tbody>
+                        {this.renderFields()}
+                    </tbody>
+                </table>
             </fieldset>);
     }
-    renderFieldName(field) {
+    renderFieldName(field, key) {
+        const id = 'input_' + key;
         const fieldNameOnChange = (event) => {
-            field.setValue(event.target.value);
+            field.value = event.target.value;
         }
-        return (<input type="text" onChange={fieldNameOnChange.bind(this) } />)
+        const input = React.createElement('input', {
+            type: 'text',
+            placeholder: 'Enter field name',
+            value: field.value,
+            onChange: fieldNameOnChange
+        });
+        return (
+            <label key={id}>
+                Name
+                {input}
+            </label>);
+    }
+    renderFieldType(field, key) {
+        const id = 'type_select_' + key;
+        const fieldTypeOnChange = (event) => {
+            field.value = event.target.value;
+        }
+        return (
+            <label>
+                Type
+            <select key={id} onChange={fieldTypeOnChange.bind(this)} value={field.value}>
+                    <option value="text">Text</option>
+                    <option value="boolean">Boolean</option>
+                    <option value="number">Number</option>
+                    <option value="date">Date</option>
+                </select>
+            </label>)
+    }
+    renderFieldFilter(field, key) {
+        const id = 'filtered' + key;
+        const fieldFilterOnChange = (event) => {
+            field.value = event.target.value;
+        }
+        return (
+            <label>
+                Filter
+                <select key={id} onChange={fieldFilterOnChange.bind(this)}>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </label>)
     }
     withItemCategoryFields(WrappedComponent) {
         function withItemCategoryFields(props) {
