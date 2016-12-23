@@ -13,36 +13,46 @@ import lodash from 'lodash';
     }
 })
 export default class ItemCategoryFields extends React.Component {
-    componentWillMount() {
-        this.setState({ categoryFields: [] });
+    constructor() {
+        super();
     }
+
+    componentWillMount() {
+        this.setState({
+            categoryFields: []
+        });
+    }
+
     componentDidMount() {
-        console.log('component did mount', this);
         if (this.props.field.getValue() && this.props.field.getValue().length) {
             this.setState({ categoryFields: this.props.field.getValue() });
         } else {
             this.addField();
         }
     }
+
     createField() {
         return {
-            name: { value: '' },
-            fieldType: { value: 'text' },
-            isFilter: { value: true }
+            name: '',
+            fieldType: 'text',
+            isFilter: true,
+            isRequired: false
         };
     }
+
     addField() {
         this.state.categoryFields.push(this.createField());
         this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
         this.forceUpdate();
     }
+
     createFieldForm(field, index) {
         const key = ('category_field_' + index).hashCode();
         const remove = () => {
             this.state.categoryFields.splice(index, 1);
             this.forceUpdate();
         }
-        let className = 'category-field large-12 medium-12 small-12 end';
+        let className = 'category-field row';
         if (index % 2 === 0) {
             className += ' even';
         } else {
@@ -56,10 +66,10 @@ export default class ItemCategoryFields extends React.Component {
             }
         }
         return (
-            <tr key={key} className={className}>
-                <CategoryField />
-                <td><div class="category-field-controls">{buttons}</div></td>
-            </tr>)
+            <div key={key} className={className}>
+                <CategoryField field={field} />
+                <div class="category-field-controls columns large-1">{buttons}</div>
+            </div>)
     }
     renderFields() {
         const fields = [];
@@ -72,6 +82,7 @@ export default class ItemCategoryFields extends React.Component {
         return (
             <fieldset class="item-category-fields">
                 <legend>Fields</legend>
+                {this.renderFields()}
             </fieldset>);
     }
     withItemCategoryFields(WrappedComponent) {

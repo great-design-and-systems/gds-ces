@@ -46,7 +46,7 @@ export default class AppForm extends React.Component {
                     const formFieldElement = new FieldCreator(this.props.formFields, formField, this.props.dispatch, this.props.fieldTemplates).getElement();
                     fields.push(
                         formField.hasDivParent ?
-                            <div class="form-field" key={fieldProperties.name.hashCode() }>
+                            <div class="form-field" key={fieldProperties.name.hashCode()}>
                                 {formFieldElement}
                             </div> : formFieldElement);
                 }
@@ -112,16 +112,16 @@ export default class AppForm extends React.Component {
         buttons.push(<button key="submit_button" disabled={this.props.form.invalid || this.props.api.pending} type="submit" class="button">
             {this.managed ? 'Update' : 'Save'}</button>);
         if (this.managed) {
-            buttons.push(<button key="delete_button" onClick={this.onDelete.bind(this) } type="button" class="button alert">Delete</button>);
+            buttons.push(<button key="delete_button" onClick={this.onDelete.bind(this)} type="button" class="button alert">Delete</button>);
         }
         return (
             <div class="app-form">
                 {this.withAppForm(AppModal)({
                     id: 'appFormModal'
-                }) }
-                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this) } name="appForm">
-                    {this.withAppForm(AppFormMessages)() }
-                    {this.renderFields() }
+                })}
+                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this)} name="appForm">
+                    {this.withAppForm(AppFormMessages)()}
+                    {this.renderFields()}
                     <div class="form-buttons button-group">
                         {buttons}
                     </div>

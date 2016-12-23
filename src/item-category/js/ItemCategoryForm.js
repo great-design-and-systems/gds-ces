@@ -60,7 +60,7 @@ export default class ItemCategoryForm extends React.Component {
                 done(event.target.value != null && !!event.target.value.length);
             })
         });
-        field.setValue("Hello World!");
+
         this.formFields.push(field);
 
         field = new Field('categoryFields');
@@ -87,7 +87,7 @@ export default class ItemCategoryForm extends React.Component {
                         formManager: this.formManager,
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.formFields
-                    }) }
+                    })}
                 </div>
             </div>)
     }

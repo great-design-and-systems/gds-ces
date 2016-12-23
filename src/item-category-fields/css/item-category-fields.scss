@@ -9,12 +9,13 @@
             background: darken(whitesmoke, 2.0%);
         }
         .category-field-controls {
-            a {
-                margin: 2px
-            }
+            padding:0;
+            padding-top:20px;
         }
         .add-button {
             color:$success-color;
+            margin-right: 15px;
+            margin-left: 10px;
         }
         .remove-button {
             color:$alert-color;
