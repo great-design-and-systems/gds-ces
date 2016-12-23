@@ -57,9 +57,7 @@ export default class ItemCategoryFields extends React.Component {
         }
         return (
             <tr key={key} className={className}>
-                <td>{this.renderFieldName(field.name, key)}</td>
-                <td>{this.renderFieldType(field.fieldType, key)}</td>
-                <td>{this.renderFieldFilter(field.isFilter, key)}</td>
+                <CategoryField />
                 <td><div class="category-field-controls">{buttons}</div></td>
             </tr>)
     }
