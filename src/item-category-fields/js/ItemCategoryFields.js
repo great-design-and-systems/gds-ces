@@ -1,6 +1,7 @@
 import AppFormCheckbox from '../../app-form/js/components/AppFormCheckbox';
 import AppFormInput from './../../app-form/js/components/AppFormInput';
 import AppFormSelect from './../../app-form/js/components/AppFormSelect';
+import CategoryField from './components/CategoryField';
 import { Field } from './../../app-form/js/AppForm';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -73,59 +74,7 @@ export default class ItemCategoryFields extends React.Component {
         return (
             <fieldset class="item-category-fields">
                 <legend>Fields</legend>
-                <table>
-                    <tbody>
-                        {this.renderFields()}
-                    </tbody>
-                </table>
             </fieldset>);
-    }
-    renderFieldName(field, key) {
-        const id = 'input_' + key;
-        const fieldNameOnChange = (event) => {
-            field.value = event.target.value;
-        }
-        const input = React.createElement('input', {
-            type: 'text',
-            placeholder: 'Enter field name',
-            value: field.value,
-            onChange: fieldNameOnChange
-        });
-        return (
-            <label key={id}>
-                Name
-                {input}
-            </label>);
-    }
-    renderFieldType(field, key) {
-        const id = 'type_select_' + key;
-        const fieldTypeOnChange = (event) => {
-            field.value = event.target.value;
-        }
-        return (
-            <label>
-                Type
-            <select key={id} onChange={fieldTypeOnChange.bind(this)} value={field.value}>
-                    <option value="text">Text</option>
-                    <option value="boolean">Boolean</option>
-                    <option value="number">Number</option>
-                    <option value="date">Date</option>
-                </select>
-            </label>)
-    }
-    renderFieldFilter(field, key) {
-        const id = 'filtered' + key;
-        const fieldFilterOnChange = (event) => {
-            field.value = event.target.value;
-        }
-        return (
-            <label>
-                Filter
-                <select key={id} onChange={fieldFilterOnChange.bind(this)}>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
-            </label>)
     }
     withItemCategoryFields(WrappedComponent) {
         function withItemCategoryFields(props) {
