@@ -7,6 +7,7 @@ import { Api } from '../../api/ApiService';
 import App from './AppComponent';
 import AppStores from '../../common/AppStores';
 import ItemCategoryForm from '../../item-category/js/ItemCategoryForm';
+import ItemCategoryList from '../../item-category/js/ItemCategoryList';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';

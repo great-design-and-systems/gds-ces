@@ -7,7 +7,7 @@ const initialState = {
 
 const DEFAULT_STATE = {
     error: null,
-    pendning: false
+    pending: false
 };
 
 const ApiServiceReducer = (state = DEFAULT_STATE, action) => {

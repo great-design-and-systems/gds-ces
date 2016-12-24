@@ -55,6 +55,7 @@ export default class ItemCategoryForm extends React.Component {
             required: true,
             placeholder: 'Enter category name here'
         });
+        
         field.setValidator({
             required: new FieldValidator('onChange', 'Category name is required.', (event, done) => {
                 done(event.target.value != null && !!event.target.value.length);
