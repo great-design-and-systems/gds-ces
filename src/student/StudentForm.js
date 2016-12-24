@@ -31,8 +31,9 @@ export default class StudentForm extends React.Component {
                 cancelButton: 'No, wait!'
             }
         };
-        this.formFields = [];
 
+        this.formFields = [];
+        
         let field = new Field('input');
         field.setLabel('First name');
         field.setName('firstName');
