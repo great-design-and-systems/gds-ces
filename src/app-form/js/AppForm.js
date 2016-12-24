@@ -1,4 +1,4 @@
-import { invalid, valid, validate, setModelValue  } from './AppFormActions';
+import { invalid, setModelValue, valid, validate } from './AppFormActions';
 
 import AppFormCheckBox from './components/AppFormCheckbox';
 import AppFormInput from './components/AppFormInput';
@@ -63,9 +63,8 @@ export class Field {
 }
 
 export class FieldCreator {
-    constructor(formFields, field, dispatch, templates) {
+    constructor(field, dispatch, templates) {
         this.field = field;
-        this.formFields = formFields;
         this.fieldTemplates = { ...DEFAULT_TEMPLATES };
         if (templates) {
             lodash.forIn(templates, (value, field) => {

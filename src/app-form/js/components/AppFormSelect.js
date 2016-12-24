@@ -3,7 +3,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
 
-@connect()
+@connect(
+    state => {
+        return {
+            api: state.api
+        };
+    }
+)
 export default class AppFormSelect extends React.Component {
     createComponent(field) {
         const fieldProps = field.getProperties();
@@ -28,7 +34,7 @@ export default class AppFormSelect extends React.Component {
         return (
             <label key={field.key} for={fieldProps.id} class={field.tag}>
                 {field.label}{field.isRequired() ? <span class="error">*</span> : ''}
-                <select multiple={fieldProps.multiple} onChange={fieldProps.onChange} value={fieldProps.value} name={fieldProps.name} class={fieldProps.class} id={fieldProps.id}>
+                <select disabled={this.props.api.pending} multiple={fieldProps.multiple} onChange={fieldProps.onChange} value={fieldProps.value} name={fieldProps.name} class={fieldProps.class} id={fieldProps.id}>
                     {options}
                 </select>
             </label>

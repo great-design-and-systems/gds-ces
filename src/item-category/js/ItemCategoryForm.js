@@ -82,7 +82,7 @@ export default class ItemCategoryForm extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div class="item-category-form">
                 <div class="rows large-8 medium-12 small-12">
                     {this.withItemCategoryForm(AppFormComponent)({
                         formManager: this.formManager,

@@ -6,18 +6,23 @@ import { connect } from 'react-redux';
 
 export default class StudentForm extends React.Component {
     componentWillMount() {
+        this.studentId = '00001';
         this.formManager = {
-            id: this.props.studentId,
+            id: this.studentId,
             create: {
                 action: '{Students.createStudent}'
             },
             update: {
                 action: '{Students.updateStudent}',
-                params: { studentId: this.props.studentId }
+                params: { studentId: this.studentId }
             },
             delete: {
                 action: '{Students.deleteStudent}',
-                params: { studentId: this.props.studentId }
+                params: { studentId: this.studentId }
+            },
+            get: {
+                action: '{Students.getProfileByStudentId}',
+                params: { studentId: this.studentId }
             },
             deletePopup: {
                 title: 'Students',
@@ -26,7 +31,6 @@ export default class StudentForm extends React.Component {
                 cancelButton: 'No, wait!'
             }
         };
-
         this.formFields = [];
 
         let field = new Field('input');
@@ -60,21 +64,23 @@ export default class StudentForm extends React.Component {
         });
         this.formFields.push(field);
 
+        field = new Field('input');
+        field.setName('studentId');
+        field.setLabel('Student ID');
+        field.setRequired(true);
+        this.formFields.push(field);
+
         field = new Field('radio');
         field.setName('gender');
         field.setLabel('Gender');
         field.setRequired(true);
         field.setProperties({
             options: {
-                'Male Label': 'male',
-                'Female Label': 'female'
+                'Male': 'male',
+                'Female': 'female'
             }
         });
-
         this.formFields.push(field);
-
-
-
     }
 
     render() {

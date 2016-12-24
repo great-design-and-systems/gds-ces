@@ -1,10 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-@connect()
+@connect(
+    state => {
+        return {
+            api: state.api
+        };
+    }
+)
 export default class AppFormCheckBox extends React.Component {
     createComponent(field) {
         const fieldProps = field.getProperties();
+        fieldProps.disabled = this.props.api.pending;
         if (field.getValue() === true) {
             fieldProps.checked = 'checked';
         }

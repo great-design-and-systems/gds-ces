@@ -2,7 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
 
-@connect()
+@connect(
+    state => {
+        return {
+            api: state.api
+        };
+    }
+)
 export default class AppFormInput extends React.Component {
     constructor() {
         super();
@@ -14,7 +20,7 @@ export default class AppFormInput extends React.Component {
 
     createComponent(field) {
         const fieldProps = field.getProperties();
-
+        fieldProps.disabled = this.props.api.pending;
         if (!fieldProps.type) {
             fieldProps.type = 'text';
         }
