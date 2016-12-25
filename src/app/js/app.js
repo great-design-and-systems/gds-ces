@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import StudentForm from '../../student/StudentForm';
+import StudentList from '../../student/StudentList';
 
 const GDS_API = process.env.GDS_API || 'http://localhost:3005/gds';
 
@@ -30,7 +31,7 @@ String.prototype.hashCode = function () {
 
 new Api().init(GDS_API, err => {
     if (!err) {
-        ReactDOM.render(<Provider store={AppStores}><StudentForm /></Provider>, document.getElementsByTagName('app')[0]);
+        ReactDOM.render(<Provider store={AppStores}><StudentList /></Provider>, document.getElementsByTagName('app')[0]);
     }
     else {
         console.error(err);
