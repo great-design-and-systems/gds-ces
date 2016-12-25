@@ -1,3 +1,5 @@
+import { getModel, setManaged } from './AppFormActions';
+
 import AppFormMessages from './components/AppFormMessages';
 import AppModal from '../../app-modal/js/AppModal';
 import DeleteModel from './control/DeleteModel';
@@ -6,7 +8,6 @@ import React from 'react';
 import RenderFields from './control/RenderFields';
 import SubmitModel from './control/SubmitModel';
 import { connect } from 'react-redux';
-import { get } from '../../api/ApiActions';
 import { wrapComponent } from '../../common/AppUtils';
 
 @connect((state) => {
@@ -20,35 +21,42 @@ export default class AppForm extends React.Component {
         super();
     }
     componentWillMount() {
-        this.managed = this.props.formManager && !!this.props.formManager.id;
-        if (this.managed) {
-            this.props.dispatch(get(this.props.formManager.get.action, this.props.formManager.get.params));
-
+        if (this.props.form.id) {
+            this.props.dispatch(getModel(this.props.formManager.get.action, this.props.form.id, this.props.formManager.get.params));
         }
     }
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.api.pending) {
-            new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
+        if (nextProps.form.id) {
+            if (!nextProps.form.managed) {
+                if (!nextProps.api.pending && !nextProps.api.error) {
+                    new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
+                    nextProps.dispatch(setManaged(true));
+                }
+            }
+            if (this.props.form.id != nextProps.form.id && !nextProps.api.pending) {
+                nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
+                nextProps.dispatch(setManaged(false));
+            }
         }
     }
     onSubmit(event) {
         event.preventDefault();
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
-            this.props.formManager);
-        if (this.managed) {
+            this.props.formManager, this.props.form.id);
+        if (this.props.form.managed) {
             submitModel.update();
         } else {
             submitModel.create();
         }
     }
     onDelete() {
-        new DeleteModel(this.props.dispatch, this.props.formManager);
+        new DeleteModel(this.props.dispatch, this.props.formManager, this.props.formFields, this.props.form.id);
     }
     render() {
         const buttons = [];
         buttons.push(<button key="submit_button" disabled={this.props.form.invalid || this.props.api.pending || this.props.form.pending} type="submit" class="button">
-            {this.managed ? 'Update' : 'Save'}</button>);
-        if (this.managed) {
+            {this.props.form.managed ? 'Update' : 'Save'}</button>);
+        if (this.props.form.managed) {
             buttons.push(<button key="delete_button" disabled={this.props.api.pending || this.props.form.pending} onClick={this.onDelete.bind(this)} type="button" class="button alert">Delete</button>);
         }
         return (

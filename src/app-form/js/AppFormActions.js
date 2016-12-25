@@ -1,3 +1,4 @@
+import { get, remove, save } from '../../api/ApiActions';
 
 export function dirty() {
     return {
@@ -37,4 +38,31 @@ export function setModelValue(field, fieldValue) {
             value: fieldValue
         }
     };
+}
+
+export function setId(id) {
+    return {
+        type: 'SET_ID',
+        payload: id
+    }
+}
+export function setManaged(managed) {
+    return {
+        type: 'SET_MANAGED',
+        payload: managed
+    }
+}
+export function getModel(action, id, params) {
+    const parameters = JSON.stringify(params).replace('{id}', id);
+    return get(action, JSON.parse(parameters));
+}
+
+export function removeModel(action, id, params) {
+    const parameters = JSON.stringify(params).replace('{id}', id);
+    return remove(action, JSON.parse(parameters));
+}
+
+export function saveModel(action, id, model, params) {
+    const parameters = params ? JSON.stringify(params).replace('{id}', id) : '{}';
+    return save(action, model, JSON.parse(parameters));
 }

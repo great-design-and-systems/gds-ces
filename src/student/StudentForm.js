@@ -3,26 +3,27 @@ import { Field, FieldValidator } from './../app-form/js/AppForm';
 import AppForm from './../app-form/js/AppFormComponent';
 import React from 'react';
 import { connect } from 'react-redux';
+import { setId } from '../app-form/js/AppFormActions';
 
+@connect()
 export default class StudentForm extends React.Component {
     componentWillMount() {
-        this.studentId = '00001';
+        this.props.dispatch(setId('00001'));
         this.formManager = {
-            id: this.studentId,
             create: {
                 action: '{Students.createStudent}'
             },
             update: {
                 action: '{Students.updateStudent}',
-                params: { studentId: this.studentId }
+                params: { studentId: '{id}' }
             },
             delete: {
                 action: '{Students.deleteStudent}',
-                params: { studentId: this.studentId }
+                params: { studentId: '{id}' }
             },
             get: {
                 action: '{Students.getProfileByStudentId}',
-                params: { studentId: this.studentId }
+                params: { studentId: '{id}' }
             },
             deletePopup: {
                 title: 'Students',
@@ -33,7 +34,7 @@ export default class StudentForm extends React.Component {
         };
 
         this.formFields = [];
-        
+
         let field = new Field('input');
         field.setLabel('First name');
         field.setName('firstName');

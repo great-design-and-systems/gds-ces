@@ -1,18 +1,19 @@
 import CreateModel from './CreateModel';
-import { save } from '../../../api/ApiActions';
+import { saveModel } from '../AppFormActions';
 
 export default class SubmitModel {
-    constructor(dispatch, formFields, formManager) {
+    constructor(dispatch, formFields, formManager, formId) {
         this.dispatch = dispatch;
         this.model = new CreateModel(formFields, formManager).getModel();
         this.formManager = formManager;
+        this.formId = formId;
     }
     create() {
-        this.dispatch(save(this.formManager.create.action, this.model,
+        this.dispatch(saveModel(this.formManager.create.action, this.formId, this.model,
             this.formManager.create.params));
     }
     update() {
-        this.dispatch(save(this.formManager.update.action, this.model,
+        this.dispatch(saveModel(this.formManager.update.action, this.formId, this.model,
             this.formManager.update.params));
     }
 }

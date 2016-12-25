@@ -1,9 +1,10 @@
 import { openModal, rejectModal, successModal } from '../../../app-modal/js/AppModalActions';
+import { setId, setManaged } from '../../js/AppFormActions';
 
-import { remove } from '../../../api/ApiActions';
+import { removeModel } from '../AppFormActions';
 
 export default class DeleteModel {
-    constructor(dispatch, formManager) {
+    constructor(dispatch, formManager, formFields, formId) {
         dispatch(openModal({
             id: 'appFormModal',
             title: formManager.deletePopup.title,
@@ -12,12 +13,29 @@ export default class DeleteModel {
             cancelButton: formManager.deletePopup.cancelButton,
             okAction: (event) => {
                 dispatch(successModal('appFormModal', 'Yes'));
-                dispatch(remove(formManager.delete.action,
+                dispatch(removeModel(formManager.delete.action, formId,
                     formManager.delete.params));
+                if (formManager.deletePopup.okAction) {
+                    formManager.deletePopup.okAction();
+                }
+                clearValues(formFields);
+                dispatch(setId(null));
+                dispatch(setManaged(false));
             },
             cancelAction: (event) => {
                 dispatch(rejectModal('appFormModal', 'No'));
+                if (formManager.deletePopup.cancelAction) {
+                    formManager.deletePopup.cancelAction();
+                }
             }
         }));
+    }
+}
+
+function clearValues(formFields) {
+    if (formFields) {
+        formFields.forEach(field => {
+            field.setValue('');
+        });
     }
 }
