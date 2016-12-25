@@ -27,7 +27,7 @@ export default class AppForm extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.form.id) {
-            if (!nextProps.form.managed) {
+            if (!!this.props.form.id && !nextProps.form.managed) {
                 if (!nextProps.api.pending && !nextProps.api.error) {
                     new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
                     nextProps.dispatch(setManaged(true));

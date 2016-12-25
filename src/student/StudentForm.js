@@ -8,7 +8,6 @@ import { setId } from '../app-form/js/AppFormActions';
 @connect()
 export default class StudentForm extends React.Component {
     componentWillMount() {
-        this.props.dispatch(setId('00001'));
         this.formManager = {
             create: {
                 action: '{Students.createStudent}'
@@ -78,16 +77,29 @@ export default class StudentForm extends React.Component {
         field.setRequired(true);
         field.setProperties({
             options: {
-                'Male': 'male',
-                'Female': 'female'
+                'Male': 'MALE',
+                'Female': 'FEMALE'
             }
         });
         this.formFields.push(field);
     }
-
+    handleSearchSubmit(event) {
+        event.preventDefault();
+        this.props.dispatch(setId(event.target.searchField.value));
+    }
     render() {
         return (
             <div>
+                <div class="row">
+                    <form onSubmit={this.handleSearchSubmit.bind(this)}>
+                        <div class="columns large-11">
+                            <input name="searchField" type="text" placeholder="Enter student id here" />
+                        </div>
+                        <div class="columns large-1">
+                            <button type="submit" class="button">Search</button>
+                        </div>
+                    </form>
+                </div>
                 <div class="row large-12 medium-12 small-12">
                     <AppForm formManager={this.formManager} formFields={this.formFields} />
                 </div>

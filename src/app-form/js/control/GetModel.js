@@ -13,13 +13,15 @@ export default class GetModel {
 }
 
 function getData(api, action, formManager) {
-    const evalatedAction = eval('api.' + action);
-    if (evalatedAction) {
-        let data = eval('evalatedAction.data');
-        if (formManager.get.eval) {
-            data = eval('data.' + formManager.get.eval);
+    if (api) {
+        const evalatedAction = eval('api.' + action);
+        if (evalatedAction) {
+            let data = eval('evalatedAction.data');
+            if (formManager.get.eval) {
+                data = eval('data.' + formManager.get.eval);
+            }
+            return data;
         }
-        return data;
     }
 }
 
