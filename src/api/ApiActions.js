@@ -18,3 +18,10 @@ export function get(action, params) {
         payload: { params: params }
     };
 }
+
+export function query(action, query) {
+    return {
+        type: action,
+        payload: query
+    };
+}

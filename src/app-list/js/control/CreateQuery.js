@@ -1,19 +1,38 @@
 import lodash from 'lodash';
 
 export default class CreateQuery {
-    constructor(nextProp, prevProp, listManager) {
-        const queryMap = listManager ? listManager.query : undefined;
+    constructor(nextProps, prevProp, query) {
+        const queryMap = nextProps.listManager ? nextProps.listManager.query : undefined;
         const list = nextProps.list;
-        const prevList = prevProp.list;
-        const query = {};
-        if (list) {
+        this.query = query || {};
+        if (!prevProp) {
+            setLimit(this.query, list.limit, queryMap);
+            setStart(this.query, list.start, queryMap);
+            if (list.order && list.order.order) {
+                setOrder(this.query, list.order, queryMap);
+            }
+            if (list.filter) {
+                setFilter(this.query, list.filter, queryMap);
+            }
+        } else {
+            const prevList = prevProp.list;
             if (list.limit !== prevList.limit) {
-                lodash.set(this.query, 'limit', list.limit);
+                setLimit(this.query, list.limit, queryMap);
             }
             if (list.start !== prevList.start) {
-                lodash.set(this.query, 'start', list.start);
+                setStart(this.query, list.start, queryMap);
+            }
+            if (list.order && list.order.order !== prevList.order.order) {
+                setOrder(this.query, list.order, queryMap);
+            }
+            if (list.filter !== prevList.filter) {
+                setFilter(this.query, list.filter, queryMap);
             }
         }
+
+    }
+    getQuery() {
+        return this.query;
     }
 }
 
@@ -47,7 +66,7 @@ function getOrder(queryMap) {
     }
 }
 function setLimit(query, limit, queryMap) {
-    if (queryMap) {
+    if (queryMap.limit) {
         const map = getMap(queryMap, 'limit');
         if (map) {
             lodash.set(query, map.field, parseValue(map.value, '{limit}', limit));
@@ -57,7 +76,7 @@ function setLimit(query, limit, queryMap) {
     }
 }
 function setStart(query, start, queryMap) {
-    if (queryMap) {
+    if (queryMap.stat) {
         const map = getMap(queryMap, 'start');
         if (map) {
             lodash.set(query, map.field, parseValue(map.value, '{start}', start));
@@ -68,7 +87,7 @@ function setStart(query, start, queryMap) {
 }
 
 function setFilter(query, filter, queryMap) {
-    if (queryMap) {
+    if (queryMap.filter) {
         const map = getMap(queryMap, 'filter');
         if (map) {
             lodash.set(query, map.field, parseValue(map.value, '{value}', filter));
@@ -79,7 +98,7 @@ function setFilter(query, filter, queryMap) {
 }
 
 function setOrder(query, order, queryMap) {
-    if (queryMap) {
+    if (queryMap.order) {
         const map = getOrder(queryMap);
         if (map) {
             const orderMap = lodash.get(map, order.order);

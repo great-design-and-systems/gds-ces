@@ -21,14 +21,20 @@ const AppListReducer = (state = DEFAULT_STATE, action) => {
             state = { ...state };
             state.filter = action.payload;
             break;
-        case 'SET_ORDER': {
+        case 'SET_ORDER':
             state = { ...state };
             state.order = {
                 field: action.payload.field,
                 order: action.payload.order
             };
-        }
+            break;
+        case 'TOGGLE_PENDING':
+            state = {...state };
+            state.pending = !state.pending;
+            break;
     }
 
     return state;
 }
+
+export default AppListReducer;

@@ -14,7 +14,7 @@ import ReactDOM from 'react-dom';
 import StudentForm from '../../student/StudentForm';
 import StudentList from '../../student/StudentList';
 
-const GDS_API = process.env.GDS_API || 'http://localhost:3005/gds';
+const GDS_API = process.env.GDS_API || 'https://demo-gds-api.herokuapp.com/gds';
 
 $(document).foundation();
 
