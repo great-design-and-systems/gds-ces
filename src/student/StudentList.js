@@ -1,11 +1,13 @@
 import AppList from '../app-list/js/AppListComponent';
 import React from 'react';
+import SortToggle from '../app-list/js/components/SortToggle';
 import { connect } from 'react-redux';
+
 export default class StudentList extends React.Component {
     componentWillMount() {
         this.listManager = {
             root: {
-                element: 'ul'
+                element: 'tbody'
             },
             get: {
                 action: '{Students.getStudents}',
@@ -13,7 +15,7 @@ export default class StudentList extends React.Component {
             },
             each: {
                 component: (student, index) => {
-                    return (<li>{student.firstName} - {index}</li>)
+                    return (<tr key={student._id}><td>{student.firstName}</td><td>{student.lastName}</td></tr>)
                 }
             },
             query: {
@@ -29,7 +31,15 @@ export default class StudentList extends React.Component {
     render() {
         return (
             <div>
-                <AppList listManager={this.listManager} />
+                <table>
+                    <thead>
+                        <tr>
+                            <th><SortToggle field='firstName' label='First name' /></th>
+                            <th><SortToggle field='lastName' label='Last name' /></th>
+                        </tr>
+                    </thead>
+                    <AppList listManager={this.listManager} />
+                </table>
             </div>)
     }
 }

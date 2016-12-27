@@ -6,15 +6,12 @@ import 'script!foundation-sites'
 import { Api } from '../../api/ApiService';
 import App from './AppComponent';
 import AppStores from '../../common/AppStores';
-import ItemCategoryForm from '../../item-category/js/ItemCategoryForm';
-import ItemCategoryList from '../../item-category/js/ItemCategoryList';
+import LoggerList from '../../logger/js/LoggerList';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import StudentForm from '../../student/StudentForm';
-import StudentList from '../../student/StudentList';
 
-const GDS_API = process.env.GDS_API || 'https://demo-gds-api.herokuapp.com/gds';
+const GDS_API = process.env.GDS_API || 'http://localhost:3005/gds';
 
 $(document).foundation();
 
@@ -31,7 +28,7 @@ String.prototype.hashCode = function () {
 
 new Api().init(GDS_API, err => {
     if (!err) {
-        ReactDOM.render(<Provider store={AppStores}><StudentList /></Provider>, document.getElementsByTagName('app')[0]);
+        ReactDOM.render(<Provider store={AppStores}><LoggerList /></Provider>, document.getElementsByTagName('app')[0]);
     }
     else {
         console.error(err);

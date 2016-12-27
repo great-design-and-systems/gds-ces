@@ -86,19 +86,26 @@ class DomainLink {
         }
 
         fetchOption.method = link.method;
-        fetch(url, fetchOption).then((res) => {
-            if (res.status >= 200 && res.status < 300) {
-                res.json().then(jsonData => {
-                    callback(undefined, jsonData);
+        try {
+            fetch(url, fetchOption)
+                .then((res) => {
+                    if (res.status >= 200 && res.status < 300) {
+                        res.json().then(jsonData => {
+                            callback(undefined, jsonData);
+                        });
+                    } else if (res.status === 500) {
+                         callback(new Error('Failed calling action'));
+                    } else {
+                        res.json().then(jsonData => {
+                            callback(new Error(jsonData.data), jsonData);
+                        });
+                    }
+                }).catch(err => {
+                    callback(err);
                 });
-            } else {
-                res.json().then(jsonData => {
-                    callback(new Error(jsonData.data), jsonData);
-                });
-            }
-        }).catch(err => {
+        } catch (err) {
             callback(err);
-        });
+        }
     }
 }
 

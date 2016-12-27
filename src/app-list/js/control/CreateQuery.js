@@ -1,35 +1,14 @@
 import lodash from 'lodash';
 
 export default class CreateQuery {
-    constructor(nextProps, prevProp, query) {
+    constructor(nextProps, query) {
         const queryMap = nextProps.listManager ? nextProps.listManager.query : undefined;
         const list = nextProps.list;
-        this.query = query || {};
-        if (!prevProp) {
-            setLimit(this.query, list.limit, queryMap);
-            setStart(this.query, list.start, queryMap);
-            if (list.order && list.order.order) {
-                setOrder(this.query, list.order, queryMap);
-            }
-            if (list.filter) {
-                setFilter(this.query, list.filter, queryMap);
-            }
-        } else {
-            const prevList = prevProp.list;
-            if (list.limit !== prevList.limit) {
-                setLimit(this.query, list.limit, queryMap);
-            }
-            if (list.start !== prevList.start) {
-                setStart(this.query, list.start, queryMap);
-            }
-            if (list.order && list.order.order !== prevList.order.order) {
-                setOrder(this.query, list.order, queryMap);
-            }
-            if (list.filter !== prevList.filter) {
-                setFilter(this.query, list.filter, queryMap);
-            }
-        }
-
+        this.query = { ...query };
+        setLimit(this.query, list.limit, queryMap);
+        setStart(this.query, list.start, queryMap);
+        setFilter(this.query, list.filter, queryMap);
+        setOrder(this.query, list.order, list.field, queryMap);
     }
     getQuery() {
         return this.query;
@@ -54,7 +33,7 @@ function getOrder(queryMap) {
     const result = lodash.get(queryMap, 'order');
     if (result) {
         const order = {};
-        lodash.forIn(result, (field, value) => {
+        lodash.forIn(result, (value, field) => {
             const map = value.split('=');
             const val = {
                 field: map[0],
@@ -65,6 +44,7 @@ function getOrder(queryMap) {
         return order;
     }
 }
+
 function setLimit(query, limit, queryMap) {
     if (queryMap.limit) {
         const map = getMap(queryMap, 'limit');
@@ -97,14 +77,26 @@ function setFilter(query, filter, queryMap) {
     }
 }
 
-function setOrder(query, order, queryMap) {
+function setOrder(query, order, field, queryMap) {
     if (queryMap.order) {
         const map = getOrder(queryMap);
         if (map) {
-            const orderMap = lodash.get(map, order.order);
-            lodash.set(query, orderMap.field, parseValue(orderMap.value, '{field}', order.field));
+            const orderMap = lodash.get(map, order);
+            if (orderMap) {
+                lodash.set(query, orderMap.field, parseValue(orderMap.value, '{field}', field));
+            } else {
+                const asc = lodash.get(map, 'asc');
+                const desc = lodash.get(map, 'desc');
+                if (asc) {
+                    lodash.unset(query, asc.field);
+                }
+                if (desc) {
+                    lodash.unset(query, desc.field);
+                }
+            }
+
         }
     } else {
-        lodash.set(query, order.order, order.field);
+        lodash.set(query, order, field);
     }
 }

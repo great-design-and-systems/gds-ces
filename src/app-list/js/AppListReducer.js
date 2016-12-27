@@ -5,6 +5,9 @@ const DEFAULT_STATE = {
     limit: 25,
     filter: null,
     order: null,
+    field: null,
+    params: null,
+    dirty: false
 }
 
 const AppListReducer = (state = DEFAULT_STATE, action) => {
@@ -23,14 +26,28 @@ const AppListReducer = (state = DEFAULT_STATE, action) => {
             break;
         case 'SET_ORDER':
             state = { ...state };
-            state.order = {
-                field: action.payload.field,
-                order: action.payload.order
-            };
+            const order = state.order === 'desc' && state.field === action.payload.field ? null :
+                state.order && state.field === action.payload.field ? 'desc' : 'asc';
+            if (order != null) {
+                state.order = order;
+                state.field = action.payload.field;
+            } else {
+                state.order = null;
+                state.field = null;
+            }
             break;
         case 'TOGGLE_PENDING':
-            state = {...state };
+            state = { ...state };
             state.pending = !state.pending;
+            break;
+        case 'SET_PARAMS':
+            state = { ...state };
+            state.params = action.payload;
+            state.dirty = true;
+            break;
+        case 'SET_DIRTY':
+            state = { ...state };
+            state.dirty = action.payload;
             break;
     }
 

@@ -1,0 +1,10 @@
+.logger-list {
+    tr {
+        &.error {
+            td {
+                background: $alert-color;
+                color: white
+            }
+        }
+    }
+}
