@@ -7,7 +7,7 @@ export default class CreateQuery {
         this.query = { ...query };
         setLimit(this.query, list.limit, queryMap);
         setStart(this.query, list.start, queryMap);
-        setFilter(this.query, list.filter, queryMap);
+        setFilter(this.query, list.filter, list.field, queryMap);
         setOrder(this.query, list.order, list.field, queryMap);
     }
     getQuery() {
@@ -65,12 +65,12 @@ function setStart(query, start, queryMap) {
         lodash.set(query, 'start', start);
     }
 }
-
-function setFilter(query, filter, queryMap) {
+function setFilter(query, filter, field, queryMap) {
     if (queryMap.filter) {
         const map = getMap(queryMap, 'filter');
         if (map) {
-            lodash.set(query, map.field, parseValue(map.value, '{value}', filter));
+            let value = parseValue(map.value, '{value}', filter);
+            lodash.set(query, map.field, parseValue(value, '{field}', field));
         }
     } else {
         lodash.set(query, 'filter', filter);

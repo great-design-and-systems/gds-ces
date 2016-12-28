@@ -26,7 +26,8 @@ export default class AppList extends React.Component {
     componentWillMount() {
         const newQuery = new CreateQuery(this.props).getQuery();
         this.query = newQuery;
-        new GetList(this.props.dispatch, this.props.listManager, this.query, this.props.list.params);
+        const params = this.props.listManager.get ? this.props.listManager.get.params : {};
+        new GetList(this.props.dispatch, this.props.listManager, this.query, params);
     }
     componentWillReceiveProps(nextProps) {
         if (!nextProps.api.pending) {

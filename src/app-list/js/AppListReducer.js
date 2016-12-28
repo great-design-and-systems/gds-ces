@@ -7,7 +7,8 @@ const DEFAULT_STATE = {
     order: null,
     field: null,
     params: null,
-    dirty: false
+    dirty: false,
+    total: null
 }
 
 const AppListReducer = (state = DEFAULT_STATE, action) => {
@@ -22,7 +23,8 @@ const AppListReducer = (state = DEFAULT_STATE, action) => {
             break;
         case 'SET_FILTER':
             state = { ...state };
-            state.filter = action.payload;
+            state.filter = action.payload.filter;
+            state.field = action.payload.field;
             break;
         case 'SET_ORDER':
             state = { ...state };
@@ -43,11 +45,14 @@ const AppListReducer = (state = DEFAULT_STATE, action) => {
         case 'SET_PARAMS':
             state = { ...state };
             state.params = action.payload;
-            state.dirty = true;
             break;
         case 'SET_DIRTY':
             state = { ...state };
             state.dirty = action.payload;
+            break;
+        case 'SET_TOTAL':
+            state = { ...state };
+            state.total = action.payload;
             break;
     }
 

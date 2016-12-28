@@ -1,5 +1,3 @@
-import { setDirty } from '../AppListActions';
-
 export default class EvaluateList {
     constructor(api, listManager) {
         const get = listManager.get;
@@ -21,7 +19,6 @@ export default class EvaluateList {
             }
         }
     }
-
     getList() {
         return this.list;
     }
