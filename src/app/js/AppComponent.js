@@ -1,35 +1,28 @@
+import { Api } from '../../api/ApiService';
+import AppSplash from '../../app-splash/js/AppSplash';
 import React from 'react';
-import {connect} from 'react-redux';
-@connect((state) => {
-    return { students: state.api.Students };
-})
-class App extends React.Component {
-    render() {
-        const {students} = this.props;
-        const studentsList = [];
-        let pending = undefined;
-        if (students && students.getStudents) {
-            if (students.getStudents.data && students.getStudents.data.docs) {
-                students.getStudents.data.docs.forEach(item => {
-                    studentsList.push(<li key={item._id}>{item.lastName}, {item.firstName}</li>);
+import { connect } from 'react-redux';
+
+const GDS_API = process.env.GDS_API || 'http://localhost:8080/gds';
+
+@connect()
+export default class App extends React.Component {
+    componentWillMount() {
+        new Api().init(GDS_API, err => {
+            if (!err) {
+                this.setState({ loaded: true });
+            } else {
+                this.setState({
+                    loaded: true,
+                    error: err
                 });
-            }
-            pending = students.getStudents.pending;
-        }
-        return (<div>
-            <button disabled={pending === true} onClick={this.getStudents.bind(this) }>Get Students</button>
-            <ul>
-                { studentsList }
-            </ul>
-        </div>)
-    }
-    getStudents() {
-        this.props.dispatch({
-            type: '{Students.getStudents}',
-            payload: {
-                query: { limit: 100 }
             }
         });
     }
+    render() {
+        let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />
+        return (
+            <div> {app} </div>
+        );
+    }
 }
-export default App;

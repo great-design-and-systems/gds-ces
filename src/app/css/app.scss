@@ -5,10 +5,12 @@
 @import "../../item-category/css/item-category.scss";
 @import "../../logger/css/logger-list.scss";
 @import "../../app-list/css/app-list.scss";
+@import "../../app-splash/css/app-splash.scss";
+
 @include foundation-everything;
 html {
     body {
         font-size: 100%;
-        background: url(../img/school.png);
+        background: $body-background;
     }
 }

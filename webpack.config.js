@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 module.exports = {
     context: __dirname,
-    entry: getEntrySources(['./src/app/js/app.js']),
+    entry: getEntrySources(['./src/main.js']),
     output: {
         filename: 'build/bundle.js'
     },
