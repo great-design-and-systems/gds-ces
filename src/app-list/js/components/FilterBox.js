@@ -1,12 +1,16 @@
+import { setFilter, setTarget } from '../AppListActions';
+
 import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
-import { setFilter } from '../AppListActions';
 
 @connect()
 export default class FilterBox extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
+        if (!props.target) {
+            throw new Error('Property target is required.');
+        }
     }
     componentWillMount() {
         this.setState({
@@ -27,6 +31,7 @@ export default class FilterBox extends React.Component {
         }
     }
     handleOnChangeText(event) {
+        this.props.dispatch(setTarget(this.props.target));
         this.props.dispatch(setFilter(this.state.field, event.target.value));
         if (this.props.handleOnChangeText) {
             this.props.handleOnChangeText(event.target.value);

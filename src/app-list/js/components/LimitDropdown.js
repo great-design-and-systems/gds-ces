@@ -1,12 +1,15 @@
-import { setDirty, setLimit } from '../AppListActions';
+import { setDirty, setLimit, setTarget } from '../AppListActions';
 
 import React from 'react';
 import { connect } from 'react-redux';
 
 @connect()
 export default class LimitDropdown extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
+        if(!props.target){
+            throw new Error('Property target is required.');
+        }
     }
     componentWillMount() {
         this.setState({
@@ -19,6 +22,7 @@ export default class LimitDropdown extends React.Component {
         });
     }
     handleOnChange(event) {
+        this.props.dispatch(setTarget(this.props.target));
         this.props.dispatch(setLimit(event.target.value));
         if (this.props.handleOnChange) {
             this.props.handleOnChange(event.target.value);

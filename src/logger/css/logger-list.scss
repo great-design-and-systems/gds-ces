@@ -1,4 +1,13 @@
 .logger-list {
+    .header {
+        background: $menu-background;
+        label, a {
+            color: white;
+        }
+        .column-header {
+            top: 95px;
+        }
+    }
     tr {
         &.error {
             td {
@@ -6,5 +15,8 @@
                 color: white
             }
         }
+    }
+    .submit-section, .paginate-section {
+        padding-top: 24px;
     }
 }

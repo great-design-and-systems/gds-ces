@@ -3,7 +3,7 @@ import lodash from 'lodash';
 export default class CreateQuery {
     constructor(nextProps, query) {
         const queryMap = nextProps.listManager ? nextProps.listManager.query : undefined;
-        const list = nextProps.list;
+        const list = nextProps.list.getState();
         this.query = { ...query };
         setLimit(this.query, list.limit, queryMap);
         setStart(this.query, list.start, queryMap);
@@ -56,7 +56,7 @@ function setLimit(query, limit, queryMap) {
     }
 }
 function setStart(query, start, queryMap) {
-    if (queryMap.stat) {
+    if (queryMap.start) {
         const map = getMap(queryMap, 'start');
         if (map) {
             lodash.set(query, map.field, parseValue(map.value, '{start}', start));

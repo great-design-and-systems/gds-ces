@@ -1,3 +1,6 @@
+import lodash from 'lodash';
+
+const FLOATING_STATE = {};
 const DEFAULT_STATE = {
     pending: false,
     error: null,
@@ -5,15 +8,17 @@ const DEFAULT_STATE = {
     limit: 25,
     filter: null,
     order: null,
-    field: null,
     params: null,
     dirty: false,
     total: null,
     target: null,
-    page: 1
+    page: 0,
+    field: null
 }
-
-const AppListReducer = (state = DEFAULT_STATE, action) => {
+const AppListReducer = (rootState = {}, action) => {
+    rootState = { ...rootState };
+    const target = rootState.target;
+    let state = getState(target);
     switch (action.type) {
         case 'SET_START':
             state = { ...state };
@@ -56,7 +61,6 @@ const AppListReducer = (state = DEFAULT_STATE, action) => {
         case 'SET_TOTAL':
             state = { ...state };
             state.total = action.payload;
-            state.start = 0;
             break;
         case 'SET_PENDING':
             state = { ...state };
@@ -64,15 +68,34 @@ const AppListReducer = (state = DEFAULT_STATE, action) => {
             break;
         case 'SET_TARGET':
             state = { ...state };
-            state.target = action.payload;
+            rootState.target = action.payload;
             break;
         case 'SET_PAGE':
             state = { ...state };
             state.page = action.payload;
             break;
     }
-
-    return state;
+    if (target) {
+        setState(target, state);
+    }
+    rootState.getState = () => {
+        return state;
+    }
+    return rootState;
 }
 
+function getState(field) {
+    if (field) {
+        let state = lodash.get(FLOATING_STATE, field);
+        if (!state) {
+            state = { ...DEFAULT_STATE };
+        }
+        return state;
+    }
+    return null;
+}
+
+function setState(field, state) {
+    lodash.set(FLOATING_STATE, field, state);
+}
 export default AppListReducer;

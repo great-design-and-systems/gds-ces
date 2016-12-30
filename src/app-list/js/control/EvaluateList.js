@@ -20,7 +20,7 @@ export default class EvaluateList {
                         this.list = eval('this.list.' + get.eval);
                     }
                     const evaluates = listManager.eval;
-                    if (evaluates) {
+                    if (evaluates && actionCont.data) {
                         this.evaluated = {};
                         lodash.forIn(evaluates, (value, field) => {
                             const evaluatedValue = eval('actionCont.data.' + value);

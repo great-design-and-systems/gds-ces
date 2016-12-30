@@ -34,19 +34,20 @@ export default class AppList extends React.Component {
             const newQuery = new CreateQuery(this.props).getQuery();
             this.query = newQuery;
             const params = this.props.listManager.get ? this.props.listManager.get.params : {};
-            new GetList(this.props.dispatch, this.props.listManager, this.query, params);
+            new GetList(this.props.dispatch, this.props.listManager, newQuery, params);
         }
     }
     componentWillReceiveProps(nextProps) {
         if (this.id === nextProps.list.target) {
-            if (!nextProps.api.pending && !nextProps.list.pending) {
-                const newQuery = new CreateQuery(nextProps, this.query).getQuery();
-                if (new IsNewQuery(this.query, newQuery, nextProps).isNew()) {
+            const thisList = nextProps.list.getState();
+            if (!nextProps.api.pending && !thisList.pending) {
+                if (thisList.dirty) {
+                    const newQuery = new CreateQuery(nextProps, this.query).getQuery();
                     this.query = newQuery;
-                    new GetList(this.props.dispatch, this.props.listManager, this.query, nextProps.list.params);
+                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params);
                 }
             }
-            else if (nextProps.list.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
+            else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
                 const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager).getList();
                 this.setState({ list });
             }

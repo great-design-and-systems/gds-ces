@@ -1,3 +1,4 @@
+import { Sticky, StickyContainer } from 'react-sticky';
 import { setDirty, setParams, setTarget } from '../../app-list/js/AppListActions';
 
 import AppList from '../../app-list/js/AppListComponent';
@@ -60,6 +61,7 @@ export default class LoggerList extends React.Component {
         this.props.dispatch(setDirty(true));
     }
     handleChangeDomain(event) {
+        this.props.dispatch(setTarget('loggerList'));
         this.props.dispatch(setParams({
             serviceName: event.target.value
         }));
@@ -73,39 +75,37 @@ export default class LoggerList extends React.Component {
             })
         }
         return (
-            <div class="logger-list">
-                <div>
-                    <form onSubmit={this.handleSubmit.bind(this)}>
-                        <label class="columns large-2">
-                            Domain
+            <StickyContainer class="logger-list">
+                <Sticky bottomOffset={95}>
+                    <form class="header columns large-12 medium-12 small-12" onSubmit={this.handleSubmit.bind(this)}>
+                        <label class="column large-2">
+                            <span>Domain</span>
                             <select required type="text" onChange={this.handleChangeDomain.bind(this)} value={this.state.domain} name="domain">
                                 {options}
                             </select>
                         </label>
-                        <label class="columns large-2 end">
-                            Limit
-                            <LimitDropdown options={[5, 25, 50, 75, 100]} />
+                        <label class="column large-2 end">
+                            <span>Limit</span>
+                            <LimitDropdown target="loggerList" options={[25, 50, 75, 100]} />
                         </label>
-                        <label class="columns large-4 end">
-                            Search
-                            <FilterBox options={{ '-- select field --': '', 'Type': 'loggerType', 'Message': 'message' }} />
-                            <button type="submit" class="button float-right">Submit</button>
-                        </label>
+                        <div class="column large-3 end paginate-section">
+                            <Pages target="loggerList" />
+                        </div>
+                        <div class="column large-2 end submit-section">
+                            <button type="submit" class="button">Submit</button>
+                        </div>
                     </form>
-                </div>
+                </Sticky>
                 <table>
                     <thead>
                         <tr>
-                            <th><SortToggle target="loggerList" field='createdOn' label='Created On' /></th>
-                            <th><SortToggle target="loggerList" field='loggerType' label='Type' /></th>
-                            <th><SortToggle target="loggerList" field='message' label='Message' /></th>
+                            <th><Sticky topOffset={95}><SortToggle target="loggerList" field='createdOn' label='Created On' /></Sticky></th>
+                            <th><Sticky topOffset={95}><SortToggle target="loggerList" field='loggerType' label='Type' /></Sticky></th>
+                            <th><Sticky topOffset={95}><SortToggle target="loggerList" field='message' label='Message' /></Sticky></th>
                         </tr>
                     </thead>
                     <AppList id="loggerList" listManager={this.listManager} />
                 </table>
-                <div class="float-left">
-                    <Pages target="loggerList" />
-                </div>
-            </div>)
+            </StickyContainer>)
     }
 }
