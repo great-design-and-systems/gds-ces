@@ -8,18 +8,21 @@ const DEFAULT_STATE = {
     field: null,
     params: null,
     dirty: false,
-    total: null
+    total: null,
+    target: null,
+    page: 1
 }
 
 const AppListReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-        case 'SET_FIRST':
+        case 'SET_START':
             state = { ...state };
             state.start = action.payload;
             break;
         case 'SET_LIMIT':
             state = { ...state };
             state.limit = action.payload;
+            state.start = 0;
             break;
         case 'SET_FILTER':
             state = { ...state };
@@ -53,6 +56,19 @@ const AppListReducer = (state = DEFAULT_STATE, action) => {
         case 'SET_TOTAL':
             state = { ...state };
             state.total = action.payload;
+            state.start = 0;
+            break;
+        case 'SET_PENDING':
+            state = { ...state };
+            state.pending = action.payload;
+            break;
+        case 'SET_TARGET':
+            state = { ...state };
+            state.target = action.payload;
+            break;
+        case 'SET_PAGE':
+            state = { ...state };
+            state.page = action.payload;
             break;
     }
 

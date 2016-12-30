@@ -1,5 +1,6 @@
+import { setDirty, setPending } from '../AppListActions';
+
 import { query } from '../../../api/ApiActions';
-import { setDirty } from '../AppListActions';
 
 export default class GetList {
     constructor(dispatch, listManager, q, params) {
@@ -11,6 +12,7 @@ export default class GetList {
                     params: params
                 }));
                 dispatch(setDirty(false));
+                dispatch(setPending(true));
             }
         }
     }

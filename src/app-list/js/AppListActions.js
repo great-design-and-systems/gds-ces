@@ -41,12 +41,40 @@ export function setFilter(field, filter) {
             field: field,
             filter: filter
         }
-    }
+    };
 }
 
 export function setTotal(total) {
     return {
         type: 'SET_TOTAL',
         payload: total
+    }
+}
+
+export function setPending(pending) {
+    return {
+        type: 'SET_PENDING',
+        payload: pending
+    };
+}
+
+export function setTarget(target) {
+    return {
+        type: 'SET_TARGET',
+        payload: target
+    };
+}
+
+export function setStart(start) {
+    return {
+        type: 'SET_START',
+        payload: start
+    }
+}
+
+export function setPage(page) {
+    return {
+        type: 'SET_PAGE',
+        payload: start
     }
 }

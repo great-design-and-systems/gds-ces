@@ -25,7 +25,7 @@ export default class LimitDropdown extends React.Component {
         }
     }
     render() {
-        const options = [];
+        const options = [<option key={'none'}>-- select limit --</option>];
         if (this.state.options) {
             this.state.options.forEach(option => {
                 options.push(<option key={option} value={option}>{option}</option>);

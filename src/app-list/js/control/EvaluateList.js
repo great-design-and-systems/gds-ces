@@ -1,5 +1,9 @@
+import { setPending, setTotal } from '../AppListActions';
+
+import lodash from 'lodash';
+
 export default class EvaluateList {
-    constructor(api, listManager) {
+    constructor(dispatch, api, listManager) {
         const get = listManager.get;
         if (get) {
             let action = get.action.replace('{', '').replace('}', '');
@@ -15,9 +19,21 @@ export default class EvaluateList {
                     if (this.list && get.eval) {
                         this.list = eval('this.list.' + get.eval);
                     }
+                    const evaluates = listManager.eval;
+                    if (evaluates) {
+                        this.evaluated = {};
+                        lodash.forIn(evaluates, (value, field) => {
+                            const evaluatedValue = eval('actionCont.data.' + value);
+                            lodash.set(this.evaluated, field, evaluatedValue);
+                            if (field === 'total') {
+                                dispatch(setTotal(evaluatedValue));
+                            }
+                        });
+                    }
                 }
             }
         }
+        dispatch(setPending(false));
     }
     getList() {
         return this.list;

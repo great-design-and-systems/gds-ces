@@ -5,6 +5,7 @@ import IsNewQuery from './control/IsNewQuery';
 import React from 'react';
 import StudentList from './control/RenderList';
 import { connect } from 'react-redux';
+import { isApiActionDone } from '../../common/AppUtils';
 import lodash from 'lodash';
 
 @connect(state => {
@@ -22,26 +23,37 @@ export default class AppList extends React.Component {
                 throw new Error('Property listManager is required.');
             }
         }
+        if (!props.id) {
+            throw new Error('Property id is required.');
+        }
+        this.id = props.id;
     }
     componentWillMount() {
-        const newQuery = new CreateQuery(this.props).getQuery();
-        this.query = newQuery;
-        const params = this.props.listManager.get ? this.props.listManager.get.params : {};
-        new GetList(this.props.dispatch, this.props.listManager, this.query, params);
+        this.setState({ list: [] });
+        if (this.props.list && this.props.list.target === this.id) {
+            const newQuery = new CreateQuery(this.props).getQuery();
+            this.query = newQuery;
+            const params = this.props.listManager.get ? this.props.listManager.get.params : {};
+            new GetList(this.props.dispatch, this.props.listManager, this.query, params);
+        }
     }
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.api.pending) {
-            const newQuery = new CreateQuery(nextProps, this.query).getQuery();
-            if (new IsNewQuery(this.query, newQuery, nextProps).isNew()) {
-                this.query = newQuery;
-                new GetList(this.props.dispatch, this.props.listManager, this.query, nextProps.list.params);
+        if (this.id === nextProps.list.target) {
+            if (!nextProps.api.pending && !nextProps.list.pending) {
+                const newQuery = new CreateQuery(nextProps, this.query).getQuery();
+                if (new IsNewQuery(this.query, newQuery, nextProps).isNew()) {
+                    this.query = newQuery;
+                    new GetList(this.props.dispatch, this.props.listManager, this.query, nextProps.list.params);
+                }
+            }
+            else if (nextProps.list.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
+                const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager).getList();
+                this.setState({ list });
             }
         }
-
     }
     render() {
-        const list = new EvaluateList(this.props.api, this.props.listManager).getList();
         return React.createElement(this.props.listManager.root.element, this.props.listManager.root.props || {},
-            new StudentList(list, this.props.listManager.each).render());
+            new StudentList(this.state.list, this.props.listManager.each).render());
     }
 }

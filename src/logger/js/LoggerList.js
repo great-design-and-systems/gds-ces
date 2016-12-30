@@ -1,8 +1,9 @@
-import { setDirty, setParams } from '../../app-list/js/AppListActions';
+import { setDirty, setParams, setTarget } from '../../app-list/js/AppListActions';
 
 import AppList from '../../app-list/js/AppListComponent';
 import FilterBox from '../../app-list/js/components/FilterBox';
 import LimitDropdown from '../../app-list/js/components/LimitDropdown';
+import Pages from '../../app-list/js/components/Pages';
 import React from 'react';
 import SortToggle from '../../app-list/js/components/SortToggle';
 import { connect } from 'react-redux';
@@ -43,7 +44,7 @@ export default class LoggerList extends React.Component {
                 filter: 'page_filter={field}:{value}'
             },
             eval: {
-                total: '{data.total}'
+                total: 'data.total'
             }
         };
         this.domains = lodash.keys(window.gdsApi);
@@ -55,6 +56,7 @@ export default class LoggerList extends React.Component {
     }
     handleSubmit(event) {
         event.preventDefault();;
+        this.props.dispatch(setTarget('loggerList'));
         this.props.dispatch(setDirty(true));
     }
     handleChangeDomain(event) {
@@ -63,10 +65,11 @@ export default class LoggerList extends React.Component {
         }));
     }
     render() {
-        const options = [<option value=''>-- select a domain --</option>];
+        const options = [<option key={'none'} value=''>-- select a domain --</option>];
+        options.push(<option key={'GDS_API'} value="GDS_API">API</option>)
         if (this.domains) {
             this.domains.forEach(domain => {
-                options.push(<option value={domain}>{domain}</option>)
+                options.push(<option key={domain} value={domain}>{domain}</option>)
             })
         }
         return (
@@ -81,7 +84,7 @@ export default class LoggerList extends React.Component {
                         </label>
                         <label class="columns large-2 end">
                             Limit
-                            <LimitDropdown options={[25, 50, 75, 100]} />
+                            <LimitDropdown options={[5, 25, 50, 75, 100]} />
                         </label>
                         <label class="columns large-4 end">
                             Search
@@ -93,13 +96,16 @@ export default class LoggerList extends React.Component {
                 <table>
                     <thead>
                         <tr>
-                            <th><SortToggle field='createdOn' label='Created On' /></th>
-                            <th><SortToggle field='loggerType' label='Type' /></th>
-                            <th><SortToggle field='message' label='Message' /></th>
+                            <th><SortToggle target="loggerList" field='createdOn' label='Created On' /></th>
+                            <th><SortToggle target="loggerList" field='loggerType' label='Type' /></th>
+                            <th><SortToggle target="loggerList" field='message' label='Message' /></th>
                         </tr>
                     </thead>
-                    <AppList listManager={this.listManager} />
+                    <AppList id="loggerList" listManager={this.listManager} />
                 </table>
+                <div class="float-left">
+                    <Pages target="loggerList" />
+                </div>
             </div>)
     }
 }

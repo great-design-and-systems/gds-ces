@@ -36,7 +36,7 @@ export default class FilterBox extends React.Component {
         const options = [];
         if (this.state.options) {
             lodash.forIn(this.state.options, (value, field) => {
-                options.push(<option value={value}>{field}</option>);
+                options.push(<option key={field.hashCode()} value={value}>{field}</option>);
             });
         }
         return (

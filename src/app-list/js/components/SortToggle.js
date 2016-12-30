@@ -1,6 +1,7 @@
+import { setTarget, sort } from '../AppListActions';
+
 import React from 'react';
 import { connect } from 'react-redux';
-import { sort } from '../AppListActions';
 
 @connect(state => {
     return {
@@ -8,13 +9,14 @@ import { sort } from '../AppListActions';
     }
 })
 export default class SortToggle extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
-    }
-    componentWillReceiveProp(nextProp) {
-
+        if (!props.target) {
+            throw new Error('Property target is required.');
+        }
     }
     handleOnClick(event) {
+        this.props.dispatch(setTarget(this.props.target));
         this.props.dispatch(sort(this.props.field));
     }
     render() {
