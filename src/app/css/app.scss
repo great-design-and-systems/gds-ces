@@ -9,7 +9,8 @@
 @import "../../app-header/css/app-header.scss";
 @import "../../common-view/css/common-view.scss";
 @import "../../header-form/css/header-form.scss";
-@include foundation-everything;
+@import "../../common-sidebar/css/common-sidebar.scss";
+@include foundation-everything(true);
 html {
     body {
         font-size: 100%;

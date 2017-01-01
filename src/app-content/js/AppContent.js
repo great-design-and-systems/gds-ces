@@ -7,10 +7,22 @@ export default class AppContent extends React.Component {
     constructor() {
         super();
     }
+    componentWillMount() {
+        this.setState({});
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            contentBody: nextProps.contentBody
+        });
+    }
     render() {
+        let contentBody = this.state.contentBody;
+        if (!contentBody) {
+            contentBody = <div></div>
+        }
         return (
             <Intercept load={AppInterceptor}>
-                <div></div>
+                {contentBody}
             </Intercept>)
     }
 }

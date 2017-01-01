@@ -36,7 +36,7 @@ export default class App extends React.Component {
             app = (
                 <StickyContainer>
                     <AppHeader headerForm={this.state.headerForm} />
-                    <AppContent />
+                    <AppContent contentBody={this.state.contentBody} />
                 </StickyContainer>
             );
         }
