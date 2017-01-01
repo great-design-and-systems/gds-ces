@@ -1,4 +1,5 @@
 import { Api } from '../../api/ApiService';
+import AppContent from '../../app-content/js/AppContent';
 import AppHeader from '../../app-header/js/AppHeader';
 import AppSplash from '../../app-splash/js/AppSplash';
 import React from 'react';
@@ -22,12 +23,20 @@ export default class App extends React.Component {
             }
         });
     }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            headerForm: nextProps.headerForm,
+            contentBody: nextProps.contentBody
+        });
+    }
     render() {
+        const {headerForm} = this.props;
         let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />
         if (this.state.loaded) {
             app = (
                 <StickyContainer>
-                    <AppHeader />
+                    <AppHeader headerForm={this.state.headerForm} />
+                    <AppContent />
                 </StickyContainer>
             );
         }
