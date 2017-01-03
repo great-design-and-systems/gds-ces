@@ -14,7 +14,6 @@ import ReactDOM from 'react-dom';
 const GDS_API = process.env.GDS_API || 'http://localhost:8080/gds';
 
 $(document).foundation();
-
 String.prototype.hashCode = function () {
     let hash = 0;
     if (this.length == 0) return hash;

@@ -11,16 +11,16 @@ import AppStores from './common/AppStores';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SettingsSearchBar from './app-settings/js/components/SettingsSearchBar';
 import initPrototypes from './common/AppPrototypes';
 
 $(document).foundation();
 initPrototypes();
 
+console.log('new Foundation', Foundation);
 ReactDOM.render(<Provider store={AppStores}>
     <Router history={browserHistory}>
         <Route path="/" component={App}>
-            <Route path="settings" components={{ headerForm: SettingsSearchBar, contentBody: AppSettings }} />
+            <Route path="/settings" components={{ contentBody: AppSettings }} />
         </Route>
     </Router>
 </Provider>, document.getElementsByTagName('app')[0]);

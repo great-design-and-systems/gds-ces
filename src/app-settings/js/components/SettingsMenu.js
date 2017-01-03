@@ -6,6 +6,6 @@ import { connect } from 'react-redux';
 
 export default class SettingsMenu extends React.Component {
     render() {
-        return (<Intercept load={AppInterceptor}><li><Link to="settings"> <i class="fa fa-gears" /> Settings </Link></li></Intercept>);
+        return (<Intercept load={AppInterceptor}><li><Link to="/settings"> <i class="fa fa-gears" /> Settings </Link></li></Intercept>);
     }
 }
