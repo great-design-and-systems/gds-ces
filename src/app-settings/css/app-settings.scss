@@ -1,8 +1,13 @@
 .app-settings {
-    ul {
-        li {
-            &.control {
-                text-align: right;
+    .common-sidebar {
+        ul {
+            li {
+                &.control {
+                    text-align: right;
+                }
+                &:hover {
+                    border-bottom: 1px solid $primary-color
+                }
             }
         }
     }
