@@ -7,12 +7,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 export default class AppSettings extends React.Component {
+    componentWillMount() {
+        this.links = [{
+            faIcon: 'fa fa-book',
+            label: 'Categories',
+            path: '/settings/categories',
+            createsNew: true,
+            createPath: '/settings/categories/new'
+        }];
+    }
     render() {
         return (
             <Intercept load={AppInterceptor}>
-                <Body>
+                <Body className={'app-settings'}>
                     <Sidebar>
-                        <Links />
+                        <Links links={this.links} />
                     </Sidebar>
                     <div class="column">
                     </div>
