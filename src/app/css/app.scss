@@ -1,8 +1,7 @@
 @import "~foundation-sites/scss/foundation.scss";
 @import "app-variables.scss";
 @import "../../app-form/css/app-form.scss";
-@import "../../item-category-fields/css/item-category-fields.scss";
-@import "../../item-category/css/item-category.scss";
+@import "../../categories-fields/css/categories-fields.scss";
 @import "../../logger/css/logger-list.scss";
 @import "../../app-list/css/app-list.scss";
 @import "../../app-splash/css/app-splash.scss";
@@ -11,6 +10,7 @@
 @import "../../header-form/css/header-form.scss";
 @import "../../common-sidebar/css/common-sidebar.scss";
 @import "../../common-body/css/common-body.scss";
+@import "../../common-content/css/common-content.scss";
 @import "../../app-settings/css/app-settings.scss";
 @include foundation-everything(true);
 html {

@@ -12,7 +12,7 @@ import lodash from 'lodash';
         form: state.form
     }
 })
-export default class ItemCategoryFields extends React.Component {
+export default class CategoriesFields extends React.Component {
     constructor() {
         super();
     }
@@ -52,24 +52,7 @@ export default class ItemCategoryFields extends React.Component {
             this.state.categoryFields.splice(index, 1);
             this.forceUpdate();
         }
-        let className = 'category-field row';
-        if (index % 2 === 0) {
-            className += ' even';
-        } else {
-            className += ' odd';
-        }
-        const buttons = [];
-        if (index === this.state.categoryFields.length - 1) {
-            buttons.push(<a key={('add' + index).hashCode()} class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>);
-            if (index > 0) {
-                buttons.push(<a key={('remove' + index).hashCode()} class="remove-button" onClick={remove.bind(this)}><i class="fa fa-minus"></i></a>);
-            }
-        }
-        return (
-            <div key={key} className={className}>
-                <CategoryField field={field} />
-                <div class="category-field-controls columns large-1">{buttons}</div>
-            </div>)
+        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this)} />)
     }
     renderFields() {
         const fields = [];
@@ -80,20 +63,23 @@ export default class ItemCategoryFields extends React.Component {
     }
     render() {
         return (
-            <fieldset class="item-category-fields">
-                <legend>Fields</legend>
-                {this.renderFields()}
-            </fieldset>);
-    }
-    withItemCategoryFields(WrappedComponent) {
-        function withItemCategoryFields(props) {
-            return <WrappedComponent {...props} itemCategoryForm />
-        }
-        const wrappedComponentName = WrappedComponent.displayName
-            || WrappedComponent.name
-            || 'Component';
-
-        withItemCategoryFields.displayName = 'withItemCategoryFields(${wrappedComponentName})';
-        return withItemCategoryFields;
+            <div class="categories-fields">
+                <table class="striped stack">
+                    <thead>
+                        <tr>
+                            <th colSpan="5">
+                                <div class="fields-title-bar row expanded">
+                                    <h5>Fields</h5>
+                                    <div class="column"></div>
+                                    <a class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderFields()}
+                    </tbody>
+                </table>
+            </div>);
     }
 }

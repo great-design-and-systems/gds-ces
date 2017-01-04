@@ -59,18 +59,21 @@ export default class AppForm extends React.Component {
         if (this.props.form.managed) {
             buttons.push(<button key="delete_button" disabled={this.props.api.pending || this.props.form.pending} onClick={this.onDelete.bind(this)} type="button" class="button alert">Delete</button>);
         }
+
+        let className = 'app-form';
+        if (this.props.className) {
+            className += ' ' + this.props.className;
+        }
         return (
-            <div class="app-form">
+            <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
                 })}
                 <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this)} name="appForm">
-                    <div class="row form-content">
-                        {wrapComponent('AppForm', AppFormMessages)()}
-                        {new RenderFields(this.props.dispatch,
-                            this.props.formFields,
-                            this.props.fieldTemplates).render()}
-                    </div>
+                    {wrapComponent('AppForm', AppFormMessages)()}
+                    {new RenderFields(this.props.dispatch,
+                        this.props.formFields,
+                        this.props.fieldTemplates).render()}
                     <div class="row form-buttons button-group">
                         {buttons}
                     </div>

@@ -35,7 +35,13 @@ export default class CategoryField extends React.Component {
     }
     render() {
         return (
-            <div class="columns large-11 end">{this.renderFieldName()} {this.renderFieldType()} {this.renderFieldFilter()} {this.renderFieldRequire()}</div>
+            <tr>
+                <td>{this.renderFieldName()}</td>
+                <td> {this.renderFieldType()}</td>
+                <td>{this.renderFieldFilter()}</td>
+                <td>{this.renderFieldRequire()}</td>
+                <td class="remove-button"><a title="remove" disabled={this.props.index === 0} onClick={this.props.handleRemove}><i class="fa fa-close" /></a></td>
+            </tr>
         )
     }
     handleFieldNameChange(event) {
@@ -60,14 +66,14 @@ export default class CategoryField extends React.Component {
     }
     renderFieldName() {
         return (
-            <label class="columns large-3 end">
+            <label class="column">
                 Name
                  <input type="text" placeholder="Enter field name" value={this.state.name} onChange={this.handleFieldNameChange.bind(this)} />
-            </label>);
+            </label>)
     }
     renderFieldType() {
         return (
-            <label class="columns large-3 end">
+            <label class="column">
                 Type
             <select value={this.state.fieldType} onChange={this.handleFieldTypeChange.bind(this)}>
                     <option value="text">Text</option>
@@ -79,7 +85,7 @@ export default class CategoryField extends React.Component {
     }
     renderFieldFilter() {
         return (
-            <label class="columns large-3 end">
+            <label class="column">
                 Filter
                 <select value={this.state.isFilter} onChange={this.handleFieldFilterChange.bind(this)}>
                     <option value="true">Yes</option>
@@ -89,7 +95,7 @@ export default class CategoryField extends React.Component {
     }
     renderFieldRequire() {
         return (
-            <label class="columns large-3 end">
+            <label class="column">
                 Require
                 <select value={this.state.isRequired} onChange={this.handleFieldRequireChange.bind(this)}>
                     <option value="true">Yes</option>

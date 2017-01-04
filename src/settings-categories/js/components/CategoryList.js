@@ -1,9 +1,11 @@
-import AppInterceptor from '../../app-interceptor/AppInterceptor';
-import AppList from '../../app-list/js/AppListComponent';
-import Intercept from '../../common-view/js/Intercept';
-import React from 'react';
+import { AppList, ListSort } from '../../../app-list/js/AppListComponent';
 
-export default class ItemCategoryList extends React.Component {
+import AppInterceptor from '../../../app-interceptor/AppInterceptor';
+import Intercept from '../../../common-view/js/Intercept';
+import React from 'react';
+import { Sticky } from 'react-sticky';
+
+export default class CategoryList extends React.Component {
     componentWillMount() {
         this.setState({});
         this.listManager = {
@@ -11,7 +13,7 @@ export default class ItemCategoryList extends React.Component {
                 element: 'tbody'
             },
             get: {
-                action: '{Categories.getCategoryList}',
+                action: '{Category.getCategoryList}',
                 eval: 'data.docs'
             },
             each: {
@@ -41,7 +43,7 @@ export default class ItemCategoryList extends React.Component {
             <table>
                 <thead>
                     <tr>
-                        <th><Sticky topOffset={95}><SortToggle target="categoryList" field='name' label='Name' /></Sticky></th>
+                        <th><Sticky topOffset={95}><ListSort target="categoryList" field='name' label='Name' /></Sticky></th>
                     </tr>
                 </thead>
                 <AppList id="categoryList" listManager={this.listManager} />
