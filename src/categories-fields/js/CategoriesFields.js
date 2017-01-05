@@ -64,7 +64,7 @@ export default class CategoriesFields extends React.Component {
     render() {
         return (
             <div class="categories-fields">
-                <table class="striped stack">
+                <table class="striped">
                     <thead>
                         <tr>
                             <th colSpan="5">

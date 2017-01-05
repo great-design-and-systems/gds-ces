@@ -85,6 +85,7 @@ export default class CategoryForm extends React.Component {
             <Intercept load={AppInterceptor}>
                 <div class="category-form row expanded">
                     {wrapComponent('CategoryForm', AppFormComponent)({
+                        id: 'categoryForm',
                         formManager: this.formManager,
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.formFields,

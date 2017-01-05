@@ -72,3 +72,23 @@ export function saveModel(action, id, model, params) {
     const parameters = params ? JSON.stringify(params).replace('{id}', id) : '{}';
     return save(action, model, JSON.parse(parameters));
 }
+
+export function formSubmit(formName) {
+    return {
+        type: 'FORM_SUBMIT',
+        payload: formName
+    }
+}
+
+export function formRemove(formName) {
+    return {
+        type: 'FORM_REMOVE',
+        payload: formName
+    }
+}
+
+export function formReinstate() {
+    return {
+        type: 'FORM_REINSTATE'
+    }
+}

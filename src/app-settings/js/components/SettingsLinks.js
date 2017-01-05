@@ -10,8 +10,8 @@ export default class SettingsLink extends React.Component {
                 if (link.createsNew) {
                     item = (
                         <li key={link.label.hashCode()}><div class="row">
-                            <Link class="column" to={link.path}><i className={link.faIcon} /> {link.label}</Link>
-                            <div class="column"> <Link class="float-right" to={link.createPath}><i class="fa fa-plus"/></Link></div>
+                            <div class="column"><Link to={link.path}><i className={link.faIcon} /> <span>{link.label}</span></Link></div>
+                            <div class="link-control-div"><Link to={link.createPath}><i class="fa fa-plus" /></Link></div>
                         </div>
                         </li>)
                 }

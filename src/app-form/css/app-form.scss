@@ -37,7 +37,14 @@
             background: $success-color;
         }
     }
-    .form-buttons{
+    .form-buttons {
         padding: 15px 0;
+    }
+    .form-no-button {
+        height: 0px;
+        float: auto;
+        margin: 0;
+        padding: 0;
+        width: 0;
     }
 }

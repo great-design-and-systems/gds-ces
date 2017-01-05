@@ -10,7 +10,10 @@ const FORM_STATE = {
     error: null,
     lastTouch: null,
     managed: false,
-    id: null
+    id: null,
+    formSubmit: false,
+    formRemove: false,
+    name: null
 }
 
 const AppFormReducer = (state = FORM_STATE, action) => {
@@ -51,6 +54,23 @@ const AppFormReducer = (state = FORM_STATE, action) => {
             state = { ...state };
             state.managed = action.payload;
             break;
+        case 'FORM_SUBMIT':
+            state = { ...state };
+            state.formSubmit = true;
+            state.name = action.payload;
+            break;
+        case 'FORM_REMOVE':
+            state = { ...state };
+            state.formRemove = true;
+            state.name = action.payload;
+            break;
+        case 'FORM_REINSTATE':
+            state = { ...state };
+            state.formSubmit = false;
+            state.formSubmit = false;
+            state.name = null;
+            braek;
+
     }
     return state;
 }

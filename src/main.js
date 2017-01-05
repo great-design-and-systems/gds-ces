@@ -4,7 +4,7 @@ import 'script!jquery';
 import 'script!foundation-sites';
 
 import { Route, Router, browserHistory } from 'react-router'
-import { SettingsCategoryForm, SettingsCategoryList } from './settings-categories/js/SettingsCategories';
+import { SettingsCategoryControls, SettingsCategoryForm, SettingsCategoryList } from './settings-categories/js/SettingsCategories';
 
 import App from './app/js/AppComponent';
 import AppSettings from './app-settings/js/AppSettings.js';
@@ -22,7 +22,7 @@ ReactDOM.render(<Provider store={AppStores}>
         <Route path="/" component={App}>
             <Route path="settings" components={{ contentBody: AppSettings }}>
                 <Route path="categories" components={{ settingsBody: SettingsCategoryList }} />
-                <Route path="categories/new" components={{ settingsBody: SettingsCategoryForm }} />
+                <Route path="categories/new" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />
                 <Route path="categories/:categoryId" components={{ settingsBody: SettingsCategoryForm }} />
             </Route>
         </Route>

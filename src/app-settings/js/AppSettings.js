@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 export default class AppSettings extends React.Component {
     componentWillMount() {
         this.links = [{
-            faIcon: 'fa fa-book',
+            faIcon: 'fa fa-book fa-fw fa-lg',
             label: 'Categories',
             path: '/settings/categories',
             createsNew: true,
@@ -24,6 +24,7 @@ export default class AppSettings extends React.Component {
                         <Links links={this.links} />
                     </Sidebar>
                     <Content>
+                        {this.props.controls}
                         {this.props.settingsBody}
                     </Content>
                 </Body>
