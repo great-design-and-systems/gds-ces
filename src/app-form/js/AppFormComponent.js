@@ -71,12 +71,10 @@ export default class AppForm extends React.Component {
                 })}
                 <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this)} name="appForm">
                     {wrapComponent('AppForm', AppFormMessages)()}
+                    
                     {new RenderFields(this.props.dispatch,
                         this.props.formFields,
                         this.props.fieldTemplates).render()}
-                    <div class="row form-buttons button-group">
-                        {buttons}
-                    </div>
                 </form>
             </div>
         )

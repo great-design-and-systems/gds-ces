@@ -22,6 +22,12 @@ export function validate() {
     }
 }
 
+export function setValidating(validating) {
+    return {
+        type: 'VALIDATING',
+        payload: validating
+    }
+}
 export function valid(fieldName) {
     return {
         type: 'FORM_VALID',

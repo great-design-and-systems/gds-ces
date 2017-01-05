@@ -1,10 +1,14 @@
 import { AppList, ListSort } from '../../../app-list/js/AppListComponent';
+import { setDirty, setTarget } from '../../../app-list/js/AppListActions';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import Intercept from '../../../common-view/js/Intercept';
+import { Link } from 'react-router';
 import React from 'react';
 import { Sticky } from 'react-sticky';
+import { connect } from 'react-redux';
 
+@connect()
 export default class CategoryList extends React.Component {
     componentWillMount() {
         this.setState({});
@@ -20,7 +24,7 @@ export default class CategoryList extends React.Component {
                 component: (category, index) => {
                     return (
                         <tr key={category._id}>
-                            <td>{category.name}</td>
+                            <td><Link to={'/settings/categories/' + category._id}>{category.name}</Link></td>
                         </tr>)
                 }
             },
@@ -37,6 +41,8 @@ export default class CategoryList extends React.Component {
                 total: 'data.total'
             }
         }
+        this.props.dispatch(setTarget('categoryList'));
+        this.props.dispatch(setDirty(true));
     }
     render() {
         return (<Intercept load={AppInterceptor}>

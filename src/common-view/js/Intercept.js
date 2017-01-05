@@ -10,6 +10,7 @@ import { reloaded } from './CommonViewActions';
 export default class Intercept extends React.Component {
     componentWillMount() {
         this.reloadView(this.props);
+        this.setState({ rendered: true });
     }
     reloadView(props) {
         this.setState({ visible: !props.load });
@@ -20,8 +21,9 @@ export default class Intercept extends React.Component {
     componentWillReceiveProps(nextProp) {
         if (nextProp.view.reload) {
             this.reloadView(nextProp);
-        } else {
-
+        }
+        if (nextProp.if != null) {
+            this.setState({ rendered: nextProp.if });
         }
     }
     done() {
@@ -29,6 +31,7 @@ export default class Intercept extends React.Component {
         this.props.dispatch(reloaded());
     }
     render() {
+        if (!this.state.rendered) return <span></span>;
         if (!this.state.visible) return (<div class="view-waiting"><i class="fa fa-spin fa-spinner" /></div>);
         return this.props.children;
     }

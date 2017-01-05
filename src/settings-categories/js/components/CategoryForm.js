@@ -6,8 +6,10 @@ import CategoriesFields from '../../../categories-fields/js/CategoriesFields';
 import Intercept from '../../../common-view/js/Intercept';
 import React from 'react';
 import { connect } from 'react-redux';
+import { setId } from '../../../app-form/js/AppFormActions';
 import { wrapComponent } from '../../../common/AppUtils';
 
+@connect()
 export default class CategoryForm extends React.Component {
     constructor() {
         super();
@@ -19,20 +21,27 @@ export default class CategoryForm extends React.Component {
         this.createFormManager();
         this.createFieldTemplates();
         this.createFormFields();
+        if (this.props.params && this.props.params.categoryId) {
+            this.props.dispatch(setId(this.props.params.categoryId));
+        }
     }
     createFormManager() {
         this.formManager = {
-            id: this.props.categoryId,
             create: {
                 action: '{Category.createCategory}'
             },
             update: {
                 action: '{Category.updateCategory}',
-                params: { categoryId: this.props.categoryId }
+                params: { categoryId: '{id}' }
             },
             delete: {
                 action: '{Category.removeCategory}',
-                params: { categoryId: this.props.categoryId }
+                params: { categoryId: '{id}' }
+            },
+            get: {
+                action: '{Category.getCategoryById}',
+                params: { categoryId: '{id}' },
+                eval: 'data.category'
             },
             deletePopup: {
                 title: 'Category',
@@ -64,10 +73,12 @@ export default class CategoryForm extends React.Component {
             })
         });
         this.formFields.push(field);
+
         field = new Field('categoryFields');
         field.setName('fields');
-        field.setLabel('Fields')
+        field.setLabel('Fields');
         this.formFields.push(field);
+
     }
     render() {
         return (

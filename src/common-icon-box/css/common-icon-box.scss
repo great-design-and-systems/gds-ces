@@ -1,0 +1,9 @@
+@import "./icon.scss";
+@import "./icons-group.scss";
+@import "./icon-group.scss";
+.common-icon-box {
+    padding: 0;
+    .input-group {
+        margin-bottom: 0;
+    }
+}

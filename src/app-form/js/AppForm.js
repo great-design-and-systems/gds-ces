@@ -109,30 +109,34 @@ export class FormManager {
         this.dispatch(setModelValue(field, fieldValue));
     }
     validate(field, fieldProps, dispatch) {
-        lodash.forIn(field.validator, (validator, fv) => {
-            const existingFunction = lodash.get(fieldProps, validator.event);
-            if (validator.event) {
-                lodash.set(fieldProps, validator.event, (event) => {
-                    if (existingFunction) {
-                        existingFunction(event);
-                    }
-                    event.persist();
-                    dispatch(validate());
-                    setTimeout(() => {
-                        validator.handler(event, (okay) => {
-                            if (!okay) {
-                                validator.setInvalid(true);
-                                fieldProps.className = fieldProps.className += ' invalid';
-                                dispatch(invalid(fieldProps.name, field.validator));
-                            } else {
-                                dispatch(valid(fieldProps.name));
-                            }
-                        });
-                    }, validator.delay ? validator.delay : 400);
+        if (!field.validating) {
+            field.validating = true;
+            lodash.forIn(field.validator, (validator, fv) => {
+                const existingFunction = lodash.get(fieldProps, validator.event);
+                if (validator.event) {
+                    lodash.set(fieldProps, validator.event, (event) => {
+                        if (existingFunction) {
+                            existingFunction(event);
+                        }
+                        event.persist();
+                        dispatch(validate());
+                        setTimeout(() => {
+                            validator.handler(event, (okay) => {
+                                if (!okay) {
+                                    validator.setInvalid(true);
+                                    fieldProps.className = fieldProps.className += ' invalid';
+                                    dispatch(invalid(fieldProps.name, field.validator));
+                                } else {
+                                    dispatch(valid(fieldProps.name));
+                                }
+                                field.validating = false;
+                            });
+                        }, validator.delay ? validator.delay : 400);
 
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
     }
 }
 
@@ -141,12 +145,12 @@ const DEFAULT_TEMPLATES = {
         return <AppFormInput field={field} formManager={formManager} />
     },
     checkbox: (field, formManager) => {
-        return <AppFormCheckBox field={field}  formManager={formManager} />
+        return <AppFormCheckBox field={field} formManager={formManager} />
     },
     select: (field, formManager) => {
-        return <AppFormSelect field={field}  formManager={formManager} />
+        return <AppFormSelect field={field} formManager={formManager} />
     },
     radio: (field, formManager) => {
-        return <AppFormRadio field={field}  formManager={formManager} />
+        return <AppFormRadio field={field} formManager={formManager} />
     }
 };
