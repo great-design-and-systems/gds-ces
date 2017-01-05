@@ -13,11 +13,10 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import initPrototypes from './common/AppPrototypes';
-
+import CommonIconBox from './common-icon-box/js/CommonIconBox';
 $(document).foundation();
 initPrototypes();
-
-console.log('new Foundation', Foundation);
+/*
 ReactDOM.render(<Provider store={AppStores}>
     <Router history={browserHistory}>
         <Route path="/" component={App}>
@@ -28,3 +27,5 @@ ReactDOM.render(<Provider store={AppStores}>
         </Route>
     </Router>
 </Provider>, document.getElementsByTagName('app')[0]);
+*/
+ReactDOM.render(<Provider store={AppStores}><CommonIconBox label="hello" /> </Provider>, document.getElementsByTagName('app')[0]);
