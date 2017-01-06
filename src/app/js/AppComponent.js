@@ -6,7 +6,7 @@ import React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
 
-const GDS_API = process.env.GDS_API || 'http://localhost:8080/gds';
+const GDS_API = process.env.GDS_API || 'api.json';
 
 @connect()
 export default class App extends React.Component {

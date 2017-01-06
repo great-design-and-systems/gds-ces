@@ -1,6 +1,6 @@
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import IconGroup from './IconGroup';
-import Intercept from '../../../common-view/js/Intercept';
+import CommonView from '../../../common-view/js/CommonView';
 import React from 'react';
 import { wrapComponent } from '../../../common/AppUtils';
 
@@ -28,10 +28,10 @@ export default class IconGroups extends React.Component {
         }
     }
     render() {
-        return (<Intercept load={AppInterceptor}>
+        return (<CommonView load={AppInterceptor}>
             <div class="icon-groups">
                 {this.state.groups}
             </div>
-        </Intercept>)
+        </CommonView>)
     }
 }

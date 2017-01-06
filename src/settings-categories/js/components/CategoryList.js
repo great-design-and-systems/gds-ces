@@ -2,7 +2,7 @@ import { AppList, ListSort } from '../../../app-list/js/AppListComponent';
 import { setDirty, setTarget } from '../../../app-list/js/AppListActions';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
-import Intercept from '../../../common-view/js/Intercept';
+import {View} from '../../../common/AppComponents';
 import { Link } from 'react-router';
 import React from 'react';
 import { Sticky } from 'react-sticky';
@@ -45,7 +45,7 @@ export default class CategoryList extends React.Component {
         this.props.dispatch(setDirty(true));
     }
     render() {
-        return (<Intercept load={AppInterceptor}>
+        return (<View load={AppInterceptor}>
             <table>
                 <thead>
                     <tr>
@@ -54,6 +54,6 @@ export default class CategoryList extends React.Component {
                 </thead>
                 <AppList id="categoryList" listManager={this.listManager} />
             </table>
-        </Intercept>);
+        </View>);
     }
 }

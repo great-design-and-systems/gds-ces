@@ -1,5 +1,5 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
-import Intercept from '../../common-view/js/Intercept';
+import CommonView from '../../common-view/js/CommonView';
 import React from 'react';
 
 export default class CommonBody extends React.Component {
@@ -9,11 +9,11 @@ export default class CommonBody extends React.Component {
             className += ' ' + this.props.className;
         }
         return (
-            <Intercept load={AppInterceptor}>
+            <CommonView load={AppInterceptor}>
                 <div className={className}>
                     {this.props.children}
                 </div>
-            </Intercept>
+            </CommonView>
         );
     }
 }

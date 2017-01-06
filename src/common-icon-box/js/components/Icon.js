@@ -1,5 +1,5 @@
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
-import Intercept from '../../../common-view/js/Intercept';
+import CommonView from '../../../common-view/js/CommonView';
 import React from 'react';
 
 export default class Icon extends React.Component {
@@ -24,10 +24,10 @@ export default class Icon extends React.Component {
         if (className) {
             className += ' fa-fw fa-3x';
         }
-        return (<Intercept load={AppInterceptor}>
+        return (<CommonView load={AppInterceptor}>
             <a title={this.state.icon} onClick={this.onIconClick.bind(this)} class="icon column">
                 <i className={className} />
             </a>
-        </Intercept>)
+        </CommonView>)
     }
 }

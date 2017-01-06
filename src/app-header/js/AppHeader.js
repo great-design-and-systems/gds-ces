@@ -1,7 +1,7 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import HeaderForm from '../../header-form/js/HeaderForm';
 import HeaderMenu from '../../header-menu/js/HeaderMenu';
-import Intercept from '../../common-view/js/Intercept';
+import {View} from '../../common/AppComponents';
 import { Link } from 'react-router';
 import React from 'react';
 import { Sticky } from 'react-sticky';
@@ -21,7 +21,7 @@ export default class AppHeader extends React.Component {
     }
     render() {
         return (
-            <Intercept
+            <View
                 load={AppInterceptor}>
                 <Sticky class="app-header">
                     <div class="top-bar" id="appHeaderId">
@@ -38,7 +38,7 @@ export default class AppHeader extends React.Component {
                         </div>
                     </div>
                 </Sticky>
-            </Intercept>
+            </View>
         );
     }
 }

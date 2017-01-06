@@ -3,7 +3,7 @@ import { Field, FieldValidator } from '../../../app-form/js/AppForm';
 import AppFormComponent from '../../../app-form/js/AppFormComponent';
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import CategoriesFields from '../../../categories-fields/js/CategoriesFields';
-import Intercept from '../../../common-view/js/Intercept';
+import {View} from '../../../common/AppComponents';
 import React from 'react';
 import { connect } from 'react-redux';
 import { setId } from '../../../app-form/js/AppFormActions';
@@ -82,7 +82,7 @@ export default class CategoryForm extends React.Component {
     }
     render() {
         return (
-            <Intercept load={AppInterceptor}>
+            <View load={AppInterceptor}>
                 <div class="category-form row expanded">
                     {wrapComponent('CategoryForm', AppFormComponent)({
                         id: 'categoryForm',
@@ -92,6 +92,6 @@ export default class CategoryForm extends React.Component {
                         className: 'column align-stretch'
                     })}
                 </div>
-            </Intercept>)
+            </View>)
     }
 }

@@ -1,6 +1,6 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import IconGroups from './components/IconGroups';
-import Intercept from '../../common-view/js/Intercept';
+import CommonView from '../../common-view/js/CommonView';
 import React from 'react';
 import lodash from 'lodash';
 import { wrapComponent } from '../../common/AppUtils';
@@ -45,25 +45,25 @@ export default class CommonIconBox extends React.Component {
             className += ' ' + this.props.className;
         }
         return (
-            <Intercept load={AppInterceptor}>
+            <CommonView load={AppInterceptor}>
                 <div className={className}>
                     <div class="input-group">
-                        <Intercept if={this.state.iconValue && this.state.iconValue.length}>
+                        <CommonView if={this.state.iconValue && this.state.iconValue.length}>
                             <span class="input-group-label"><i className={this.state.iconValue} /></span>
-                        </Intercept>
+                        </CommonView>
                         <input onChange={this.handleChange.bind(this)} value={this.state.iconValue} placeholder="search here" class="input-group-field" type="text" />
                         <div class="input-group-button">
                             <button onClick={this.handleOnClick.bind(this)} class="button" type="button" data-toggle="iconBox"><i class="fa fa-caret-down" /></button>
                         </div>
                     </div>
-                    <Intercept if={this.state.toggleIconBox}>
+                    <CommonView if={this.state.toggleIconBox}>
                         {wrapComponent('CommonIconBox', IconGroups)({
                             iconGroups: this.state.iconGroups,
                             handleSelect: this.handleSelect.bind(this)
                         })}
-                    </Intercept>
+                    </CommonView>
                 </div>
-            </Intercept>
+            </CommonView>
         );
     }
 }

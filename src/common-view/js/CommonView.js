@@ -7,7 +7,7 @@ import { reloaded } from './CommonViewActions';
         view: state.view
     }
 })
-export default class Intercept extends React.Component {
+export default class CommonView extends React.Component {
     componentWillMount() {
         this.reloadView(this.props);
         this.setState({ rendered: true });

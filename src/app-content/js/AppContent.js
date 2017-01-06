@@ -1,5 +1,5 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
-import Intercept from '../../common-view/js/Intercept';
+import {View} from '../../common/AppComponents';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -21,8 +21,8 @@ export default class AppContent extends React.Component {
             contentBody = <div></div>
         }
         return (
-            <Intercept load={AppInterceptor}>
+            <View load={AppInterceptor}>
                 {contentBody}
-            </Intercept>)
+            </View>)
     }
 }

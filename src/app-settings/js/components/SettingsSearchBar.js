@@ -1,5 +1,5 @@
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
-import Intercept from '../../../common-view/js/Intercept';
+import {View} from '../../../common/AppComponents';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -17,8 +17,8 @@ export default class SettingsSearchBar extends React.Component {
     }
     render() {
         return (
-            <Intercept load={AppInterceptor}>
+            <View load={AppInterceptor}>
                 <li><input type="text" onChange={this.handleOnChange.bind(this)} placeholder="Search settings" /></li>
-            </Intercept>);
+            </View>);
     }
 }

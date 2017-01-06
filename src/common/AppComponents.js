@@ -2,8 +2,9 @@ import CommonBody from '../common-body/js/CommonBody';
 import CommonContent from '../common-content/js/CommonContent';
 import CommonIconBox from '../common-icon-box/js/CommonIconBox';
 import CommonSideBar from '../common-sidebar/js/CommonSidebar';
-
+import CommonView from '../common-view/js/CommonView';
 export const Body = CommonBody;
 export const Sidebar = CommonSideBar;
 export const Content = CommonContent;
 export const IconBox = CommonIconBox;
+export const View = CommonView;

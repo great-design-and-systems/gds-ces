@@ -1,6 +1,6 @@
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import Icons from './Icons';
-import Intercept from '../../../common-view/js/Intercept';
+import CommonView from '../../../common-view/js/CommonView';
 import React from 'react';
 import { wrapComponent } from '../../../common/AppUtils';
 
@@ -19,7 +19,7 @@ export default class IconGroup extends React.Component {
         });
     }
     render() {
-        return (<Intercept load={AppInterceptor}>
+        return (<CommonView load={AppInterceptor}>
             <div class="icon-group callout">
                 <h4 class="icon-group-title">{this.state.group}</h4>
                 {wrapComponent('IconGroup', Icons)({
@@ -27,6 +27,6 @@ export default class IconGroup extends React.Component {
                     handleSelect: this.state.handleSelect
                 })}
             </div>
-        </Intercept>)
+        </CommonView>)
     }
 }

@@ -4,7 +4,6 @@ import AppFormMessages from './components/AppFormMessages';
 import AppModal from '../../app-modal/js/AppModal';
 import DeleteModel from './control/DeleteModel';
 import GetModel from './control/GetModel';
-import Intercept from '../../common-view/js/Intercept';
 import React from 'react';
 import RenderFields from './control/RenderFields';
 import SubmitModel from './control/SubmitModel';
@@ -30,9 +29,12 @@ export default class AppForm extends React.Component {
             this.props.dispatch(getModel(this.props.formManager.get.action, this.props.form.id, this.props.formManager.get.params));
         }
     }
+    componentWillUnmount() {
+        this.setState({});
+    }
     componentWillReceiveProps(nextProps) {
         if (!!nextProps.form.formSubmit && nextProps.form.name === this.props.id) {
-            this.setState({ formSubmit: true })
+            this.setState({ formSubmit: true });
         } else if (!!nextProps.form.formRemove && nextProps.form.name === this.props.id) {
 
         }
@@ -51,6 +53,7 @@ export default class AppForm extends React.Component {
     }
     onSubmit(event) {
         event.preventDefault();
+        //TODO: Validate before submit
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
             this.props.formManager, this.props.form.id);
         if (this.props.form.managed) {
@@ -68,23 +71,27 @@ export default class AppForm extends React.Component {
         buttons.push(<button key="submit_button" disabled={this.props.form.invalid || this.props.api.pending || this.props.form.pending} type="submit" class="button">
             {this.props.form.managed ? 'Update' : 'Save'}</button>);
         if (this.props.form.managed) {
-            buttons.push(<button key="delete_button" disabled={this.props.api.pending || this.props.form.pending} onClick={this.onDelete.bind(this)} type="button" class="button alert">Delete</button>);
+            buttons.push(<button key="delete_button" disabled={this.props.api.pending || this.props.form.pending} onClick={this.onDelete.bind(this) } type="button" class="button alert">Delete</button>);
         }
         let className = 'app-form';
         if (this.props.className) {
             className += ' ' + this.props.className;
         }
+        const noButtonForm = React.createElement('button', {
+            className: 'form-no-button',
+            type: 'submit'
+        });
         return (
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                })}
-                <form noValidate={this.props.noValidate} onSubmit={this.onSubmit.bind(this)} name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)()}
+                }) }
+                <form noValidate={true} onSubmit={this.onSubmit.bind(this) } name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)() }
                     {new RenderFields(this.props.dispatch,
                         this.props.formFields,
-                        this.props.fieldTemplates).render()}
-                    <button class="form-no-button" type="submit"></button>
+                        this.props.fieldTemplates).render() }
+                    {noButtonForm}
                 </form>
             </div>
         )

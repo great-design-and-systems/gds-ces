@@ -1,5 +1,5 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
-import Intercept from '../../common-view/js/Intercept';
+import {View} from '../../common/AppComponents';
 import React from 'react';
 import SettingsSearchBar from '../../app-settings/js/components/SettingsSearchBar';
 import { connect } from 'react-redux';
@@ -30,13 +30,13 @@ export default class HeaderForm extends React.Component {
             submit = <li><button type="button" class="button">Search</button></li>
         }
 
-        return (<Intercept load={AppInterceptor}>
-            <form class="header-form" name="headForm" onSubmit={this.handleSubmit.bind(this)}>
+        return (<View load={AppInterceptor}>
+            <form class="header-form" name="headForm" onSubmit={this.handleSubmit.bind(this) }>
                 <ul class="menu">
                     {headerForm}
                     {submit}
                 </ul>
             </form>
-        </Intercept>)
+        </View>)
     }
 }

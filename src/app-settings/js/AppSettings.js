@@ -1,7 +1,6 @@
-import { Body, Content, Sidebar } from '../../common/AppComponents';
+import { Body, Content, Sidebar, View } from '../../common/AppComponents';
 
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
-import Intercept from '../../common-view/js/Intercept';
 import { Links } from './components/Components';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -18,7 +17,7 @@ export default class AppSettings extends React.Component {
     }
     render() {
         return (
-            <Intercept load={AppInterceptor}>
+            <View load={AppInterceptor}>
                 <Body className={'app-settings'}>
                     <Sidebar>
                         <Links links={this.links} />
@@ -28,6 +27,6 @@ export default class AppSettings extends React.Component {
                         {this.props.settingsBody}
                     </Content>
                 </Body>
-            </Intercept>)
+            </View>)
     }
 }
