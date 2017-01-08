@@ -14,6 +14,7 @@ export default class ValidateFields {
                 const fieldProps = field.getProperties();
                 const value = field.properties.value;
                 if (field.validator) {
+                    console.log('validating', field);
                     lodash.forIn(field.validator, (validator) => {
                         dispatch(validate());
                         validator.handler(value, (okay) => {

@@ -23,7 +23,7 @@ ReactDOM.render(<Provider store={AppStores}>
             <Route path="settings" components={{ contentBody: AppSettings }}>
                 <Route path="categories" components={{ settingsBody: SettingsCategoryList }} />
                 <Route path="categories/new" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />
-                <Route path="categories/:categoryId" components={{ settingsBody: SettingsCategoryForm }} />
+                <Route path="categories/:categoryId" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />
             </Route>
         </Route>
     </Router>

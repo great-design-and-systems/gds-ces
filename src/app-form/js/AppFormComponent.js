@@ -39,7 +39,6 @@ export default class AppForm extends React.Component {
                 field.form = this.props.id;
             });
         }
-
         this.setState({
             formFields: this.props.formFields,
             fieldTemplates: this.props.fieldTemplates
@@ -58,37 +57,40 @@ export default class AppForm extends React.Component {
                 this.props.dispatch(modelSet());
             }
         }
-        if (!nextProps.api.pending) {
-            if (!!nextProps.form.formSubmit && nextProps.form.name === this.props.id) {
-                new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
-                nextProps.dispatch(formSubmitted(nextProps.id));
-            } else if (!!nextProps.form.formRemove && nextProps.form.name === this.props.id) {
-
-            } else if (!!nextProps.form.formSubmitted) {
-                if (nextProps.valid) {
-                    this.submit();
-                }
-                else {
-                    this.props.dispatch(formReinstate());
+        if (!!nextProps.form.formSubmit && nextProps.form.name === this.props.id) {
+            new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
+            nextProps.dispatch(formSubmitted(nextProps.id));
+        } else if (!!nextProps.form.formRemove && nextProps.form.name === this.props.id) {
+            this.onDelete();
+        } else if (!!nextProps.form.formSubmitted) {
+            if (nextProps.form.valid) {
+                this.submit();
+            }
+            else {
+                this.props.dispatch(formReinstate());
+            }
+        } else if (!!nextProps.form.formRemoved) {
+            this.props.dispatch(formReinstate());
+        }
+        if (nextProps.form.id) {
+            if (!!this.props.form.id && !nextProps.form.managed) {
+                if (!nextProps.api.pending && !nextProps.api.error) {
+                    new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
+                    nextProps.dispatch(setManaged(true));
                 }
             }
-            if (nextProps.form.id) {
-                if (!!this.props.form.id && !nextProps.form.managed) {
-                    if (!nextProps.api.pending && !nextProps.api.error) {
-                        new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
-                        nextProps.dispatch(setManaged(true));
-                    }
-                }
-                if (this.props.form.id != nextProps.form.id && !nextProps.api.pending) {
-                    nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
-                    nextProps.dispatch(setManaged(false));
-                }
+            if (this.props.form.id != nextProps.form.id && !nextProps.api.pending) {
+                nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
+                nextProps.dispatch(setManaged(false));
             }
         }
     }
     handleSubmit(event) {
         event.preventDefault();
         this.props.dispatch(formSubmit(this.props.id));
+    }
+    handleRemoved(event){
+    
     }
     submit() {
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
