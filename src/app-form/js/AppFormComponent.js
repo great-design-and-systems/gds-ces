@@ -1,4 +1,4 @@
-import {formReinstate, getModel, setManaged} from './AppFormActions';
+import { clearForm, formReinstate, formRemoved, formSubmit, formSubmitted, getModel, modelSet, setManaged } from './AppFormActions';
 
 import AppFormMessages from './components/AppFormMessages';
 import AppModal from '../../app-modal/js/AppModal';
@@ -6,10 +6,11 @@ import DeleteModel from './control/DeleteModel';
 import FormFields from './components/FormFields';
 import GetModel from './control/GetModel';
 import React from 'react';
-import RenderFields from './control/RenderFields';
+import SetFieldValue from './control/SetFieldValue';
 import SubmitModel from './control/SubmitModel';
-import {connect} from 'react-redux';
-import {wrapComponent} from '../../common/AppUtils';
+import ValidateFields from './control/ValidateFields';
+import { connect } from 'react-redux';
+import { wrapComponent } from '../../common/AppUtils';
 
 @connect((state) => {
     return {
@@ -24,41 +25,72 @@ export default class AppForm extends React.Component {
             throw new Error('Property id is required.');
         }
     }
-
+    componentWillUnmount() {
+        this.setState({});
+        this.props.dispatch(clearForm());
+    }
     componentWillMount() {
         this.setState({});
         if (this.props.form.id) {
             this.props.dispatch(getModel(this.props.formManager.get.action, this.props.form.id, this.props.formManager.get.params));
         }
+        if (this.props.formFields) {
+            this.props.formFields.forEach(field => {
+                field.form = this.props.id;
+            });
+        }
+
+        this.setState({
+            formFields: this.props.formFields,
+            fieldTemplates: this.props.fieldTemplates
+        });
     }
 
     componentWillUnmount() {
         this.setState({});
+        this.props.dispatch(formReinstate());
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!!nextProps.form.formSubmit && nextProps.form.name === this.props.id) {
-            this.setState({ formSubmit: true });
-        } else if (!!nextProps.form.formRemove && nextProps.form.name === this.props.id) {
-
+        if (nextProps.form.name === nextProps.id) {
+            if (nextProps.form.isSettingModel) {
+                new SetFieldValue(nextProps.form.model.name, nextProps.formFields).setValue(nextProps.form.model.value);
+                this.props.dispatch(modelSet());
+            }
         }
-        if (nextProps.form.id) {
-            if (!!this.props.form.id && !nextProps.form.managed) {
-                if (!nextProps.api.pending && !nextProps.api.error) {
-                    new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
-                    nextProps.dispatch(setManaged(true));
+        if (!nextProps.api.pending) {
+            if (!!nextProps.form.formSubmit && nextProps.form.name === this.props.id) {
+                new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
+                nextProps.dispatch(formSubmitted(nextProps.id));
+            } else if (!!nextProps.form.formRemove && nextProps.form.name === this.props.id) {
+
+            } else if (!!nextProps.form.formSubmitted) {
+                if (nextProps.valid) {
+                    this.submit();
+                }
+                else {
+                    this.props.dispatch(formReinstate());
                 }
             }
-            if (this.props.form.id != nextProps.form.id && !nextProps.api.pending) {
-                nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
-                nextProps.dispatch(setManaged(false));
+            if (nextProps.form.id) {
+                if (!!this.props.form.id && !nextProps.form.managed) {
+                    if (!nextProps.api.pending && !nextProps.api.error) {
+                        new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
+                        nextProps.dispatch(setManaged(true));
+                    }
+                }
+                if (this.props.form.id != nextProps.form.id && !nextProps.api.pending) {
+                    nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
+                    nextProps.dispatch(setManaged(false));
+                }
             }
         }
     }
-
-    onSubmit(event) {
+    handleSubmit(event) {
         event.preventDefault();
-        //TODO: Validate before submit
+        this.props.dispatch(formSubmit(this.props.id));
+    }
+    submit() {
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
             this.props.formManager, this.props.form.id);
         if (this.props.form.managed) {
@@ -74,16 +106,6 @@ export default class AppForm extends React.Component {
     }
 
     render() {
-        const buttons = [];
-        buttons.push(<button key="submit_button"
-            disabled={this.props.form.invalid || this.props.api.pending || this.props.form.pending}
-            type="submit" class="button">
-            {this.props.form.managed ? 'Update' : 'Save'}</button>);
-        if (this.props.form.managed) {
-            buttons.push(<button key="delete_button" disabled={this.props.api.pending || this.props.form.pending}
-                onClick={this.onDelete.bind(this) } type="button" class="button alert">
-                Delete</button>);
-        }
         let className = 'app-form';
         if (this.props.className) {
             className += ' ' + this.props.className;
@@ -96,13 +118,13 @@ export default class AppForm extends React.Component {
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                }) }
-                <form noValidate={true} onSubmit={this.onSubmit.bind(this) } name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)() }
+                })}
+                <form noValidate={true} onSubmit={this.handleSubmit.bind(this)} name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)()}
                     {wrapComponent('AppForm', FormFields)({
-                        formFields: this.props.formFields,
-                        formTemplates: this.props.fieldTemplates
-                    }) }
+                        formFields: this.state.formFields,
+                        fieldTemplates: this.state.fieldTemplates
+                    })}
                     {noButtonForm}
                 </form>
             </div>

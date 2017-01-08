@@ -1,27 +1,13 @@
 import FormColumn from './FormColumn';
 import FormField from './FormField';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import lodash from 'lodash';
-import {wrapComponent} from '../../../common/AppUtils';
+import { wrapComponent } from '../../../common/AppUtils';
 
 @connect()
 export default class FormFields extends React.Component {
-    constructor(props) {
-        super();
-        if (!props.formFields) {
-            throw new Error('Property formFields is required.');
-        }
-        if (!props.fieldTemplates) {
-            throw new Error('Property fieldTemplates is required.');
-        }
-    }
-
-    componentWillMount() {
-        this.setState({});
-    }
-
-    componentWillReceiveProps(nextProps) {
+    initFormFields(nextProps) {
         const {formFields, fieldTemplates} = nextProps;
         this.fields = [];
         this.columns = [];
@@ -59,8 +45,26 @@ export default class FormFields extends React.Component {
             }
         }
     }
+    constructor(props) {
+        super();
+        if (!props.formFields) {
+            throw new Error('Property formFields is required.');
+        }
+        if (!props.fieldTemplates) {
+            throw new Error('Property fieldTemplates is required.');
+        }
+    }
+
+    componentWillMount() {
+        this.setState({});
+        this.initFormFields(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.initFormFields(nextProps);
+    }
 
     render() {
-        return this.state.formFields;
+        return (<div class="form-fields">{this.state.formFields}</div>)
     }
 }

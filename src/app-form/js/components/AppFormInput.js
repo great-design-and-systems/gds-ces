@@ -12,9 +12,12 @@ import lodash from 'lodash';
 export default class AppFormInput extends React.Component {
     constructor() {
         super();
-        this.propsIReceive = 0;
     }
     componentWillMount() {
+        const fieldProps = this.props.field.getProperties();
+        if (!fieldProps.onChange) {
+            fieldProps.onChange = this.handleOnChange.bind(this);
+        }
         if (this.props.field.validator) {
             this.props.formManager.validate(this.props.field, this.props.field.getProperties(), this.props.dispatch);
         }
@@ -31,9 +34,6 @@ export default class AppFormInput extends React.Component {
         }
         if (!fieldProps.id) {
             fieldProps.id = fieldProps.name;
-        }
-        if (!fieldProps.onChange) {
-            fieldProps.onChange = this.handleOnChange.bind(this);
         }
         const inputElement = React.createElement(field.tag, fieldProps);
         return (

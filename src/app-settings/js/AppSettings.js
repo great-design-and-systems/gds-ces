@@ -3,6 +3,7 @@ import { Body, Content, Sidebar, View } from '../../common/AppComponents';
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import { Links } from './components/Components';
 import React from 'react';
+import { Sticky } from 'react-sticky';
 import { connect } from 'react-redux';
 
 export default class AppSettings extends React.Component {
@@ -20,7 +21,9 @@ export default class AppSettings extends React.Component {
             <View load={AppInterceptor}>
                 <Body className={'app-settings'}>
                     <Sidebar>
-                        <Links links={this.links} />
+                        <Sticky stickyStyle={{ top: '70px' }} >
+                            <Links links={this.links} />
+                        </Sticky>
                     </Sidebar>
                     <Content>
                         {this.props.controls}

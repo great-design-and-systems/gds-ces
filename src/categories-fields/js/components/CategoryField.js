@@ -40,7 +40,7 @@ export default class CategoryField extends React.Component {
                 <td> {this.renderFieldType()}</td>
                 <td>{this.renderFieldFilter()}</td>
                 <td>{this.renderFieldRequire()}</td>
-                <td class="remove-button"><a title="remove" disabled={this.props.index === 0} onClick={this.props.handleRemove}><i class="fa fa-close" /></a></td>
+                <td class="remove-button"><a title="remove" disabled={this.props.index === 0} onClick={this.props.handleRemove}><i class="fa fa-minus" /></a></td>
             </tr>
         )
     }

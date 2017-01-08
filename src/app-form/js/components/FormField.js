@@ -1,6 +1,6 @@
+import { FieldCreator } from '../AppForm';
 import React from 'react';
-import {FieldCreator} from '../AppForm';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 @connect()
 export default class FormField extends React.Component {
@@ -13,11 +13,14 @@ export default class FormField extends React.Component {
 
     componentWillMount() {
         this.setState({});
+        if (this.props.formField) {
+            this.setState({ field: this.createField(this.props.formField, this.props.fieldTemplates, this.props.dispatch) });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.formField) {
-            this.setState({field: this.createField(nextProps.formField, nextProps.fieldTemplates, nextProps.dispatch)});
+            this.setState({ field: this.createField(nextProps.formField, nextProps.fieldTemplates, nextProps.dispatch) });
         }
     }
 
@@ -31,13 +34,13 @@ export default class FormField extends React.Component {
         return this.createFieldRenderWithDivParent(fieldProperties, formFieldElement);
     }
 
-    static createFieldRenderWithDivParent(fieldProperties, formFieldElement) {
+    createFieldRenderWithDivParent(fieldProperties, formFieldElement) {
         return (<div class="form-field" key={fieldProperties.name.hashCode()}>
             {formFieldElement}
         </div>);
     }
 
     render() {
-        return this.state.field;
+        return <div class="field">{this.state.field}</div>;
     }
 }

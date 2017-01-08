@@ -1,4 +1,4 @@
-import { invalid, setModelValue, valid, validate } from './AppFormActions';
+import { invalid, setFormValue, setModelValue, valid, validate } from './AppFormActions';
 
 import AppFormCheckBox from './components/AppFormCheckbox';
 import AppFormInput from './components/AppFormInput';
@@ -108,6 +108,9 @@ export class FormManager {
     setModelValue(field, fieldValue) {
         this.dispatch(setModelValue(field, fieldValue));
     }
+    setFormValue(formName, fieldName, fieldValue) {
+        this.dispatch(setFormValue(formName, fieldName, fieldValue));
+    }
     validate(field, fieldProps, dispatch) {
         if (!field.validating) {
             field.validating = true;
@@ -121,7 +124,7 @@ export class FormManager {
                         event.persist();
                         dispatch(validate());
                         setTimeout(() => {
-                            validator.handler(event, (okay) => {
+                            validator.handler(event.target.value, (okay) => {
                                 if (!okay) {
                                     validator.setInvalid(true);
                                     fieldProps.className = fieldProps.className += ' invalid';

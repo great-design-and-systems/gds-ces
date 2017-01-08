@@ -3,8 +3,8 @@ import { Field, FieldValidator } from '../../../app-form/js/AppForm';
 import AppFormComponent from '../../../app-form/js/AppFormComponent';
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import CategoriesFields from '../../../categories-fields/js/CategoriesFields';
-import {View} from '../../../common/AppComponents';
 import React from 'react';
+import { View } from '../../../common/AppComponents';
 import { connect } from 'react-redux';
 import { setId } from '../../../app-form/js/AppFormActions';
 import { wrapComponent } from '../../../common/AppUtils';
@@ -68,8 +68,8 @@ export default class CategoryForm extends React.Component {
             placeholder: 'Enter category name here'
         });
         field.setValidator({
-            required: new FieldValidator('onChange', 'Category name is required.', (event, done) => {
-                done(event.target.value != null && !!event.target.value.length);
+            required: new FieldValidator('onChange', 'Category name is required.', (value, done) => {
+                done(value != null && !!value.length);
             })
         });
         this.formFields.push(field);

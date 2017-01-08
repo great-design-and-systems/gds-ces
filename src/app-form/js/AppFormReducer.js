@@ -9,11 +9,16 @@ const FORM_STATE = {
     pending: false,
     error: null,
     lastTouch: null,
+    lastTouchValue: null,
     managed: false,
     id: null,
     formSubmit: false,
     formRemove: false,
-    name: null
+    formSubmitted: false,
+    formRemoved: false,
+    isSettingModel: false,
+    name: null,
+    model: null,
 }
 
 const AppFormReducer = (state = FORM_STATE, action) => {
@@ -43,8 +48,12 @@ const AppFormReducer = (state = FORM_STATE, action) => {
             break;
         case 'SET_MODEL_VALUE':
             state = { ...state };
-            action.payload.field.setValue(action.payload.value);
-            state.lastTouch = action.payload.field;
+            state.name = action.payload.name;
+            state.model = {
+                name: action.payload.fieldName,
+                value: action.payload.fieldValue
+            };
+            state.isSettingModel = true;
             break;
         case 'SET_ID':
             state = { ...state };
@@ -64,13 +73,38 @@ const AppFormReducer = (state = FORM_STATE, action) => {
             state.formRemove = true;
             state.name = action.payload;
             break;
+        case 'FORM_SUBMITTED':
+            state = { ...state };
+            state.formSubmitted = true;
+            state.formSubmit = false;
+            state.name = action.payload;
+            break;
+        case 'FORM_REMOVED':
+            state = { ...state };
+            state.formRemoved = true;
+            state.formRemove = false;
+            state.name = action.payload;
+            break;
         case 'FORM_REINSTATE':
             state = { ...state };
             state.formSubmit = false;
             state.formSubmit = false;
+            state.formSubmitted = false;
+            state.formRemoved = false;
             state.name = null;
-            braek;
-
+            state.lastTouch = null;
+            state.lastTouchValue = null;
+            break;
+        case 'MODEL_SET':
+            state = { ...state };
+            state.isSettingModel = false;
+            state.lastTouch = null;
+            state.lastTouchValue = null;
+            state.model = null;
+            break;
+        case 'CLEAR_FORM':
+            state = { ...FORM_STATE };
+            break;
     }
     return state;
 }
