@@ -59,17 +59,17 @@ module.exports = {
             extensions: ['', '.js', '.json', '.scss', '.html'],
             alias: {}
         }
-    }
+    } 
 };
 
 function getPlugins() {
     var plugins = [];
-    plugins.push(new webpack.DefinePlugin({
+   /* plugins.push(new webpack.DefinePlugin({
         'process.env': {
             GDS_API: process.env.GDS_API,
             SCHOOL_ID: process.env.SCHOOL_ID
         }
-    }));
+    }));*/
     plugins.push(new webpack.optimize.OccurenceOrderPlugin());
     if (process.env.NODE_ENV === 'production') {
         plugins.push(new webpack.optimize.UglifyJsPlugin());

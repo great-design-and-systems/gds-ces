@@ -27,8 +27,7 @@ const AppFormReducer = (state = FORM_STATE, action) => {
             state = { ...state, pristine: false, dirty: true, lastTouch: null };
             break;
         case 'FORM_INVALID':
-            state = {
-                ...state, invalid: true, pending: false, lastTouch: null
+            state = { ...state, invalid: true, pending: false, lastTouch: null
             };
             if (!state.error) {
                 state.error = {};

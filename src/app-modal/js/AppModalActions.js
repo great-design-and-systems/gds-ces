@@ -24,3 +24,9 @@ export function successModal(id, success) {
         }
     }
 }
+
+export function reinstateModal() {
+    return {
+        type: 'REINSTATE_MODAL'
+    }
+}

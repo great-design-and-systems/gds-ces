@@ -51,6 +51,7 @@ export default class AppForm extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('AppFormComponent.componentWillReceiveProps', nextProps);
         if (nextProps.form.name === nextProps.id) {
             if (nextProps.form.isSettingModel) {
                 new SetFieldValue(nextProps.form.model.name, nextProps.formFields).setValue(nextProps.form.model.value);
@@ -61,7 +62,7 @@ export default class AppForm extends React.Component {
             new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
             nextProps.dispatch(formSubmitted(nextProps.id));
         } else if (!!nextProps.form.formRemove && nextProps.form.name === this.props.id) {
-            this.onDelete();
+            new DeleteModel(nextProps.dispatch, nextProps.formManager, nextProps.formFields, nextProps.form.id);
         } else if (!!nextProps.form.formSubmitted) {
             if (nextProps.form.valid) {
                 this.submit();
@@ -89,8 +90,8 @@ export default class AppForm extends React.Component {
         event.preventDefault();
         this.props.dispatch(formSubmit(this.props.id));
     }
-    handleRemoved(event){
-    
+    handleRemoved(event) {
+
     }
     submit() {
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
@@ -120,13 +121,13 @@ export default class AppForm extends React.Component {
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                })}
-                <form noValidate={true} onSubmit={this.handleSubmit.bind(this)} name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)()}
+                }) }
+                <form noValidate={true} onSubmit={this.handleSubmit.bind(this) } name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)() }
                     {wrapComponent('AppForm', FormFields)({
                         formFields: this.state.formFields,
                         fieldTemplates: this.state.fieldTemplates
-                    })}
+                    }) }
                     {noButtonForm}
                 </form>
             </div>
