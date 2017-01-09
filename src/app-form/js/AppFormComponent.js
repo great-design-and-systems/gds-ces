@@ -51,27 +51,27 @@ export default class AppForm extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('AppFormComponent.componentWillReceiveProps', nextProps);
         if (nextProps.form.name === nextProps.id) {
             if (nextProps.form.isSettingModel) {
                 new SetFieldValue(nextProps.form.model.name, nextProps.formFields).setValue(nextProps.form.model.value);
-                this.props.dispatch(modelSet());
+                nextProps.dispatch(modelSet());
             }
         }
-        if (!!nextProps.form.formSubmit && nextProps.form.name === this.props.id) {
+        if (!!nextProps.form.formSubmit && nextProps.form.name === nextProps.id) {
             new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
             nextProps.dispatch(formSubmitted(nextProps.id));
-        } else if (!!nextProps.form.formRemove && nextProps.form.name === this.props.id) {
-            new DeleteModel(nextProps.dispatch, nextProps.formManager, nextProps.formFields, nextProps.form.id);
+        } else if (!!nextProps.form.formRemove && nextProps.form.name === nextProps.id) {
+            nextProps.dispatch(formRemoved(nextProps.id));
+            this.onDelete();
         } else if (!!nextProps.form.formSubmitted) {
             if (nextProps.form.valid) {
                 this.submit();
             }
             else {
-                this.props.dispatch(formReinstate());
+                nextProps.dispatch(formReinstate());
             }
         } else if (!!nextProps.form.formRemoved) {
-            this.props.dispatch(formReinstate());
+            nextProps.dispatch(formReinstate());
         }
         if (nextProps.form.id) {
             if (!!this.props.form.id && !nextProps.form.managed) {
@@ -121,13 +121,13 @@ export default class AppForm extends React.Component {
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                }) }
-                <form noValidate={true} onSubmit={this.handleSubmit.bind(this) } name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)() }
+                })}
+                <form noValidate={true} onSubmit={this.handleSubmit.bind(this)} name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)()}
                     {wrapComponent('AppForm', FormFields)({
                         formFields: this.state.formFields,
                         fieldTemplates: this.state.fieldTemplates
-                    }) }
+                    })}
                     {noButtonForm}
                 </form>
             </div>

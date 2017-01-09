@@ -5,6 +5,12 @@ export function openModal(properties) {
     }
 }
 
+export function hasOpened() {
+    return {
+        type: 'OPEN_MODAL'
+    }
+}
+
 export function rejectModal(id, error) {
     return {
         type: 'REJECT_MODAL',

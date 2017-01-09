@@ -1,6 +1,7 @@
+import { hasOpened, reinstateModal } from './AppModalActions';
+
 import React from 'react';
 import { connect } from 'react-redux';
-import {reinstateModal} from './AppModalActions';
 
 @connect((state) => {
     return {
@@ -12,35 +13,32 @@ export default class AppModal extends React.Component {
         super();
     }
     componentWillMount() {
-        if (this.props.modal.isOpen) {
-            this.setState({
-                message: this.props.modal.message,
-                title: this.props.modal.title,
-                okAction: this.props.modal.okAction,
-                cancelAction: this.props.modal.cancelAction,
-                okButton: this.props.modal.okButton,
-                cancelButton: this.props.modal.cancelButton,
-                modal: new Foundation.Reveal($('#' + action.payload.id))
-            });
-            this.modal.open();
-        } else if (this.props.model.success != null) {
-
-        } else if (this.props.model.error != null) {
-
-        } else {
-
-        }
+        this.setState({});
+    }
+    componentWillUnmount() {
+        this.setState({});
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.modal) {
+        if (nextProps.modal.isOpen) {
+            this.modal = new Foundation.Reveal($('#' + nextProps.modal.id))
             this.setState({
                 message: nextProps.modal.message,
                 title: nextProps.modal.title,
                 okAction: nextProps.modal.okAction,
                 cancelAction: nextProps.modal.cancelAction,
                 okButton: nextProps.modal.okButton,
-                cancelButton: nextProps.modal.cancelButton,
+                cancelButton: nextProps.modal.cancelButton
             });
+            this.modal.open();
+            nextProps.dispatch(hasOpened());
+        }
+        else if (nextProps.modal.reject != null) {
+            this.modal.destroy();
+            nextProps.dispatch(reinstateModal());
+        }
+        else if (nextProps.modal.success != null) {
+            this.modal.destroy();
+            nextProps.dispatch(reinstateModal());
         }
     }
     render() {
