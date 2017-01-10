@@ -131,6 +131,7 @@ export class FormManager {
                                         fieldProps.className = fieldProps.className += ' invalid';
                                         dispatch(invalid(fieldProps.name, field.validator));
                                     } else {
+                                        validator.setInvalid(false);
                                         dispatch(valid(fieldProps.name));
                                     }
                                 }
@@ -145,7 +146,6 @@ export class FormManager {
     }
     triggerValidateHandler(field, dispatch) {
         const fieldProps = field.properties;
-        console.log('validating', field);
         if (!field.validating) {
             field.validating = true;
             lodash.forIn(field.validator, (validator, fv) => {
@@ -157,6 +157,7 @@ export class FormManager {
                             fieldProps.className = fieldProps.className += ' invalid';
                             dispatch(invalid(fieldProps.name, field.validator));
                         } else {
+                            validator.setInvalid(false);
                             dispatch(valid(fieldProps.name));
                         }
                     }

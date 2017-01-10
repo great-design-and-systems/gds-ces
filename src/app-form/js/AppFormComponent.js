@@ -1,4 +1,4 @@
-import { clearForm, formReinstate, formRemoved, formSubmit, formSubmitted, getModel, modelSet, setManaged } from './AppFormActions';
+import { clearForm, formCleared, formReinstate, formRemoved, formSubmit, formSubmitted, getModel, modelSet, setManaged } from './AppFormActions';
 
 import AppFormMessages from './components/AppFormMessages';
 import AppModal from '../../app-modal/js/AppModal';
@@ -87,6 +87,10 @@ export default class AppForm extends React.Component {
                 nextProps.dispatch(setManaged(false));
             }
         }
+        if (nextProps.form.clear) {
+            this.clearFields();
+            nextProps.dispatch(formCleared());
+        }
     }
     handleSubmit(event) {
         event.preventDefault();
@@ -110,7 +114,13 @@ export default class AppForm extends React.Component {
     onDelete() {
         new DeleteModel(this.props.dispatch, this.props.formManager, this.props.formFields, this.props.form.id);
     }
-
+    clearFields() {
+        if (this.state.formFields) {
+            this.state.formFields.forEach(field => {
+                field.properties.value = '';
+            });
+        }
+    }
     render() {
         let className = 'app-form';
         if (this.props.className) {
@@ -124,13 +134,13 @@ export default class AppForm extends React.Component {
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                }) }
-                <form noValidate={true} onSubmit={this.handleSubmit.bind(this) } name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)() }
+                })}
+                <form noValidate={true} onSubmit={this.handleSubmit.bind(this)} name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)()}
                     {wrapComponent('AppForm', FormFields)({
                         formFields: this.state.formFields,
                         fieldTemplates: this.state.fieldTemplates
-                    }) }
+                    })}
                     {noButtonForm}
                 </form>
             </div>

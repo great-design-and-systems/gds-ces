@@ -27,7 +27,8 @@ const AppFormReducer = (state = FORM_STATE, action) => {
             state = { ...state, pristine: false, dirty: true, lastTouch: null };
             break;
         case 'FORM_INVALID':
-            state = { ...state, invalid: true, valid: false, pending: false, lastTouch: null
+            state = {
+                ...state, invalid: true, valid: false, pending: false, lastTouch: null
             };
             if (action.payload) {
                 if (!state.error) {
@@ -49,29 +50,7 @@ const AppFormReducer = (state = FORM_STATE, action) => {
         case 'FORM_VALIDATE':
             state = { ...state, pending: true, lastTouch: null };
             break;
-        case 'SET_MODEL_VALUE':
-            state = { ...state };
-            state.name = action.payload.name;
-            state.model = {
-                name: action.payload.fieldName,
-                value: action.payload.fieldValue
-            };
-            state.isSettingModel = true;
-            break;
-        case 'SET_ID':
-            state = { ...state };
-            state.id = action.payload;
-            break;
-        case 'SET_ERROR':
-            if (!state.error) {
-                state.error = {};
-            }
-            lodash.set(state.error, action.payload.field, action.payload.validator);
-            break;
-        case 'SET_MANAGED':
-            state = { ...state };
-            state.managed = action.payload;
-            break;
+
         case 'FORM_SUBMIT':
             state = { ...state };
             state.formSubmit = true;
@@ -112,7 +91,33 @@ const AppFormReducer = (state = FORM_STATE, action) => {
             state.model = null;
             break;
         case 'CLEAR_FORM':
-            state = { ...FORM_STATE };
+            state = { ...FORM_STATE, clear: true };
+            break;
+        case 'SET_MODEL_VALUE':
+            state = { ...state };
+            state.name = action.payload.name;
+            state.model = {
+                name: action.payload.fieldName,
+                value: action.payload.fieldValue
+            };
+            state.isSettingModel = true;
+            break;
+        case 'SET_ID':
+            state = { ...state };
+            state.id = action.payload;
+            break;
+        case 'SET_ERROR':
+            if (!state.error) {
+                state.error = {};
+            }
+            lodash.set(state.error, action.payload.field, action.payload.validator);
+            break;
+        case 'SET_MANAGED':
+            state = { ...state };
+            state.managed = action.payload;
+            break;
+        case 'FORM_CLEARED':
+            state = { ...state, clear: false }
             break;
     }
     return state;

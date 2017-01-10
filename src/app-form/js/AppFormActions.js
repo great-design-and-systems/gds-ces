@@ -126,4 +126,10 @@ export function setError(field) {
             validator: field.validator
         }
     }
-} 
+}
+
+export function formCleared() {
+    return {
+        type: 'FORM_CLEARED'
+    }
+}

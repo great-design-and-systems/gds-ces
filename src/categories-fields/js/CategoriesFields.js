@@ -19,7 +19,6 @@ export default class CategoriesFields extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.updated) {
-            console.log('field', nextProps.field);
             nextProps.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch);
             this.updated = false;
         }
@@ -61,7 +60,7 @@ export default class CategoriesFields extends React.Component {
             this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
             this.updated = true;
         }
-        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this) } />)
+        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this)} />)
     }
     renderFields() {
         const fields = [];
@@ -80,13 +79,13 @@ export default class CategoriesFields extends React.Component {
                                 <div class="fields-title-bar row expanded">
                                     <h5>Fields</h5>
                                     <div class="column"></div>
-                                    <a class="add-button" onClick={this.addField.bind(this) }><i class="fa fa-plus"></i></a>
+                                    <a class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderFields() }
+                        {this.renderFields()}
                     </tbody>
                 </table>
             </div>);

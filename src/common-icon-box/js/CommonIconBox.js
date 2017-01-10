@@ -1,6 +1,6 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
-import IconGroups from './components/IconGroups';
 import CommonView from '../../common-view/js/CommonView';
+import IconGroups from './components/IconGroups';
 import React from 'react';
 import lodash from 'lodash';
 import { wrapComponent } from '../../common/AppUtils';
@@ -10,14 +10,14 @@ export default class CommonIconBox extends React.Component {
         super();
     }
     componentWillMount() {
-        this.setState({ toggleIconBox: false, iconValue: '', iconGroups: ICONS_GROUP });
+        this.setState({ toggleIconBox: false, iconGroups: ICONS_GROUP, iconValue: this.props.value ? this.props.value : '' });
     }
     handleOnClick(event) {
         this.setState({ toggleIconBox: !this.state.toggleIconBox });
     }
     handleSelect(icon) {
         this.setState({ iconValue: icon });
-        if (this.props.onChange){
+        if (this.props.onChange) {
             this.props.onChange(icon);
         }
     }
@@ -35,7 +35,7 @@ export default class CommonIconBox extends React.Component {
             iconGroups: iconGroups,
             iconValue: event.target.value
         });
-        if (this.props.onChange){
+        if (this.props.onChange) {
             this.props.onChange(event.target.valu);
         }
     }

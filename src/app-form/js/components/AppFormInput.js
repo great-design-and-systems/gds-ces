@@ -22,6 +22,7 @@ export default class AppFormInput extends React.Component {
             this.props.formManager.validate(this.props.field, this.props.field.getProperties(), this.props.dispatch);
         }
     }
+
     handleOnChange(event) {
         this.props.formManager.setModelValue(this.props.field, event.target.value);
     }
