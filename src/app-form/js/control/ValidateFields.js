@@ -1,4 +1,4 @@
-import { invalid, valid, validate } from '../AppFormActions';
+import { invalid, setError, valid, validate } from '../AppFormActions';
 
 import lodash from 'lodash';
 
@@ -10,26 +10,30 @@ export default class ValidateFields {
     validate() {
         const dispatch = this.dispatch;
         if (this.formFields && this.formFields.length) {
+            const errors = [];
+            dispatch(validate());
             this.formFields.forEach(field => {
                 const fieldProps = field.getProperties();
                 const value = field.properties.value;
                 if (field.validator) {
-                    console.log('validating', field);
                     lodash.forIn(field.validator, (validator) => {
-                        dispatch(validate());
                         validator.handler(value, (okay) => {
                             if (!okay) {
                                 validator.setInvalid(true);
                                 fieldProps.className = fieldProps.className += ' invalid';
-                                dispatch(invalid(fieldProps.name, field.validator));
-                            } else {
-                                dispatch(valid(fieldProps.name));
-                            }
-                            field.validating = false;
+                                dispatch(setError(field));
+                            } 
+                            errors.push(field);
                         });
                     });
                 }
             });
+            if(errors.length){
+                dispatch(invalid());
+            }
+            else {
+                dispatch(valid());
+            }
         }
     }
 }

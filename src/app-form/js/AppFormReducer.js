@@ -29,17 +29,21 @@ const AppFormReducer = (state = FORM_STATE, action) => {
         case 'FORM_INVALID':
             state = { ...state, invalid: true, pending: false, lastTouch: null
             };
-            if (!state.error) {
-                state.error = {};
+            if(action.payload){
+                if (!state.error) {
+                    state.error = {};
+                }
+                state.error = { ...state.error };
+                lodash.set(state.error, action.payload.field, action.payload.validator);  
             }
-            state.error = { ...state.error };
-            lodash.set(state.error, action.payload.field, action.payload.validator);
             break;
         case 'FORM_VALID':
             state = { ...state, invalid: false, valid: true, pending: false, lastTouch: null };
-            if (state.error) {
-                state.error = { ...state.error };
-                lodash.unset(state.error, action.payload);
+            if(action.payload) {
+                if (state.error) {
+                    state.error = { ...state.error };
+                    lodash.unset(state.error, action.payload);
+                }
             }
             break;
         case 'FORM_VALIDATE':
@@ -57,6 +61,12 @@ const AppFormReducer = (state = FORM_STATE, action) => {
         case 'SET_ID':
             state = { ...state };
             state.id = action.payload;
+            break;
+        case 'SET_ERROR':
+            if (!state.error) {
+               state.error = {};
+            } 
+            lodash.set(state.error, action.payload.field, action.payload.validator);
             break;
         case 'SET_MANAGED':
             state = { ...state };

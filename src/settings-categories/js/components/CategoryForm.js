@@ -77,6 +77,11 @@ export default class CategoryForm extends React.Component {
         field = new Field('categoryFields');
         field.setName('fields');
         field.setLabel('Fields');
+        field.setValidator({
+            required: new FieldValidator('onChange', 'Aleast one field is added.', (value, done) => {
+                    done(value && !!value.length);
+            })
+        });
         this.formFields.push(field);
 
     }

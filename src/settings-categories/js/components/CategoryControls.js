@@ -18,11 +18,13 @@ export default class CategoryControls extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (!!nextProps.form.id) {
             this.setState({
-                submitLabel: 'Update'
+                submitLabel: 'Update',
+                showDelete: true
             })
         } else {
             this.setState({
-                submitLabel: 'Save'
+                submitLabel: 'Save',
+                showDelete:false
             });
         }
     }
@@ -38,10 +40,14 @@ export default class CategoryControls extends React.Component {
         this.props.dispatch(formRemove('categoryForm'));
     }
     render() {
+        let deleteButton = <span class="delete-placeholder"></span>
+        if(this.state.showDelete) {
+          deleteButton =  <button type="button" onClick={this.handleRemove.bind(this)} class="button">Delete</button>
+        }
         return (<View load={AppInterceptor}>
             <div class="button-group">
                 <button type="button" onClick={this.handleSave.bind(this)} class="button">{this.state.submitLabel}</button>
-                <button type="button" onClick={this.handleRemove.bind(this)} class="button">Delete</button>
+                {deleteButton}
             </div>
         </View>)
     }

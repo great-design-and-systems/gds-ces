@@ -117,3 +117,13 @@ export function clearForm() {
         type: 'CLEAR_FORM'
     }
 }
+
+export function setError(field) {
+    return {
+        type: 'SET_ERROR',
+        payload: {
+            field: field.properties.name,
+            validator: field.validator
+        }
+    }
+} 
