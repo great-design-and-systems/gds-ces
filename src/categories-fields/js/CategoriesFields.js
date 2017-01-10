@@ -17,6 +17,14 @@ export default class CategoriesFields extends React.Component {
         super();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.updated) {
+            console.log('field', nextProps.field);
+            nextProps.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch);
+            this.updated = false;
+        }
+    }
+
     componentWillMount() {
         this.setState({
             categoryFields: []
@@ -43,16 +51,17 @@ export default class CategoriesFields extends React.Component {
     addField() {
         this.state.categoryFields.push(this.createField());
         this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
-        this.forceUpdate();
+        this.updated = true;
     }
 
     createFieldForm(field, index) {
         const key = ('category_field_' + index).hashCode();
         const remove = () => {
             this.state.categoryFields.splice(index, 1);
-            this.forceUpdate();
+            this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
+            this.updated = true;
         }
-        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this)} />)
+        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this) } />)
     }
     renderFields() {
         const fields = [];
@@ -71,13 +80,13 @@ export default class CategoriesFields extends React.Component {
                                 <div class="fields-title-bar row expanded">
                                     <h5>Fields</h5>
                                     <div class="column"></div>
-                                    <a class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>
+                                    <a class="add-button" onClick={this.addField.bind(this) }><i class="fa fa-plus"></i></a>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderFields()}
+                        {this.renderFields() }
                     </tbody>
                 </table>
             </div>);

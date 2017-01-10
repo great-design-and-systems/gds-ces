@@ -79,7 +79,20 @@ export default class CategoryForm extends React.Component {
         field.setLabel('Fields');
         field.setValidator({
             required: new FieldValidator('onChange', 'Aleast one field is added.', (value, done) => {
-                    done(value && !!value.length);
+                done(value && !!value.length);
+            }),
+            fieldName: new FieldValidator('onChange', 'Field name is required.', (value, done) => {
+                if (!value) {
+                    done();
+                } else {
+                    let valid = true;
+                    value.forEach(item => {
+                        if (valid) {
+                            valid = !!item.name;
+                        }
+                    });
+                    done(valid);
+                }
             })
         });
         this.formFields.push(field);
@@ -95,7 +108,7 @@ export default class CategoryForm extends React.Component {
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.formFields,
                         className: 'column align-stretch'
-                    })}
+                    }) }
                 </div>
             </View>)
     }

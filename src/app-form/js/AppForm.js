@@ -125,12 +125,14 @@ export class FormManager {
                         dispatch(validate());
                         setTimeout(() => {
                             validator.handler(event.target.value, (okay) => {
-                                if (!okay) {
-                                    validator.setInvalid(true);
-                                    fieldProps.className = fieldProps.className += ' invalid';
-                                    dispatch(invalid(fieldProps.name, field.validator));
-                                } else {
-                                    dispatch(valid(fieldProps.name));
+                                if (okay !== undefined) {
+                                    if (!okay) {
+                                        validator.setInvalid(true);
+                                        fieldProps.className = fieldProps.className += ' invalid';
+                                        dispatch(invalid(fieldProps.name, field.validator));
+                                    } else {
+                                        dispatch(valid(fieldProps.name));
+                                    }
                                 }
                                 field.validating = false;
                             });
@@ -138,6 +140,28 @@ export class FormManager {
 
                     });
                 }
+            });
+        }
+    }
+    triggerValidateHandler(field, dispatch) {
+        const fieldProps = field.properties;
+        console.log('validating', field);
+        if (!field.validating) {
+            field.validating = true;
+            lodash.forIn(field.validator, (validator, fv) => {
+                dispatch(validate());
+                validator.handler(field.properties.value, (okay) => {
+                    if (okay !== undefined) {
+                        if (!okay) {
+                            validator.setInvalid(true);
+                            fieldProps.className = fieldProps.className += ' invalid';
+                            dispatch(invalid(fieldProps.name, field.validator));
+                        } else {
+                            dispatch(valid(fieldProps.name));
+                        }
+                    }
+                    field.validating = false;
+                });
             });
         }
     }

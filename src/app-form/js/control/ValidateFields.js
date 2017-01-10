@@ -22,13 +22,13 @@ export default class ValidateFields {
                                 validator.setInvalid(true);
                                 fieldProps.className = fieldProps.className += ' invalid';
                                 dispatch(setError(field));
-                            } 
-                            errors.push(field);
+                                errors.push(field);
+                            }
                         });
                     });
                 }
             });
-            if(errors.length){
+            if (errors.length) {
                 dispatch(invalid());
             }
             else {

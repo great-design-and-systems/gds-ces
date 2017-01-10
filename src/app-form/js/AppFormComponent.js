@@ -57,21 +57,23 @@ export default class AppForm extends React.Component {
                 nextProps.dispatch(modelSet());
             }
         }
-        if (!!nextProps.form.formSubmit && nextProps.form.name === nextProps.id) {
-            new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
-            nextProps.dispatch(formSubmitted(nextProps.id));
-        } else if (!!nextProps.form.formRemove && nextProps.form.name === nextProps.id) {
-            nextProps.dispatch(formRemoved(nextProps.id));
-            this.onDelete();
-        } else if (!!nextProps.form.formSubmitted) {
-            if (nextProps.form.valid) {
-                this.submit();
-            }
-            else {
+        if (!nextProps.form.pending) {
+            if (!!nextProps.form.formSubmit && nextProps.form.name === nextProps.id) {
+                new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
+                nextProps.dispatch(formSubmitted(nextProps.id));
+            } else if (!!nextProps.form.formRemove && nextProps.form.name === nextProps.id) {
+                nextProps.dispatch(formRemoved(nextProps.id));
+                this.onDelete();
+            } else if (!!nextProps.form.formSubmitted) {
+                if (nextProps.form.valid) {
+                    this.submit();
+                }
+                else {
+                    nextProps.dispatch(formReinstate());
+                }
+            } else if (!!nextProps.form.formRemoved) {
                 nextProps.dispatch(formReinstate());
             }
-        } else if (!!nextProps.form.formRemoved) {
-            nextProps.dispatch(formReinstate());
         }
         if (nextProps.form.id) {
             if (!!this.props.form.id && !nextProps.form.managed) {
@@ -90,9 +92,6 @@ export default class AppForm extends React.Component {
         event.preventDefault();
         this.props.dispatch(formSubmit(this.props.id));
     }
-    handleRemoved(event) {
-
-    }
     submit() {
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
             this.props.formManager, this.props.form.id);
@@ -102,6 +101,10 @@ export default class AppForm extends React.Component {
             submitModel.create();
         }
         this.props.dispatch(formReinstate());
+
+        if (this.props.onSubmit) {
+            this.props.onSubmitted(submitModel.model);
+        }
     }
 
     onDelete() {
@@ -121,13 +124,13 @@ export default class AppForm extends React.Component {
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                })}
-                <form noValidate={true} onSubmit={this.handleSubmit.bind(this)} name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)()}
+                }) }
+                <form noValidate={true} onSubmit={this.handleSubmit.bind(this) } name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)() }
                     {wrapComponent('AppForm', FormFields)({
                         formFields: this.state.formFields,
                         fieldTemplates: this.state.fieldTemplates
-                    })}
+                    }) }
                     {noButtonForm}
                 </form>
             </div>
