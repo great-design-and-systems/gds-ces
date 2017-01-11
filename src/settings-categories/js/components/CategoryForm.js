@@ -85,6 +85,12 @@ export default class CategoryForm extends React.Component {
             })
         });
         formFields.push(field);
+
+        field = new Field('iconBox');
+        field.setName('icon');
+        field.setLabel('Icon');
+        formFields.push(field);
+
         field = new Field('categoryFields');
         field.setName('fields');
         field.setLabel('Fields');
@@ -108,7 +114,6 @@ export default class CategoryForm extends React.Component {
         });
         formFields.push(field);
         this.setState({ formFields });
-
     }
     render() {
         return (
@@ -120,7 +125,7 @@ export default class CategoryForm extends React.Component {
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    })}
+                    }) }
                 </div>
             </View>)
     }

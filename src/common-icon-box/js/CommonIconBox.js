@@ -36,7 +36,8 @@ export default class CommonIconBox extends React.Component {
             iconValue: event.target.value
         });
         if (this.props.onChange) {
-            this.props.onChange(event.target.valu);
+            event.persist();
+            this.props.onChange(event);
         }
     }
     render() {

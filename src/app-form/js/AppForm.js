@@ -4,6 +4,7 @@ import AppFormCheckBox from './components/AppFormCheckbox';
 import AppFormInput from './components/AppFormInput';
 import AppFormRadio from './components/AppFormRadio';
 import AppFormSelect from './components/AppFormSelect';
+import AppIconBox from './components/AppIconBox';
 import React from 'react';
 import lodash from 'lodash';
 
@@ -180,5 +181,8 @@ const DEFAULT_TEMPLATES = {
     },
     radio: (field, formManager) => {
         return <AppFormRadio field={field} formManager={formManager} />
+    },
+    iconBox: (field, formManager) => {
+        return <AppIconBox field={field} formManager={formManager} />
     }
 };
