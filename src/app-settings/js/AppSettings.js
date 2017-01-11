@@ -21,9 +21,7 @@ export default class AppSettings extends React.Component {
             <View load={AppInterceptor}>
                 <Body className={'app-settings'}>
                     <Sidebar>
-                        <Sticky stickyStyle={{ top: '70px' }} >
-                            <Links links={this.links} />
-                        </Sticky>
+                        <Links links={this.links} />
                     </Sidebar>
                     <Content>
                         {this.props.controls}

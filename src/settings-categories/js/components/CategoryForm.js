@@ -4,6 +4,7 @@ import { clearForm, setId, setManaged } from '../../../app-form/js/AppFormAction
 import AppFormComponent from '../../../app-form/js/AppFormComponent';
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import CategoriesFields from '../../../categories-fields/js/CategoriesFields';
+import { CategoriesRulesField } from '../../../categories-rules/js/CategoriesRules';
 import React from 'react';
 import { View } from '../../../common/AppComponents';
 import { connect } from 'react-redux';
@@ -67,6 +68,9 @@ export default class CategoryForm extends React.Component {
         this.fieldTemplates = {
             categoryFields: (field, formManager) => {
                 return <CategoriesFields field={field} formManager={formManager} />
+            },
+            categoryRules: (field, formManager) => {
+                return <CategoriesRulesField field={field} formManager={formManager} />
             }
         };
     }
@@ -89,11 +93,13 @@ export default class CategoryForm extends React.Component {
         field = new Field('iconBox');
         field.setName('icon');
         field.setLabel('Icon');
+        field.setRequired(true);
         formFields.push(field);
 
         field = new Field('categoryFields');
         field.setName('fields');
         field.setLabel('Fields');
+        field.setRequired(true);
         field.setValidator({
             required: new FieldValidator('onChange', 'Aleast one field is added.', (value, done) => {
                 done(value && !!value.length && value.length > 0);
@@ -113,6 +119,18 @@ export default class CategoryForm extends React.Component {
             })
         });
         formFields.push(field);
+
+        field = new Field('categoryRules');
+        field.setName('rules');
+        field.setLabel('Rules');
+        field.setRequired(true);
+        field.setValidator({
+            required: new FieldValidator('onChange', 'Aleast one rule is added.', (value, done) => {
+                done(value && !!value.length && value.length > 0);
+            })
+        });
+        formFields.push(field);
+
         this.setState({ formFields });
     }
     render() {
@@ -125,7 +143,7 @@ export default class CategoryForm extends React.Component {
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    }) }
+                    })}
                 </div>
             </View>)
     }

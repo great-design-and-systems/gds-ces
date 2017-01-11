@@ -77,7 +77,7 @@ export default class CategoriesFields extends React.Component {
                         <tr>
                             <th colSpan="5">
                                 <div class="fields-title-bar row expanded">
-                                    <h5>Fields</h5>
+                                    <h5>Fields {this.props.field.isRequired() ? <span class="error">*</span> : ''}</h5>
                                     <div class="column"></div>
                                     <a class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>
                                 </div>

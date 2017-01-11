@@ -14,8 +14,8 @@ export default class AppIconBox extends React.Component {
             this.updated = false;
         }
     }
-    handleChange(event) {
-        this.props.formManager.setModelValue(this.props.field, event.target.value);
+    handleChange(value) {
+        this.props.formManager.setModelValue(this.props.field, value);
         this.updated = true;
     }
     render() {
