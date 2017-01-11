@@ -21,11 +21,8 @@ export default class Icon extends React.Component {
     }
     render() {
         let className = this.state.icon;
-        if (className) {
-            className += ' fa-fw fa-lg';
-        }
         return (<CommonView load={AppInterceptor}>
-            <a title={this.state.icon} onClick={this.onIconClick.bind(this)} class="icon column">
+            <a title={this.state.icon} onClick={this.onIconClick.bind(this)} class="icon">
                 <i className={className} />
             </a>
         </CommonView>)

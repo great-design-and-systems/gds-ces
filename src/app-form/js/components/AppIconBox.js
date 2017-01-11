@@ -8,12 +8,19 @@ export default class AppIconBox extends React.Component {
     constructor(props) {
         super();
     }
+    componentWillReceiveProps(nextProps) {
+        if (this.updated) {
+            this.props.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch);
+            this.updated = false;
+        }
+    }
     handleChange(event) {
-
+        this.props.formManager.setModelValue(this.props.field, event.target.value);
+        this.updated = true;
     }
     render() {
         return (<label class="app-icon-box">
-            {this.props.field.label}   {field.isRequired() ? <span class="error">*</span> : ''}
+            {this.props.field.label}   {this.props.field.isRequired() ? <span class="error">*</span> : ''}
             <IconBox value={this.props.field.properties.value}
                 onChange={this.handleChange.bind(this) }/>
         </label>)
