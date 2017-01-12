@@ -5,19 +5,36 @@ import CategoryField from './components/CategoryField';
 import { Field } from './../../app-form/js/AppForm';
 import React from 'react';
 import { connect } from 'react-redux';
+import { get } from '../../api/ApiActions';
 import lodash from 'lodash';
 
 @connect(state => {
     return {
-        form: state.form
+        form: state.form,
+        api: state.api
     }
 })
 export default class CategoriesFields extends React.Component {
     constructor() {
         super();
     }
-
     componentWillReceiveProps(nextProps) {
+        if (nextProps.form.name === 'categoryForm') {
+            if (!nextProps.api.pending && nextProps.form.id && this.loading) {
+                this.loaded = true;
+                this.loading = false;
+                this.setState({
+                    categoryFields: nextProps.api.Category.getFieldsByCategoryId.data.data
+                });
+                this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
+                this.updated = true;
+            } else if (!nextProps.api.pending && nextProps.form.id && !this.loaded) {
+                this.loading = true;
+                nextProps.dispatch(get('{Category.getFieldsByCategoryId}', {
+                    categoryId: nextProps.form.id
+                }));
+            }
+        }
         if (this.updated) {
             nextProps.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch);
             this.updated = false;
@@ -25,6 +42,7 @@ export default class CategoriesFields extends React.Component {
     }
 
     componentWillMount() {
+        this.loaded = false;
         this.setState({
             categoryFields: []
         });

@@ -46,6 +46,7 @@ export default class AppForm extends React.Component {
     }
 
     componentWillUnmount() {
+        this.props.dispatch(clearForm());
         this.setState({});
         this.props.dispatch(formReinstate());
     }
