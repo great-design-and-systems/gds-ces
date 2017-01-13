@@ -1,10 +1,14 @@
 .app-settings {
     .link-control-div {
         padding-right: 1em;
+        a {
+            color: $success-color;
+        }
     }
     .common-sidebar {
         ul {
             li {
+                margin: 1vh 0 1vh 0;
                 &.control {
                     text-align: right;
                 }

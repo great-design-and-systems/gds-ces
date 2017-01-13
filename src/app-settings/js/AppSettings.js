@@ -9,12 +9,18 @@ import { connect } from 'react-redux';
 export default class AppSettings extends React.Component {
     componentWillMount() {
         this.links = [{
-            faIcon: 'fa fa-book fa-fw fa-lg',
+            faIcon: 'fa fa-puzzle-piece fa-fw fa-lg',
             label: 'Categories',
             path: '/settings/categories',
             createsNew: true,
             createPath: '/settings/categories/new'
-        }];
+        }, {
+                faIcon: 'fa fa-cube fa-fw fa-lg',
+                label: 'Items',
+                path: '/settings/items',
+                createsNew: true,
+                createPath: '/settings/items/new'
+            }];
     }
     render() {
         return (
