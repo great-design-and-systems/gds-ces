@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import Rule from './components/Rule';
 export class CategoriesRules extends React.Component {
     componentWillMount() {
-        this.setState({ rules: [] });
+        this.setState({ rules: this.props.value });
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            rules: nextProps.value
+        });
     }
     handleRuleChange() {
         if (this.props.onChange) {
@@ -40,11 +45,18 @@ export class CategoriesRules extends React.Component {
     }
 }
 
+@connect()
 export class CategoriesRulesField extends React.Component {
+    componentWillMount() {
+        this.setState({ rules: this.props.field.getValue() });
+    }
     componentWillReceiveProps(nextProps) {
         if (this.updated) {
             this.updated = false;
             this.props.formManager.triggerValidateHandler(this.props.field, this.props.dispatch);
+        }
+        if (nextProps.field.getValue()) {
+            this.setState({ rules: nextProps.field.getValue() });
         }
     }
     handleOnChange(rules) {
@@ -54,7 +66,7 @@ export class CategoriesRulesField extends React.Component {
     render() {
         return (<label class="categories-rule-field">
             {this.props.field.label} {this.props.field.isRequired() ? <span class="error">*</span> : ''}
-            <CategoriesRules onChange={this.handleOnChange.bind(this) } />
+            <CategoriesRules value={this.state.rules} onChange={this.handleOnChange.bind(this) } />
         </label>)
     }
 }

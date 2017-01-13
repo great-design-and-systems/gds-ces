@@ -128,7 +128,7 @@ export default class CategoryForm extends React.Component {
         field.setLabel('Rules');
         field.setRequired(true);
         field.setValidator({
-            required: new FieldValidator('onChange', 'Aleast one rule is added.', (value, done) => {
+            required: new FieldValidator('onChange', 'Aleast one rule is use.', (value, done) => {
                 done(value && !!value.length && value.length > 0);
             })
         });
@@ -146,7 +146,7 @@ export default class CategoryForm extends React.Component {
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    })}
+                    }) }
                 </div>
             </View>)
     }
