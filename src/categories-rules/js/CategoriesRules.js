@@ -5,6 +5,9 @@ export class CategoriesRules extends React.Component {
     componentWillMount() {
         this.setState({ rules: this.props.value });
     }
+    componentWilUnmount() {
+        this.setState({});
+    }
     componentWillReceiveProps(nextProps) {
         this.setState({
             rules: nextProps.value
@@ -49,6 +52,9 @@ export class CategoriesRules extends React.Component {
 export class CategoriesRulesField extends React.Component {
     componentWillMount() {
         this.setState({ rules: this.props.field.getValue() });
+    }
+    componentWilUnmount() {
+        this.setState({});
     }
     componentWillReceiveProps(nextProps) {
         if (this.updated) {
