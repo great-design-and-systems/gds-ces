@@ -51,10 +51,16 @@ export default class AsyncList extends React.Component {
                 const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager).getList();
                 this.setState({ list });
             }
+
+            this.setState({
+                value: nextProps.value
+            });
         }
     }
     render() {
-        return React.createElement(this.props.listManager.root.element, this.props.listManager.root.props || {},
+        const props = this.props.listManager.root.props || {};
+        props.value = this.state.value || '';
+        return React.createElement(this.props.listManager.root.element, props,
             new StudentList(this.state.list, this.props.listManager.each).render());
     }
 }

@@ -24,31 +24,32 @@ export default class CategoryControls extends React.Component {
             {
                 name: 'removeCategory',
                 iconClass: 'fa fa-trash',
+                buttonClass: 'alert',
                 label: 'Remove',
                 isVisible: (props) => !!props.form.id
             }
         ];
     }
-    handleClick(event, action) {
+    handleClick(event, action, dispatch) {
         switch (action) {
             case 'saveCategory':
             case 'updateCategory':
-                this.handleSave();
+                this.handleSave(dispatch);
                 break;
             case 'removeCategory':
-                this.handleRemove();
+                this.handleRemove(dispatch);
                 break;
         }
     }
-    handleSave() {
-        this.props.dispatch(formSubmit('categoryForm'));
+    handleSave(dispatch) {
+        dispatch(formSubmit('categoryForm'));
     }
-    handleRemove() {
-        this.props.dispatch(formRemove('categoryForm'));
+    handleRemove(dispatch) {
+        dispatch(formRemove('categoryForm'));
     }
     render() {
         return (<View load={AppInterceptor}>
-            <Toolbar onClick={this.handleClick.bind(this) } controls={this.controls} />
+            <Toolbar onClick={this.handleClick.bind(this)} controls={this.controls} />
         </View>)
     }
 }

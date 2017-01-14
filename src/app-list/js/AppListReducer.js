@@ -67,7 +67,6 @@ const AppListReducer = (rootState = {}, action) => {
             state.pending = action.payload;
             break;
         case 'SET_TARGET':
-            state = { ...state };
             rootState.target = action.payload;
             break;
         case 'SET_PAGE':

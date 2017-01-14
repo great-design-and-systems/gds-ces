@@ -2,7 +2,7 @@ import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import CommonView from '../../common-view/js/CommonView';
 import React from 'react';
 import ToolbarButton from './components/ToolbarButton';
-import {wrapComponent} from '../../common/AppUtils';
+import { wrapComponent } from '../../common/AppUtils';
 
 export default class CommonToolbar extends React.Component {
     constructor(props) {
@@ -15,17 +15,17 @@ export default class CommonToolbar extends React.Component {
         if (this.props.controls) {
             const buttons = [];
             this.props.controls.forEach(control => {
-                buttons.push(<ToolbarButton key={control.name.hashCode() } control={control}
-                    action={this.handleAction.bind(this) } />)
+                buttons.push(<ToolbarButton key={control.name.hashCode()} control={control}
+                    action={this.handleAction.bind(this)} />)
             });
             this.setState({ controls: buttons });
         } else {
             this.setState({});
         }
     }
-    handleAction(event, name) {
+    handleAction(event, name, dispatch) {
         if (this.props.onClick) {
-            this.props.onClick(event, name);
+            this.props.onClick(event, name, dispatch);
         }
     }
     render() {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 export class CategoriesRules extends React.Component {
     componentWillMount() {
-        this.setState({ rules: this.props.value });
+        this.setState({ rules: this.props.value ? this.props.value : [] });
     }
     componentWilUnmount() {
         this.setState({});

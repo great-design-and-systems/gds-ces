@@ -1,10 +1,10 @@
 import CommonView from '../../../common-view/js/CommonView';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 @connect(state => {
     return {
-        form: state.api,
+        form: state.form,
         api: state.api
     }
 })
@@ -27,13 +27,13 @@ export default class ToolbarButton extends React.Component {
     handleClick(event) {
         event.persist();
         if (this.props.action) {
-            this.props.action(event, this.props.control.name);
+            this.props.action(event, this.props.control.name, this.props.dispatch);
         }
     }
     render() {
         return (<CommonView if={this.state.visible}>
-            <button className={'common-toolbar-button button ' + this.props.control.buttonClass} name={this.props.control.name} onClick={this.handleClick.bind(this) } disabled={this.state.disabled} type="button">
+            <button className={'common-toolbar-button button ' + this.props.control.buttonClass} name={this.props.control.name} onClick={this.handleClick.bind(this)} disabled={this.state.disabled} type="button">
                 <CommonView if={!!this.state.iconClass}>
-                    <i className={'common-toolbar-icon ' + this.state.iconClass}/></CommonView> {this.state.label}</button></CommonView>)
+                    <i className={'common-toolbar-icon ' + this.state.iconClass} /></CommonView> {this.state.label}</button></CommonView>)
     }
 }

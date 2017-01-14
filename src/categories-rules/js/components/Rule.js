@@ -1,5 +1,6 @@
 import React from 'react';
 import lodash from 'lodash';
+
 export default class Rule extends React.Component {
     componentWillMount() {
         this.setState({});
@@ -38,7 +39,7 @@ export default class Rule extends React.Component {
         return (<td class="rule">
             <div class="row">
                 <div class="switch tiny">
-                    <input onChange={this.handleChange.bind(this) } class="switch-input" id={this.props.name} type="checkbox" name={this.props.name}/>
+                    <input onChange={this.handleChange.bind(this)} class="switch-input" id={this.props.name} type="checkbox" name={this.props.name} />
                     <label class="switch-paddle" for={this.props.name}>
                         <span class="switch-active" aria-hidden="true">Yes</span>
                         <span class="switch-inactive" aria-hidden="true">No</span>
