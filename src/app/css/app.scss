@@ -2,7 +2,7 @@
 @import "app-variables.scss";
 @import "../../app-form/css/app-form.scss";
 @import "../../categories-fields/css/categories-fields.scss";
-@import "../../logger/css/logger-list.scss";
+@import "../../settings-logger/css/logger-list.scss";
 @import "../../app-list/css/app-list.scss";
 @import "../../app-splash/css/app-splash.scss";
 @import "../../app-header/css/app-header.scss";
@@ -22,4 +22,8 @@ html {
         font-size: 100%;
         background: $body-background;
     }
+}
+
+.error {
+    color: $alert-color;
 }

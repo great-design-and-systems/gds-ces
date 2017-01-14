@@ -19,6 +19,13 @@ export default class CategoriesFields extends React.Component {
         super();
     }
     componentWillReceiveProps(nextProps) {
+        this.setCategoriesFieldsProps(nextProps);
+        if (this.updated) {
+            nextProps.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch);
+            this.updated = false;
+        }
+    }
+    setCategoriesFieldsProps(nextProps) {
         if (nextProps.form.name === 'categoryForm') {
             if (!nextProps.api.pending && nextProps.form.id && this.loading) {
                 this.loaded = true;
@@ -27,7 +34,6 @@ export default class CategoriesFields extends React.Component {
                     categoryFields: nextProps.api.Category.getFieldsByCategoryId.data.data
                 });
                 this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
-                this.updated = true;
             } else if (!nextProps.api.pending && nextProps.form.id && !this.loaded) {
                 this.loading = true;
                 nextProps.dispatch(get('{Category.getFieldsByCategoryId}', {
@@ -35,17 +41,13 @@ export default class CategoriesFields extends React.Component {
                 }));
             }
         }
-        if (this.updated) {
-            nextProps.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch);
-            this.updated = false;
-        }
     }
-
     componentWillMount() {
         this.loaded = false;
         this.setState({
             categoryFields: []
         });
+        this.setCategoriesFieldsProps(this.props);
     }
 
     componentWillUnmount() {
@@ -57,7 +59,8 @@ export default class CategoriesFields extends React.Component {
         if (this.props.field.getValue() && this.props.field.getValue().length) {
             this.setState({ categoryFields: this.props.field.getValue() });
         } else {
-            this.addField();
+            this.state.categoryFields.push(this.createField());
+            this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
         }
     }
 
@@ -83,7 +86,7 @@ export default class CategoriesFields extends React.Component {
             this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
             this.updated = true;
         }
-        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this) } />)
+        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this)} />)
     }
     renderFields() {
         const fields = [];
@@ -102,13 +105,13 @@ export default class CategoriesFields extends React.Component {
                                 <div class="fields-title-bar row expanded">
                                     <h5>Fields {this.props.field.isRequired() ? <span class="error">*</span> : ''}</h5>
                                     <div class="column"></div>
-                                    <a class="add-button" onClick={this.addField.bind(this) }><i class="fa fa-plus"></i></a>
+                                    <a class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderFields() }
+                        {this.renderFields()}
                     </tbody>
                 </table>
             </div>);

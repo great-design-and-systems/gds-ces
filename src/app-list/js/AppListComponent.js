@@ -20,4 +20,8 @@ export class AppListActions {
         this.dispatch(setTarget(this.target));
         this.dispatch(setDirty(dirty));
     }
+    setParams(params) {
+        this.dispatch(setTarget(this.target));
+        this.dispatch(setParams(params));
+    }
 }
