@@ -118,11 +118,7 @@ export default class CategoryForm extends React.Component {
                 }
             })
         });
-        field.setProperties({
-            categoryId: this.props
-        })
         formFields.push(field);
-
         field = new Field('categoryRules');
         field.setName('rules');
         field.setLabel('Rules');
