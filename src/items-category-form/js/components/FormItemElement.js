@@ -1,3 +1,5 @@
+import BooleanElement from './BooleanElement';
+import DateElement from './DateElement';
 import NumberElement from './NumberElement';
 import React from 'react';
 import TextElement from './TextElement';
@@ -20,7 +22,9 @@ export default class FormItemElement extends React.Component {
             value: event.target.value
         })
         if (this.props.onChange) {
-            event.persist();
+            if (event.persist) {
+                event.persist();
+            }
             this.props.onChange(event);
         }
     }
@@ -29,16 +33,16 @@ export default class FormItemElement extends React.Component {
         let formElement;
         switch (field.fieldType) {
             case 'text':
-                formElement = <TextElement className={'column large-4 medium-6 small-12'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
+                formElement = <TextElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
                 break;
             case 'boolean':
-                formElement = <div class="column"></div>
+                formElement = <BooleanElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
                 break;
             case 'date':
-                formElement = <div class="column"></div>
+                formElement = <DateElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
                 break;
             case 'number':
-                formElement = <NumberElement className={'column'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
+                formElement = <NumberElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
                 break;
         }
         return formElement;

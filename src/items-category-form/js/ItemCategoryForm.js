@@ -24,7 +24,7 @@ export class ItemCategoryForm extends React.Component {
                 }
             },
             each: {
-                component: (field, index) => <FormItemElement key={field._id} field={field} />
+                component: (field, index) => <FormItemElement onChange={this.handleFormItemChange.bind(this)} key={field._id} field={field} />
             },
             query: {
                 limit: 'page_limit={limit}',
@@ -40,6 +40,9 @@ export class ItemCategoryForm extends React.Component {
             }
         };
         this.actions = new AppListActions('itemCategoryForm', props.dispatch);
+    }
+    handleFormItemChange(event) {
+        console.log('onChange', event.target);
     }
     componentWillMount() {
         this.setState({});

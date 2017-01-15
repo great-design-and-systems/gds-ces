@@ -7,6 +7,7 @@ import CommonContent from '../common-content/js/CommonContent';
 import CommonIconBox from '../common-icon-box/js/CommonIconBox';
 import CommonMessages from '../common-messages/js/CommonMessages';
 import CommonSideBar from '../common-sidebar/js/CommonSidebar';
+import CommonSwitch from '../common-switch/js/CommonSwitch';
 import CommonToolbar from '../common-toolbar/js/CommonToolbar';
 import CommonView from '../common-view/js/CommonView';
 
@@ -18,6 +19,7 @@ export const View = CommonView;
 export const Messages = CommonMessages;
 export const Toolbar = CommonToolbar;
 export const Categories = CommonCategories;
+export const Switch = CommonSwitch;
 export const MessagesActions = {
     addError: addError,
     clearErrors: clearErrors,

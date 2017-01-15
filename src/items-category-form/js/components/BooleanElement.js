@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch } from '../../../common/AppComponents';
 
 export default class BooleanElement extends React.Component {
     componentWillMount() {
@@ -24,11 +25,8 @@ export default class BooleanElement extends React.Component {
     render() {
         return (<label className={this.props.className} for={this.props.field._id}>
             {this.props.field.name} {this.props.field.isRequired ? <span class="error">*</span> : ''}
-            <div class="input-group">
-                <span class="input-group-label"><i class="fa fa-pencil fa-fw fa-lg" aria-hidden="true"></i></span>
-                <input required={this.props.field.isRequired} onChange={this.handleOnChange.bind(this)}
-                    value={this.state.value} name={this.props.field._id} class="input-group-field" type="text" />
-            </div>
+            <Switch id={this.props.field._id} onChange={this.handleOnChange.bind(this)} size={'medium'}
+                value={this.state.value} />
         </label>)
     }
 }
