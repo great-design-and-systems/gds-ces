@@ -5,13 +5,16 @@
     }
     .add-button {
         color: $success-color;
-        margin-right: 15px;
-        margin-left: 10px;
+        border-radius: 25px;
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+        margin: auto;
     }
-    .remove-button {
-        a {
+    a {
+        &.remove-button {
             color: $alert-color;
+            font-size: 18px;
         }
-        text-align: center;
     }
 }

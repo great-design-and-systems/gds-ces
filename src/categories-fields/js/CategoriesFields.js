@@ -18,52 +18,31 @@ export default class CategoriesFields extends React.Component {
     constructor() {
         super();
     }
-    componentWillReceiveProps(nextProps) {
-        this.setCategoriesFieldsProps(nextProps);
-        if (this.updated) {
-            nextProps.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch);
-            this.updated = false;
-        }
+    handleOnChange(event, value) {
+        this.props.formManager.triggerValidateHandler(this.props.field, this.props.dispatch);
+        this.props.formManager.setModelValue(this.props.field, value);
     }
-    setCategoriesFieldsProps(nextProps) {
-        if (nextProps.form.name === 'categoryForm') {
-            if (!nextProps.api.pending && nextProps.form.id && this.loading) {
-                this.loaded = true;
-                this.loading = false;
-                this.setState({
-                    categoryFields: nextProps.api.Category.getFieldsByCategoryId.data.data
-                });
-                this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
-            } else if (!nextProps.api.pending && nextProps.form.id && !this.loaded) {
-                this.loading = true;
-                nextProps.dispatch(get('{Category.getFieldsByCategoryId}', {
-                    categoryId: nextProps.form.id
-                }));
-            }
-        }
+    render() {
+        return (<label>
+            {this.props.field.label}
+            {this.props.field.isRequired() ? <span class="error"> *</span> : ''}
+            <CategoriesTable value={this.props.field.getValue()} onChange={this.handleOnChange.bind(this)} />
+        </label>)
     }
+}
+
+class CategoriesTable extends React.Component {
     componentWillMount() {
-        this.loaded = false;
+        this.setCategoriesState(this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setCategoriesState(nextProps);
+    }
+    setCategoriesState(props) {
         this.setState({
-            categoryFields: []
-        });
-        this.setCategoriesFieldsProps(this.props);
+            value: props.value || []
+        })
     }
-
-    componentWillUnmount() {
-        this.loaded = undefined;
-        this.setState({});
-    }
-
-    componentDidMount() {
-        if (this.props.field.getValue() && this.props.field.getValue().length) {
-            this.setState({ categoryFields: this.props.field.getValue() });
-        } else {
-            this.state.categoryFields.push(this.createField());
-            this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
-        }
-    }
-
     createField() {
         return {
             name: '',
@@ -72,48 +51,49 @@ export default class CategoriesFields extends React.Component {
             isRequired: false
         };
     }
-
-    addField() {
-        this.state.categoryFields.push(this.createField());
-        this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
-        this.updated = true;
+    handleAddButtonClick(event) {
+        const value = [...this.state.value];
+        value.push(this.createField());
+        this.setState({ value });
     }
-
-    createFieldForm(field, index) {
-        const key = ('category_field_' + index).hashCode();
-        const remove = () => {
-            this.state.categoryFields.splice(index, 1);
-            this.props.formManager.setModelValue(this.props.field, this.state.categoryFields);
-            this.updated = true;
+    handleRemoveField(event, index) {
+        this.state.value.splice(index, 1);
+        const value = [...this.state.value];
+        this.setState({ value });
+    }
+    handleOnChange(event, index) {
+        const field = this.state.value[index];
+        lodash.set(field, event.target.name, event.target.value);
+        if (this.props.onChange) {
+            this.props.onChange(event, [...this.state.value]);
         }
-        return (<CategoryField index={index} key={key} field={field} handleRemove={remove.bind(this)} />)
-    }
-    renderFields() {
-        const fields = [];
-        this.state.categoryFields.forEach((field, index) => {
-            fields.push(this.createFieldForm(field, index));
-        });
-        return fields;
     }
     render() {
+        const categoryFields = [];
+        if (this.state.value) {
+            this.state.value.forEach((field, index) => {
+                categoryFields.push(<CategoryField onChange={this.handleOnChange.bind(this)} key={('field_' + index).hashCode()} index={index} onRemove={this.handleRemoveField.bind(this)} value={field} />)
+            });
+        }
         return (
-            <div class="categories-fields">
-                <table class="striped">
-                    <thead>
-                        <tr>
-                            <th colSpan="5">
-                                <div class="fields-title-bar row expanded">
-                                    <h5>Fields {this.props.field.isRequired() ? <span class="error">*</span> : ''}</h5>
-                                    <div class="column"></div>
-                                    <a class="add-button" onClick={this.addField.bind(this)}><i class="fa fa-plus"></i></a>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderFields()}
-                    </tbody>
-                </table>
-            </div>);
+            <table class="stripped categories-fields">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Filter</th>
+                        <th>Require</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {categoryFields}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colSpan={4}><div class="row expanded"><button onClick={this.handleAddButtonClick.bind(this)} class="add-button" type="button" title="add field"><i class="fa fa-plus"></i></button></div></td>
+                    </tr>
+                </tfoot>
+            </table>
+        )
     }
 }

@@ -54,7 +54,7 @@ export default class CategoryForm extends React.Component {
             get: {
                 action: '{Category.getCategoryById}',
                 params: { categoryId: '{id}' },
-                eval: 'data.category'
+                eval: 'data'
             },
             deletePopup: {
                 title: 'Category',
@@ -146,7 +146,7 @@ export default class CategoryForm extends React.Component {
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    }) }
+                    })}
                 </div>
             </View>)
     }
