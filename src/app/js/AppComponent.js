@@ -2,7 +2,6 @@ import { Api } from '../../api/ApiService';
 import AppContent from '../../app-content/js/AppContent';
 import AppHeader from '../../app-header/js/AppHeader';
 import AppSplash from '../../app-splash/js/AppSplash';
-import { ItemCategoryForm } from '../../items-category-form/js/ItemCategoryForm';
 import React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
@@ -38,7 +37,6 @@ export default class App extends React.Component {
                 <StickyContainer>
                     <AppHeader headerForm={this.state.headerForm} />
                     <AppContent contentBody={this.state.contentBody} />
-                    <ItemCategoryForm categoryId={'587b1d5ae43557319c497541'} />
                 </StickyContainer>
             );
         }

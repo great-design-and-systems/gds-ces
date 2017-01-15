@@ -7,6 +7,7 @@ import CategoriesFields from '../../../categories-fields/js/CategoriesFields';
 import { CategoriesRulesField } from '../../../categories-rules/js/CategoriesRules';
 import React from 'react';
 import { View } from '../../../common/AppComponents';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { wrapComponent } from '../../../common/AppUtils';
 
@@ -58,9 +59,12 @@ export default class CategoryForm extends React.Component {
             },
             deletePopup: {
                 title: 'Category',
-                message: 'Do you want to remove this item?',
-                okButton: 'Oh yeah!',
-                cancelButton: 'No, wait!'
+                message: 'Do you want to remove this category?',
+                okButton: 'Yes',
+                cancelButton: 'No, wait!',
+                okAction: () => {
+                    browserHistory.push('/settings/categories')
+                }
             }
         };
     }

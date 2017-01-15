@@ -16,7 +16,11 @@ export default class SettingsLink extends React.Component {
                         </li>)
                 }
                 else {
-                    item = (<li key={link.label.hashCode()}><Link to={link.path}><i className={link.faIcon} />{link.label}</Link></li>)
+                    item = (<li key={link.label.hashCode()}>
+                        <div class="row">
+                            <div class="column"><Link to={link.path}><i className={link.faIcon} /> <span>{link.label}</span></Link></div>
+                        </div>
+                    </li>)
                 }
                 links.push(item);
             })

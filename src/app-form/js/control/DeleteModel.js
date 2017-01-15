@@ -15,12 +15,12 @@ export default class DeleteModel {
                 dispatch(successModal('appFormModal', 'Yes'));
                 dispatch(removeModel(formManager.delete.action, formId,
                     formManager.delete.params));
-                if (formManager.deletePopup.okAction) {
-                    formManager.deletePopup.okAction();
-                }
                 clearValues(formFields);
                 dispatch(setId(null));
                 dispatch(setManaged(false));
+                if (formManager.deletePopup.okAction) {
+                    formManager.deletePopup.okAction();
+                }
             },
             cancelAction: (event) => {
                 dispatch(rejectModal('appFormModal', 'No'));

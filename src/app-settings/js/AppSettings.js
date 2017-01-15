@@ -14,13 +14,20 @@ export default class AppSettings extends React.Component {
             path: '/settings/categories',
             createsNew: true,
             createPath: '/settings/categories/new'
-        }, {
-                faIcon: 'fa fa-cube fa-fw fa-lg',
-                label: 'Items',
-                path: '/settings/items',
-                createsNew: true,
-                createPath: '/settings/items/new'
-            }];
+        },
+        {
+            faIcon: 'fa fa-cube fa-fw fa-lg',
+            label: 'Items',
+            path: '/settings/items',
+            createsNew: true,
+            createPath: '/settings/items/new'
+        },
+        {
+            faIcon: 'fa fa fa-history fa-fw fa-lg',
+            label: 'Logs',
+            path: '/settings/logs',
+            createsNew: false
+        }];
     }
     render() {
         return (
