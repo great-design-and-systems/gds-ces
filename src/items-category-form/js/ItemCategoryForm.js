@@ -3,6 +3,16 @@ import { AppList, AppListActions } from '../../app-list/js/AppListComponent';
 import FormItemElement from './components/FormItemElement';
 import React from 'react';
 import { connect } from 'react-redux';
+import lodash from 'lodash';
+
+export class ItemCategoryFormFields extends React.Component {
+    render() {
+        return (
+            <fieldset>
+                <legend>Content</legend>
+            </fieldset>)
+    }
+}
 
 @connect()
 export class ItemCategoryForm extends React.Component {
@@ -24,7 +34,7 @@ export class ItemCategoryForm extends React.Component {
                 }
             },
             each: {
-                component: (field, index) => <FormItemElement onChange={this.handleFormItemChange.bind(this)} key={field._id} field={field} />
+                component: (field, index) => <FormItemElement value={this.getFieldValue(field)} onChange={this.handleFormItemChange.bind(this)} key={field._id} field={field} />
             },
             query: {
                 limit: 'page_limit={limit}',
@@ -41,8 +51,38 @@ export class ItemCategoryForm extends React.Component {
         };
         this.actions = new AppListActions('itemCategoryForm', props.dispatch);
     }
-    handleFormItemChange(event) {
-        console.log('onChange', event.target);
+    componentWillUnmount() {
+        this.model = undefined;
+    }
+    getFieldValue(field) {
+        let value = '';
+        if (this.props.value) {
+            value = lodash.get(this.props.value, field.name);
+        } else {
+            switch (field.fieldType) {
+                case 'date':
+                    value = null
+                    break;
+                case 'number':
+                    value = 0;
+                    break;
+                case 'boolean':
+                    value = false;
+                    break;
+            }
+        }
+        return value;
+    }
+    handleFormItemChange(event, fieldName) {
+        if (!this.model) {
+            this.model = {};
+        }
+        const model = { ...this.model };
+        lodash.set(model, fieldName, event.target.value);
+        this.model = model;
+        if (this.props.onChange) {
+            this.props.onChange(event, model);
+        }
     }
     componentWillMount() {
         this.setState({});

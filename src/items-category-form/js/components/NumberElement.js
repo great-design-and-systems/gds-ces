@@ -18,7 +18,7 @@ export default class NumberElement extends React.Component {
         })
         if (this.props.onChange) {
             event.persist();
-            this.props.onChange(event);
+            this.props.onChange(event, this.props.field.name);
         }
     }
     render() {

@@ -17,7 +17,7 @@ export default class FormItemElement extends React.Component {
         })
     }
 
-    handleOnChange(event) {
+    handleOnChange(event, fieldName) {
         this.setState({
             value: event.target.value
         })
@@ -25,7 +25,7 @@ export default class FormItemElement extends React.Component {
             if (event.persist) {
                 event.persist();
             }
-            this.props.onChange(event);
+            this.props.onChange(event, fieldName);
         }
     }
     createFormElement(props) {

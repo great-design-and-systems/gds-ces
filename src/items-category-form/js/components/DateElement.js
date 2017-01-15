@@ -21,10 +21,11 @@ export default class DateElement extends React.Component {
             const event = {
                 target: {
                     name: this.props.field._id,
-                    value: date
+                    value: date,
+                    fieldName: this.props.field.name
                 }
             }
-            this.props.onChange(event);
+            this.props.onChange(event, this.props.field.name);
         }
     }
     render() {
