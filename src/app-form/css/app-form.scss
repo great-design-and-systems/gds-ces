@@ -13,7 +13,7 @@
                 border: 1px orangered solid;
             }
         }
-        .field-element[type='text'] .field-element[type='email'] {
+        .field-element[type='text'] .field-element[type='email'] .field-element[type='number'] {
             width: 100%;
         }
     }
@@ -48,6 +48,6 @@
         width: 0;
     }
     .field {
-            padding-bottom: 1vh;
+        padding-bottom: 1vh;
     }
 }

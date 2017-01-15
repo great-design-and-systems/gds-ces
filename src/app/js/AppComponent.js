@@ -38,6 +38,7 @@ export default class App extends React.Component {
                 <StickyContainer>
                     <AppHeader headerForm={this.state.headerForm} />
                     <AppContent contentBody={this.state.contentBody} />
+                    <ItemCategoryForm categoryId={'587b1d5ae43557319c497541'} />
                 </StickyContainer>
             );
         }
