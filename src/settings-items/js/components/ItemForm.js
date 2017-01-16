@@ -72,6 +72,7 @@ export default class ItemForm extends React.Component {
     createFormFields() {
 
     }
+    componentWillUnmount() { this.setState({}); }
     render() {
         return (
             <View load={AppInterceptor}>

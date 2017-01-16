@@ -4,8 +4,8 @@ import 'script!jquery';
 import 'script!foundation-sites';
 
 import { Route, Router, browserHistory } from 'react-router'
-import {SettingItemControls, SettingItemForm} from './settings-items/js/SettingsItems';
 import { SettingsCategoryControls, SettingsCategoryForm, SettingsCategoryList } from './settings-categories/js/SettingsCategories';
+import { SettingsItemControls, SettingsItemForm } from './settings-items/js/SettingsItems';
 
 import App from './app/js/AppComponent';
 import AppSettings from './app-settings/js/AppSettings.js';
@@ -27,7 +27,7 @@ ReactDOM.render(<Provider store={AppStores}>
                 <Route path="categories/new" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />
                 <Route path="categories/:categoryId" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />
                 <Route path="logs" components={{ settingsBody: LoggerList }} />
-                <Route path="items/new" components={{ settingsBody: SettingItemForm, controls: SettingItemControls }} />
+                <Route path="items/new" components={{ settingsBody: SettingsItemForm, controls: SettingsItemControls }} />
             </Route>
         </Route>
     </Router>
