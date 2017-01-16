@@ -1,5 +1,4 @@
 import { AppList, AppListActions, ListFilter, ListLimit, ListPages, ListSort } from '../../app-list/js/AppListComponent';
-import { Sticky, StickyContainer } from 'react-sticky';
 
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import React from 'react';
@@ -29,7 +28,7 @@ export default class LoggerList extends React.Component {
             each: {
                 component: (logger, index) => {
                     return (
-                        <tr className={logger.loggerType.toLowerCase()} key={logger._id}>
+                        <tr className={logger.loggerType.toLowerCase() } key={logger._id}>
                             <td>{logger.createdOn}</td>
                             <td>{logger.loggerType}</td>
                             <td>{logger.message}</td>
@@ -75,38 +74,36 @@ export default class LoggerList extends React.Component {
         }
         return (
             <View load={AppInterceptor}>
-                <StickyContainer class="logger-list">
+                <div class="logger-list">
                     <h4>Application Logs </h4>
-                    <Sticky topOffset={95}>
-                        <form class="row" onSubmit={this.handleSubmit.bind(this)}>
-                            <label class="column large-2">
-                                <span>Domain</span>
-                                <select required type="text" onChange={this.handleChangeDomain.bind(this)} value={this.state.domain} name="domain">
-                                    {options}
-                                </select>
-                            </label>
-                            <label class="column large-2 end">
-                                <span>Limit</span>
-                                <ListLimit target="loggerList" options={[25, 50, 75, 100]} />
-                            </label>
-                            <div class="column large-3 end paginate-section">
-                                <ListPages target="loggerList" />
-                            </div>
-                            <div class="column large-2 end submit-section">
-                                <button type="submit" class="button">Submit</button>
-                            </div>
-                        </form>
-                    </Sticky>
+                    <form class="row" onSubmit={this.handleSubmit.bind(this) }>
+                        <label class="column large-2">
+                            <span>Domain</span>
+                            <select required type="text" onChange={this.handleChangeDomain.bind(this) } value={this.state.domain} name="domain">
+                                {options}
+                            </select>
+                        </label>
+                        <label class="column large-2 end">
+                            <span>Limit</span>
+                            <ListLimit target="loggerList" options={[25, 50, 75, 100]} />
+                        </label>
+                        <div class="column large-3 end paginate-section">
+                            <ListPages target="loggerList" />
+                        </div>
+                        <div class="column large-2 end submit-section">
+                            <button type="submit" class="button">Submit</button>
+                        </div>
+                    </form>
                     <table>
                         <thead>
                             <tr>
-                                <th><Sticky topOffset={95}><ListSort target="loggerList" field='createdOn' label='Created On' /></Sticky></th>
-                                <th><Sticky topOffset={95}><ListSort target="loggerList" field='loggerType' label='Type' /></Sticky></th>
-                                <th><Sticky topOffset={95}><ListSort target="loggerList" field='message' label='Message' /></Sticky></th>
+                                <th><ListSort target="loggerList" field='createdOn' label='Created On' /></th>
+                                <th><ListSort target="loggerList" field='loggerType' label='Type' /></th>
+                                <th><ListSort target="loggerList" field='message' label='Message' /></th>
                             </tr>
                         </thead>
                         <AppList id="loggerList" listManager={this.listManager} />
                     </table>
-                </StickyContainer></View>)
+                </div></View>)
     }
 }

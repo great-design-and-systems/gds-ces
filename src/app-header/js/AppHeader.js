@@ -1,10 +1,10 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import HeaderForm from '../../header-form/js/HeaderForm';
 import HeaderMenu from '../../header-menu/js/HeaderMenu';
-import {View} from '../../common/AppComponents';
 import { Link } from 'react-router';
 import React from 'react';
 import { Sticky } from 'react-sticky';
+import {View} from '../../common/AppComponents';
 import { connect } from 'react-redux';
 
 export default class AppHeader extends React.Component {
