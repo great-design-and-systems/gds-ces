@@ -76,13 +76,14 @@ export default class ItemForm extends React.Component {
         return (
             <View load={AppInterceptor}>
                 <div class="item-form row expanded">
+                    <h4>Item</h4>
                     {wrapComponent('ItemForm', AppFormComponent)({
                         id: 'itemForm',
                         formManager: this.formManager,
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    })}
+                    }) }
                 </div>
             </View>)
     }
