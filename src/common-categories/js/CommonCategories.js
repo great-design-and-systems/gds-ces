@@ -29,18 +29,6 @@ export default class CommonCategories extends React.Component {
             each: {
                 preComponent: () => <option key={(props.id + 'pre_component').hashCode()}>-- select category --</option>,
                 component: item => <option key={item._id} value={item._id}>{item.name}</option>
-            },
-            query: {
-                limit: 'page_limit={limit}',
-                start: 'page_offset={start}',
-                order: {
-                    asc: 'page_sort={field}',
-                    desc: 'page_sort=-{field}'
-                },
-                filter: 'page_filter={field}:{value}'
-            },
-            eval: {
-                total: 'data.total'
             }
         };
         this.actions = new AppListActions(props.id, props.dispatch);

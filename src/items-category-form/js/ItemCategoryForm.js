@@ -5,20 +5,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
 
+@connect()
 export class ItemCategoryFormFields extends React.Component {
     componentWillMount() {
-        console.log('ItemCategoryFormFields.mount', this.props);
-    }
-    componentDidUpdate() {
-        console.log('ItemCategoryFormFields.update', this.props);
+        setCategoryFormFieldsState(this.props);
     }
     componentWillReceiveProps(nextProps) {
-        console.log('ItemCategoryFormFields', nextProps);
+        setCategoryFormFieldsState(nextProps);
+    }
+    setCategoryFormFieldsState(props) {
+        this.setState({
+            categoryId: props.fields.properties.categoryId
+        })
     }
     render() {
+        console.log('render fields', this.state);
         return (
             <fieldset>
                 <legend>Connect</legend>
+                <ItemCategoryForm id={this.props.field.properties.name.hashCode()} categoryId={this.state.categoryId} />
             </fieldset>)
     }
 }
@@ -27,6 +32,9 @@ export class ItemCategoryFormFields extends React.Component {
 export class ItemCategoryForm extends React.Component {
     constructor(props) {
         super();
+        if (!props.id) {
+            throw new Error('Property id is required.');
+        }
         this.categoryId = props.categoryId;
         this.listManager = {
             root: {
@@ -44,21 +52,9 @@ export class ItemCategoryForm extends React.Component {
             },
             each: {
                 component: (field, index) => <FormItemElement value={this.getFieldValue(field)} onChange={this.handleFormItemChange.bind(this)} key={field._id} field={field} />
-            },
-            query: {
-                limit: 'page_limit={limit}',
-                start: 'page_offset={start}',
-                order: {
-                    asc: 'page_sort={field}',
-                    desc: 'page_sort=-{field}'
-                },
-                filter: 'page_filter={field}:{value}'
-            },
-            eval: {
-                total: 'data.total'
             }
         };
-        this.actions = new AppListActions('itemCategoryForm', props.dispatch);
+        this.actions = new AppListActions(props.id, props.dispatch);
     }
     componentWillUnmount() {
         this.model = undefined;
@@ -106,6 +102,6 @@ export class ItemCategoryForm extends React.Component {
         }
     }
     render() {
-        return (<AppList id="itemCategoryForm" listManager={this.listManager} />)
+        return (<AppList id={this.props.id} listManager={this.listManager} />)
     }
 }

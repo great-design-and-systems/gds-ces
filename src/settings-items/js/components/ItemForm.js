@@ -8,6 +8,7 @@ import React from 'react';
 import { View } from '../../../common/AppComponents';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
+import { renderField } from '../../../form-fields/js/FormFieldAction';
 import { wrapComponent } from '../../../common/AppUtils';
 
 @connect()
@@ -73,9 +74,6 @@ export default class ItemForm extends React.Component {
     }
     createFormFields() {
         const formFields = [];
-        let categoriesFields = new Field('categoryFields');
-        categoriesFields.setName('fields');
-
         let field = new Field('input');
         field.setLabel('Name');
         field.setName('name');
@@ -98,21 +96,17 @@ export default class ItemForm extends React.Component {
         })
         field.setProperties({
             onChange: (event) => {
-                const formFields = [...this.state.formFields];
-                formFields.forEach(field => {
-                    const props = field.getProperties();
-                    if (props.name === 'fields') {
-                        props.categoryId = event.target.value
-                    }
-                });
-                this.setState({
-                    formFields
-                });
+                this.props.dispatch(renderField('itemForm', 'fields', {
+                    categoryId: event.target.value
+                }));
             }
         })
         formFields.push(field);
-        formFields.push(categoriesFields);
-        formFields.push()
+
+        field = new Field('categoryFields');
+        field.setName('fields');
+        formFields.push(field);
+
         this.setState({
             formFields
         });

@@ -1,8 +1,14 @@
 import { FieldCreator } from '../AppForm';
 import React from 'react';
 import { connect } from 'react-redux';
+import lodash from 'lodash';
+import { reinstate } from '../../../form-fields/js/FormFieldAction';
 
-@connect()
+@connect(state => {
+    return {
+        field: state.field
+    }
+})
 export default class FormField extends React.Component {
     constructor(props) {
         super();
@@ -19,8 +25,20 @@ export default class FormField extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.formField) {
-            this.setState({ field: this.createField(nextProps.formField, nextProps.fieldTemplates, nextProps.dispatch) });
+        if (nextProps.field.form === nextProps.formField.form) {
+            if (nextProps.field.field === nextProps.formField.properties.name) {
+                if (nextProps.formField) {
+                    if (nextProps.field.properties) {
+                        const properties = { ...nextProps.formField.properties };
+                        lodash.forIn(nextProps.field.properties, (value, name) => {
+                            lodash.set(properties, name, value);
+                        });
+                        nextProps.formField.setProperties(properties);
+                        this.setState({ field: this.createField(nextProps.formField, nextProps.fieldTemplates, nextProps.dispatch) });
+                    }
+                }
+                nextProps.dispatch(reinstate());
+            }
         }
     }
 

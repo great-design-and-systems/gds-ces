@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { isApiActionDone } from '../../../common/AppUtils';
 import lodash from 'lodash';
 
+//TODO: create store per list
 @connect(state => {
     return {
         api: state.api,
@@ -54,10 +55,6 @@ export default class AsyncList extends React.Component {
             else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
                 const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager).getList();
                 this.setState({ list, value: nextProps.value });
-            } else {
-                this.setState({
-                    value: nextProps.value
-                });
             }
         }
     }

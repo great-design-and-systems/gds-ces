@@ -63,7 +63,6 @@ export class Field {
         return !!lodash.get(this.properties, 'required');
     }
 }
-
 export class FieldCreator {
     constructor(field, dispatch, templates) {
         this.field = field;
@@ -79,7 +78,6 @@ export class FieldCreator {
         return lodash.get(this.fieldTemplates, this.field.tag)(this.field, new FormManager(this.dispatch));
     }
 }
-
 export class FieldValidator {
     constructor(event, message, handler, type) {
         this.event = event;
@@ -169,7 +167,6 @@ export class FormManager {
         }
     }
 }
-
 const DEFAULT_TEMPLATES = {
     input: (field, formManager) => {
         return <AppFormInput field={field} formManager={formManager} />
