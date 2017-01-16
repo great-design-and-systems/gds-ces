@@ -52,6 +52,7 @@ export default class AppForm extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        //TODO render per field
         if (nextProps.form.name === nextProps.id) {
             if (nextProps.form.isSettingModel) {
                 new SetFieldValue(nextProps.form.model.name, nextProps.formFields).setValue(nextProps.form.model.value);
