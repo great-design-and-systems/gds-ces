@@ -3,28 +3,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
 
-@connect(
-    state => {
-        return {
-            api: state.api
-        };
-    }
-)
+@connect()
 export default class AppFormCategories extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
+        this.fieldProps = props.field.getProperties();
     }
-    createComponent(field) {
-        return (
-            <label key={fieldProps.name.hashCode()} for={fieldProps.id}
-                class={fieldProps.tag}>
-                {field.label}
-                {field.isRequired() ? <span class="error">*</span> : ''}
-                <Categories />
-            </label>
-        )
+    handleCategoryChange(event) {
+        this.props.formManager.setModelValue(this.props.field, event.target.value);
+        this.updated = true;
+        if (this.fieldProps.onChange) {
+            event.persist();
+            this.fieldProps.onChange(event);
+        }
     }
     render() {
-        return this.createComponent(this.props.field);
+        return (<label for={this.fieldProps.name} class={this.props.field.tag}>
+            {this.props.field.label}
+            {this.props.field.isRequired() ? <span class="error">*</span> : ''}
+            <Categories onChange={this.handleCategoryChange.bind(this)} value={this.props.field.getValue()} id={this.fieldProps.name.hashCode()} name={this.fieldProps.name} dispatch={this.props.dispatch} />
+        </label>);
     }
 }

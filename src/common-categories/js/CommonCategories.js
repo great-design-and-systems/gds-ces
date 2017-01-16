@@ -3,16 +3,22 @@ import { AppList, AppListActions } from '../../app-list/js/AppListComponent';
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import CommonView from '../../common-view/js/CommonView';
 import React from 'react';
-import { connect } from 'react-redux';
 
-@connect()
 export default class CommonCategories extends React.Component {
     constructor(props) {
         super();
+        if (!props.id) {
+            throw new Error('Property id is required.');
+        }
+        if (!props.dispatch) {
+            throw new Error('Property dispatch is required.');
+        }
         this.listManager = {
             root: {
                 element: 'select',
                 props: {
+                    disabled: props.disabled,
+                    name: props.name,
                     onChange: this.handleSelect.bind(this)
                 }
             },
@@ -21,6 +27,7 @@ export default class CommonCategories extends React.Component {
                 eval: 'data.docs'
             },
             each: {
+                preComponent: () => <option key={(props.id + 'pre_component').hashCode()}>-- select category --</option>,
                 component: item => <option key={item._id} value={item._id}>{item.name}</option>
             },
             query: {
@@ -36,7 +43,7 @@ export default class CommonCategories extends React.Component {
                 total: 'data.total'
             }
         };
-        this.actions = new AppListActions('categorySelect', props.dispatch);
+        this.actions = new AppListActions(props.id, props.dispatch);
     }
     handleSelect(event) {
         this.setState({
@@ -59,6 +66,6 @@ export default class CommonCategories extends React.Component {
         this.actions.setDirty(true);
     }
     render() {
-        return (<AppList id="categorySelect" value={this.state.value} listManager={this.listManager} />)
+        return (<AppList id={this.props.id} value={this.state.value} listManager={this.listManager} />)
     }
 }

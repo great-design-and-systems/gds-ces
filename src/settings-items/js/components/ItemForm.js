@@ -7,6 +7,7 @@ import { ItemCategoryFormFields } from '../../../items-category-form/js/ItemCate
 import React from 'react';
 import { View } from '../../../common/AppComponents';
 import { connect } from 'react-redux';
+import lodash from 'lodash';
 import { wrapComponent } from '../../../common/AppUtils';
 
 @connect()
@@ -72,28 +73,49 @@ export default class ItemForm extends React.Component {
     }
     createFormFields() {
         const formFields = [];
+        let categoriesFields = new Field('categoryFields');
+        categoriesFields.setName('fields');
+
         let field = new Field('input');
         field.setLabel('Name');
         field.setName('name');
+        field.setRequired(true);
         field.setValidator({
             required: new FieldValidator('onChange', 'Item name is required', (value, done) => {
                 done(!!value && value.length);
             })
         })
         formFields.push(field);
-        
-        field = new Field('input');
-        field.setLabel('Name');
-        field.setName('name');
+
+        field = new Field('categories');
+        field.setRequired(true);
+        field.setLabel('Category');
+        field.setName('category');
         field.setValidator({
-            required: new FieldValidator('onChange', 'Item name is required', (value, done) => {
-                done(!!value && value.length);
+            required: new FieldValidator('onChange', 'Category is required', (value, done) => {
+                done(!!value && value.length > 0);
             })
         })
+        field.setProperties({
+            onChange: (event) => {
+                const formFields = [...this.state.formFields];
+                formFields.forEach(field => {
+                    const props = field.getProperties();
+                    if (props.name === 'fields') {
+                        props.categoryId = event.target.value
+                    }
+                });
+                this.setState({
+                    formFields
+                });
+            }
+        })
         formFields.push(field);
+        formFields.push(categoriesFields);
+        formFields.push()
         this.setState({
             formFields
-        })
+        });
     }
     componentWillUnmount() { this.setState({}); }
     render() {

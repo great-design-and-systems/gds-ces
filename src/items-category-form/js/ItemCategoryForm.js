@@ -6,10 +6,19 @@ import { connect } from 'react-redux';
 import lodash from 'lodash';
 
 export class ItemCategoryFormFields extends React.Component {
+    componentWillMount() {
+        console.log('ItemCategoryFormFields.mount', this.props);
+    }
+    componentDidUpdate() {
+        console.log('ItemCategoryFormFields.update', this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+        console.log('ItemCategoryFormFields', nextProps);
+    }
     render() {
         return (
             <fieldset>
-                <legend>Content</legend>
+                <legend>Connect</legend>
             </fieldset>)
     }
 }

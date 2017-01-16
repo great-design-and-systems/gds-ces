@@ -3,7 +3,7 @@ import EvaluateList from '../control/EvaluateList';
 import GetList from '../control/GetList';
 import IsNewQuery from '../control/IsNewQuery';
 import React from 'react';
-import StudentList from '../control/RenderList';
+import RenderList from '../control/RenderList';
 import { connect } from 'react-redux';
 import { isApiActionDone } from '../../../common/AppUtils';
 import lodash from 'lodash';
@@ -45,22 +45,26 @@ export default class AsyncList extends React.Component {
                     const newQuery = new CreateQuery(nextProps, this.query).getQuery();
                     this.query = newQuery;
                     new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params);
+                } else {
+                    this.setState({
+                        value: nextProps.value
+                    });
                 }
             }
             else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
                 const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager).getList();
-                this.setState({ list });
+                this.setState({ list, value: nextProps.value });
+            } else {
+                this.setState({
+                    value: nextProps.value
+                });
             }
-
-            this.setState({
-                value: nextProps.value
-            });
         }
     }
     render() {
         const props = this.props.listManager.root.props || {};
         props.value = this.state.value || '';
         return React.createElement(this.props.listManager.root.element, props,
-            new StudentList(this.state.list, this.props.listManager.each).render());
+            new RenderList(this.state.list, this.props.listManager.each).render());
     }
 }
