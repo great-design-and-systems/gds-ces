@@ -1,5 +1,6 @@
 import { invalid, setFormValue, setModelValue, valid, validate } from './AppFormActions';
 
+import AppFormCategories from './components/AppFormCategories';
 import AppFormCheckBox from './components/AppFormCheckbox';
 import AppFormInput from './components/AppFormInput';
 import AppFormRadio from './components/AppFormRadio';
@@ -184,5 +185,8 @@ const DEFAULT_TEMPLATES = {
     },
     iconBox: (field, formManager) => {
         return <AppIconBox field={field} formManager={formManager} />
+    },
+    categories: (field, formManager) => {
+        return <AppFormCategories field={field} formManager={formManager} />
     }
 };

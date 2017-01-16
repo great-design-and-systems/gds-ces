@@ -1,3 +1,4 @@
+import { Field, FieldValidator } from '../../../app-form/js/AppForm';
 import { clearForm, setId, setManaged } from '../../../app-form/js/AppFormActions';
 
 import AppFormComponent from '../../../app-form/js/AppFormComponent';
@@ -70,21 +71,42 @@ export default class ItemForm extends React.Component {
         };
     }
     createFormFields() {
-
+        const formFields = [];
+        let field = new Field('input');
+        field.setLabel('Name');
+        field.setName('name');
+        field.setValidator({
+            required: new FieldValidator('onChange', 'Item name is required', (value, done) => {
+                done(!!value && value.length);
+            })
+        })
+        formFields.push(field);
+        
+        field = new Field('input');
+        field.setLabel('Name');
+        field.setName('name');
+        field.setValidator({
+            required: new FieldValidator('onChange', 'Item name is required', (value, done) => {
+                done(!!value && value.length);
+            })
+        })
+        formFields.push(field);
+        this.setState({
+            formFields
+        })
     }
     componentWillUnmount() { this.setState({}); }
     render() {
         return (
             <View load={AppInterceptor}>
                 <div class="item-form row expanded">
-                    <h4>Item</h4>
                     {wrapComponent('ItemForm', AppFormComponent)({
                         id: 'itemForm',
                         formManager: this.formManager,
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    }) }
+                    })}
                 </div>
             </View>)
     }
