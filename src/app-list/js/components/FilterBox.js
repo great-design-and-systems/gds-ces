@@ -1,8 +1,7 @@
-import { setFilter, setTarget } from '../AppListActions';
-
 import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
+import { setFilter } from '../AppListActions';
 
 @connect()
 export default class FilterBox extends React.Component {
@@ -31,8 +30,7 @@ export default class FilterBox extends React.Component {
         }
     }
     handleOnChangeText(event) {
-        this.props.dispatch(setTarget(this.props.target));
-        this.props.dispatch(setFilter(this.state.field, event.target.value));
+        this.props.dispatch(setFilter(this.state.field, event.target.value, this.props.target));
         if (this.props.handleOnChangeText) {
             this.props.handleOnChangeText(event.target.value);
         }

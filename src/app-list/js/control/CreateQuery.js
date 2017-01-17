@@ -5,11 +5,14 @@ export default class CreateQuery {
         const queryMap = nextProps.listManager ? nextProps.listManager.query : undefined;
         const list = nextProps.list.getState(target);
         this.query = { ...query };
-        setLimit(this.query, list.limit, queryMap);
-        setStart(this.query, list.start, queryMap);
-        setFilter(this.query, list.filter, list.field, queryMap);
-        setOrder(this.query, list.order, list.field, queryMap);
+        if (list) {
+            setLimit(this.query, list.limit, queryMap);
+            setStart(this.query, list.start, queryMap);
+            setFilter(this.query, list.filter, list.field, queryMap);
+            setOrder(this.query, list.order, list.field, queryMap);
+        }
     }
+
     getQuery() {
         return this.query;
     }

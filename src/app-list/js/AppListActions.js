@@ -1,81 +1,98 @@
-export function togglePending() {
+export function togglePending(target) {
     return {
-        type: 'TOGGLE_PENDING'
-    };
-}
-
-export function sort(field) {
-    return {
-        type: 'SET_ORDER',
-        payload: {
-            field: field
-        }
-    }
-}
-
-export function setParams(params) {
-    return {
-        type: 'SET_PARAMS',
-        payload: params
-    };
-}
-
-export function setDirty(dirty) {
-    return {
-        type: 'SET_DIRTY',
-        payload: dirty
-    };
-}
-
-export function setLimit(limit) {
-    return {
-        type: 'SET_LIMIT',
-        payload: limit
-    };
-}
-
-export function setFilter(field, filter) {
-    return {
-        type: 'SET_FILTER',
-        payload: {
-            field: field,
-            filter: filter
-        }
-    };
-}
-
-export function setTotal(total) {
-    return {
-        type: 'SET_TOTAL',
-        payload: total
-    }
-}
-
-export function setPending(pending) {
-    return {
-        type: 'SET_PENDING',
-        payload: pending
-    };
-}
-
-export function setTarget(target) {
-    return {
-        type: 'SET_TARGET',
+        type: 'TOGGLE_PENDING',
         payload: target
     };
 }
 
-export function setStart(start) {
+export function sort(field, target) {
     return {
-        type: 'SET_START',
-        payload: start
+        type: 'SET_ORDER',
+        payload: {
+            field: field,
+            target: target
+        }
     }
 }
 
-export function setPage(page) {
+export function setParams(params, target) {
+    return {
+        type: 'SET_PARAMS',
+        payload: {
+            params: params,
+            target: target
+        }
+    };
+}
+
+export function setDirty(dirty, target) {
+    return {
+        type: 'SET_DIRTY',
+        payload: {
+            dirty: dirty,
+            target: target
+        }
+    };
+}
+
+export function setLimit(limit, target) {
+    return {
+        type: 'SET_LIMIT',
+        payload: {
+            limit: limit,
+            target: target
+        }
+    };
+}
+
+export function setFilter(field, filter, target) {
+    return {
+        type: 'SET_FILTER',
+        payload: {
+            field: field,
+            filter: filter,
+            target: target
+        }
+    };
+}
+
+export function setTotal(total, target) {
+    return {
+        type: 'SET_TOTAL',
+        payload: {
+            total: total,
+            target: target
+        }
+    }
+}
+
+export function setPending(pending, target) {
+    return {
+        type: 'SET_PENDING',
+        payload: {
+            pending: pending,
+            target: target
+        }
+    };
+}
+
+export function setStart(start, target) {
+    return {
+        type: 'SET_START',
+        payload: {
+            start: start,
+            target: target
+        }
+    }
+}
+
+export function setPage(page, target) {
     return {
         type: 'SET_PAGE',
-        payload: page
+        payload: {
+            page: page,
+            target: target
+        }
     }
 }
 

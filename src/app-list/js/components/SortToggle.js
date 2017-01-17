@@ -1,4 +1,4 @@
-import { setDirty, setTarget, sort } from '../AppListActions';
+import { setDirty, sort } from '../AppListActions';
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -23,7 +23,7 @@ export default class SortToggle extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         if (this.props.target === nextProps.list.target) {
-            const list = nextProps.list.getState();
+            const list = nextProps.list.getState(this.props.target);
             this.setState({
                 field: list.field,
                 order: list.order
@@ -31,9 +31,8 @@ export default class SortToggle extends React.Component {
         }
     }
     handleOnClick(event) {
-        this.props.dispatch(setTarget(this.props.target));
-        this.props.dispatch(sort(this.props.field));
-        this.props.dispatch(setDirty(true));
+        this.props.dispatch(sort(this.props.field, this.props.target));
+        this.props.dispatch(setDirty(true, this.props.target));
     }
     render() {
         let orderIcon;

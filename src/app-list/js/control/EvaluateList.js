@@ -1,4 +1,4 @@
-import { setPending, setTarget, setTotal } from '../AppListActions';
+import { setPending, setTotal } from '../AppListActions';
 
 import lodash from 'lodash';
 
@@ -26,15 +26,14 @@ export default class EvaluateList {
                             const evaluatedValue = eval('actionCont.data.' + value);
                             lodash.set(this.evaluated, field, evaluatedValue);
                             if (field === 'total') {
-                                dispatch(setTotal(evaluatedValue));
+                                dispatch(setTotal(evaluatedValue, target));
                             }
                         });
                     }
                 }
             }
         }
-        dispatch(setTarget(target));
-        dispatch(setPending(false));
+        dispatch(setPending(false, target));
     }
     getList() {
         return this.list;

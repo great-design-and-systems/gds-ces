@@ -4,7 +4,7 @@ import GetList from '../control/GetList';
 import IsNewQuery from '../control/IsNewQuery';
 import React from 'react';
 import RenderList from '../control/RenderList';
-import {clearList} from '../AppListActions';
+import { clearList } from '../AppListActions';
 import { connect } from 'react-redux';
 import { isApiActionDone } from '../../../common/AppUtils';
 import lodash from 'lodash';
@@ -33,36 +33,35 @@ export default class AsyncList extends React.Component {
     componentWillMount() {
         this.setState({ list: [] });
         if (this.props.list && this.props.list.target === this.id) {
-            const newQuery = new CreateQuery(this.props).getQuery();
+            const newQuery = new CreateQuery(this.props, {}, this.id).getQuery();
             this.query = newQuery;
             const params = this.props.listManager.get ? this.props.listManager.get.params : {};
-            new GetList(this.props.dispatch, this.props.listManager, newQuery, params);
+            new GetList(this.props.dispatch, this.props.listManager, newQuery, params, this.id);
         }
     }
     componentWillUnmount() {
         this.props.dispatch(clearList(this.id));
     }
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.api.pending) {
-            if (this.id === nextProps.list.target) {
-                const thisList = nextProps.list.getState(this.id);
-                if (!thisList.pending) {
-                    if (thisList.dirty) {
-                        const newQuery = new CreateQuery(nextProps, this.query, this.id).getQuery();
-                        this.query = newQuery;
-                        new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, this.id);
-                    } else {
-                        this.setState({
-                            value: nextProps.value
-                        });
-                    }
-                }
-                else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
-                    const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager, this.id).getList();
-                    this.setState({ list, value: nextProps.value });
+        if (nextProps.list.getState) {
+            const thisList = nextProps.list.getState(nextProps.id);
+            if (!thisList.pending) {
+                if (thisList.dirty) {
+                    const newQuery = new CreateQuery(nextProps, this.query, nextProps.id).getQuery();
+                    this.query = newQuery;
+                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, nextProps.id);
+                } else {
+                    this.setState({
+                        value: nextProps.value
+                    });
                 }
             }
+            else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
+                const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager, nextProps.id).getList();
+                this.setState({ list, value: nextProps.value });
+            }
         }
+
     }
     render() {
         const props = this.props.listManager.root.props || {};

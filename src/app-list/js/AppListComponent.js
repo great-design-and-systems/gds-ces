@@ -1,4 +1,4 @@
-import { setDirty, setFilter, setLimit, setPage, setParams, setPending, setStart, setTarget, setTotal, togglePending } from './AppListActions';
+import { setDirty, setFilter, setLimit, setPage, setParams, setPending, setStart, setTotal, togglePending } from './AppListActions';
 
 import AsyncList from './components/AsyncList';
 import FilterBox from './components/FilterBox';
@@ -17,11 +17,9 @@ export class AppListActions {
         this.target = target;
     }
     setDirty(dirty) {
-        this.dispatch(setTarget(this.target));
-        this.dispatch(setDirty(dirty));
+        this.dispatch(setDirty(dirty, this.target));
     }
     setParams(params) {
-        this.dispatch(setTarget(this.target));
-        this.dispatch(setParams(params));
+        this.dispatch(setParams(params, this.target));
     }
 }

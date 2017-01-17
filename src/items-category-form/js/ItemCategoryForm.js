@@ -8,18 +8,17 @@ import lodash from 'lodash';
 @connect()
 export class ItemCategoryFormFields extends React.Component {
     componentWillMount() {
-        setCategoryFormFieldsState(this.props);
+        this.setCategoryFormFieldsState(this.props);
     }
     componentWillReceiveProps(nextProps) {
-        setCategoryFormFieldsState(nextProps);
+        this.setCategoryFormFieldsState(nextProps);
     }
     setCategoryFormFieldsState(props) {
         this.setState({
-            categoryId: props.fields.properties.categoryId
+            categoryId: props.field.properties.categoryId
         })
     }
     render() {
-        console.log('render fields', this.state);
         return (
             <fieldset>
                 <legend>Connect</legend>

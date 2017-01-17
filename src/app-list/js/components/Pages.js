@@ -1,4 +1,4 @@
-import { setDirty, setStart, setTarget } from '../AppListActions';
+import { setDirty, setStart } from '../AppListActions';
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -22,7 +22,7 @@ export default class Pages extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.target === nextProps.list.target) {
-            const list = nextProps.list.getState();
+            const list = nextProps.list.getState(nextProps.target);
             const total = list.total;
             const start = list.start;
             const limit = list.limit;
@@ -40,11 +40,10 @@ export default class Pages extends React.Component {
         }
     }
     updatePage(page) {
-        this.props.dispatch(setTarget(this.props.target));
-        const list = this.props.list.getState();
+        const list = this.props.list.getState(this.props.target);
         handleStart(this.props.dispatch, page, list.limit,
-            list.total);
-        this.props.dispatch(setDirty(true));
+            list.total, this.props.target);
+        this.props.dispatch(setDirty(true, this.props.target));
     }
     handleNext() {
         const newPage = this.state.page + 1;
@@ -87,10 +86,10 @@ export default class Pages extends React.Component {
     }
 }
 
-function handleStart(dispatch, value, limit, total) {
+function handleStart(dispatch, value, limit, total, target) {
     let start = value ? value * limit : 0;
     if (start > total) {
         start = ((value - 1) * limit) + 1;
     }
-    dispatch(setStart(start));
+    dispatch(setStart(start, target));
 }

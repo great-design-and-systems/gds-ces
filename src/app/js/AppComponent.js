@@ -8,7 +8,7 @@ import React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
 
-const GDS_API = process.env.GDS_API || 'https://demo-gds-api.herokuapp.com/gds';
+const GDS_API = process.env.GDS_API || 'http://localhost:8080/gds';
 
 @connect()
 export default class App extends React.Component {
