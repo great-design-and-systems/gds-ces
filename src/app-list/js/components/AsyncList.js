@@ -43,23 +43,24 @@ export default class AsyncList extends React.Component {
         this.props.dispatch(clearList(this.id));
     }
     componentWillReceiveProps(nextProps) {
-        if (this.id === nextProps.list.target) {
-            const thisList = nextProps.list.getState(this.id);
-            console.log('theList.pending', thisList.pending);
-            if (!thisList.pending) {
-                if (thisList.dirty) {
-                    const newQuery = new CreateQuery(nextProps, this.query, this.id).getQuery();
-                    this.query = newQuery;
-                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, this.id);
-                } else {
-                    this.setState({
-                        value: nextProps.value
-                    });
+        if (!nextProps.api.pending) {
+            if (this.id === nextProps.list.target) {
+                const thisList = nextProps.list.getState(this.id);
+                if (!thisList.pending) {
+                    if (thisList.dirty) {
+                        const newQuery = new CreateQuery(nextProps, this.query, this.id).getQuery();
+                        this.query = newQuery;
+                        new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, this.id);
+                    } else {
+                        this.setState({
+                            value: nextProps.value
+                        });
+                    }
                 }
-            }
-            else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
-                const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager, this.id).getList();
-                this.setState({ list, value: nextProps.value });
+                else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
+                    const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager, this.id).getList();
+                    this.setState({ list, value: nextProps.value });
+                }
             }
         }
     }

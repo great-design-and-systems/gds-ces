@@ -12,6 +12,7 @@ import ValidateFields from './control/ValidateFields';
 import { connect } from 'react-redux';
 import { wrapComponent } from '../../common/AppUtils';
 
+//TODO: skip prop update when api.pending = true
 @connect((state) => {
     return {
         form: state.form,
