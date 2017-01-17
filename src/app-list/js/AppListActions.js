@@ -78,3 +78,10 @@ export function setPage(page) {
         payload: page
     }
 }
+
+export function clearList(listId) {
+    return {
+        type: 'CLEAR_LIST',
+        payload: listId
+    }
+}

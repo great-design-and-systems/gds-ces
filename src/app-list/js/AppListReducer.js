@@ -16,26 +16,22 @@ const DEFAULT_STATE = {
     field: null
 }
 const AppListReducer = (rootState = {}, action) => {
-    rootState = { ...rootState };
+    rootState = {...rootState };
     const target = rootState.target;
     let state = getState(target);
     switch (action.type) {
         case 'SET_START':
-            state = { ...state };
             state.start = action.payload;
             break;
         case 'SET_LIMIT':
-            state = { ...state };
             state.limit = action.payload;
             state.start = 0;
             break;
         case 'SET_FILTER':
-            state = { ...state };
             state.filter = action.payload.filter;
             state.field = action.payload.field;
             break;
         case 'SET_ORDER':
-            state = { ...state };
             const order = state.order === 'desc' && state.field === action.payload.field ? null :
                 state.order && state.field === action.payload.field ? 'desc' : 'asc';
             if (order != null) {
@@ -47,38 +43,35 @@ const AppListReducer = (rootState = {}, action) => {
             }
             break;
         case 'TOGGLE_PENDING':
-            state = { ...state };
             state.pending = !state.pending;
             break;
         case 'SET_PARAMS':
-            state = { ...state };
             state.params = action.payload;
             break;
         case 'SET_DIRTY':
-            state = { ...state };
             state.dirty = action.payload;
             break;
         case 'SET_TOTAL':
-            state = { ...state };
             state.total = action.payload;
             break;
         case 'SET_PENDING':
-            state = { ...state };
             state.pending = action.payload;
             break;
         case 'SET_TARGET':
             rootState.target = action.payload;
             break;
         case 'SET_PAGE':
-            state = { ...state };
             state.page = action.payload;
+            break;
+        case 'CLEAR_LIST':
+            lodash.unset(FLOATING_STATE, action.payload);
             break;
     }
     if (target) {
         setState(target, state);
     }
-    rootState.getState = () => {
-        return state;
+    rootState.getState = (target) => {
+        return getState(target);
     }
     return rootState;
 }

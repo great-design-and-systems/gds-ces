@@ -1,17 +1,14 @@
 import lodash from 'lodash';
 
 export default class CreateQuery {
-    constructor(nextProps, query) {
+    constructor(nextProps, query, target) {
         const queryMap = nextProps.listManager ? nextProps.listManager.query : undefined;
-        if (queryMap) {
-            const list = nextProps.list.getState();
-            this.query = { ...query };
-            setLimit(this.query, list.limit, queryMap);
-            setStart(this.query, list.start, queryMap);
-            setFilter(this.query, list.filter, list.field, queryMap);
-            setOrder(this.query, list.order, list.field, queryMap);
-        }
-
+        const list = nextProps.list.getState(target);
+        this.query = { ...query };
+        setLimit(this.query, list.limit, queryMap);
+        setStart(this.query, list.start, queryMap);
+        setFilter(this.query, list.filter, list.field, queryMap);
+        setOrder(this.query, list.order, list.field, queryMap);
     }
     getQuery() {
         return this.query;
@@ -49,7 +46,7 @@ function getOrder(queryMap) {
 }
 
 function setLimit(query, limit, queryMap) {
-    if (queryMap.limit) {
+    if (queryMap && queryMap.limit) {
         const map = getMap(queryMap, 'limit');
         if (map) {
             lodash.set(query, map.field, parseValue(map.value, '{limit}', limit));
@@ -59,7 +56,7 @@ function setLimit(query, limit, queryMap) {
     }
 }
 function setStart(query, start, queryMap) {
-    if (queryMap.start) {
+    if (queryMap && queryMap.start) {
         const map = getMap(queryMap, 'start');
         if (map) {
             lodash.set(query, map.field, parseValue(map.value, '{start}', start));
@@ -69,7 +66,7 @@ function setStart(query, start, queryMap) {
     }
 }
 function setFilter(query, filter, field, queryMap) {
-    if (queryMap.filter) {
+    if (queryMap && queryMap.filter) {
         const map = getMap(queryMap, 'filter');
         if (map) {
             let value = parseValue(map.value, '{value}', filter);
@@ -81,7 +78,7 @@ function setFilter(query, filter, field, queryMap) {
 }
 
 function setOrder(query, order, field, queryMap) {
-    if (queryMap.order) {
+    if (queryMap && queryMap.order) {
         const map = getOrder(queryMap);
         if (map) {
             const orderMap = lodash.get(map, order);

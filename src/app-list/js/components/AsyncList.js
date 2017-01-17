@@ -4,6 +4,7 @@ import GetList from '../control/GetList';
 import IsNewQuery from '../control/IsNewQuery';
 import React from 'react';
 import RenderList from '../control/RenderList';
+import {clearList} from '../AppListActions';
 import { connect } from 'react-redux';
 import { isApiActionDone } from '../../../common/AppUtils';
 import lodash from 'lodash';
@@ -38,14 +39,18 @@ export default class AsyncList extends React.Component {
             new GetList(this.props.dispatch, this.props.listManager, newQuery, params);
         }
     }
+    componentWillUnmount() {
+        this.props.dispatch(clearList(this.id));
+    }
     componentWillReceiveProps(nextProps) {
         if (this.id === nextProps.list.target) {
-            const thisList = nextProps.list.getState();
-            if (!nextProps.api.pending && !thisList.pending) {
+            const thisList = nextProps.list.getState(this.id);
+            console.log('theList.pending', thisList.pending);
+            if (!thisList.pending) {
                 if (thisList.dirty) {
-                    const newQuery = new CreateQuery(nextProps, this.query).getQuery();
+                    const newQuery = new CreateQuery(nextProps, this.query, this.id).getQuery();
                     this.query = newQuery;
-                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params);
+                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, this.id);
                 } else {
                     this.setState({
                         value: nextProps.value
@@ -53,7 +58,7 @@ export default class AsyncList extends React.Component {
                 }
             }
             else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
-                const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager).getList();
+                const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager, this.id).getList();
                 this.setState({ list, value: nextProps.value });
             }
         }

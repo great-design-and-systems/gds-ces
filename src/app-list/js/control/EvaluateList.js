@@ -1,9 +1,9 @@
-import { setPending, setTotal } from '../AppListActions';
+import { setPending, setTarget, setTotal } from '../AppListActions';
 
 import lodash from 'lodash';
 
 export default class EvaluateList {
-    constructor(dispatch, api, listManager) {
+    constructor(dispatch, api, listManager, target) {
         const get = listManager.get;
         if (get) {
             let action = get.action.replace('{', '').replace('}', '');
@@ -33,6 +33,7 @@ export default class EvaluateList {
                 }
             }
         }
+        dispatch(setTarget(target));
         dispatch(setPending(false));
     }
     getList() {
