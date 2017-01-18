@@ -61,6 +61,7 @@ export default class FormFields extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log('Change in formFields', nextProps);
         this.initFormFields(nextProps);
     }
 

@@ -105,6 +105,7 @@ export default class ItemForm extends React.Component {
 
         field = new Field('categoryFields');
         field.setName('fields');
+        field.setLabel('Content');
         formFields.push(field);
 
         this.setState({

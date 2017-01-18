@@ -1,13 +1,12 @@
-import { setDirty, setLimit, setTarget } from '../AppListActions';
-
 import React from 'react';
 import { connect } from 'react-redux';
+import { setLimit } from '../AppListActions';
 
 @connect()
 export default class LimitDropdown extends React.Component {
     constructor(props) {
         super();
-        if(!props.target){
+        if (!props.target) {
             throw new Error('Property target is required.');
         }
     }
@@ -22,19 +21,18 @@ export default class LimitDropdown extends React.Component {
         });
     }
     handleOnChange(event) {
-        this.props.dispatch(setTarget(this.props.target));
-        this.props.dispatch(setLimit(event.target.value));
+        this.props.dispatch(setLimit(event.target.value, this.props.target));
         if (this.props.handleOnChange) {
             this.props.handleOnChange(event.target.value);
         }
     }
     render() {
-        const options = [<option key={'none'}>-- select limit --</option>];
+        const options = [<option key={'none'}>--select limit--</option>];
         if (this.state.options) {
             this.state.options.forEach(option => {
                 options.push(<option key={option} value={option}>{option}</option>);
             });
         }
-        return (<select onChange={this.handleOnChange.bind(this)}>{options}</select>)
+        return (<select onChange={this.handleOnChange.bind(this) }>{options}</select>)
     }
 }

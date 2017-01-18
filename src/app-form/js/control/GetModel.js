@@ -2,14 +2,17 @@ import lodash from 'lodash';
 
 export default class GetModel {
     constructor(api, formFields, formManager) {
+        this.formFields = [...formFields];
         const action = formManager.get.action.replace('{', '').replace('}', '');
         if (api) {
             const data = getData(api, action, formManager);
             if (!!data) {
-                setData(formFields, data);
+                setData(this.formFields, data);
             }
         }
     }
+
+    getFormFields() { return this.formFields; }
 }
 
 function getData(api, action, formManager) {
@@ -31,7 +34,7 @@ function setData(formFields, data) {
             return fd.properties.name === field
         });
         if (formField) {
-            formField.setValue(value);
+            formField.properties.value = value;
         }
     });
 }

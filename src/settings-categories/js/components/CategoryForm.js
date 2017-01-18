@@ -1,5 +1,5 @@
 import { Field, FieldValidator } from '../../../app-form/js/AppForm';
-import { clearForm, setId, setManaged } from '../../../app-form/js/AppFormActions';
+import { setId, setManaged } from '../../../app-form/js/AppFormActions';
 
 import AppFormComponent from '../../../app-form/js/AppFormComponent';
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
@@ -17,12 +17,13 @@ export default class CategoryForm extends React.Component {
         super();
     }
     componentWillReceiveProps(nextProps) {
-        nextProps.dispatch(clearForm());
-        if (nextProps.params && nextProps.params.categoryId) {
-            nextProps.dispatch(setId(nextProps.params.categoryId));
-        } else {
-            nextProps.dispatch(setId(null));
-            nextProps.dispatch(setManaged(false));
+        if (this.props.categoryId !== nextProps.categoryId) {
+            if (nextProps.params && nextProps.params.categoryId) {
+                nextProps.dispatch(setId(nextProps.params.categoryId));
+            } else {
+                nextProps.dispatch(setId(null));
+                nextProps.dispatch(setManaged(false));
+            }
         }
     }
     componentWillMount() {

@@ -26,10 +26,6 @@ export default class AppForm extends React.Component {
             throw new Error('Property id is required.');
         }
     }
-    componentWillUnmount() {
-        this.setState({});
-        this.props.dispatch(clearForm());
-    }
     componentWillMount() {
         this.setState({});
         if (this.props.form.id) {
@@ -47,54 +43,55 @@ export default class AppForm extends React.Component {
     }
 
     componentWillUnmount() {
-        this.props.dispatch(clearForm());
         this.setState({});
-        this.props.dispatch(formReinstate());
+        this.props.dispatch(clearForm());
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.api.pending) {
-            if (nextProps.form.name === nextProps.id) {
-                if (nextProps.form.isSettingModel) {
-                    new SetFieldValue(nextProps.form.model.name, nextProps.formFields).setValue(nextProps.form.model.value);
-                    nextProps.dispatch(modelSet());
-                }
-            }
-            if (!nextProps.form.pending) {
-                if (!!nextProps.form.formSubmit && nextProps.form.name === nextProps.id) {
-                    new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
-                    nextProps.dispatch(formSubmitted(nextProps.id));
-                } else if (!!nextProps.form.formRemove && nextProps.form.name === nextProps.id) {
-                    nextProps.dispatch(formRemoved(nextProps.id));
-                    this.onDelete();
-                } else if (!!nextProps.form.formSubmitted) {
-                    if (nextProps.form.valid) {
-                        this.submit();
+        if (nextProps.form.clear) {
+            this.clearFields();
+            nextProps.dispatch(formCleared());
+        } else
+            if (!nextProps.api.pending) {
+                if (nextProps.form.name === nextProps.id) {
+                    if (nextProps.form.isSettingModel) {
+                        new SetFieldValue(nextProps.form.model.name, nextProps.formFields).setValue(nextProps.form.model.value);
+                        nextProps.dispatch(modelSet());
                     }
-                    else {
+                }
+                if (!nextProps.form.pending) {
+                    if (!!nextProps.form.formSubmit && nextProps.form.name === nextProps.id) {
+                        new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
+                        nextProps.dispatch(formSubmitted(nextProps.id));
+                    } else if (!!nextProps.form.formRemove && nextProps.form.name === nextProps.id) {
+                        nextProps.dispatch(formRemoved(nextProps.id));
+                        this.onDelete();
+                    } else if (!!nextProps.form.formSubmitted) {
+                        if (nextProps.form.valid) {
+                            this.submit();
+                        }
+                        else {
+                            nextProps.dispatch(formReinstate());
+                        }
+                    } else if (!!nextProps.form.formRemoved) {
                         nextProps.dispatch(formReinstate());
                     }
-                } else if (!!nextProps.form.formRemoved) {
-                    nextProps.dispatch(formReinstate());
                 }
-            }
-            if (nextProps.form.id) {
-                if (!!this.props.form.id && !nextProps.form.managed) {
-                    if (!nextProps.api.error) {
-                        new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager);
-                        nextProps.dispatch(setManaged(true));
+                if (nextProps.form.id) {
+                    if (!!this.props.form.id && !nextProps.form.managed) {
+                        if (!nextProps.api.error) {
+                            const formFields = new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager).getFormFields();
+                            this.setState({ formFields });
+                            console.log('newFormFields', formFields);
+                            nextProps.dispatch(setManaged(true));
+                        }
+                    }
+                    else if (this.props.form.id !== nextProps.form.id) {
+                        nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
+                        nextProps.dispatch(setManaged(false));
                     }
                 }
-                if (this.props.form.id != nextProps.form.id) {
-                    nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
-                    nextProps.dispatch(setManaged(false));
-                }
             }
-            if (nextProps.form.clear) {
-                this.clearFields();
-                nextProps.dispatch(formCleared());
-            }
-        }
 
     }
     handleSubmit(event) {
@@ -139,13 +136,13 @@ export default class AppForm extends React.Component {
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                })}
-                <form noValidate={true} onSubmit={this.handleSubmit.bind(this)} name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)()}
+                }) }
+                <form noValidate={true} onSubmit={this.handleSubmit.bind(this) } name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)() }
                     {wrapComponent('AppForm', FormFields)({
                         formFields: this.state.formFields,
                         fieldTemplates: this.state.fieldTemplates
-                    })}
+                    }) }
                     {noButtonForm}
                 </form>
             </div>

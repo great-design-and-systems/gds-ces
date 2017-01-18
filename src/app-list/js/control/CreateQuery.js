@@ -49,57 +49,68 @@ function getOrder(queryMap) {
 }
 
 function setLimit(query, limit, queryMap) {
-    if (queryMap && queryMap.limit) {
-        const map = getMap(queryMap, 'limit');
-        if (map) {
-            lodash.set(query, map.field, parseValue(map.value, '{limit}', limit));
+    if (limit) {
+        if (queryMap && queryMap.limit) {
+            const map = getMap(queryMap, 'limit');
+            if (map) {
+                lodash.set(query, map.field, parseValue(map.value, '{limit}', limit));
+            }
+        } else {
+            lodash.set(query, 'limit', limit);
         }
-    } else {
-        lodash.set(query, 'limit', limit);
     }
+
 }
 function setStart(query, start, queryMap) {
-    if (queryMap && queryMap.start) {
-        const map = getMap(queryMap, 'start');
-        if (map) {
-            lodash.set(query, map.field, parseValue(map.value, '{start}', start));
+    if (start) {
+        if (queryMap && queryMap.start) {
+            const map = getMap(queryMap, 'start');
+            if (map) {
+                lodash.set(query, map.field, parseValue(map.value, '{start}', start));
+            }
+        } else {
+            lodash.set(query, 'start', start);
         }
-    } else {
-        lodash.set(query, 'start', start);
     }
+
 }
 function setFilter(query, filter, field, queryMap) {
-    if (queryMap && queryMap.filter) {
-        const map = getMap(queryMap, 'filter');
-        if (map) {
-            let value = parseValue(map.value, '{value}', filter);
-            lodash.set(query, map.field, parseValue(value, '{field}', field));
+    if (filter != null) {
+        if (queryMap && queryMap.filter) {
+            const map = getMap(queryMap, 'filter');
+            if (map) {
+                let value = parseValue(map.value, '{value}', filter);
+                lodash.set(query, map.field, parseValue(value, '{field}', field));
+            }
+        } else {
+            lodash.set(query, 'filter', filter);
         }
-    } else {
-        lodash.set(query, 'filter', filter);
     }
 }
 
 function setOrder(query, order, field, queryMap) {
-    if (queryMap && queryMap.order) {
-        const map = getOrder(queryMap);
-        if (map) {
-            const orderMap = lodash.get(map, order);
-            if (orderMap) {
-                lodash.set(query, orderMap.field, parseValue(orderMap.value, '{field}', field));
-            } else {
-                const asc = lodash.get(map, 'asc');
-                const desc = lodash.get(map, 'desc');
-                if (asc) {
-                    lodash.unset(query, asc.field);
+    if (order && field) {
+        if (queryMap && queryMap.order) {
+            const map = getOrder(queryMap);
+            if (map) {
+                const orderMap = lodash.get(map, order);
+                if (orderMap) {
+                    lodash.set(query, orderMap.field, parseValue(orderMap.value, '{field}', field));
+                } else {
+                    const asc = lodash.get(map, 'asc');
+                    const desc = lodash.get(map, 'desc');
+                    if (asc) {
+                        lodash.unset(query, asc.field);
+                    }
+                    if (desc) {
+                        lodash.unset(query, desc.field);
+                    }
                 }
-                if (desc) {
-                    lodash.unset(query, desc.field);
-                }
-            }
 
+            }
+        } else {
+            lodash.set(query, order, field);
         }
-    } else {
-        lodash.set(query, order, field);
     }
+
 }

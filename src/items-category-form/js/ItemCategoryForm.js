@@ -21,8 +21,8 @@ export class ItemCategoryFormFields extends React.Component {
     render() {
         return (
             <fieldset>
-                <legend>Connect</legend>
-                <ItemCategoryForm id={this.props.field.properties.name.hashCode()} categoryId={this.state.categoryId} />
+                <legend>{this.props.field.label}</legend>
+                <ItemCategoryForm id={this.props.field.properties.name} categoryId={this.state.categoryId} />
             </fieldset>)
     }
 }
@@ -50,7 +50,7 @@ export class ItemCategoryForm extends React.Component {
                 }
             },
             each: {
-                component: (field, index) => <FormItemElement value={this.getFieldValue(field)} onChange={this.handleFormItemChange.bind(this)} key={field._id} field={field} />
+                component: (field, index) => <FormItemElement value={this.getFieldValue(field) } onChange={this.handleFormItemChange.bind(this) } key={field._id} field={field} />
             }
         };
         this.actions = new AppListActions(props.id, props.dispatch);
@@ -97,6 +97,7 @@ export class ItemCategoryForm extends React.Component {
             this.actions.setParams({
                 categoryId: nextProps.categoryId
             });
+            this.actions.setDirty(true);
             this.categoryId = nextProps.categoryId;
         }
     }
