@@ -39,7 +39,7 @@ export class ItemCategoryForm extends React.Component {
             root: {
                 element: 'div',
                 props: {
-                    className: 'row expanded'
+                    className: 'items-category-forms row expanded'
                 }
             },
             get: {

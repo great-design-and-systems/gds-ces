@@ -39,7 +39,7 @@ export default class FormItemElement extends React.Component {
                 formElement = <BooleanElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
                 break;
             case 'date':
-                formElement = <DateElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
+                formElement = <DateElement className={'date-element column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
                 break;
             case 'number':
                 formElement = <NumberElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />

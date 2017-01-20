@@ -23,14 +23,15 @@ export default class CommonIconBox extends React.Component {
     }
     handleChange(event) {
         const iconGroups = lodash.cloneDeep(ICONS_GROUP);
-        console.log()
-        lodash.forEach(iconGroups, (va) => {
-            const icons = va.icons;
-            const filteredIcons = lodash.filter(icons, icon => {
-                return !event.target.value || icon.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1;
+        if (event.target.value.length > 1) {
+            lodash.forEach(iconGroups, (va) => {
+                const icons = va.icons;
+                const filteredIcons = lodash.filter(icons, icon => {
+                    return !event.target.value || icon.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1;
+                });
+                va.icons = filteredIcons;
             });
-            va.icons = filteredIcons;
-        });
+        }
         this.setState({
             iconGroups: iconGroups,
             iconValue: event.target.value
@@ -51,16 +52,16 @@ export default class CommonIconBox extends React.Component {
                         <CommonView if={this.state.iconValue && this.state.iconValue.length}>
                             <span class="input-group-label icon-preview"><i className={this.state.iconValue} /></span>
                         </CommonView>
-                        <input onChange={this.handleChange.bind(this) } value={this.state.iconValue} placeholder="search here" class="input-group-field" type="text" />
+                        <input onChange={this.handleChange.bind(this)} value={this.state.iconValue} placeholder="search here" class="input-group-field" type="text" />
                         <div class="input-group-button">
-                            <button onClick={this.handleOnClick.bind(this) } class="button" type="button" data-toggle="iconBox">{this.state.toggleIconBox ? <i class="fa fa-caret-up" /> : <i class="fa fa-caret-down" />}</button>
+                            <button onClick={this.handleOnClick.bind(this)} class="button" type="button" data-toggle="iconBox">{this.state.toggleIconBox ? <i class="fa fa-caret-up" /> : <i class="fa fa-caret-down" />}</button>
                         </div>
                     </div>
                     <CommonView if={this.state.toggleIconBox}>
                         {wrapComponent('CommonIconBox', IconGroups)({
                             iconGroups: this.state.iconGroups,
                             handleSelect: this.handleSelect.bind(this)
-                        }) }
+                        })}
                     </CommonView>
                 </div>
             </CommonView>

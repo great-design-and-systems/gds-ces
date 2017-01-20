@@ -7,4 +7,9 @@
             height: 35.33px;
         }
     }
+    .date-element {
+        div.react-datepicker__input-container {
+            width: 100%;
+        }
+    }
 }
