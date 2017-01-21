@@ -2,7 +2,7 @@ import React from 'react';
 
 export function wrapComponent(name, WrappedComponent) {
     function wrap(props) {
-        return <WrappedComponent {...props} appForm />
+        return <WrappedComponent {...props} />
     }
     const wrappedComponentName = WrappedComponent.displayName
         || WrappedComponent.name

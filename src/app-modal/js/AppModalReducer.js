@@ -13,7 +13,6 @@ const DEFAULT_STATE = {
 const AppModalReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case 'OPEN_MODAL':
-            console.log('open modal', action);
             state = { ...state };
             state.title = action.payload.title;
             state.message = action.payload.message;

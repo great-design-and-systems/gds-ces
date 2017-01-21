@@ -82,7 +82,6 @@ export default class AppForm extends React.Component {
                         if (!nextProps.api.error) {
                             const formFields = new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager).getFormFields();
                             this.setState({ formFields });
-                            console.log('newFormFields', formFields);
                             nextProps.dispatch(setManaged(true));
                         }
                     }

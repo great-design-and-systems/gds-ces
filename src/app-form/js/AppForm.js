@@ -8,6 +8,7 @@ import AppFormSelect from './components/AppFormSelect';
 import AppIconBox from './components/AppIconBox';
 import React from 'react';
 import lodash from 'lodash';
+import { renderField } from '../../form-fields/js/FormFieldAction';
 
 export class Field {
     constructor(tag) {
@@ -130,7 +131,6 @@ export class FormManager {
                                         if (!!message) {
                                             validator.message = message;
                                         }
-                                        console.log('field.validator 1', field.validator);
                                         validator.setInvalid(true);
                                         fieldProps.className = fieldProps.className += ' invalid';
                                         dispatch(invalid(fieldProps.name, field.validator));
@@ -161,7 +161,6 @@ export class FormManager {
                                 if (!!message) {
                                     validator.message = message;
                                 }
-                                console.log('field.validator 2', field.validator);
                                 validator.setInvalid(true);
                                 fieldProps.className = fieldProps.className += ' invalid';
                                 dispatch(invalid(fieldProps.name, field.validator));
@@ -180,7 +179,6 @@ export class FormManager {
                                     validator.message = message;
                                 }
                                 validator.setInvalid(true);
-                                console.log('field.validator 3', field.validator);
                                 fieldProps.className = fieldProps.className += ' invalid';
                                 dispatch(invalid(fieldProps.name, field.validator));
                             } else {
@@ -194,6 +192,9 @@ export class FormManager {
 
             });
         }
+    }
+    renderField(formName, field, properties) {
+        this.dispatch(renderField(formName, field, properties));
     }
 }
 const DEFAULT_TEMPLATES = {

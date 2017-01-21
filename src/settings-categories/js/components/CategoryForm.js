@@ -96,7 +96,7 @@ export default class CategoryForm extends React.Component {
         formFields.push(field);
 
         field = new Field('iconBox');
-        field.setName('icon');
+        field.setName('iconGlyph');
         field.setLabel('Icon');
         field.setRequired(true);
         formFields.push(field);
@@ -124,6 +124,7 @@ export default class CategoryForm extends React.Component {
             })
         });
         formFields.push(field);
+
         field = new Field('categoryRules');
         field.setName('rules');
         field.setLabel('Rules');
@@ -147,7 +148,7 @@ export default class CategoryForm extends React.Component {
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    }) }
+                    })}
                 </div>
             </View>)
     }

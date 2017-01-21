@@ -4,7 +4,11 @@ import { reloaded } from './CommonViewActions';
 export default class CommonView extends React.Component {
     componentWillMount() {
         this.reloadView(this.props);
-        this.setState({ rendered: true });
+        if (this.props.if != null) {
+            this.setState({ rendered: this.props.if });
+        } else {
+            this.setState({ rendered: true });
+        }
     }
     reloadView(props) {
         this.setState({ visible: !props.load });

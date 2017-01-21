@@ -10,7 +10,7 @@ export default class BooleanElement extends React.Component {
     }
     setTextElementState(props) {
         this.setState({
-            value: props.value
+            value: props.value || false
         })
     }
     handleOnChange(event) {

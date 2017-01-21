@@ -1,6 +1,6 @@
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
-import Icon from './Icon';
 import CommonView from '../../../common-view/js/CommonView';
+import Icon from './Icon';
 import React from 'react';
 import { wrapComponent } from '../../../common/AppUtils';
 
@@ -8,10 +8,7 @@ export default class Icons extends React.Component {
     constructor() {
         super();
     }
-    componentWillMount() {
-        this.setState({});
-    }
-    componentWillReceiveProps(nextProps) {
+    setIconsState(nextProps) {
         if (nextProps.icons) {
             const icons = [];
             nextProps.icons.forEach((icon, index) => {
@@ -27,11 +24,20 @@ export default class Icons extends React.Component {
         }
 
     }
+    componentWillMount() {
+        this.setIconsState(this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setIconsState(nextProps);
+    }
     render() {
         return (<CommonView load={AppInterceptor}>
             <div class="icons row expanded">
                 {this.state.icons}
             </div>
         </CommonView>)
+    }
+    componentWillUnmount() {
+        this.setState({});
     }
 }

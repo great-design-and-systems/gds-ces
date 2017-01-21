@@ -5,18 +5,22 @@ export default class Rule extends React.Component {
     componentWillMount() {
         this.setState({});
     }
+    updateRuleToggleView(props) {
+        this.setState({
+            checked: contains(props.rules, props.name)
+        })
+    }
     componentDidMount() {
-        if (contains(this.props.rules, this.props.name)) {
-            $('input#' + this.props.name).attr('checked', true);
-        }
-        else {
-            $('input#' + this.props.name).removeAttr('checked');
-        }
+        this.updateRuleToggleView(this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.updateRuleToggleView(nextProps);
     }
     componentWillUnmount() {
         if (contains(this.props.rules, this.props.name)) {
             removeItem(this.props.rules, this.props.name);
         }
+        this.setState({});
     }
     handleChange(event) {
         const isOn = $(event.target).is(':checked');
@@ -39,7 +43,7 @@ export default class Rule extends React.Component {
         return (<td class="rule">
             <div class="row">
                 <div class="switch tiny">
-                    <input onChange={this.handleChange.bind(this)} class="switch-input" id={this.props.name} type="checkbox" name={this.props.name} />
+                    <input onChange={this.handleChange.bind(this)} class="switch-input" id={this.props.name} type="checkbox" name={this.props.name} checked={this.state.checked} />
                     <label class="switch-paddle" for={this.props.name}>
                         <span class="switch-active" aria-hidden="true">Yes</span>
                         <span class="switch-inactive" aria-hidden="true">No</span>

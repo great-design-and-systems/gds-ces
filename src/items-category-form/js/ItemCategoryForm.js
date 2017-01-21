@@ -12,11 +12,10 @@ export class ItemCategoryFormFields extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         if (this.updated) {
-            nextProps.formManager.triggerEventHandler(nextProps.field, nextProps.dispatch, 'onChange');
+            nextProps.formManager.triggerValidateHandler(nextProps.field, nextProps.dispatch, 'onChange');
             this.updated = false;
-        } else {
-            this.setCategoryFormFieldsState(nextProps);
         }
+        this.setCategoryFormFieldsState(nextProps);
     }
     setCategoryFormFieldsState(props) {
         this.setState({
@@ -26,6 +25,7 @@ export class ItemCategoryFormFields extends React.Component {
     }
     handleChange(event, model, fieldConfig) {
         this.props.formManager.setModelValue(this.props.field, model);
+        this.props.formManager.renderField(this.props.field.form, this.props.field.properties.name, { value: model });
         this.updated = true;
     }
     handleComplete(data) {
@@ -91,8 +91,6 @@ export class ItemCategoryForm extends React.Component {
         return value;
     }
     handleFormItemChange(event, fieldName) {
-        console.log('fieldName', fieldName);
-        console.log('event', event);
         if (!this.model) {
             this.model = {};
         }
@@ -105,7 +103,6 @@ export class ItemCategoryForm extends React.Component {
             })[0];
             this.props.onChange(event, model, fieldConfig);
         }
-        console.log('model', model);
     }
     componentWillMount() {
         this.setState({});

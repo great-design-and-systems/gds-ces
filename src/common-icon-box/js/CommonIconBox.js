@@ -6,17 +6,26 @@ import lodash from 'lodash';
 import { wrapComponent } from '../../common/AppUtils';
 
 export default class CommonIconBox extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
     }
     componentWillMount() {
-        this.setState({ toggleIconBox: false, iconGroups: ICONS_GROUP, iconValue: this.props.value ? this.props.value : '' });
+        this.setState({ toggleIconBox: false, iconGroups: ICONS_GROUP, value: this.props.value ? this.props.value : '' });
+    }
+    componentWillUnmount() {
+        this.setState({});
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            value: nextProps.value || ''
+        })
     }
     handleOnClick(event) {
         this.setState({ toggleIconBox: !this.state.toggleIconBox });
+
     }
     handleSelect(icon) {
-        this.setState({ iconValue: icon });
+        this.setState({ value: icon });
         if (this.props.onChange) {
             this.props.onChange(icon);
         }
@@ -25,7 +34,7 @@ export default class CommonIconBox extends React.Component {
         const iconGroups = lodash.cloneDeep(ICONS_GROUP);
         if (event.target.value.length > 1) {
             lodash.forEach(iconGroups, (va) => {
-                const icons = va.icons;
+                const icons = [...va.icons];
                 const filteredIcons = lodash.filter(icons, icon => {
                     return !event.target.value || icon.toLowerCase().indexOf(event.target.value.toLowerCase()) > -1;
                 });
@@ -34,7 +43,7 @@ export default class CommonIconBox extends React.Component {
         }
         this.setState({
             iconGroups: iconGroups,
-            iconValue: event.target.value
+            value: event.target.value
         });
         if (this.props.onChange) {
             this.props.onChange(event.target.value);
@@ -49,10 +58,10 @@ export default class CommonIconBox extends React.Component {
             <CommonView load={AppInterceptor}>
                 <div className={className}>
                     <div class="input-group">
-                        <CommonView if={this.state.iconValue && this.state.iconValue.length}>
-                            <span class="input-group-label icon-preview"><i className={this.state.iconValue} /></span>
+                        <CommonView if={!!this.state.value && this.state.value.length > 1}>
+                            <span class="input-group-label icon-preview"><i className={this.state.value} /></span>
                         </CommonView>
-                        <input onChange={this.handleChange.bind(this)} value={this.state.iconValue} placeholder="search here" class="input-group-field" type="text" />
+                        <input disabled={this.props.disabled} onChange={this.handleChange.bind(this)} value={this.state.value} placeholder="search here" class="input-group-field" type="text" />
                         <div class="input-group-button">
                             <button onClick={this.handleOnClick.bind(this)} class="button" type="button" data-toggle="iconBox">{this.state.toggleIconBox ? <i class="fa fa-caret-up" /> : <i class="fa fa-caret-down" />}</button>
                         </div>

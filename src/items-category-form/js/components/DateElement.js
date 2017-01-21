@@ -1,22 +1,23 @@
 import DatePicker from 'react-datepicker';
 import React from 'react';
+import moment from 'moment';
 
 export default class DateElement extends React.Component {
     componentWillMount() {
         this.setTextElementState(this.props);
     }
     componentWillReceiveProps(nextProps) {
+        console.log('date.componentWillReceiveProps', nextProps);
         this.setTextElementState(nextProps);
     }
     setTextElementState(props) {
-        console.log('dateState', props.value);
         this.setState({
-            value: props.value
+            value: moment(props.value)
         })
     }
     handleOnChange(date) {
         this.setState({
-            value: date._d
+            value: moment(date)
         })
         if (this.props.onChange) {
             const event = {

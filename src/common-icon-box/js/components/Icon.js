@@ -7,7 +7,9 @@ export default class Icon extends React.Component {
         super();
     }
     componentWillMount() {
-        this.setState({});
+        this.setState({
+            icon: this.props.icon
+        });
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
@@ -26,5 +28,9 @@ export default class Icon extends React.Component {
                 <i className={className} />
             </a>
         </CommonView>)
+    }
+
+    componentWillUnmount(){
+        this.setState({});
     }
 }

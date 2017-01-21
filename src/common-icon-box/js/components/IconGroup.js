@@ -1,6 +1,6 @@
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
-import Icons from './Icons';
 import CommonView from '../../../common-view/js/CommonView';
+import Icons from './Icons';
 import React from 'react';
 import { wrapComponent } from '../../../common/AppUtils';
 
@@ -9,9 +9,12 @@ export default class IconGroup extends React.Component {
         super();
     }
     componentWillMount() {
-        this.setState({});
+        this.setIconGroupState(this.props);
     }
     componentWillReceiveProps(nextProps) {
+        this.setIconGroupState(nextProps);
+    }
+    setIconGroupState(nextProps) {
         this.setState({
             group: nextProps.group,
             icons: nextProps.icons,
@@ -28,5 +31,8 @@ export default class IconGroup extends React.Component {
                 })}
             </div>
         </CommonView>)
+    }
+    componentWillUnmount() {
+        this.setState({});
     }
 }

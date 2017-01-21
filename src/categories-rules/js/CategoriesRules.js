@@ -87,21 +87,17 @@ export class CategoriesRules extends React.Component {
     }
 }
 
-@connect()
+@connect(state => {
+    return {
+        form: state.form,
+        api: state.api
+    }
+})
 export class CategoriesRulesField extends React.Component {
-    componentWillMount() {
-        this.setState({ rules: this.props.field.getValue() });
-    }
-    componentWilUnmount() {
-        this.setState({});
-    }
     componentWillReceiveProps(nextProps) {
         if (this.updated) {
             this.updated = false;
             this.props.formManager.triggerValidateHandler(this.props.field, this.props.dispatch);
-        }
-        if (nextProps.field.getValue()) {
-            this.setState({ rules: nextProps.field.getValue() });
         }
     }
     handleOnChange(rules) {
@@ -111,7 +107,7 @@ export class CategoriesRulesField extends React.Component {
     render() {
         return (<label class="categories-rule-field">
             {this.props.field.label} {this.props.field.isRequired() ? <span class="error">*</span> : ''}
-            <CategoriesRules value={this.state.rules} onChange={this.handleOnChange.bind(this)} />
+            <CategoriesRules value={this.props.field.getValue()} onChange={this.handleOnChange.bind(this)} />
         </label>)
     }
 }
