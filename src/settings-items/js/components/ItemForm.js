@@ -96,7 +96,7 @@ export default class ItemForm extends React.Component {
         })
         field.setProperties({
             onChange: (event) => {
-                this.props.dispatch(renderField('itemForm', 'fields', {
+                this.props.dispatch(renderField('itemForm', 'content', {
                     categoryId: event.target.value
                 }));
             }
@@ -104,10 +104,25 @@ export default class ItemForm extends React.Component {
         formFields.push(field);
 
         field = new Field('categoryFields');
-        field.setName('fields');
+        field.setName('content');
         field.setLabel('Content');
+        field.setValidator({
+            required: new FieldValidator('onChange', 'Please fill out all the required contents', (value, done) => {
+                let valid = true;
+                let fieldInvalid;
+                lodash.forIn(field.fieldData, fieldConfig => {
+                    if (valid && fieldConfig.isRequired) {
+                        const fieldValue = lodash.get(value, fieldConfig.name);
+                        valid = !!fieldValue;
+                        if (!valid) {
+                            fieldInvalid = fieldConfig;
+                        }
+                    }
+                });
+                done(valid, fieldInvalid ? fieldInvalid.name + ' is required' : null);
+            })
+        });
         formFields.push(field);
-
         this.setState({
             formFields
         });

@@ -58,6 +58,9 @@ export default class AsyncList extends React.Component {
             }
             else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
                 const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager, nextProps.id).getList();
+                if(nextProps.onComplete){
+                    nextProps.onComplete(list);
+                }
                 this.setState({ list, value: nextProps.value });
             }
         }

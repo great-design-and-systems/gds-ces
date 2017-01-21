@@ -9,19 +9,20 @@ export default class DateElement extends React.Component {
         this.setTextElementState(nextProps);
     }
     setTextElementState(props) {
+        console.log('dateState', props.value);
         this.setState({
             value: props.value
         })
     }
     handleOnChange(date) {
         this.setState({
-            value: date
+            value: date._d
         })
         if (this.props.onChange) {
             const event = {
                 target: {
                     name: this.props.field._id,
-                    value: date,
+                    value: date._d,
                     fieldName: this.props.field.name
                 }
             }
