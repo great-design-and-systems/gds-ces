@@ -32,8 +32,8 @@ export default class ItemForm extends React.Component {
         this.createFormManager();
         this.createFieldTemplates();
         this.createFormFields();
-        if (this.props.params && this.props.params.categoryId) {
-            this.props.dispatch(setId(this.props.params.categoryId));
+        if (this.props.params && this.props.params.itemId) {
+            this.props.dispatch(setId(this.props.params.itemId));
         } else {
             this.props.dispatch(setId(null));
             this.props.dispatch(setManaged(false));
@@ -42,10 +42,10 @@ export default class ItemForm extends React.Component {
     createFormManager() {
         this.formManager = {
             create: {
-                action: '{Items.createItem}'
+                action: '{Items.createItemWithContent}'
             },
             update: {
-                action: '{Items.updateItem}',
+                action: '{Items.updateItemWithContent}',
                 params: { itemId: '{id}' }
             },
             delete: {
@@ -99,6 +99,13 @@ export default class ItemForm extends React.Component {
                 this.props.dispatch(renderField('itemForm', 'content', {
                     categoryId: event.target.value
                 }));
+            },
+            onComplete: (value, data) => {
+                if (!!value) {
+                    this.props.dispatch(renderField('itemForm', 'content', {
+                        categoryId: value
+                    }));
+                }
             }
         })
         formFields.push(field);

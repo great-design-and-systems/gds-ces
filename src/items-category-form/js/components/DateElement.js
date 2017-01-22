@@ -7,7 +7,6 @@ export default class DateElement extends React.Component {
         this.setTextElementState(this.props);
     }
     componentWillReceiveProps(nextProps) {
-        console.log('date.componentWillReceiveProps', nextProps);
         this.setTextElementState(nextProps);
     }
     setTextElementState(props) {

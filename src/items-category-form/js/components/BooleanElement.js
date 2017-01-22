@@ -13,13 +13,16 @@ export default class BooleanElement extends React.Component {
             value: props.value || false
         })
     }
-    handleOnChange(event) {
+    handleOnChange(value) {
         this.setState({
-            value: event.target.value
+            value: value
         })
         if (this.props.onChange) {
-            event.persist();
-            this.props.onChange(event, this.props.field.name);
+            this.props.onChange({
+                target: {
+                    value: value
+                }
+            }, this.props.field.name);
         }
     }
     render() {

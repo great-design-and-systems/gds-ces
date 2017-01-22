@@ -53,7 +53,12 @@ export default class CommonCategories extends React.Component {
         })
         this.actions.setDirty(true);
     }
+    handleComplete(data) {
+        if (this.props.onComplete) {
+            this.props.onComplete(data);
+        }
+    }
     render() {
-        return (<AppList id={this.props.id} value={this.state.value} listManager={this.listManager} />)
+        return (<AppList onComplete={this.handleComplete.bind(this)} id={this.props.id} value={this.state.value} listManager={this.listManager} />)
     }
 }

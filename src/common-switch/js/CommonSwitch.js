@@ -2,19 +2,14 @@ import React from 'react';
 
 export default class CommonSwitch extends React.Component {
     handleOnChange(event) {
-        const isOn = $(event.target).is(':checked');
+        const isOn = !this.state.checked;
         if (this.props.onChange) {
-            event.persist();
-            event.target.value = isOn
-            this.props.onChange(event);
+            this.props.onChange(isOn);
         }
+        this.setState({ checked: isOn });
     }
-    componentDidMount() {
-        if (this.props.value === true) {
-            $('input#' + this.props.id).attr('checked', true);
-        } else {
-            $('input#' + this.props.id).removeAttr('checked');
-        }
+    setSwitchState(props) {
+        this.setState({ checked: props.value || false });
     }
     componentWillMount() {
         this.setState({
@@ -22,10 +17,14 @@ export default class CommonSwitch extends React.Component {
             falseLabel: this.props.falseLabel || 'No',
             size: this.props.size || 'small'
         })
+        this.setSwitchState(this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setSwitchState(nextProps);
     }
     render() {
         return (<div className={'switch ' + this.state.size + ' ' + this.props.className}>
-            <input onClick={this.handleOnChange.bind(this)} class="switch-input" id={this.props.id} type="checkbox" name={this.props.id} />
+            <input onChange={this.handleOnChange.bind(this)} class="switch-input" id={this.props.id} type="checkbox" name={this.props.id} checked={this.state.checked} />
             <label class="switch-paddle" for={this.props.id}>
                 <span class="switch-active" aria-hidden="true">{this.state.trueLabel}</span>
                 <span class="switch-inactive" aria-hidden="true">{this.state.falseLabel}</span>
