@@ -24,7 +24,7 @@ export class CategoriesRules extends React.Component {
             <table>
                 <thead>
                     <tr>
-                        <th>Input Type</th>
+                        <th>Input</th>
                         <th>Pre Action</th>
                         <th>Action</th>
                         <th>Post Action</th>

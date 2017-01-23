@@ -115,6 +115,7 @@ export default class ItemForm extends React.Component {
         field.setLabel('Content');
         field.setValidator({
             required: new FieldValidator('onChange', 'Please fill out all the required contents', (value, done) => {
+                //TODO: Fix validation
                 let valid = true;
                 let fieldInvalid;
                 lodash.forIn(field.fieldData, fieldConfig => {
