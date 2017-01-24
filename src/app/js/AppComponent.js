@@ -2,11 +2,11 @@ import { Api } from '../../api/ApiService';
 import AppContent from '../../app-content/js/AppContent';
 import AppHeader from '../../app-header/js/AppHeader';
 import AppSplash from '../../app-splash/js/AppSplash';
+import { Fileupload } from '../../common/AppComponents';
+import { GDS_API } from '../../common/AppConstants';
 import React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
-
-const GDS_API = process.env.GDS_API || 'http://localhost:8080/gds';
 
 @connect()
 export default class App extends React.Component {
@@ -37,6 +37,7 @@ export default class App extends React.Component {
                 <StickyContainer>
                     <AppHeader headerForm={this.state.headerForm} />
                     <AppContent contentBody={this.state.contentBody} />
+                    <Fileupload name="sampleFile" />
                 </StickyContainer>
             );
         }
