@@ -1,6 +1,12 @@
 .common-fileupload {
     .input-group {
         margin-bottom: 0;
+        .input-group-field {
+            &.progress {
+                height:inherit;
+                margin-bottom: 0;
+            }
+        }
     }
     .input-group-button {
         div {

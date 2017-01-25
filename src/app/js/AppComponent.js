@@ -2,8 +2,8 @@ import { Api } from '../../api/ApiService';
 import AppContent from '../../app-content/js/AppContent';
 import AppHeader from '../../app-header/js/AppHeader';
 import AppSplash from '../../app-splash/js/AppSplash';
-import { Fileupload } from '../../common/AppComponents';
 import { GDS_API } from '../../common/AppConstants';
+import { Imageupload } from '../../common/AppComponents';
 import React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
@@ -37,7 +37,7 @@ export default class App extends React.Component {
                 <StickyContainer>
                     <AppHeader headerForm={this.state.headerForm} />
                     <AppContent contentBody={this.state.contentBody} />
-                    <Fileupload name="sampleFile" />
+                    <Imageupload name="sampleImage" value={'5888cfbf1dcd1d1418cd998c'} />
                 </StickyContainer>
             );
         }

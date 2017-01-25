@@ -17,17 +17,19 @@ export default class CommonProgressbar extends React.Component {
         return (this.state.value / this.state.limit) * 100;
     }
     getText() {
-        if (this.props.progressText) {
-            return this.props.progressText(this.state.value);
-        } else {
-            return this.getPercentage() + '%';
+        if (this.state.value) {
+            if (this.props.progressText) {
+                return this.props.progressText(this.state.value);
+            } else {
+                return this.getPercentage() + '%';
+            }
         }
+        return '';
     }
     render() {
+        const className = 'progress ' + this.props.className || '';
         const percentage = this.getPercentage();
-        console.log('progress state', this.state);
-        console.log('percentage', percentage);
-        return (<div class="progress" role="progressbar" tabindex="0">
+        return (<div className={className} role="progressbar">
             <span class="progress-meter" style={{
                 width: percentage + '%'
             }}>

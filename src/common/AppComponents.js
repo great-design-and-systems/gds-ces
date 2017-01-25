@@ -6,6 +6,7 @@ import CommonCategories from '../common-categories/js/CommonCategories';
 import CommonContent from '../common-content/js/CommonContent';
 import CommonFileUpload from '../common-fileupload/js/CommonFileupload';
 import CommonIconBox from '../common-icon-box/js/CommonIconBox';
+import CommonImageupload from '../common-imageupload/js/CommonImageupload';
 import CommonMessages from '../common-messages/js/CommonMessages';
 import CommonProgressbar from '../common-progressbar/js/CommonProgressbar';
 import CommonSideBar from '../common-sidebar/js/CommonSidebar';
@@ -24,6 +25,7 @@ export const Categories = CommonCategories;
 export const Switch = CommonSwitch;
 export const Fileupload = CommonFileUpload;
 export const Progressbar = CommonProgressbar;
+export const Imageupload = CommonImageupload;
 export const MessagesActions = {
     addError: addError,
     clearErrors: clearErrors,

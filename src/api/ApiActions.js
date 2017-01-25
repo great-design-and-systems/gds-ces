@@ -25,3 +25,15 @@ export function query(action, query) {
         payload: query
     };
 }
+
+export function download(action, params) {
+    return {
+        type: action,
+        payload: {
+            params: params,
+            query: {
+                isFile: true
+            }
+        }
+    }
+}
