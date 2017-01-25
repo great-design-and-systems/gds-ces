@@ -25,6 +25,22 @@ export default class CommonFileUpload extends React.Component {
                     loaded: progress.loaded,
                     total: progress.total
                 });
+            },
+            uploadSuccess: (res) => {
+                this.setState({ fileId: res.fileId });
+                if (this.props.uploadSucess) {
+                    this.props.uploadSucess(res.fileId);
+                }
+            },
+            uploadError: (res) => {
+                if (this.props.uploadError) {
+                    this.props.uploadError(res);
+                }
+            },
+            uploadFail: (res) => {
+                if (this.props.uploadError) {
+                    this.props.uploadError(res);
+                }
             }
         }
     }
