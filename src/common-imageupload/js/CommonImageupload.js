@@ -27,6 +27,7 @@ export default class CommonImageupload extends React.Component {
         this.setState({ value: props.value, _d: new Date().getTime() });
     }
     getImageUrl(value, time) {
+        console.log('value', value);
         return READ_FILE + value + '&_d=' + time;
     }
     handleOnComplete(fileId) {
@@ -38,7 +39,7 @@ export default class CommonImageupload extends React.Component {
         })
     }
     render() {
-        const image = this.state.value ? <img {...this.imageProps} class="thumbnail" src={this.getImageUrl(this.state.value, this.state._d)} /> : <img {...this.imageProps} class="thumbnail" src="src/common-imageupload/img/default.png" />
+        const image = this.state.value ? <img {...this.imageProps} src={this.getImageUrl(this.state.value, this.state._d)} /> : <img {...this.imageProps} src="src/common-imageupload/img/default.png" />
         return (<div class="common-imageupload">
             <div class="image-div">
                 {image}

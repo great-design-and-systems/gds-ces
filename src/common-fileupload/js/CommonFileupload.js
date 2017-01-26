@@ -28,6 +28,9 @@ export default class CommonFileUpload extends React.Component {
             accept: props.accept || '*/*',
             chooseFile: (files) => {
                 this.setState({ files });
+                if (this.props.onSelect) {
+                    this.props.onSelect(files);
+                }
             },
             uploading: (progress) => {
                 this.setState({
@@ -37,21 +40,21 @@ export default class CommonFileUpload extends React.Component {
             },
             uploadSuccess: (res) => {
                 this.setState({ fileId: res.fileId, uploading: false });
-                if (this.props.uploadSucess) {
-                    this.props.uploadSucess(res.fileId);
+                if (this.props.onComplete) {
+                    this.props.onComplete(res.fileId);
                 }
             },
             uploadError: (res) => {
-                if (this.props.uploadError) {
-                    this.props.uploadError(res);
+                if (this.props.onFail) {
+                    this.props.onFail(res);
                 }
                 this.setState({
                     uploading: false
                 });
             },
             uploadFail: (res) => {
-                if (this.props.uploadError) {
-                    this.props.uploadError(res);
+                if (this.props.onFail) {
+                    this.props.onFail(res);
                 }
                 this.setState({
                     uploading: false
