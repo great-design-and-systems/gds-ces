@@ -1,5 +1,9 @@
 .common-imageupload {
+    border: 1px dashed $primary-color;
+    border-bottom: none;
     .image-div {
-        margin-bottom: 0;
+        margin: auto;
+        width: 50%;
+        padding: 10px;
     }
 }

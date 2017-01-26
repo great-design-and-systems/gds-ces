@@ -6,7 +6,7 @@ import FileUpload from 'react-fileupload';
 import React from 'react';
 import { UPLOAD_BASE_URL } from '../../common/AppConstants';
 import { connect } from 'react-redux';
-import {isApiActionDone} from '../../common/AppUtils';
+import { isApiActionDone } from '../../common/AppUtils';
 
 const ACTION_GET_FILE_DETAIL_BY_ID = '{' + FILE_DOMAIN + '.getFileDetailById}';
 @connect(state => {
@@ -90,6 +90,9 @@ export default class CommonFileUpload extends React.Component {
             loaded: 0,
             total: 0
         });
+        if (this.props.onClear) {
+            this.props.onClear();
+        }
     }
     setFileUploadState(props) {
         if (props.value) {
@@ -101,10 +104,10 @@ export default class CommonFileUpload extends React.Component {
         this.setState({ fileId: props.value });
     }
     render() {
-        const className = 'common-fileupload ' + this.props.className || '';
+        const className = 'common-fileupload ' + (this.props.className || '');
         const hasFile = this.state.files && this.state.files.length > 0;
         const controlButton = hasFile ? <button class="button" ref="uploadBtn">upload</button> : <button class="button" ref="chooseBtn">browse</button>;
-        const uploadLabel = hasFile ? <a onClick={this.handleClearUpload.bind(this) }><i class="fa fa-eraser" /></a> : <i className={this.props.labelIcon || 'fa fa-upload'} />;
+        const uploadLabel = hasFile ? <a onClick={this.handleClearUpload.bind(this)}><i class="fa fa-eraser" /></a> : <i className={this.props.labelIcon || 'fa fa-upload'} />;
         const input = !this.state.uploading ? <input value={hasFile ? this.state.files[0].name : this.state.fileDetail ? this.state.fileDetail.fileName : ''} readOnly placeholder="browse file" class="input-group-field" type="text" /> :
             <CommonProgressbar className={'input-group-field'} limit={this.state.total} value={this.state.loaded} />;
 

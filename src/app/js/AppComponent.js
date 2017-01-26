@@ -37,7 +37,7 @@ export default class App extends React.Component {
                 <StickyContainer>
                     <AppHeader headerForm={this.state.headerForm} />
                     <AppContent contentBody={this.state.contentBody} />
-                    <Imageupload name="sampleImage" value={'5889c8fffb7baf5b24fecac4'} />
+                    <Imageupload className={'large-3'} name="sampleImage" value={'588a3559593cfe346c899f52'} />
                 </StickyContainer>
             );
         }
