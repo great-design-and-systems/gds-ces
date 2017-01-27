@@ -1,5 +1,6 @@
 import BooleanElement from './BooleanElement';
 import DateElement from './DateElement';
+import DocumentElement from './DocumentElement';
 import NumberElement from './NumberElement';
 import React from 'react';
 import TextElement from './TextElement';
@@ -33,16 +34,19 @@ export default class FormItemElement extends React.Component {
         let formElement;
         switch (field.fieldType) {
             case 'text':
-                formElement = <TextElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
+                formElement = <TextElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this) } value={this.state.value} />
                 break;
             case 'boolean':
-                formElement = <BooleanElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
+                formElement = <BooleanElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this) } value={this.state.value} />
                 break;
             case 'date':
-                formElement = <DateElement className={'date-element column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
+                formElement = <DateElement className={'date-element column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this) } value={this.state.value} />
                 break;
             case 'number':
-                formElement = <NumberElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this)} value={this.state.value} />
+                formElement = <NumberElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this) } value={this.state.value} />
+                break;
+            case 'document':
+                formElement = <DocumentElement className={'column large-4 medium-6 small-12 end'} field={field} onChange={this.handleOnChange.bind(this) } value={this.state.value} />
                 break;
         }
         return formElement;
