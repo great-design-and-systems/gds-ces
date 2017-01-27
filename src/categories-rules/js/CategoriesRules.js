@@ -4,15 +4,17 @@ import { connect } from 'react-redux';
 
 export class CategoriesRules extends React.Component {
     componentWillMount() {
-        this.setState({ rules: this.props.value ? this.props.value : [] });
+        this.setState({ rules: this.props.value || [] });
     }
     componentWilUnmount() {
         this.setState({});
     }
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            rules: nextProps.value
-        });
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.value !== this.props.value) {
+            this.setState({
+                rules: this.props.value || []
+            });
+        }
     }
     handleRuleChange() {
         if (this.props.onChange) {

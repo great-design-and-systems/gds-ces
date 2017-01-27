@@ -10,7 +10,7 @@ export default class CommonContent extends React.Component {
         }
         return (
             <CommonView load={AppInterceptor}>
-                <div className={className}>
+                <div id={this.props.id} className={className}>
                     {this.props.children}
                 </div>
             </CommonView>

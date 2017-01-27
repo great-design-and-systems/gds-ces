@@ -5,6 +5,9 @@ export default class CommonImageviewer extends React.Component {
     constructor() {
         super();
     }
+    componentWillUnmount() {
+        this.setState({});
+    }
     componentWillMount() {
         this.setImageViewerState(this.props);
     }

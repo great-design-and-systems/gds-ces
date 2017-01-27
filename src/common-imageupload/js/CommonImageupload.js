@@ -6,12 +6,15 @@ import React from 'react';
 //TODO: image preview before upload
 //TODO: show fileId data on upload complete
 export default class CommonImageupload extends React.Component {
+    componentWillUnmount() {
+        this.setState({});
+    }
     componentWillMount() {
         this.setImageuploadState(this.props);
     }
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.value !== this.props.value) {
-            this.setImageuploadState(this.props);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.value !== this.props.value) {
+            this.setImageuploadState(nextProps);
         }
     }
     constructor(props) {
@@ -46,13 +49,13 @@ export default class CommonImageupload extends React.Component {
         });
     }
     render() {
-        return (<div className={'common-imageupload ' + (this.props.className || '') }>
+        return (<div className={'common-imageupload ' + (this.props.className || '')}>
             <div class="image-div">
                 <CommonImageviewer fileId={this.state.value} file={this.state.file} />
             </div>
             <div>
-                <CommonFileupload disabled={this.props.disabled} onClear={this.handleOnClear.bind(this) } value={this.state.value}
-                    onSelect={this.handleOnSelect.bind(this) } onComplete={this.handleOnComplete.bind(this) }
+                <CommonFileupload disabled={this.props.disabled} onClear={this.handleOnClear.bind(this)} value={this.state.value}
+                    onSelect={this.handleOnSelect.bind(this)} onComplete={this.handleOnComplete.bind(this)}
                     name={this.props.name} accept="image/*" />
             </div>
         </div>)
