@@ -1,4 +1,5 @@
 import React from 'react';
+
 export default class FormColumn extends React.Component {
     constructor(props) {
         super();
@@ -11,16 +12,18 @@ export default class FormColumn extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({});
+        this.setFormColumState(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
+        this.setFormColumState(nextProps);
+    }
+    setFormColumState(nextProps) {
         this.setState({
             formField: nextProps.formField,
             fields: nextProps.fields
         });
     }
-
     createColumn(formField, fields) {
         const fieldProperties = formField.getProperties();
         fieldProperties.className = fieldProperties.className.replace('field-element', 'field-column');

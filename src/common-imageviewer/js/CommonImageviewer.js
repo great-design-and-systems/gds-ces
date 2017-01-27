@@ -51,7 +51,7 @@ export default class CommonImageviewer extends React.Component {
         } else if (this.state.file) {
             return <img {...this.imageProps} src={this.state.imagePreviewUrl} />
         } else {
-            return <img {...this.imageProps} src="src/common-imageupload/img/default.png" />
+            return <img {...this.imageProps} src="/src/common-imageviewer/img/default.png" />
         }
     }
     render() {

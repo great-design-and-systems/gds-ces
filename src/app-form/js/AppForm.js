@@ -2,6 +2,7 @@ import { invalid, setFormValue, setModelValue, valid, validate } from './AppForm
 
 import AppFormCategories from './components/AppFormCategories';
 import AppFormCheckBox from './components/AppFormCheckbox';
+import AppFormImageupload from './components/AppFormImageupload';
 import AppFormInput from './components/AppFormInput';
 import AppFormRadio from './components/AppFormRadio';
 import AppFormSelect from './components/AppFormSelect';
@@ -215,5 +216,8 @@ const DEFAULT_TEMPLATES = {
     },
     categories: (field, formManager) => {
         return <AppFormCategories field={field} formManager={formManager} />
+    },
+    imageupload: (field, formManager) => {
+        return <AppFormImageupload field={field} formManager={formManager} />
     }
 };

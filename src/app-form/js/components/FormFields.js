@@ -12,14 +12,14 @@ export default class FormFields extends React.Component {
         this.fields = [];
         this.columns = [];
         if (formFields) {
-            formFields.forEach(field => {
+            formFields.forEach((field, index) => {
                 switch (field.tag) {
                     case 'column':
                         this.columnField = lodash.clone(field);
                         this.columns.push(wrapComponent('FormFields', FormColumn)({
                             formField: field,
                             fields: this.fields,
-                            key: (field.properties.name.hashCode() + '_column').hashCode()
+                            key: (field.form + '_' + index + '_' + '_column').hashCode()
                         }));
                         this.fields = [];
                         break;
@@ -37,7 +37,7 @@ export default class FormFields extends React.Component {
                 this.columns.push(wrapComponent('FormFields', FormColumn)({
                     formField: this.columnField,
                     fields: this.fields,
-                    key: (field.properties.name.hashCode() + '_last_column').hashCode()
+                    key: (this.columnField.form + '_last_column').hashCode()
                 }));
                 this.setState({ formFields: this.columns });
             } else {
@@ -65,6 +65,6 @@ export default class FormFields extends React.Component {
     }
 
     render() {
-        return (<div class="form-fields">{this.state.formFields}</div>)
+        return (<div class="form-fields row expanded">{this.state.formFields}</div>)
     }
 }
