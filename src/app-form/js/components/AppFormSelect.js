@@ -33,7 +33,7 @@ export default class AppFormSelect extends React.Component {
         }
         return (
             <label key={field.key} for={fieldProps.id} class={field.tag}>
-                {field.label}{field.isRequired() ? <span class="error">*</span> : ''}
+                {field.label}{field.isRequired() ? <span class="error"> *</span> : ''}
                 <select disabled={this.props.api.pending} multiple={fieldProps.multiple} onChange={fieldProps.onChange} value={fieldProps.value} name={fieldProps.name} class={fieldProps.class} id={fieldProps.id}>
                     {options}
                 </select>

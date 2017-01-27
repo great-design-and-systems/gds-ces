@@ -25,7 +25,7 @@ export default class AppIconBox extends React.Component {
     }
     render() {
         return (<label class="app-icon-box">
-            {this.props.field.label}   {this.props.field.isRequired() ? <span class="error">*</span> : ''}
+            {this.props.field.label}   {this.props.field.isRequired() ? <span class="error"> *</span> : ''}
             <IconBox dislabed={this.props.api.pending || this.props.form.pending} value={this.props.field.getValue()}
                 onChange={this.handleChange.bind(this)} />
         </label>)

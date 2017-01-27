@@ -85,6 +85,12 @@ export default class ItemForm extends React.Component {
         })
         formFields.push(field);
 
+        field = new Field('input');
+        field.setRequired(true);
+        field.setLabel('Serial');
+        field.setName('code');
+        formFields.push(field);
+
         field = new Field('categories');
         field.setRequired(true);
         field.setLabel('Category');
@@ -109,7 +115,7 @@ export default class ItemForm extends React.Component {
             }
         })
         formFields.push(field);
-        
+
         field = new Field('column');
         field.setProperties({
             className: 'large-6 medium-6 small-12'

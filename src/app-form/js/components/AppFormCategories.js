@@ -31,7 +31,7 @@ export default class AppFormCategories extends React.Component {
     render() {
         return (<label for={this.fieldProps.name} class={this.props.field.tag}>
             {this.props.field.label}
-            {this.props.field.isRequired() ? <span class="error">*</span> : ''}
+            {this.props.field.isRequired() ? <span class="error"> *</span> : ''}
             <Categories onComplete={this.handleComplete.bind(this)} onChange={this.handleCategoryChange.bind(this)} value={this.props.field.getValue()} id={this.fieldProps.name.hashCode()} name={this.fieldProps.name} dispatch={this.props.dispatch} />
         </label>);
     }

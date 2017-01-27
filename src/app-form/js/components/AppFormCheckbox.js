@@ -35,7 +35,7 @@ export default class AppFormCheckBox extends React.Component {
             <span key={field.key} >
                 {element}
                 <label for={fieldProps.id}>
-                    {field.label}{field.isRequired() ? <span class="error">*</span> : ''}
+                    {field.label}{field.isRequired() ? <span class="error"> *</span> : ''}
                 </label>
             </span>
         );

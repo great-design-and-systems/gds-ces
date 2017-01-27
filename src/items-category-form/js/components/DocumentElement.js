@@ -18,7 +18,6 @@ export default class TextElement extends React.Component {
             value: fileId
         })
         if (this.props.onChange) {
-            event.persist();
             this.props.onChange({
                 target: {
                     value: fileId
@@ -28,6 +27,13 @@ export default class TextElement extends React.Component {
     }
     handleOnClear() {
         this.setState({ value: null });
+        if (this.props.onChange) {
+            this.props.onChange({
+                target: {
+                    value: null
+                }
+            }, this.props.field.name);
+        }
     }
     render() {
         return (<label className={this.props.className} for={this.props.field._id}>
