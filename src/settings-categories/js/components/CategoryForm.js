@@ -95,10 +95,22 @@ export default class CategoryForm extends React.Component {
         });
         formFields.push(field);
 
+        field = new Field('column');
+        field.setProperties({
+            className: 'large-6 medium-6 small-12'
+        });
+        formFields.push(field);
+
         field = new Field('iconBox');
         field.setName('iconGlyph');
         field.setLabel('Icon');
         field.setRequired(true);
+        formFields.push(field);
+
+        field = new Field('column');
+        field.setProperties({
+            className: 'large-6 medium-6 small-12'
+        });
         formFields.push(field);
 
         field = new Field('categoryFields');
@@ -125,6 +137,12 @@ export default class CategoryForm extends React.Component {
         });
         formFields.push(field);
 
+        field = new Field('column');
+        field.setProperties({
+            className: 'large-12 medium-12 small-12'
+        });
+        formFields.push(field);
+
         field = new Field('categoryRules');
         field.setName('rules');
         field.setLabel('Rules');
@@ -135,7 +153,6 @@ export default class CategoryForm extends React.Component {
             })
         });
         formFields.push(field);
-
         this.setState({ formFields });
     }
     render() {
@@ -148,7 +165,7 @@ export default class CategoryForm extends React.Component {
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
                         className: 'column align-stretch'
-                    })}
+                    }) }
                 </div>
             </View>)
     }

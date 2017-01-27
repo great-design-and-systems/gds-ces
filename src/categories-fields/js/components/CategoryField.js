@@ -62,21 +62,22 @@ export default class CategoryField extends React.Component {
     render() {
         return (
             <tr>
-                <td><div class="row"><a class="remove-button" onClick={this.handleRemove.bind(this)} title="remove field"><i class="fa fa-close" /></a><div class="column"><input name="name" type="text" value={this.state.name} onChange={this.handleNameChange.bind(this)} /></div></div></td>
-                <td><select name="fieldType" value={this.state.fieldType} onChange={this.handleFieldTypeChange.bind(this)}>
+                <td><div class="row"><a class="remove-button" onClick={this.handleRemove.bind(this) } title="remove field"><i class="fa fa-close" /></a><div class="column"><input name="name" type="text" value={this.state.name} onChange={this.handleNameChange.bind(this) } /></div></div></td>
+                <td><select name="fieldType" value={this.state.fieldType} onChange={this.handleFieldTypeChange.bind(this) }>
                     <option value="text">Text</option>
                     <option value="boolean">Boolean</option>
                     <option value="number">Number</option>
                     <option value="date">Date</option>
+                    <option value="document">Document</option>
                 </select></td>
                 <td>
-                    <select name="isFilter" value={this.state.isFilter} onChange={this.handleFieldFilterChange.bind(this)}>
+                    <select name="isFilter" value={this.state.isFilter} onChange={this.handleFieldFilterChange.bind(this) }>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                     </select>
                 </td>
                 <td>
-                    <select name="isRequired" value={this.state.isRequired} onChange={this.handleFieldRequireChange.bind(this)}>
+                    <select name="isRequired" value={this.state.isRequired} onChange={this.handleFieldRequireChange.bind(this) }>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                     </select>
