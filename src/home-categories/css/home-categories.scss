@@ -1,0 +1,19 @@
+.home-categories {
+    .column {
+        cursor: pointer;
+        padding-left: 20px;
+        padding-right: 20px;
+        .category {
+            i {
+                color: honeydew
+            }
+            text-align: center;
+            color: white;
+            background: $primary-color;
+            &:hover {
+                color: lightgoldenrodyellow;
+                background: darken($primary-color, 2);
+            }
+        }
+    }
+}
