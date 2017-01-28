@@ -1,33 +1,44 @@
 import { Toolbar, View } from '../../../common/AppComponents';
-import { formRemove, formSubmit } from '../../../app-form/js/AppFormActions';
+import { clearForm, formRemove, formSubmit } from '../../../app-form/js/AppFormActions';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { wrapComponent } from '../../../common/AppUtils';
 
 export default class CategoryControls extends React.Component {
     constructor() {
         super();
-        this.controls = [
-            {
-                name: 'saveCategory',
-                iconClass: 'fa fa-save',
-                label: 'Save',
-                isVisible: (props) => !props.form.id
-            },
-            {
-                name: 'updateCategory',
-                iconClass: 'fa fa-save',
-                label: 'Update',
-                isVisible: (props) => !!props.form.id
-            },
-            {
-                name: 'removeCategory',
-                iconClass: 'fa fa-trash',
-                buttonClass: 'alert',
-                label: 'Remove',
-                isVisible: (props) => !!props.form.id
-            }
+        this.controls = [{
+            name: 'back',
+            iconClass: 'fa fa-puzzle-piece',
+            label: 'Categories'
+        },
+        {
+            name: 'saveCategory',
+            iconClass: 'fa fa-save',
+            label: 'Save',
+            isVisible: (props) => !props.form.id
+        },
+        {
+            name: 'updateCategory',
+            iconClass: 'fa fa-save',
+            label: 'Update',
+            isVisible: (props) => !!props.form.id
+        },
+        {
+            name: 'removeCategory',
+            iconClass: 'fa fa-trash',
+            buttonClass: 'alert',
+            label: 'Remove',
+            isVisible: (props) => !!props.form.id
+        },
+        {
+            name: 'create',
+            iconClass: 'fa fa-plust',
+            label: 'New',
+            isVisible: (props) => !!props.form.id
+        }
         ];
     }
     handleClick(event, action, dispatch) {
@@ -38,6 +49,13 @@ export default class CategoryControls extends React.Component {
                 break;
             case 'removeCategory':
                 this.handleRemove(dispatch);
+                break;
+            case 'back':
+                browserHistory.push('/settings/categories');
+                break;
+            case 'create':
+                dispatch(clearForm());
+                browserHistory.push('/settings/categories/new');
                 break;
         }
     }
