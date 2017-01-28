@@ -8,7 +8,8 @@ export default class AppHome extends React.Component {
         return (<View load={AppInterceptor}>
             <Body id="homeBody">
                 <Content>
-                    {this.props.homeBody}
+                    <h1>Home</h1>
+                    {this.props.homeContent}
                 </Content>
             </Body>
         </View>)

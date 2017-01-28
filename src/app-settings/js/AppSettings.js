@@ -37,6 +37,7 @@ export default class AppSettings extends React.Component {
                         <Links links={this.links} />
                     </Sidebar>
                     <Content>
+                        <h1>Settings</h1>
                         {this.props.controls}
                         {this.props.settingsBody}
                     </Content>

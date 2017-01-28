@@ -1,8 +1,8 @@
 import { Api } from '../../api/ApiService';
 import AppContent from '../../app-content/js/AppContent';
 import AppHeader from '../../app-header/js/AppHeader';
+import AppSidebar from '../../app-sidebar/js/AppSidebar';
 import AppSplash from '../../app-splash/js/AppSplash';
-import FullScreen from 'react-fullscreen';
 import { GDS_API } from '../../common/AppConstants';
 import Menu from 'react-burger-menu';
 import React from 'react';
@@ -23,6 +23,7 @@ export default class App extends React.Component {
                 });
             }
         });
+        this.componentWillReceiveProps(this.props);
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
@@ -44,9 +45,9 @@ export default class App extends React.Component {
         }
         return (
             <div id="appRootComponent">
-                <Menu.pushRotate outerContainerId={'appRootComponent'} pageWrapId={'appComponent'}>
+                <AppSidebar outerContainerId={'appRootComponent'} pageWrapId={'appComponent'}>
                     {this.state.contentMenu}
-                </Menu.pushRotate>
+                </AppSidebar>
                 {app}
             </div>
         );
