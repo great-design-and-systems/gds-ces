@@ -39,6 +39,7 @@
     "react-datepicker": "^0.39.0",
     "react-dom": "^15.3.2",
     "react-fileupload": "^2.4.0",
+    "react-fullscreen": "^0.1.0",
     "react-hot-loader": "^1.2.8",
     "react-modal": "^1.6.5",
     "react-redux": "^5.0.0",

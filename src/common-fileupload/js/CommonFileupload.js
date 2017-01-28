@@ -56,7 +56,7 @@ export default class CommonFileUpload extends React.Component {
                 });
             },
             uploadSuccess: (res) => {
-                this.setState({ fileId: res.fileId, uploading: false });
+                this.setState({ fileId: res.fileId, uploading: false, files: [] });
                 if (this.props.onComplete) {
                     this.props.onComplete(res.fileId);
                 }

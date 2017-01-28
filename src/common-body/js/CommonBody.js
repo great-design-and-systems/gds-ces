@@ -1,5 +1,6 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
 import CommonView from '../../common-view/js/CommonView';
+import FullScreen from 'react-fullscreen';
 import React from 'react';
 
 export default class CommonBody extends React.Component {

@@ -2,7 +2,9 @@ import { Api } from '../../api/ApiService';
 import AppContent from '../../app-content/js/AppContent';
 import AppHeader from '../../app-header/js/AppHeader';
 import AppSplash from '../../app-splash/js/AppSplash';
+import FullScreen from 'react-fullscreen';
 import { GDS_API } from '../../common/AppConstants';
+import Menu from 'react-burger-menu';
 import React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
@@ -25,22 +27,28 @@ export default class App extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             headerForm: nextProps.headerForm,
-            contentBody: nextProps.contentBody
+            contentBody: nextProps.contentBody,
+            contentMenu: nextProps.contentMenu
         });
     }
     render() {
         const {headerForm} = this.props;
         let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />
         if (this.state.loaded) {
+            console.log('content', this.state);
             app = (
-                <StickyContainer>
-                    <AppHeader headerForm={this.state.headerForm} />
+                <StickyContainer id="appComponent">
                     <AppContent contentBody={this.state.contentBody} />
                 </StickyContainer>
             );
         }
         return (
-            <div> {app} </div>
+            <div id="appRootComponent">
+                <Menu.pushRotate outerContainerId={'appRootComponent'} pageWrapId={'appComponent'}>
+                    {this.state.contentMenu}
+                </Menu.pushRotate>
+                {app}
+            </div>
         );
     }
 }
