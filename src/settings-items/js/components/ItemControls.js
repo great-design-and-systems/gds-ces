@@ -3,12 +3,18 @@ import { formRemove, formSubmit } from '../../../app-form/js/AppFormActions';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import React from 'react';
+import { browserHistory } from 'react-router';
 import { wrapComponent } from '../../../common/AppUtils';
 
 export default class ItemControls extends React.Component {
     constructor() {
         super();
         this.controls = [
+            {
+                name: 'back',
+                iconClass: 'fa fa-cube',
+                label: 'Items'
+            },
             {
                 name: 'saveItem',
                 iconClass: 'fa fa-save',
@@ -27,11 +33,23 @@ export default class ItemControls extends React.Component {
                 buttonClass: 'alert',
                 label: 'Remove',
                 isVisible: (props) => !!props.form.id
+            },
+            {
+                name: 'create',
+                iconClass: 'fa fa-plus',
+                label: 'New',
+                isVisible: (props) => !!props.form.id
             }
         ];
     }
     handleClick(event, action, dispatch) {
         switch (action) {
+            case 'back':
+                browserHistory.push('/settings/items');
+                break;
+            case 'create':
+                browserHistory.push('/settings/items/new');
+                break;
             case 'saveItem':
             case 'updateItem':
                 this.handleSave(dispatch);
@@ -49,7 +67,7 @@ export default class ItemControls extends React.Component {
     }
     render() {
         return (<View load={AppInterceptor}>
-            <Toolbar onClick={this.handleClick.bind(this) } controls={this.controls} />
+            <Toolbar onClick={this.handleClick.bind(this)} controls={this.controls} />
         </View>)
     }
 }

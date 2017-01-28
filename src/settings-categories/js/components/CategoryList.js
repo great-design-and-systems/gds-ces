@@ -56,7 +56,6 @@ export default class CategoryList extends React.Component {
     render() {
         return (<View load={AppInterceptor}>
             <div class="expanded">
-                <h4>Categories</h4>
                 <table>
                     <thead>
                         <tr>

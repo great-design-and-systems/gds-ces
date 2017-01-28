@@ -8,6 +8,7 @@ import CommonFileUpload from '../common-fileupload/js/CommonFileupload';
 import CommonIconBox from '../common-icon-box/js/CommonIconBox';
 import CommonImageupload from '../common-imageupload/js/CommonImageupload';
 import CommonImageviewer from '../common-imageviewer/js/CommonImageviewer';
+import CommonLinks from '../common-links/js/CommonLinks';
 import CommonMessages from '../common-messages/js/CommonMessages';
 import CommonProgressbar from '../common-progressbar/js/CommonProgressbar';
 import CommonSideBar from '../common-sidebar/js/CommonSidebar';
@@ -28,6 +29,8 @@ export const Fileupload = CommonFileUpload;
 export const Progressbar = CommonProgressbar;
 export const Imageupload = CommonImageupload;
 export const Imageviewer = CommonImageviewer;
+export const Links = CommonLinks;
+
 export const MessagesActions = {
     addError: addError,
     clearErrors: clearErrors,

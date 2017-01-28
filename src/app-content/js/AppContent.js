@@ -1,14 +1,13 @@
 import AppInterceptor from '../../app-interceptor/AppInterceptor';
-import {View} from '../../common/AppComponents';
 import React from 'react';
-import { connect } from 'react-redux';
+import { View } from '../../common/AppComponents';
 
 export default class AppContent extends React.Component {
     constructor() {
         super();
     }
     componentWillMount() {
-        this.setState({});
+        this.componentWillReceiveProps(this.props);
     }
     componentWillReceiveProps(nextProps) {
         this.setState({

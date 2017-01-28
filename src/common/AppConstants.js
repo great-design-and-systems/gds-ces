@@ -4,3 +4,4 @@ export const UPLOAD_SINGLE_FILE = FILE_SERVICE + '/uploadSingleFile';
 export const UPLOAD_BASE_URL = UPLOAD_SINGLE_FILE + '?multipart=true&multipartField=uploadFile';
 export const READ_FILE = FILE_SERVICE + '/readFile?isFile=true&param=fileId:';
 export const FILE_DOMAIN = process.env.FILE_DOMAIN || 'Files';
+export const CATEGORY_DOMAIN = process.env.CATEGORY_DOMAIN || 'Category';

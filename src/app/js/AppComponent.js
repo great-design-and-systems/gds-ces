@@ -6,6 +6,7 @@ import AppSplash from '../../app-splash/js/AppSplash';
 import { GDS_API } from '../../common/AppConstants';
 import Menu from 'react-burger-menu';
 import React from 'react';
+import SidebarStore from '../../app-sidebar/js/AppSidebarStore';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
 
@@ -45,7 +46,7 @@ export default class App extends React.Component {
         }
         return (
             <div id="appRootComponent">
-                <AppSidebar outerContainerId={'appRootComponent'} pageWrapId={'appComponent'}>
+                <AppSidebar store={SidebarStore} outerContainerId={'appRootComponent'} pageWrapId={'appComponent'}>
                     {this.state.contentMenu}
                 </AppSidebar>
                 {app}
