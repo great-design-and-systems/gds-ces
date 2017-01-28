@@ -1,9 +1,18 @@
 .home-categories {
+    padding-top: 35px;
     .column {
         cursor: pointer;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 4%;
+        padding-right: 4%;
         .category {
+            h3 {
+                font-size: 10.0vh;
+            }
+            .grid-title {
+                font-size: 3.0vh;
+            }
             i {
                 color: honeydew
             }

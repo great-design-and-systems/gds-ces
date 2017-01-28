@@ -1,5 +1,5 @@
 import { Toolbar, View } from '../../../common/AppComponents';
-import { formRemove, formSubmit } from '../../../app-form/js/AppFormActions';
+import { clearForm, formRemove, formSubmit } from '../../../app-form/js/AppFormActions';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import React from 'react';
@@ -48,6 +48,7 @@ export default class ItemControls extends React.Component {
                 browserHistory.push('/settings/items');
                 break;
             case 'create':
+                dispatch(clearForm());
                 browserHistory.push('/settings/items/new');
                 break;
             case 'saveItem':

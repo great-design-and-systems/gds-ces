@@ -6,6 +6,11 @@ export default class HomeMenu extends React.Component {
     componentWillMount() {
         this.links = [
             {
+                faIcon: 'fa fa-ticket fa-fw fa-lg',
+                label: 'Tickets',
+                path: '/settings'
+            },
+            {
                 faIcon: 'fa fa-gears fa-fw fa-lg',
                 label: 'Settings',
                 path: '/settings'

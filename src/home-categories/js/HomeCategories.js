@@ -15,7 +15,7 @@ export default class HomeCategories extends React.Component {
             root: {
                 element: 'div',
                 props: {
-                    className: 'row small-up-2 medium-up-3 large-up-4'
+                    className: 'row expanded small-up-2 medium-up-3 large-up-4 align-center align-middle'
                 }
             },
             get: {
@@ -26,8 +26,8 @@ export default class HomeCategories extends React.Component {
                 component: (category, index) => {
                     return (<div key={category._id} class="column column-block">
                         <div class="category">
-                            <h4> <i className={category.iconGlyph} /></h4>
-                            <h6>{category.name}</h6>
+                            <h3> <i className={category.iconGlyph} /></h3>
+                            <span class="grid-title">{category.name}</span>
                         </div>
                     </div>)
                 }
@@ -37,7 +37,6 @@ export default class HomeCategories extends React.Component {
     }
     render() {
         return (<div class="home-categories">
-            <h5>Categories</h5>
             <AppList id="homeCategories" listManager={this.listManager} />
         </div>);
     }

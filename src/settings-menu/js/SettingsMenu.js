@@ -13,14 +13,12 @@ export default class SettingsMenu extends React.Component {
                 faIcon: 'fa fa-puzzle-piece fa-fw fa-lg',
                 label: 'Categories',
                 path: '/settings/categories',
-                createsNew: true,
                 createPath: '/settings/categories/new'
             },
             {
                 faIcon: 'fa fa-cube fa-fw fa-lg',
                 label: 'Items',
                 path: '/settings/items',
-                createsNew: true,
                 createPath: '/settings/items/new'
             },
             {
