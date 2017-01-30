@@ -5,7 +5,6 @@ import AppModalReducer from '../app-modal/js/AppModalReducer';
 import CommonMessagesReducers from '../common-messages/js/CommonMessagesReducer';
 import CommonViewReducer from '../common-view/js/CommonViewReducer';
 import FormFieldReducer from '../form-fields/js/FormFieldReducer';
-import HeaderFormReducer from '../header-form/js/HeaderFormReducer';
 import { combineReducers } from 'redux';
 
 const AppReducers = combineReducers({
@@ -14,7 +13,6 @@ const AppReducers = combineReducers({
     modal: AppModalReducer,
     list: AppListReducer,
     view: CommonViewReducer,
-    headerForm: HeaderFormReducer,
     messages: CommonMessagesReducers,
     field: FormFieldReducer
 });

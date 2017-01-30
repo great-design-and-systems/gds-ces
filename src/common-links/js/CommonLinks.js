@@ -11,15 +11,15 @@ export default class CommonLinks extends React.Component {
                 if (link.createsNew) {
                     item = (
                         <li key={link.label.hashCode()}><div class="row">
-                            <div class="column"><Link to={link.path}><i className={link.faIcon} /> <span>{link.label}</span></Link></div>
-                            <div class="link-control-div"><AppFormLink title="Add" to={link.createPath}><i class="fa fa-plus" /></AppFormLink></div>
+                            <div class="column"><Link to={link.path}><i className={'link-icon ' + link.faIcon} /> <span class="link-label">{link.label}</span></Link></div>
+                            <div class="link-control-div"><AppFormLink title="Add" to={link.createPath}><i class="link-icon fa fa-plus" /></AppFormLink></div>
                         </div>
                         </li>)
                 }
                 else {
                     item = (<li key={link.label.hashCode()}>
                         <div class="row">
-                            <div class="column"><Link to={link.path}><i className={link.faIcon} /> <span>{link.label}</span></Link></div>
+                            <div class="column"><Link to={link.path}><i className={'link-icon ' + link.faIcon} /> <span class="link-label">{link.label}</span></Link></div>
                         </div>
                     </li>)
                 }
@@ -27,7 +27,7 @@ export default class CommonLinks extends React.Component {
             })
         }
         return (
-            <ul class="vertical menu">
+            <ul class="common-links vertical menu">
                 {links}
             </ul>);
     }

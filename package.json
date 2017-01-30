@@ -41,6 +41,7 @@
     "react-fileupload": "^2.4.0",
     "react-fullscreen": "^0.1.0",
     "react-hot-loader": "^1.2.8",
+    "react-loading": "0.0.9",
     "react-modal": "^1.6.5",
     "react-redux": "^5.0.0",
     "react-router": "^2.8.1",

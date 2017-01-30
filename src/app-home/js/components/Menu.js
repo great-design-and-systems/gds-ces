@@ -1,8 +1,7 @@
-import { Links } from '../../common/AppComponents';
+import { Links } from '../../../common/AppComponents';
 import React from 'react';
-import SettingsMenu from '../../app-settings/js/components/SettingsMenu';
 
-export default class HomeMenu extends React.Component {
+export default class Menu extends React.Component {
     componentWillMount() {
         this.links = [
             {

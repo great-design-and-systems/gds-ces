@@ -6,23 +6,26 @@
         padding-bottom: 3px;
         padding-left: 4%;
         padding-right: 4%;
+            &:hover {
+                border: 1px solid $primary-color;
+            }
+            &:active{
+                box-shadow: 0 1px  $menu-background;
+                transform: translateY(2px);
+            }
+        box-shadow: 0 2px lighten($primary-color, 4.5);
         .category {
             h3 {
                 font-size: 10.0vh;
             }
             .grid-title {
-                font-size: 3.0vh;
+                font-size: 2.5vh;
             }
             i {
                 color: honeydew
             }
             text-align: center;
             color: white;
-            background: $primary-color;
-            &:hover {
-                color: lightgoldenrodyellow;
-                background: darken($primary-color, 2);
-            }
         }
     }
 }

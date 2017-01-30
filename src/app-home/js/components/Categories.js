@@ -1,11 +1,13 @@
-import { AppList, AppListActions } from '../../app-list/js/AppListComponent';
+import { AppList, AppListActions } from '../../../app-list/js/AppListComponent';
 
-import { CATEGORY_DOMAIN } from '../../common/AppConstants';
+import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
+import { Link } from 'react-router';
 import React from 'react';
 import { connect } from 'react-redux';
+import { getRandomColor } from '../../../common/AppUtils';
 
 @connect()
-export default class HomeCategories extends React.Component {
+export default class Categories extends React.Component {
     constructor(props) {
         super();
         this.actions = new AppListActions('homeCategories', props.dispatch);
@@ -24,19 +26,19 @@ export default class HomeCategories extends React.Component {
             },
             each: {
                 component: (category, index) => {
-                    return (<div key={category._id} class="column column-block">
+                    return (<Link to={'/category/' + category._id} style={{ background: getRandomColor() }} key={category._id} className={'column column-block'}>
                         <div class="category">
                             <h3> <i className={category.iconGlyph} /></h3>
                             <span class="grid-title">{category.name}</span>
                         </div>
-                    </div>)
+                    </Link>)
                 }
             }
         }
         this.actions.setDirty(true);
     }
     render() {
-        return (<div class="home-categories">
+        return (<div class="home-categories large-9 large-offset-1 small-11 small-offset-2">
             <AppList id="homeCategories" listManager={this.listManager} />
         </div>);
     }

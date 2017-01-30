@@ -1,6 +1,5 @@
 import { Api } from '../../api/ApiService';
 import AppContent from '../../app-content/js/AppContent';
-import AppHeader from '../../app-header/js/AppHeader';
 import AppSidebar from '../../app-sidebar/js/AppSidebar';
 import AppSplash from '../../app-splash/js/AppSplash';
 import { GDS_API } from '../../common/AppConstants';
@@ -28,7 +27,6 @@ export default class App extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         this.setState({
-            headerForm: nextProps.headerForm,
             contentBody: nextProps.contentBody,
             contentMenu: nextProps.contentMenu
         });
@@ -37,7 +35,6 @@ export default class App extends React.Component {
         const {headerForm} = this.props;
         let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />
         if (this.state.loaded) {
-            console.log('content', this.state);
             app = (
                 <StickyContainer id="appComponent">
                     <AppContent contentBody={this.state.contentBody} />

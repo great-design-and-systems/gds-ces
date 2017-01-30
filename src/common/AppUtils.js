@@ -1,5 +1,8 @@
 import React from 'react';
 
+export function action(domain, action) {
+    return '{' + domain + '.' + action + '}';
+}
 export function wrapComponent(name, WrappedComponent) {
     function wrap(props) {
         return <WrappedComponent {...props} />
@@ -24,4 +27,8 @@ export function isApiActionDone(api, action) {
         }
     }
     return isDone;
+}
+
+export function getRandomColor() {
+    return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }

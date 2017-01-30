@@ -3,21 +3,19 @@ import 'font-awesome/scss/font-awesome.scss';
 import 'script!jquery';
 import 'script!foundation-sites';
 
+import { AppCategory, CategoryMenu } from './app-category/js/AppCategory';
+import { AppHome, HomeCategories, HomeMenu } from './app-home/js/AppHome';
+import { AppSettings, SettingsMenu } from './app-settings/js/AppSettings';
 import { IndexRedirect, IndexRoute, Route, Router, browserHistory } from 'react-router'
 import { SettingItemList, SettingsItemControls, SettingsItemForm, SettingsItemListControls } from './settings-items/js/SettingsItems';
 import { SettingsCategoryControls, SettingsCategoryForm, SettingsCategoryList, SettingsCategoryListControls } from './settings-categories/js/SettingsCategories';
 
 import App from './app/js/AppComponent';
-import AppHome from './app-home/js/AppHome';
-import AppSettings from './app-settings/js/AppSettings';
 import AppStores from './common/AppStores';
-import HomeCategories from './home-categories/js/HomeCategories';
-import HomeMenu from './home-menu/js/HomeMenu';
 import LoggerList from './settings-logger/js/LoggerList';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SettingsMenu from './settings-menu/js/SettingsMenu';
 import initPrototypes from './common/AppPrototypes';
 
 $(document).foundation();
@@ -40,6 +38,7 @@ ReactDOM.render(<Provider store={AppStores}>
                 <Route path="items/new" components={{ settingsBody: SettingsItemForm, controls: SettingsItemControls }} />
                 <Route path="items/:itemId" components={{ settingsBody: SettingsItemForm, controls: SettingsItemControls }} />
             </Route>
+            <Route path="category/:categoryId" components={{ contentBody: AppCategory, contentMenu: CategoryMenu }} />
         </Route>
     </Router>
 </Provider>, document.getElementsByTagName('app')[0]);
