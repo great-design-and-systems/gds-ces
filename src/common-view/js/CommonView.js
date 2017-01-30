@@ -1,4 +1,6 @@
+import Loading from 'react-loading';
 import React from 'react';
+import { getRandomColor } from '../../common/AppUtils';
 import { reloaded } from './CommonViewActions';
 
 export default class CommonView extends React.Component {
@@ -26,7 +28,7 @@ export default class CommonView extends React.Component {
     }
     render() {
         if (!this.state.rendered) return <span></span>;
-        if (!this.state.visible) return (<div class="view-waiting"><i class="fa fa-spin fa-spinner" /></div>);
+        if (!this.state.visible) return (<Loading type="bubbles" color={getRandomColor()} />);
         return this.props.children;
     }
 } 

@@ -12,6 +12,7 @@ import { SettingsCategoryControls, SettingsCategoryForm, SettingsCategoryList, S
 
 import App from './app/js/AppComponent';
 import AppStores from './common/AppStores';
+import { CategoryGrid } from './category-grid/js/CategoryGrid';
 import LoggerList from './settings-logger/js/LoggerList';
 import { Provider } from 'react-redux';
 import React from 'react';
@@ -38,7 +39,11 @@ ReactDOM.render(<Provider store={AppStores}>
                 <Route path="items/new" components={{ settingsBody: SettingsItemForm, controls: SettingsItemControls }} />
                 <Route path="items/:itemId" components={{ settingsBody: SettingsItemForm, controls: SettingsItemControls }} />
             </Route>
-            <Route path="category/:categoryId" components={{ contentBody: AppCategory, contentMenu: CategoryMenu }} />
+            <Route path="category/:categoryId" components={{ contentBody: AppCategory, contentMenu: CategoryMenu }} >
+                <Route path="grid" components={{ categoryContent: CategoryGrid }} />
+                <Route path="table" />
+                <Route path="list" />
+            </Route>
         </Route>
     </Router>
 </Provider>, document.getElementsByTagName('app')[0]);

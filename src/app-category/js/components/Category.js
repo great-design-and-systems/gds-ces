@@ -3,7 +3,10 @@ import { action, isApiActionDone } from '../../../common/AppUtils';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
+import DisplayOptions from './DisplayOptions';
 import React from 'react';
+import SearchBar from './SearchBar';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { get } from '../../../api/ApiActions';
 
@@ -39,12 +42,17 @@ export default class Category extends React.Component {
             this.loadCategory();
         }
     }
-
+    handleOnChangeDiplay(display) {
+        browserHistory.push('/category/' + this.props.params.categoryId + '/' + display);
+    }
     render() {
         return (<View load={AppInterceptor}>
-            <Body id="homeBody">
+            <Body className={'app-category'} id="homeBody">
                 <Content loading={!this.state.loaded}>
                     <h3 class="content-title">{this.state.category.name}<i className={'fa fa-fw fa-lg' + this.state.category.iconGlyph} /></h3>
+                    <DisplayOptions onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
+                    <SearchBar category={this.state.category} />
+                    {this.props.categoryContent}
                 </Content>
             </Body>
         </View>)
