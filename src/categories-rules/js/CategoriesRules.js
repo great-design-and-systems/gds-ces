@@ -38,14 +38,14 @@ export class CategoriesRules extends React.Component {
                         <Rule onChange={this.handleRuleChange.bind(this)} name="input_form" label="Form" rules={this.state.rules} />
                         <Rule onChange={this.handleRuleChange.bind(this)} name="preaction_needsID" label="Needs ID" rules={this.state.rules} />
                         <Rule onChange={this.handleRuleChange.bind(this)} name="action_playVideo" label="Play Video" rules={this.state.rules} />
-                        <Rule onChange={this.handleRuleChange.bind(this)} name="postaction_needsApproval" label="Needs Approval" rules={this.state.rules} />
+                        <Rule onChange={this.handleRuleChange.bind(this)} name="postaction_sendConfirmation" label="Send Confirmation" rules={this.state.rules} />
                         <Rule onChange={this.handleRuleChange.bind(this)} name="view_gridLayout" label="Display as Grid" rules={this.state.rules} />
                     </tr>
                     <tr>
                         <Rule onChange={this.handleRuleChange.bind(this)} name="input_import_marc" label="Import from MARC" rules={this.state.rules} />
                         <Rule onChange={this.handleRuleChange.bind(this)} name="preaction_needsCredentials" label="Needs Credentials" rules={this.state.rules} />
                         <Rule onChange={this.handleRuleChange.bind(this)} name="action_viewDocument" label="View Document" rules={this.state.rules} />
-                        <td></td>
+                        <Rule onChange={this.handleRuleChange.bind(this)} name="postaction_needsApproval" label="Needs Approval" rules={this.state.rules} />
                         <Rule onChange={this.handleRuleChange.bind(this)} name="view_listLayout" label="Display as List" rules={this.state.rules} />
                     </tr>
                     <tr>
