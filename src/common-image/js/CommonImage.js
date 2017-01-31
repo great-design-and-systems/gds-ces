@@ -1,5 +1,8 @@
+import ImageLoader from 'react-imageloader';
+import Loading from 'react-loading';
 import { READ_FILE } from '../../common/AppConstants';
 import React from 'react';
+import { getRandomColor } from '../../common/AppUtils';
 
 export default class CommonImage extends React.Component {
     constructor() {
@@ -48,9 +51,16 @@ export default class CommonImage extends React.Component {
     getImageUrl(value, time) {
         return READ_FILE + value + '&_d=' + time;
     }
+    renderLoader() {
+        return <Loading type="bubbles" color={getRandomColor()} />;
+    }
     renderImage() {
         if (this.state.fileId) {
-            return <img {...this.imageProps} src={this.getImageUrl(this.state.fileId, this.state._d)} />
+            return <ImageLoader
+                src={this.getImageUrl(this.state.fileId, this.state._d)}
+                preloader={this.renderLoader.bind(this)}>
+                Image load failed!
+            </ImageLoader>
         } else if (this.state.file) {
             return <img {...this.imageProps} src={this.state.imagePreviewUrl} />
         } else {
