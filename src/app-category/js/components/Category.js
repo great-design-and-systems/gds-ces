@@ -20,7 +20,7 @@ export default class Category extends React.Component {
     componentWillMount() {
         this.setState({ loaded: false, category: {} });
         this.loadCategory();
-    }
+    } 
     loadCategory() {
         this.props.dispatch(get(action(CATEGORY_DOMAIN, GET_CATEGORY_BY_ID), {
             categoryId: this.props.params.categoryId
