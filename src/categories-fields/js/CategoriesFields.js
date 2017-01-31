@@ -48,7 +48,8 @@ class CategoriesTable extends React.Component {
             name: '',
             fieldType: 'text',
             isFilter: true,
-            isRequired: false
+            isRequired: false,
+            gridView: ''
         };
     }
     handleAddButtonClick(event) {
@@ -83,6 +84,7 @@ class CategoriesTable extends React.Component {
                         <th>Type</th>
                         <th>Filter</th>
                         <th>Require</th>
+                        <th>Grid view</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,7 +92,7 @@ class CategoriesTable extends React.Component {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colSpan={4}><div class="row expanded"><button onClick={this.handleAddButtonClick.bind(this)} class="add-button" type="button" title="add field"><i class="fa fa-plus"></i></button></div></td>
+                        <td colSpan={5}><div class="row expanded"><button onClick={this.handleAddButtonClick.bind(this)} class="add-button" type="button" title="add field"><i class="fa fa-plus"></i></button></div></td>
                     </tr>
                 </tfoot>
             </table>

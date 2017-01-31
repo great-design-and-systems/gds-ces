@@ -12,7 +12,8 @@ export default class CategoryField extends React.Component {
             name: props.value.name,
             fieldType: props.value.fieldType,
             isFilter: props.value.isFilter,
-            isRequired: props.value.isRequired
+            isRequired: props.value.isRequired,
+            gridView: props.value.gridView || 'none'
         })
     }
     handleNameChange(event) {
@@ -28,6 +29,11 @@ export default class CategoryField extends React.Component {
         this.setState({
             fieldType: event.type.value
         });
+        if (!this.getFilterValue(event.type.value)) {
+            this.setState({
+                isFilter: false
+            });
+        }
         if (this.props.onChange) {
             event.persist();
             this.props.onChange(event, this.props.index);
@@ -56,8 +62,20 @@ export default class CategoryField extends React.Component {
             this.props.onRemove(event, this.props.index);
         }
     }
+    handleFieldGridViewChange(event) {
+        this.setState({
+            gridView: event.target.value
+        });
+        if (this.props.onChange) {
+            event.persist();
+            this.props.onChange(event, this.props.index);
+        }
+    }
     componentWillUnmount() {
         this.setState({});
+    }
+    getFilterValue(fieldType) {
+        return !(fieldType === 'date' || fieldType === 'boolean' || fieldType === 'document');
     }
     render() {
         return (
@@ -75,7 +93,7 @@ export default class CategoryField extends React.Component {
                     <option value="document">Document</option>
                 </select></td>
                 <td>
-                    <select name="isFilter" value={this.state.isFilter} onChange={this.handleFieldFilterChange.bind(this)}>
+                    <select disabled={!this.getFilterValue(this.state.fieldType)} name="isFilter" value={this.state.isFilter} onChange={this.handleFieldFilterChange.bind(this)}>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                     </select>
@@ -84,6 +102,13 @@ export default class CategoryField extends React.Component {
                     <select name="isRequired" value={this.state.isRequired} onChange={this.handleFieldRequireChange.bind(this)}>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="gridView" value={this.state.gridView} onChange={this.handleFieldGridViewChange.bind(this)}>
+                        <option value="none">None</option>
+                        <option value="header">Header</option>
+                        <option value="subTitle">Sub Title</option>
                     </select>
                 </td>
             </tr>)

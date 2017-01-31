@@ -46,26 +46,12 @@ export class CategoriesRules extends React.Component {
                         <Rule onChange={this.handleRuleChange.bind(this)} name="preaction_needsCredentials" label="Needs Credentials" rules={this.state.rules} />
                         <Rule onChange={this.handleRuleChange.bind(this)} name="action_viewDocument" label="View Document" rules={this.state.rules} />
                         <td></td>
-                        <Rule onChange={this.handleRuleChange.bind(this)} name="view_listLayout" label="Display as List" rules={this.state.rules} />
+                        <Rule onChange={this.handleRuleChange.bind(this)} name="view_schedulePerHour" label="Schedule per hour" rules={this.state.rules} />
                     </tr>
                     <tr>
                         <Rule onChange={this.handleRuleChange.bind(this)} name="input_import_isbn" label="Import from ISBN" rules={this.state.rules} />
                         <td></td>
                         <Rule onChange={this.handleRuleChange.bind(this)} name="action_schedule" label="Schedule" rules={this.state.rules} />
-                        <td></td>
-                        <Rule onChange={this.handleRuleChange.bind(this)} name="view_tableLayout" label="Display as Table" rules={this.state.rules} />
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <Rule onChange={this.handleRuleChange.bind(this)} name="view_schedulePerHour" label="Schedule per hour" rules={this.state.rules} />
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td></td>
                         <Rule onChange={this.handleRuleChange.bind(this)} name="view_schedulePerDay" label="Schedule per day" rules={this.state.rules} />
                     </tr>
