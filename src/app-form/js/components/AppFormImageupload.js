@@ -23,7 +23,6 @@ export default class AppFormImageupload extends React.Component {
         this.updated = true;
     }
     render() {
-        console.log('imageuploadprops', this.props.field);
         return (<label class="app-icon-box">
             {this.props.field.label}   {this.props.field.isRequired() ? <span class="error"> *</span> : ''}
             <Imageupload name={this.props.field.properties.name}

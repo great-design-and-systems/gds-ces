@@ -22,11 +22,11 @@ export default class DisplayOptions extends React.Component {
                         break;
                     case 'view_listLayout':
                         newState.list = true;
-                        display = 'list';
+                        //display = 'list';
                         break;
                     case 'view_tableLayout':
                         newState.table = true;
-                        display = 'table';
+                        //display = 'table';
                         break;
                 }
             });
@@ -64,12 +64,12 @@ export default class DisplayOptions extends React.Component {
         if (this.state.grid) {
             buttons.push(<button key={this.props.category.name + '_view_grid'} onClick={this.handleOnClickGrid.bind(this)} className={this.state.isGrid ? 'active button' : 'button'} type="button"><i class="fa fa-th fa-fw" /></button>)
         }
-        if (this.state.list) {
+        /*if (this.state.list) {
             buttons.push(<button key={this.props.category.name + '_view_list'} onClick={this.handleOnClickList.bind(this)} className={this.state.isList ? 'active button' : 'button'} type="button"><i class="fa fa-list fa-fw" /></button>)
         }
         if (this.state.table) {
             buttons.push(<button key={this.props.category.name + '_view_table'} onClick={this.handleOnClickTable.bind(this)} className={this.state.isTable ? 'active button' : 'button'} type="button"><i class="fa fa-table fa-fw" /></button>)
-        }
+        }*/
         return (<View>
             <div class="display-options button-group small">
                 {buttons}

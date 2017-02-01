@@ -32,3 +32,16 @@ export function isApiActionDone(api, action) {
 export function getRandomColor() {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }
+
+export function getActionData(api, domain, action, evaluate) {
+    let actionDomain = api[domain] ? api[domain][action] : undefined;
+    let data;
+    if (actionDomain) {
+        if (evaluate) {
+            data = eval('actionDomain.' + evaluate);
+        } else {
+            data = actionDomain;
+        }
+    }
+    return data;
+}

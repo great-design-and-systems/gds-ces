@@ -17,7 +17,8 @@ export default class GetList {
                 }
                 dispatch(query(get.action, {
                     query: q2,
-                    params: params
+                    params: params,
+                    json: get.json
                 }));
                 dispatch(setDirty(false, target));
             }

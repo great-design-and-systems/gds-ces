@@ -19,6 +19,9 @@ export default class EvaluateList {
                     if (this.list && get.eval) {
                         this.list = eval('this.list.' + get.eval);
                     }
+                    if (this.list && listManager.transformData) {
+                        this.list = listManager.transformData(this.list);
+                    }
                     const evaluates = listManager.eval;
                     if (evaluates && actionCont.data) {
                         this.evaluated = {};

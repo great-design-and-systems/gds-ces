@@ -12,6 +12,11 @@ export default class SearchBar extends React.Component {
     componentWillMount() {
         this.setSearchBarState(this.props);
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.category.name !== this.props.category.name) {
+            this.setSearchBarState(this.props);
+        }
+    }
     setSearchBarState(props) {
         const category = props.category;
         if (category.fields) {
@@ -38,7 +43,7 @@ export default class SearchBar extends React.Component {
             <div class="search-bar row align-center expanded">
                 <div class="input-group large-8 medium-7 small-12">
                     <span class="input-group-label"><i class="fa fa-search fa-fw fa-lg" /></span>
-                    <input type="text" onChange={this.handleOnChangeInput.bind(this)} class="input-group-field" />
+                    <input type="text" onChange={this.handleOnChangeInput.bind(this) } class="input-group-field" />
                 </div>
                 <select class="large-4 medium-5 small-12">{filterOptions}</select>
             </div>)

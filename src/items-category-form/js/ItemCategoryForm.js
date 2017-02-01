@@ -39,7 +39,7 @@ export class ItemCategoryFormFields extends React.Component {
             const categoryApi = lodash.get(props.api, CATEGORY_DOMAIN);
             if (categoryApi && categoryApi.getCategoryItemData) {
                 if (!categoryApi.getCategoryItemData.error) {
-                    props.formManager.setModelValue(props.field, categoryApi.getCategoryItemData.data.data[0]);
+                    props.formManager.setModelValue(props.field, categoryApi.getCategoryItemData.data.data[0].item);
                 }
                 this.setState({ loading: false });
                 this.loaded = true;
