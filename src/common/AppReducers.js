@@ -1,4 +1,5 @@
 import ApiServiceReducer from '../api/ApiServiceReducer';
+import AppCategoryReducer from '../app-category/js/AppCategoryReducer';
 import AppFormReducer from '../app-form/js/AppFormReducer';
 import AppListReducer from '../app-list/js/AppListReducer';
 import AppModalReducer from '../app-modal/js/AppModalReducer';
@@ -14,7 +15,8 @@ const AppReducers = combineReducers({
     list: AppListReducer,
     view: CommonViewReducer,
     messages: CommonMessagesReducers,
-    field: FormFieldReducer
+    field: FormFieldReducer,
+    appCategory: AppCategoryReducer
 });
 
 export default AppReducers;

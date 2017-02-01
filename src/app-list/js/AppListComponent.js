@@ -1,4 +1,4 @@
-import { setDirty, setFilter, setLimit, setPage, setParams, setPending, setStart, setTotal, togglePending } from './AppListActions';
+import { setDirty, setFilter, setJson, setLimit, setPage, setParams, setPending, setStart, setTotal, togglePending } from './AppListActions';
 
 import AsyncList from './components/AsyncList';
 import FilterBox from './components/FilterBox';
@@ -21,5 +21,8 @@ export class AppListActions {
     }
     setParams(params) {
         this.dispatch(setParams(params, this.target));
+    }
+    setJson(json) {
+        this.dispatch(setJson(json, this.target));
     }
 }

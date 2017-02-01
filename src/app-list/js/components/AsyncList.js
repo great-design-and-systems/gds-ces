@@ -36,7 +36,8 @@ export default class AsyncList extends React.Component {
             const newQuery = new CreateQuery(this.props, {}, this.id).getQuery();
             this.query = newQuery;
             const params = this.props.listManager.get ? this.props.listManager.get.params : {};
-            new GetList(this.props.dispatch, this.props.listManager, newQuery, params, this.id);
+            const json = this.props.listManager.get ? this.props.listManager.get.json : undefined;
+            new GetList(this.props.dispatch, this.props.listManager, newQuery, params, json, this.id);
         }
     }
     componentWillUnmount() {
@@ -49,7 +50,7 @@ export default class AsyncList extends React.Component {
                 if (thisList.dirty) {
                     const newQuery = new CreateQuery(nextProps, this.query, nextProps.id).getQuery();
                     this.query = newQuery;
-                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, nextProps.id);
+                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, thisList.json, nextProps.id);
                 } else {
                     this.setState({
                         value: nextProps.value
@@ -58,7 +59,7 @@ export default class AsyncList extends React.Component {
             }
             else if (thisList.pending && isApiActionDone(nextProps.api, nextProps.listManager.get.action)) {
                 const list = new EvaluateList(nextProps.dispatch, nextProps.api, nextProps.listManager, nextProps.id).getList();
-                if(nextProps.onComplete){
+                if (nextProps.onComplete) {
                     nextProps.onComplete(list);
                 }
                 this.setState({ list, value: nextProps.value });

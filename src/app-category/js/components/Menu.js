@@ -30,11 +30,19 @@ export default class Menu extends React.Component {
                     </div></li>)
                 ,
                 component: (category, index) => {
+                    const categoryLink = '/category/' + category._id;
+                    let link = (<Link to={categoryLink}>
+                        <i className={'link-icon ' + category.iconGlyph} />
+                        <span class="link-label"> {category.name}</span></Link>);
+
+                    if (this.props.location.pathname.indexOf(categoryLink) > -1) {
+                        link = (<span> <i className={'link-icon ' + category.iconGlyph} />
+                            <span class="link-label"> {category.name}</span></span>)
+                    }
                     return (<li key={category._id}>
                         <div class="row">
-                            <div class="column"><Link to={'/category/' + category._id}>
-                                <i className={'link-icon ' + category.iconGlyph} />
-                                <span class="link-label"> {category.name}</span></Link>
+                            <div class="column">
+                                {link}
                             </div>
                         </div>
                     </li>)

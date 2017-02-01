@@ -18,7 +18,6 @@
     max-height: 360px;
     width: 48%;
     height: auto;
-    background: #3085a3;
     text-align: center;
     cursor: pointer;
 }
@@ -69,6 +68,7 @@
 }
 
 .grid figure h4 {
+    font-size: 3.0vh;
     word-spacing: -0.15em;
     font-weight: 300;
 }
@@ -77,9 +77,13 @@
     font-weight: 800;
 }
 
-.grid figure h4,
-.grid figure p {
-    margin: 0;
+.grid {
+    figure {
+        h4,
+        p {
+            margin: 0
+        }
+    }
 }
 
 .grid figure p {
@@ -87,64 +91,62 @@
     font-size: 68.5%;
 }
 
-figure.effect-goliath {
-    @include breakpoint(small only) {
-        width: 270px;
-        height: 230px;
-        img {
+figure {
+    &.effect-goliath {
+        @include breakpoint(small only) {
             width: 270px;
             height: 230px;
+            img {
+                width: 270px;
+                height: 230px;
+            }
         }
-    }
-    @include breakpoint(medium only) {
-        width: 135px;
-        height: 180px;
-        img {
+        @include breakpoint(medium only) {
             width: 135px;
             height: 180px;
+            img {
+                width: 135px;
+                height: 180px;
+            }
         }
-    }
-    @include breakpoint(large up) {
-        width: 220px;
-        height: 290px;
-        img {
+        @include breakpoint(large up) {
             width: 220px;
             height: 290px;
+            img {
+                width: 220px;
+                height: 290px;
+            }
+        }
+        background: $body-background;
+        -webkit-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+        -moz-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+        box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+        img,
+        h4 {
+            -webkit-transition: -webkit-transform 0.35s;
+            transition: transform 0.35s;
+        }
+        img {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        h4,
+        p {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 30px;
+        }
+        p {
+            text-transform: none;
+            font-size: 90%;
+            opacity: 0;
+            -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+            transition: opacity 0.35s, transform 0.35s;
+            -webkit-transform: translate3d(0, 50px, 0);
+            transform: translate3d(0, 50px, 0);
         }
     }
-    background: $body-background;
-    -webkit-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
-    -moz-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
-    box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
-}
-
-figure.effect-goliath img,
-figure.effect-goliath h4 {
-    -webkit-transition: -webkit-transform 0.35s;
-    transition: transform 0.35s;
-}
-
-figure.effect-goliath img {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-figure.effect-goliath h4,
-figure.effect-goliath p {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: 30px;
-}
-
-figure.effect-goliath p {
-    text-transform: none;
-    font-size: 90%;
-    opacity: 0;
-    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-    transition: opacity 0.35s, transform 0.35s;
-    -webkit-transform: translate3d(0, 50px, 0);
-    transform: translate3d(0, 50px, 0);
 }
 
 figure.effect-goliath:hover img {

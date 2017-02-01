@@ -37,3 +37,9 @@ export function download(action, params) {
         }
     }
 }
+
+export function clear(action) {
+    return {
+        type: action.replace('{', '').replace('}', '') + '_CLEAR_API'
+    }
+}

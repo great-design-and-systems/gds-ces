@@ -24,8 +24,8 @@ export default class GridItem extends React.Component {
         return (<figure class="effect-goliath">
             <Image fileId={this.props.categoryItem.itemImageId} />
             <figcaption>
-                {this.renderHeader(this.props.categoryItem) }
-                {this.renderSubTitle(this.props.categoryItem) }
+                {this.renderHeader(this.props.categoryItem)}
+                {this.renderSubTitle(this.props.categoryItem)}
             </figcaption>
         </figure>);
     }

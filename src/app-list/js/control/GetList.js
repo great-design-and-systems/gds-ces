@@ -4,7 +4,7 @@ import lodash from 'lodash';
 import { query } from '../../../api/ApiActions';
 
 export default class GetList {
-    constructor(dispatch, listManager, q, params, target) {
+    constructor(dispatch, listManager, q, params, json, target) {
         dispatch(setPending(true, target));
         if (listManager) {
             const get = listManager.get;
@@ -18,7 +18,7 @@ export default class GetList {
                 dispatch(query(get.action, {
                     query: q2,
                     params: params,
-                    json: get.json
+                    json: json != null ? json : get.json
                 }));
                 dispatch(setDirty(false, target));
             }

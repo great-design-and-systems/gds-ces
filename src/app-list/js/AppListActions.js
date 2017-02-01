@@ -102,3 +102,13 @@ export function clearList(listId) {
         payload: listId
     }
 }
+
+export function setJson(json, target) {
+    return {
+        type: 'SET_JSON',
+        payload: {
+            json: json,
+            target: target
+        }
+    };
+}

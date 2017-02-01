@@ -9,6 +9,7 @@ import SearchBar from './SearchBar';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { get } from '../../../api/ApiActions';
+import { searchItems } from '../AppCategoryActions';
 
 const GET_CATEGORY_BY_ID = 'getCategoryById';
 @connect(state => {
@@ -20,7 +21,7 @@ export default class Category extends React.Component {
     componentWillMount() {
         this.setState({ loaded: false, category: {} });
         this.loadCategory();
-    } 
+    }
     loadCategory() {
         this.props.dispatch(get(action(CATEGORY_DOMAIN, GET_CATEGORY_BY_ID), {
             categoryId: this.props.params.categoryId
@@ -45,13 +46,16 @@ export default class Category extends React.Component {
     handleOnChangeDiplay(display) {
         browserHistory.push('/category/' + this.props.params.categoryId + '/' + display);
     }
+    handleOnSearchChange(search, fieldType) {
+        this.props.dispatch(searchItems(search, fieldType));
+    }
     render() {
         return (<View load={AppInterceptor}>
             <Body className={'app-category'} id="homeBody">
                 <Content loading={!this.state.loaded}>
                     <h3 class="content-title">{this.state.category.name}<i className={'fa fa-fw fa-lg' + this.state.category.iconGlyph} /></h3>
                     <DisplayOptions onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
-                    <SearchBar category={this.state.category} />
+                    <SearchBar onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />
                     {this.props.categoryContent}
                 </Content>
             </Body>

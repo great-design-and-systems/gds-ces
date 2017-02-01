@@ -54,6 +54,9 @@ const ApiServiceReducer = (state = DEFAULT_STATE, action) => {
             }
         }
 
+    } else if (action.type.indexOf('_CLEAR_API') > -1) {
+        let domainActionContent = action.type.replace('_CLEAR_API', '');
+        lodash.unset(state, domainActionContent)
     }
     return state;
 };
