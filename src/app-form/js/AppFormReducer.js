@@ -1,3 +1,4 @@
+import {BatchProcessor} from '../../common/AppUtils';
 import lodash from 'lodash';
 
 const FORM_STATE = {
@@ -19,6 +20,7 @@ const FORM_STATE = {
     isSettingModel: false,
     name: null,
     model: null,
+    batchProcessor: new BatchProcessor()
 }
 
 const AppFormReducer = (state = FORM_STATE, action) => {

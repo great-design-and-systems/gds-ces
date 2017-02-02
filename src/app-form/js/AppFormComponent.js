@@ -1,3 +1,4 @@
+import { BatchAction, wrapComponent } from '../../common/AppUtils';
 import { clearForm, formCleared, formReinstate, formRemoved, formSubmit, formSubmitted, getModel, modelSet, setManaged } from './AppFormActions';
 
 import AppFormMessages from './components/AppFormMessages';
@@ -10,9 +11,7 @@ import SetFieldValue from './control/SetFieldValue';
 import SubmitModel from './control/SubmitModel';
 import ValidateFields from './control/ValidateFields';
 import { connect } from 'react-redux';
-import { wrapComponent } from '../../common/AppUtils';
 
-//TODO: skip prop update when api.pending = true
 @connect((state) => {
     return {
         form: state.form,
@@ -46,57 +45,64 @@ export default class AppForm extends React.Component {
         this.setState({});
         this.props.dispatch(clearForm());
     }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.form.clear) {
+    componentDidUpdate(prevProps) {
+        if (this.props.form.clear) {
             this.clearFields();
-            nextProps.dispatch(formCleared());
+            this.props.dispatch(formCleared());
         } else
-            if (!nextProps.api.pending) {
-                if (nextProps.form.name === nextProps.id) {
-                    if (nextProps.form.isSettingModel) {
-                        new SetFieldValue(nextProps.form.model.name, nextProps.formFields).setValue(nextProps.form.model.value);
-                        nextProps.dispatch(modelSet());
+            if (!this.props.api.pending) {
+                if (this.props.form.name === this.props.id) {
+                    if (this.props.form.isSettingModel) {
+                        this.props.form.batchProcessor.push(new BatchAction('SET_FORM_MODEL_VALUE', (done) => {
+                            new SetFieldValue(this.props.form.model.name, this.props.formFields).setValue(this.props.form.model.value);
+                            done();
+                        }));
+                        if (!this.props.form.batchProcessor.isRunning()) {
+                            this.props.form.batchProcessor.execute(() => {
+                                this.props.dispatch(modelSet());
+                            });
+                        }
                     }
                 }
-                if (!nextProps.form.pending) {
-                    if (!!nextProps.form.formSubmit && nextProps.form.name === nextProps.id) {
-                        new ValidateFields(nextProps.formFields, nextProps.dispatch).validate();
-                        nextProps.dispatch(formSubmitted(nextProps.id));
-                    } else if (!!nextProps.form.formRemove && nextProps.form.name === nextProps.id) {
-                        nextProps.dispatch(formRemoved(nextProps.id));
+                if (!this.props.form.pending) {
+                    if (!!this.props.form.formSubmit && this.props.form.name === this.props.id) {
+                        new ValidateFields(this.props.formFields, this.props.dispatch).validate();
+                        this.props.dispatch(formSubmitted(this.props.id));
+                    } else if (!!this.props.form.formRemove && this.props.form.name === this.props.id) {
+                        this.props.dispatch(formRemoved(this.props.id));
                         this.onDelete();
-                    } else if (!!nextProps.form.formSubmitted) {
-                        if (nextProps.form.valid) {
+                    } else if (!!this.props.form.formSubmitted) {
+                        if (this.props.form.valid) {
                             this.submit();
                         }
                         else {
-                            nextProps.dispatch(formReinstate());
+                            this.props.dispatch(formReinstate());
                         }
-                    } else if (!!nextProps.form.formRemoved) {
-                        nextProps.dispatch(formReinstate());
+                    } else if (!!this.props.form.formRemoved) {
+                        this.props.dispatch(formReinstate());
                     }
                 }
-                if (nextProps.form.id) {
-                    if (!!this.props.form.id && !nextProps.form.managed) {
-                        if (!nextProps.api.error) {
-                            const formFields = new GetModel(nextProps.api, nextProps.formFields, nextProps.formManager).getFormFields();
+                if (this.props.form.id) {
+                    if (!!this.props.form.id && !this.props.form.managed) {
+                        if (!this.props.api.error) {
+                            const formFields = new GetModel(this.props.api, this.props.formFields, this.props.formManager).getFormFields();
                             this.setState({ formFields });
-                            nextProps.dispatch(setManaged(true));
+                            this.props.dispatch(setManaged(true));
                         }
                     }
-                    else if (this.props.form.id !== nextProps.form.id) {
-                        nextProps.dispatch(getModel(nextProps.formManager.get.action, nextProps.form.id, nextProps.formManager.get.params));
-                        nextProps.dispatch(setManaged(false));
+                    else if (this.props.form.id !== prevProps.form.id) {
+                        this.props.dispatch(getModel(this.props.formManager.get.action, this.props.form.id, this.props.formManager.get.params));
+                        this.props.dispatch(setManaged(false));
                     }
                 }
             }
-
     }
+
     handleSubmit(event) {
         event.preventDefault();
         this.props.dispatch(formSubmit(this.props.id));
     }
+
     submit() {
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
             this.props.formManager, this.props.form.id);

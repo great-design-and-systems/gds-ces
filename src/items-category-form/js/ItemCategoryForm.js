@@ -58,14 +58,17 @@ export class ItemCategoryFormFields extends React.Component {
         this.props.formManager.renderField(this.props.field.form, this.props.field.properties.name, { value: model });
         this.updated = true;
     }
-    handleComplete(data) {
+    handleComplete(data, model) {
         this.props.field.fieldData = data;
+        if (model) {
+            this.props.formManager.setModelValue(this.props.field, model);
+        }
     }
     render() {
         return (
             <fieldset>
                 <legend>{this.props.field.label}</legend>
-                <ItemCategoryForm onComplete={this.handleComplete.bind(this)} value={this.state.value} onChange={this.handleChange.bind(this)} id={this.props.field.properties.name} categoryId={this.state.categoryId} />
+                <ItemCategoryForm onComplete={this.handleComplete.bind(this) } value={this.state.value} onChange={this.handleChange.bind(this) } id={this.props.field.properties.name} categoryId={this.state.categoryId} />
             </fieldset>)
     }
 }
@@ -93,7 +96,7 @@ export class ItemCategoryForm extends React.Component {
                 }
             },
             each: {
-                component: (field, index) => <FormItemElement value={this.getFieldValue(field)} onChange={this.handleFormItemChange.bind(this)} key={field._id} field={field} />
+                component: (field, index) => <FormItemElement value={this.getFieldValue(field) } onChange={this.handleFormItemChange.bind(this) } key={field._id} field={field} />
             }
         };
         this.actions = new AppListActions(props.id, props.dispatch);
@@ -105,6 +108,7 @@ export class ItemCategoryForm extends React.Component {
         let value = '';
         if (this.props.value) {
             value = lodash.get(this.props.value, field.name);
+            this.setModelValue(field.name, value);
         } else {
             switch (field.fieldType) {
                 case 'date':
@@ -120,13 +124,16 @@ export class ItemCategoryForm extends React.Component {
         }
         return value;
     }
-    handleFormItemChange(event, fieldName) {
+    setModelValue(field, value) {
         if (!this.model) {
             this.model = {};
         }
         const model = { ...this.model };
-        lodash.set(model, fieldName, event.target.value);
+        lodash.set(model, field, value);
         this.model = model;
+    }
+    handleFormItemChange(event, fieldName) {
+        this.setModelValue(fieldName, event.target.value);
         if (this.props.onChange) {
             const fieldConfig = lodash.filter(this.fieldData, (field) => {
                 return field.name === fieldName
@@ -138,22 +145,22 @@ export class ItemCategoryForm extends React.Component {
         this.setState({});
         this.actions.setDirty(true);
     }
-    componentWillReceiveProps(nextProps) {
-        if (this.categoryId !== nextProps.categoryId) {
+    componentDidUpdate(prevProps) {
+        if (this.props.categoryId !== prevProps.categoryId) {
             this.actions.setParams({
-                categoryId: nextProps.categoryId
+                categoryId: this.props.categoryId
             });
+            this.categoryId = this.props.categoryId;
             this.actions.setDirty(true);
-            this.categoryId = nextProps.categoryId;
         }
     }
     handleOnComplete(data) {
         this.fieldData = data;
         if (this.props.onComplete) {
-            this.props.onComplete(data);
+            this.props.onComplete(data, this.model);
         }
     }
     render() {
-        return (<AppList onComplete={this.handleOnComplete.bind(this)} id={this.props.id} listManager={this.listManager} />)
+        return (<AppList onComplete={this.handleOnComplete.bind(this) } id={this.props.id} listManager={this.listManager} />)
     }
 }

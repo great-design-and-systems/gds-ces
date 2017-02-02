@@ -48,6 +48,7 @@ export function getActionData(api, domain, action, evaluate) {
 export function processAsyncArray(asyncArray, callback) {
     if (asyncArray && asyncArray.length > 0) {
         const batchAction = asyncArray.shift();
+        console.log('running action ', batchAction.name);
         batchAction.action(() => {
             processAsyncArray(asyncArray, callback);
         })
