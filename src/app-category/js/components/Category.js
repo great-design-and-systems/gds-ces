@@ -4,6 +4,7 @@ import { action, isApiActionDone } from '../../../common/AppUtils';
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
 import DisplayOptions from './DisplayOptions';
+import {ListPages} from '../../../app-list/js/AppListComponent';
 import React from 'react';
 import SearchBar from './SearchBar';
 import { browserHistory } from 'react-router';
@@ -54,8 +55,9 @@ export default class Category extends React.Component {
             <Body className={'app-category'} id="homeBody">
                 <Content loading={!this.state.loaded}>
                     <h3 class="content-title">{this.state.category.name}<i className={'fa fa-fw fa-lg' + this.state.category.iconGlyph} /></h3>
-                    <DisplayOptions onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
-                    <SearchBar onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />
+                    <DisplayOptions onChange={this.handleOnChangeDiplay.bind(this) } category={this.state.category} />
+                    <ListPages target="categoryGridList" />
+                    <SearchBar onChange={this.handleOnSearchChange.bind(this) } category={this.state.category} />
                     {this.props.categoryContent}
                 </Content>
             </Body>

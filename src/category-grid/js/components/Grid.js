@@ -36,7 +36,7 @@ export default class Grid extends React.Component {
                 json: {
                     category: this.category.name
                 },
-                eval: 'data'
+                eval: 'data.docs'
             },
             each: {
                 component: (categoryItem, index) => {
@@ -45,12 +45,7 @@ export default class Grid extends React.Component {
             },
             query: {
                 limit: 'page_limit={limit}',
-                start: 'page_offset={start}',
-                order: {
-                    asc: 'sort={field}',
-                    desc: 'sort=-{field}'
-                },
-                filter: 'page_filter={field}:{value}'
+                start: 'page_offset={start}'
             },
             eval: {
                 total: 'data.total'
