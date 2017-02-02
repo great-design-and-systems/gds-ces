@@ -1,5 +1,5 @@
 import { AppList, AppListActions } from '../../../app-list/js/AppListComponent';
-import { action, getActionData, isApiActionDone } from '../../../common/AppUtils';
+import { BatchAction, action, getActionData, isApiActionDone } from '../../../common/AppUtils';
 import { clear, query } from '../../../api/ApiActions';
 
 import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
@@ -63,13 +63,25 @@ export default class Grid extends React.Component {
             this.loadItems();
         }
         else if (this.props.appCategory.search !== prevProps.appCategory.search || this.props.appCategory.field !== prevProps.appCategory.field) {
-            let query = {};
-            query[prevProps.appCategory.field] = prevProps.appCategory.search;
-            this.actions.setJson({
-                category: this.category.name,
-                query: query
-            })
-            this.actions.setDirty(true);
+            this.props.appCategory.batchProcessor.push(
+                new BatchAction('search_item', (done) => {
+                    this.actions.setJson({
+                        category: this.category.name,
+                        query: {
+                            $search: {
+                                field: this.props.appCategory.field,
+                                value: this.props.appCategory.search
+                            }
+                        }
+                    });
+                    done();
+                })
+            );
+            if (!this.props.appCategory.batchProcessor.isRunning()) {
+                this.props.appCategory.batchProcessor.execute(() => {
+                    this.actions.setDirty(true);
+                });
+            }
         }
     }
     componentWillUnmount() {
@@ -83,6 +95,6 @@ export default class Grid extends React.Component {
         this.props.dispatch(searchItemsDone());
     }
     render() {
-        return (<AppList id="categoryGridList" onComplete={this.handleOnComplete.bind(this)} listManager={this.listManager} />)
+        return (<AppList id="categoryGridList" onComplete={this.handleOnComplete.bind(this) } listManager={this.listManager} />)
     }
 }

@@ -148,7 +148,7 @@ export default class ItemForm extends React.Component {
         field = new Field('categoryFields');
         field.setName('content');
         field.setLabel('Content');
-        field.setValidator({
+       /* field.setValidator({
             required: new FieldValidator('onChange', 'Please fill out all the required contents', (value, done) => {
                 //TODO: Fix validation
                 let valid = true;
@@ -164,7 +164,7 @@ export default class ItemForm extends React.Component {
                 });
                 done(valid, fieldInvalid ? fieldInvalid.name + ' is required' : null);
             })
-        });
+        });*/
         formFields.push(field);
         this.setState({
             formFields

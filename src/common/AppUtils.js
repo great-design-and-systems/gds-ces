@@ -45,3 +45,49 @@ export function getActionData(api, domain, action, evaluate) {
     }
     return data;
 }
+export function processAsyncArray(asyncArray, callback) {
+    if (asyncArray && asyncArray.length > 0) {
+        const batchAction = asyncArray.shift();
+        batchAction.action(() => {
+            processAsyncArray(asyncArray, callback);
+        })
+    } else {
+        callback();
+    }
+}
+export class BatchAction {
+    constructor(name, action) {
+        if (!name) {
+            throw new Error('Name param is required');
+        }
+        if (!action) {
+            throw new Error('Action param is required');
+        }
+        this.name = name;
+        this.action = action;
+    }
+}
+export class BatchProcessor {
+    constructor(actions) {
+        this.actions = actions || [];
+    }
+    push(action) {
+        if (action instanceof BatchAction) {
+            this.actions.push(action);
+        } else {
+            throw new Error('Adding a non BatchAction to a BatchProcessor');
+        }
+    }
+    isRunning() {
+        return this.running;
+    }
+    execute(callback) {
+        this.running = true;
+        processAsyncArray(this.actions, () => {
+            this.running = false;
+            if (callback) {
+                callback();
+            }
+        });
+    }
+}
