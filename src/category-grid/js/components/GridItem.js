@@ -11,7 +11,7 @@ export default class GridItem extends React.Component {
     renderHeader(item) {
         let headerField = lodash.filter(this.props.fields, field => field.gridView === 'header');
         if (headerField.length) {
-            return <h4>{item[headerField[0].name]}</h4>
+            return <h4><span>{item[headerField[0].name]}</span></h4>
         }
     }
     renderSubTitle(item) {
