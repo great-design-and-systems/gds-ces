@@ -45,15 +45,15 @@ export function getActionData(api, domain, action, evaluate) {
     }
     return data;
 }
-export function processAsyncArray(asyncArray, callback) {
+export function processAsyncArray(asyncArray, callback, value) {
     if (asyncArray && asyncArray.length > 0) {
         const batchAction = asyncArray.shift();
         console.log('running action ', batchAction.name);
-        batchAction.action(() => {
-            processAsyncArray(asyncArray, callback);
+        batchAction.action((value) => {
+            processAsyncArray(asyncArray, callback, value);
         })
     } else {
-        callback();
+        callback(value);
     }
 }
 export class BatchAction {
@@ -84,10 +84,10 @@ export class BatchProcessor {
     }
     execute(callback) {
         this.running = true;
-        processAsyncArray(this.actions, () => {
+        processAsyncArray(this.actions, (result) => {
             this.running = false;
             if (callback) {
-                callback();
+                callback(result);
             }
         });
     }

@@ -28,7 +28,7 @@ export default class Grid extends React.Component {
             root: {
                 element: 'div',
                 props: {
-                    className: 'category-grid grid'
+                    className: 'category-grid grid float-center'
                 }
             },
             get: {

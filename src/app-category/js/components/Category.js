@@ -1,10 +1,10 @@
 import { Body, Content, Sidebar, View } from '../../../common/AppComponents';
+import { ListLimit, ListPages } from '../../../app-list/js/AppListComponent';
 import { action, isApiActionDone } from '../../../common/AppUtils';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
 import DisplayOptions from './DisplayOptions';
-import {ListPages} from '../../../app-list/js/AppListComponent';
 import React from 'react';
 import SearchBar from './SearchBar';
 import { browserHistory } from 'react-router';
@@ -53,11 +53,18 @@ export default class Category extends React.Component {
     render() {
         return (<View load={AppInterceptor}>
             <Body className={'app-category'} id="homeBody">
+                <h3 class="body-title">{this.state.category.name}<i className={'fa fa-fw fa-lg' + this.state.category.iconGlyph} /></h3>
                 <Content loading={!this.state.loaded}>
-                    <h3 class="content-title">{this.state.category.name}<i className={'fa fa-fw fa-lg' + this.state.category.iconGlyph} /></h3>
-                    <DisplayOptions onChange={this.handleOnChangeDiplay.bind(this) } category={this.state.category} />
-                    <ListPages target="categoryGridList" />
-                    <SearchBar onChange={this.handleOnSearchChange.bind(this) } category={this.state.category} />
+                    <div class="app-category-controls row expanded">
+                        <DisplayOptions className={'columns large-1'} onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
+                        <SearchBar className={'columns'} onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />
+                        <div class="columns  large-1">
+                            <ListLimit options={[25, 50, 75, 100]} target="categoryGridList" />
+                        </div>
+                        <div class="columns large-2">
+                            <ListPages target="categoryGridList" />
+                        </div>
+                    </div>
                     {this.props.categoryContent}
                 </Content>
             </Body>

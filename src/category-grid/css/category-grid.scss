@@ -93,11 +93,11 @@
 figure {
     &.effect-goliath {
         @include breakpoint(small only) {
-            width: 270px;
-            height: 230px;
+            width: 250px;
+            height: 290px;
             img {
-                width: 270px;
-                height: 230px;
+                width: 250px;
+                height: 290px;
             }
         }
         @include breakpoint(medium only) {

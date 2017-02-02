@@ -17,7 +17,7 @@ export default class Categories extends React.Component {
             root: {
                 element: 'div',
                 props: {
-                    className: 'row expanded small-up-2 medium-up-3 large-up-4 align-center align-middle'
+                    className: 'row small-up-2 medium-up-3 large-up-4 align-center align-middle'
                 }
             },
             get: {
@@ -38,7 +38,7 @@ export default class Categories extends React.Component {
         this.actions.setDirty(true);
     }
     render() {
-        return (<div class="home-categories large-9 large-offset-1 small-11 small-offset-2">
+        return (<div class="home-categories large-10 large-offset-2 small-10 small-offset-1">
             <AppList id="homeCategories" listManager={this.listManager} />
         </div>);
     }

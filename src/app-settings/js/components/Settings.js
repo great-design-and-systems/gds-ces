@@ -10,8 +10,8 @@ export default class Settings extends React.Component {
         return (
             <View load={AppInterceptor}>
                 <Body className={'app-settings'}>
+                    <h3 class="body-title">Settings <i class="fa fa-gears fa-fw fa-lg" /></h3>
                     <Content>
-                        <h3 class="content-title">Settings <i class="fa fa-gears fa-fw fa-lg" /></h3>
                         {this.props.controls}
                         {this.props.settingsBody}
                     </Content>

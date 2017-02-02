@@ -1,14 +1,18 @@
 .app-category {
-    .display-options {
-        margin-top: 5px;
-        .button {
-            &.active {
-                color: $menu-background;
-                border: 1px solid $menu-background;
+    .app-category-controls {
+        padding-top: 10px;
+        .display-options {
+            .button {
+                &.active {
+                    color: $menu-background;
+                    border: 1px solid $menu-background;
+                }
             }
+            padding-bottom: 20px;
         }
-    }
-    .search-bar {
-        padding: 1.0vh;
+        .search-bar {
+            padding-top: 0;
+            padding-bottom: 50px;
+        }
     }
 }

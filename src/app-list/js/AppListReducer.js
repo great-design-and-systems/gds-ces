@@ -1,3 +1,4 @@
+import { BatchProcessor } from '../../common/AppUtils';
 import lodash from 'lodash';
 
 const FLOATING_STATE = {};
@@ -16,7 +17,9 @@ const DEFAULT_STATE = {
     field: null,
     json: null
 }
-const AppListReducer = (rootState = {}, action) => {
+const AppListReducer = (rootState = {
+    batchProcessor: new BatchProcessor()
+}, action) => {
     rootState = { ...rootState };
     if (action && action.payload) {
         rootState.target = action.payload.target;

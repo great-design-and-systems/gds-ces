@@ -1,5 +1,6 @@
 import { setDirty, setStart } from '../AppListActions';
 
+import { BatchAction } from '../../../common/AppUtils';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -20,24 +21,47 @@ export default class Pages extends React.Component {
     componentWillMount() {
         this.setState({});
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.target === nextProps.list.target) {
-            const list = nextProps.list.getState(nextProps.target);
-            const total = list.total;
-            const start = list.start;
-            const limit = list.limit;
-            let page = Math.round(list.start % list.limit === 0 ? list.start / list.limit : ((list.start / list.limit) + 1));
-            let pageCount = 1;
-            if (limit < total) {
-                pageCount = (total / limit) + 1;
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.target === this.props.list.target) {
+            const batchProcessor = this.props.list.batchProcessor;
+            batchProcessor.push(new BatchAction('UPDATE_LIST_PATE', (done) => {
+                const list = this.props.list.getState(this.props.target);
+                const total = list.total;
+                const start = list.start;
+                const limit = list.limit;
+                let page = Math.round(list.start % list.limit === 0 ? list.start / list.limit : ((list.start / list.limit) + 1));
+                let pageCount = 1;
+                if (limit < total) {
+                    pageCount = (total / limit) + 1;
+                } console.log('page', page);
+                console.log('limit', limit); console.log('pageCount', pageCount);
+                console.log('(page * limit) ', (page * limit));
+                done({
+                    pageCount: pageCount,
+                    page: page,
+                    hasNext: ((page + 1) * limit) < total,
+                    hasPrevious: start > 0
+                });
+            }));
+
+            if (!batchProcessor.isRunning()) {
+                batchProcessor.execute((result) => {
+                    if (prevState.pageCount !== result.pageCount ||
+                        prevState.page !== result.page ||
+                        prevState.hasNext !== result.hasNext ||
+                        prevState.hasPrevious !== result.hasPrevious) {
+                        this.setState({
+                            pageCount: result.pageCount,
+                            page: result.page,
+                            hasNext: result.hasNext,
+                            hasPrevious: result.hasPrevious
+                        });
+                    }
+                });
             }
-            this.setState({
-                pageCount: pageCount,
-                page: page,
-                hasNext: (page * limit) < total,
-                hasPrevious: start > 0
-            });
         }
+
+
     }
     updatePage(page) {
         const list = this.props.list.getState(this.props.target);

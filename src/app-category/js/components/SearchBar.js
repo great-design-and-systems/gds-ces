@@ -50,7 +50,7 @@ export default class SearchBar extends React.Component {
             });
         }
         return (
-            <div class="search-bar row align-center expanded">
+            <div className={'search-bar row align-center ' + (this.props.className || '')}>
                 <div class="input-group large-8 medium-7 small-12">
                     <span class="input-group-label"><i class="fa fa-search fa-fw fa-lg" /></span>
                     <input value={this.state.search} type="text" onChange={this.handleOnChangeInput.bind(this)} class="input-group-field" />
