@@ -8,7 +8,7 @@ export default class Home extends React.Component {
     render() {
         return (<View load={AppInterceptor}>
             <Body id="homeBody">
-                <h3 class="body-title"><i class='fa fa-home fa-fw fa-lg' /></h3>
+                <h3 class="body-title">LibCatalog <i class='fa fa-home fa-fw fa-lg' /></h3>
                 <Content>
                     <div class="row expanded align-center">
                         {this.props.homeContent}
