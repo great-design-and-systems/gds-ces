@@ -56,12 +56,12 @@ export default class Category extends React.Component {
                 <h3 class="body-title">{this.state.category.name}<i className={'fa fa-fw fa-lg' + this.state.category.iconGlyph} /></h3>
                 <Content loading={!this.state.loaded}>
                     <div class="app-category-controls row expanded">
-                        <DisplayOptions className={'columns large-1'} onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
-                        <SearchBar className={'columns large-4 small-12'} onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />
-                        <div class="columns large-offset-4 large-1">
+                        <DisplayOptions className={'columns'} onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
+                        <SearchBar className={'columns large-offset-1 large-4 small-12'} onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />
+                        <div class="columns large-offset-5 large-1 no-left-padding">
                             <ListLimit options={[25, 50, 75, 100]} target="categoryGridList" />
                         </div>
-                        <div class="columns large-2">
+                        <div class="columns large-2 no-side-padding">
                             <ListPages target="categoryGridList" />
                         </div>
                     </div>

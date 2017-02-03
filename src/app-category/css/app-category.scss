@@ -1,6 +1,6 @@
 .app-category {
     .app-category-controls {
-        padding-top: 10px;
+        padding: 10px 5px 0 5px;
         .display-options {
             .button {
                 &.active {
@@ -8,11 +8,19 @@
                     border: 1px solid $menu-background;
                 }
             }
-            padding-bottom: 20px;
         }
         .search-bar {
             padding-top: 0;
-            padding-bottom: 50px;
+            .input-group {
+                height: 39px;
+            }
+        }
+        .no-left-padding {
+          padding-left: 0;
+        }
+        .no-side-padding {
+          padding-right: 0;
+          padding-left: 0;
         }
     }
 }
