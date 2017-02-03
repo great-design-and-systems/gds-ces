@@ -1,3 +1,5 @@
+import { isApiActionDone, wrapComponentChildren } from '../../../common/AppUtils';
+
 import CreateQuery from '../control/CreateQuery';
 import EvaluateList from '../control/EvaluateList';
 import GetList from '../control/GetList';
@@ -6,7 +8,6 @@ import React from 'react';
 import RenderList from '../control/RenderList';
 import { clearList } from '../AppListActions';
 import { connect } from 'react-redux';
-import { isApiActionDone } from '../../../common/AppUtils';
 import lodash from 'lodash';
 
 //TODO: create store per list
@@ -67,10 +68,20 @@ export default class AsyncList extends React.Component {
         }
 
     }
-    render() {
+    renderElement() {
         const props = this.props.listManager.root.props || {};
         props.value = this.state.value || '';
-        return React.createElement(this.props.listManager.root.element, props,
-            new RenderList(this.state.list, this.props.listManager.each).render());
+        if (this.props.listManager.root.element) {
+            return React.createElement(this.props.listManager.root.element, props,
+                new RenderList(this.state.list, this.props.listManager.each).render());
+        } else if (this.props.listManager.root.component) {
+            return wrapComponentChildren('asyncList', this.props.listManager.root.component)(props, new RenderList(this.state.list, this.props.listManager.each).render());
+        } else {
+            throw new Error('Aleast element or component is root.');
+        }
+
+    }
+    render() {
+        return this.renderElement();
     }
 }

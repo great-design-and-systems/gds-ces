@@ -15,6 +15,18 @@ export function wrapComponent(name, WrappedComponent) {
     return wrap;
 }
 
+export function wrapComponentChildren(name, RootComponent) {
+    function wrap(props, children) {
+        return (<RootComponent {...props} >{children}</RootComponent>);
+    }
+    const wrappedComponentName = RootComponent.displayName
+        || RootComponent.name
+        || 'Component';
+
+    wrap.displayName = 'with${name}(${wrappedComponentName})';
+    return wrap;
+}
+
 export function isApiActionDone(api, action) {
     action = action.replace('{', '').replace('}', '');
     let isDone = false;

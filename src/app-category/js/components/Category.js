@@ -1,19 +1,20 @@
 import { Body, Content, Sidebar, View } from '../../../common/AppComponents';
+import { CATEGORY_DOMAIN, ITEM_DOMAIN } from '../../../common/AppConstants';
 import { ListLimit, ListPages } from '../../../app-list/js/AppListComponent';
-import { action, isApiActionDone } from '../../../common/AppUtils';
+import { action, getActionData, isApiActionDone } from '../../../common/AppUtils';
+import { get, query } from '../../../api/ApiActions';
 
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
-import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
 import DisplayOptions from './DisplayOptions';
 import React from 'react';
 import RecendlyAddedItems from './RecenltyAddedItems';
 import SearchBar from './SearchBar';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { get } from '../../../api/ApiActions';
 import { searchItems } from '../AppCategoryActions';
 
 const GET_CATEGORY_BY_ID = 'getCategoryById';
+const GET_RECENTLY_ADDED = 'getRecentlyAdded';
 @connect(state => {
     return {
         api: state.api
@@ -21,13 +22,13 @@ const GET_CATEGORY_BY_ID = 'getCategoryById';
 })
 export default class Category extends React.Component {
     componentWillMount() {
-        this.setState({ loaded: false, category: {} });
+        this.setState({ loaded: false, loadedRecentItems: false, category: {} });
         this.loadCategory();
     }
     loadCategory() {
         this.props.dispatch(get(action(CATEGORY_DOMAIN, GET_CATEGORY_BY_ID), {
             categoryId: this.props.params.categoryId
-        }))
+        }));
         this.loaded = false;
     }
     componentDidUpdate(prevProps, prevState) {
@@ -37,9 +38,25 @@ export default class Category extends React.Component {
                 this.setState({
                     loaded: true,
                     category: categoryDomain.data.data
-                })
+                });
             }
             this.loaded = true;
+            this.loadedRecentItems = false;
+            this.props.dispatch(query(action(ITEM_DOMAIN, GET_RECENTLY_ADDED), {
+                query: {
+                    categoryId: this.props.params.categoryId,
+                    page_limit: 10
+                }
+            }));
+        }
+        else if (!this.loadedRecentItems && isApiActionDone(this.props.api, action(ITEM_DOMAIN, GET_RECENTLY_ADDED))) {
+            const recentItems = getActionData(this.props.api, ITEM_DOMAIN, GET_RECENTLY_ADDED, 'data.data.docs');
+            this.setState({
+                loadedRecentItems: true,
+                recentItems
+            });
+            console.log('recentItems', recentItems);
+            this.loadedRecentItems = true;
         }
         if (prevProps.params.categoryId !== this.props.params.categoryId) {
             this.loadCategory();
@@ -55,7 +72,7 @@ export default class Category extends React.Component {
         return (<View load={AppInterceptor}>
             <Body className={'app-category'} id="homeBody">
                 <h3 class="body-title">{this.state.category.name}<i className={'fa fa-fw fa-lg' + this.state.category.iconGlyph} /></h3>
-                <Content loading={!this.state.loaded}>
+                <Content loading={!this.state.loaded || !this.state.loadedRecentItems}>
                     <div class="app-category-controls row expanded">
                         <DisplayOptions className={'columns'} onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
                         <SearchBar className={'columns large-offset-1 large-4 small-12'} onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />

@@ -33,9 +33,7 @@ export default class Pages extends React.Component {
                 let pageCount = 1;
                 if (limit < total) {
                     pageCount = (total / limit) + 1;
-                } console.log('page', page);
-                console.log('limit', limit); console.log('pageCount', pageCount);
-                console.log('(page * limit) ', (page * limit));
+                }
                 done({
                     pageCount: pageCount,
                     page: page,
@@ -92,19 +90,19 @@ export default class Pages extends React.Component {
             }
         }
         if (this.state.hasNext) {
-            nextLi = (<li class="pagination-next"><a onClick={this.handleNext.bind(this) } aria-label="Next page"><span class="show-for-medium">Next</span></a></li>);
+            nextLi = (<li class="pagination-next"><a onClick={this.handleNext.bind(this)} aria-label="Next page"><span class="show-for-medium">Next</span></a></li>);
         } else {
             nextLi = (<li class="pagination-next disabled"><span class="show-for-medium">Next <span class="show-for-sr">page</span></span></li>);
         }
 
         if (this.state.hasPrevious) {
-            previousLi = (<li class="pagination-previous"><a onClick={this.handlePrevious.bind(this) } aria-label="Previous page"><span class="show-for-medium">Previous</span></a></li>);
+            previousLi = (<li class="pagination-previous"><a onClick={this.handlePrevious.bind(this)} aria-label="Previous page"><span class="show-for-medium">Previous</span></a></li>);
         } else {
             previousLi = (<li class="pagination-previous disabled"><span class="show-for-medium">Previous <span class="show-for-sr">page</span></span></li>);
         }
         return (<ul class="pagination app-list-pages" role="navigation" aria-label="Pagination">
             {previousLi}
-            <li><select value={this.state.page} onChange={this.handleOnPageChange.bind(this) }>{pages}</select></li>
+            <li><select value={this.state.page} onChange={this.handleOnPageChange.bind(this)}>{pages}</select></li>
             {nextLi}
         </ul>)
     }
