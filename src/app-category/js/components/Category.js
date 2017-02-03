@@ -57,8 +57,8 @@ export default class Category extends React.Component {
                 <Content loading={!this.state.loaded}>
                     <div class="app-category-controls row expanded">
                         <DisplayOptions className={'columns large-1'} onChange={this.handleOnChangeDiplay.bind(this)} category={this.state.category} />
-                        <SearchBar className={'columns'} onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />
-                        <div class="columns  large-1">
+                        <SearchBar className={'columns large-4 small-12'} onChange={this.handleOnSearchChange.bind(this)} category={this.state.category} />
+                        <div class="columns large-offset-4 large-1">
                             <ListLimit options={[25, 50, 75, 100]} target="categoryGridList" />
                         </div>
                         <div class="columns large-2">

@@ -1,15 +1,17 @@
 import { Field, FieldValidator } from '../../../app-form/js/AppForm';
+import { action, wrapComponent } from '../../../common/AppUtils';
 import { clearForm, setId, setManaged } from '../../../app-form/js/AppFormActions';
 
 import AppFormComponent from '../../../app-form/js/AppFormComponent';
 import AppInterceptor from '../../../app-interceptor/AppInterceptor';
+import { ITEM_DOMAIN } from '../../../common/AppConstants';
 import { ItemCategoryFormFields } from '../../../items-category-form/js/ItemCategoryForm';
 import React from 'react';
 import { View } from '../../../common/AppComponents';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
 import { renderField } from '../../../form-fields/js/FormFieldAction';
-import { wrapComponent } from '../../../common/AppUtils';
 
 @connect()
 export default class ItemForm extends React.Component {
@@ -170,6 +172,9 @@ export default class ItemForm extends React.Component {
         });
     }
     componentWillUnmount() { this.setState({}); }
+    handleSubmitSuccess() {
+        browserHistory.push('/settings/items');
+    }
     render() {
         return (
             <View load={AppInterceptor}>
@@ -179,8 +184,9 @@ export default class ItemForm extends React.Component {
                         formManager: this.formManager,
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
-                        className: 'column align-stretch'
-                    }) }
+                        className: 'column align-stretch',
+                        onSubmitSuccess: this.handleSubmitSuccess.bind(this)
+                    })}
                 </div>
             </View>)
     }

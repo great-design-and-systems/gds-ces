@@ -1,4 +1,4 @@
-import { BatchAction, wrapComponent } from '../../common/AppUtils';
+import { BatchAction, getActionData, isApiActionDone, splitActionFormat, wrapComponent } from '../../common/AppUtils';
 import { clearForm, formCleared, formReinstate, formRemoved, formSubmit, formSubmitted, getModel, modelSet, setManaged } from './AppFormActions';
 
 import AppFormMessages from './components/AppFormMessages';
@@ -94,10 +94,31 @@ export default class AppForm extends React.Component {
                         this.props.dispatch(getModel(this.props.formManager.get.action, this.props.form.id, this.props.formManager.get.params));
                         this.props.dispatch(setManaged(false));
                     }
+                    else if (isApiActionDone(this.props.api, this.props.formManager.update.action)) {
+                        this.handleSubmitComplete(this.props.formManager.update.action, 'update');
+                    }
+                }
+                else if (isApiActionDone(this.props.api, this.props.formManager.create.action)) {
+                    this.handleSubmitComplete(this.props.formManager.create.action, 'create');
+                }
+                else if (isApiActionDone(this.props.api, this.props.formManager.delete.action)) {
+                    this.handleSubmitComplete(this.props.formManager.delete.action, 'delete');
                 }
             }
     }
-
+    handleSubmitComplete(action, type) {
+        const splitAction = splitActionFormat(action);
+        const actionData = getActionData(this.props.api, splitAction.domain, splitAction.executable);
+        if (actionData.error != null) {
+            if (this.props.onSubmitFailed) {
+                this.props.onSubmitFailed(actionData.error, type);
+            }
+        } else {
+            if (this.props.onSubmitSuccess) {
+                this.props.onSubmitSuccess(actionData, type);
+            }
+        }
+    }
     handleSubmit(event) {
         event.preventDefault();
         this.props.dispatch(formSubmit(this.props.id));
@@ -141,13 +162,13 @@ export default class AppForm extends React.Component {
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
                     id: 'appFormModal'
-                }) }
-                <form noValidate={true} onSubmit={this.handleSubmit.bind(this) } name="appForm">
-                    {wrapComponent('AppForm', AppFormMessages)() }
+                })}
+                <form noValidate={true} onSubmit={this.handleSubmit.bind(this)} name="appForm">
+                    {wrapComponent('AppForm', AppFormMessages)()}
                     {wrapComponent('AppForm', FormFields)({
                         formFields: this.state.formFields,
                         fieldTemplates: this.state.fieldTemplates
-                    }) }
+                    })}
                     {noButtonForm}
                 </form>
             </div>

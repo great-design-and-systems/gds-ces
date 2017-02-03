@@ -45,6 +45,13 @@ export function getActionData(api, domain, action, evaluate) {
     }
     return data;
 }
+export function splitActionFormat(action) {
+    const actionFormat = action.replace('{', '').replace('}', '').split('.');
+    return {
+        domain: actionFormat[0],
+        executable: actionFormat[1]
+    }
+}
 export function processAsyncArray(asyncArray, callback, value) {
     if (asyncArray && asyncArray.length > 0) {
         const batchAction = asyncArray.shift();

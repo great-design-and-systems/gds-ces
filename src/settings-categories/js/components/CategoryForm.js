@@ -62,10 +62,7 @@ export default class CategoryForm extends React.Component {
                 title: 'Category',
                 message: 'Do you want to remove this category?',
                 okButton: 'Yes',
-                cancelButton: 'No, wait!',
-                okAction: () => {
-                    browserHistory.push('/settings/categories')
-                }
+                cancelButton: 'No, wait!'
             }
         };
     }
@@ -155,6 +152,9 @@ export default class CategoryForm extends React.Component {
         formFields.push(field);
         this.setState({ formFields });
     }
+    handleSubmitSuccess(data, type) {
+        browserHistory.push('/settings/categories');
+    }
     render() {
         return (
             <View load={AppInterceptor}>
@@ -164,8 +164,9 @@ export default class CategoryForm extends React.Component {
                         formManager: this.formManager,
                         fieldTemplates: this.fieldTemplates,
                         formFields: this.state.formFields,
-                        className: 'column align-stretch'
-                    }) }
+                        className: 'column align-stretch',
+                        onSubmitSuccess: this.handleSubmitSuccess.bind(this)
+                    })}
                 </div>
             </View>)
     }
