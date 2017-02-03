@@ -138,7 +138,7 @@ export class ItemCategoryForm extends React.Component {
             const fieldConfig = lodash.filter(this.fieldData, (field) => {
                 return field.name === fieldName
             })[0];
-            this.props.onChange(event, model, fieldConfig);
+            this.props.onChange(event, this.model, fieldConfig);
         }
     }
     componentWillMount() {

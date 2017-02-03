@@ -6,6 +6,7 @@ import AppInterceptor from '../../../app-interceptor/AppInterceptor';
 import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
 import DisplayOptions from './DisplayOptions';
 import React from 'react';
+import RecendlyAddedItems from './RecenltyAddedItems';
 import SearchBar from './SearchBar';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
