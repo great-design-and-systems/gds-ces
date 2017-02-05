@@ -1,21 +1,21 @@
-import { addError, clearErrors, setErrors } from '../common-messages/js/CommonMessagesActions';
-import { reload, reloaded } from '../common-view/js/CommonViewActions';
+import { addError, clearErrors, setErrors } from './messages/js/CommonMessagesActions';
+import { reload, reloaded } from './view/js/CommonViewActions';
 
-import CommonBody from '../common-body/js/CommonBody';
-import CommonCategories from '../common-categories/js/CommonCategories';
-import CommonContent from '../common-content/js/CommonContent';
-import CommonFileUpload from '../common-fileupload/js/CommonFileupload';
-import CommonIconBox from '../common-icon-box/js/CommonIconBox';
-import CommonImage from '../common-image/js/CommonImage';
-import CommonImageupload from '../common-imageupload/js/CommonImageupload';
-import CommonImageviewer from '../common-imageviewer/js/CommonImageviewer';
-import CommonLinks from '../common-links/js/CommonLinks';
-import CommonMessages from '../common-messages/js/CommonMessages';
-import CommonProgressbar from '../common-progressbar/js/CommonProgressbar';
-import CommonSideBar from '../common-sidebar/js/CommonSidebar';
-import CommonSwitch from '../common-switch/js/CommonSwitch';
-import CommonToolbar from '../common-toolbar/js/CommonToolbar';
-import CommonView from '../common-view/js/CommonView';
+import CommonBody from './body/js/CommonBody';
+import CommonCategories from './catetgories/js/CommonCategories';
+import CommonContent from './content/js/CommonContent';
+import CommonFileUpload from './fileupload/js/CommonFileupload';
+import CommonIconBox from './icon-box/js/CommonIconBox';
+import CommonImage from './image/js/CommonImage';
+import CommonImageupload from './imageupload/js/CommonImageupload';
+import CommonImageviewer from './imageviewer/js/CommonImageviewer';
+import CommonLinks from './links/js/CommonLinks';
+import CommonMessages from './messages/js/CommonMessages';
+import CommonProgressbar from './progressbar/js/CommonProgressbar';
+import CommonSideBar from './sidebar/js/CommonSidebar';
+import CommonSwitch from './switch/js/CommonSwitch';
+import CommonToolbar from './toolbar/js/CommonToolbar';
+import CommonView from './view/js/CommonView';
 
 export const Body = CommonBody;
 export const Sidebar = CommonSideBar;

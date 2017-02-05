@@ -3,8 +3,8 @@ import AppCategoryReducer from '../app-category/js/AppCategoryReducer';
 import AppFormReducer from '../app-form/js/AppFormReducer';
 import AppListReducer from '../app-list/js/AppListReducer';
 import AppModalReducer from '../app-modal/js/AppModalReducer';
-import CommonMessagesReducers from '../common-messages/js/CommonMessagesReducer';
-import CommonViewReducer from '../common-view/js/CommonViewReducer';
+import CommonMessagesReducers from './messages/js/CommonMessagesReducer';
+import CommonViewReducer from './view/js/CommonViewReducer';
 import FormFieldReducer from '../form-fields/js/FormFieldReducer';
 import { combineReducers } from 'redux';
 
