@@ -13,9 +13,18 @@
                     text-align: right;
                 }
                 &:hover {
-                    border-bottom: 1px solid $primary-color
+                    border-bottom: 1px solid $success-color
                 }
             }
         }
+    }
+}
+
+.settings-menu {
+    .menu-legend {
+        color: darken($primary-color, 2.0);
+    }
+    .menu-links {
+        padding-left: 15px;
     }
 }

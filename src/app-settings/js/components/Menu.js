@@ -5,11 +5,6 @@ export default class Menu extends React.Component {
     componentWillMount() {
         this.links = [
             {
-                faIcon: 'fa fa-home fa-fw fa-lg',
-                label: 'Home',
-                path: '/home'
-            },
-            {
                 faIcon: 'fa fa-puzzle-piece fa-fw fa-lg',
                 label: 'Categories',
                 path: '/settings/categories',
@@ -29,6 +24,13 @@ export default class Menu extends React.Component {
             }];
     }
     render() {
-        return <Links links={this.links}></Links>
+        return (<div class="settings-menu">
+            <fieldset>
+                <legend><h4 class="menu-legend"> <i class="fa fa-user fa-fw fa-lg" />Admin</h4></legend>
+                <div class="menu-links">
+                    <Links links={this.links}></Links>
+                </div>
+            </fieldset>
+        </div>)
     }
 }
