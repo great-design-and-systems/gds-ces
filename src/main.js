@@ -3,9 +3,7 @@ import 'font-awesome/scss/font-awesome.scss';
 import 'script!jquery';
 import 'script!foundation-sites';
 
-import { AppCategory, CategoryMenu } from './app-category/js/AppCategory';
-import { AppHome, HomeCategories, HomeMenu } from './app-home/js/AppHome';
-import { AppSettings, SettingsMenu } from './app-settings/js/AppSettings';
+import { Category, Home, Settings } from './app/js/AppRoutes';
 import { IndexRedirect, IndexRoute, Route, Router, browserHistory } from 'react-router'
 import { SettingItemList, SettingsItemControls, SettingsItemForm, SettingsItemListControls } from './settings-items/js/SettingsItems';
 import { SettingsCategoryControls, SettingsCategoryForm, SettingsCategoryList, SettingsCategoryListControls } from './settings-categories/js/SettingsCategories';
@@ -26,10 +24,10 @@ ReactDOM.render(<Provider store={AppStores}>
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRedirect to="/home" />
-            <Route path="home" components={{ contentBody: AppHome, contentMenu: HomeMenu }} >
-                <IndexRoute components={{ homeContent: HomeCategories }} />
+            <Route path="home" components={{ contentBody: Home.body, contentMenu: Home.menu }} >
+                <IndexRoute components={{ homeContent: Home.content.categories }} />
             </Route>
-            <Route path="settings" components={{ contentBody: AppSettings, contentMenu: SettingsMenu }}>
+            <Route path="settings" components={{ contentBody: Settings.body, contentMenu: Settings.menu }}>
                 <IndexRoute components={{ settingsBody: SettingsMenu }} />
                 <Route path="categories" components={{ settingsBody: SettingsCategoryList, controls: SettingsCategoryListControls }} />
                 <Route path="categories/new" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />
@@ -39,7 +37,7 @@ ReactDOM.render(<Provider store={AppStores}>
                 <Route path="items/new" components={{ settingsBody: SettingsItemForm, controls: SettingsItemControls }} />
                 <Route path="items/:itemId" components={{ settingsBody: SettingsItemForm, controls: SettingsItemControls }} />
             </Route>
-            <Route path="category/:categoryId" components={{ contentBody: AppCategory, contentMenu: CategoryMenu }} >
+            <Route path="category/:categoryId" components={{ contentBody: Category.body, contentMenu: Category.menu }} >
                 <Route path="grid" components={{ categoryContent: CategoryGrid }} />
                 <Route path="table" />
                 <Route path="list" />

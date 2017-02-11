@@ -1,7 +1,7 @@
 import { Api } from '../../api/ApiService';
 import AppContent from '../../app-content/js/AppContent';
 import AppSidebar from '../../app-sidebar/js/AppSidebar';
-import AppSplash from '../../app-splash/js/AppSplash';
+import AppSplash from '../-splash/js/AppSplash';
 import { GDS_API } from '../../common/AppConstants';
 import Menu from 'react-burger-menu';
 import React from 'react';

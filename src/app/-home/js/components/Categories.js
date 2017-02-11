@@ -1,10 +1,10 @@
-import { AppList, AppListActions } from '../../../app-list/js/AppListComponent';
+import { AppList, AppListActions } from '../../../../app-list/js/AppListComponent';
 
-import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
+import { CATEGORY_DOMAIN } from '../../../../common/AppConstants';
 import { Link } from 'react-router';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getRandomColor } from '../../../common/AppUtils';
+import { getRandomColor } from '../../../../common/AppUtils';
 
 @connect()
 export default class Categories extends React.Component {

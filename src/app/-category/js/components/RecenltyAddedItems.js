@@ -1,8 +1,8 @@
-import { Image } from '../../../common/AppComponents';
+import { Image } from '../../../../common/AppComponents';
 import React from 'react';
 import Slider from 'react-slick';
 import { connect } from 'react-redux';
-import { query } from '../../../api/ApiActions';
+import { query } from '../../../../api/ApiActions';
 
 export default class RecenltyAddedItems extends React.Component {
     constructor(props) {

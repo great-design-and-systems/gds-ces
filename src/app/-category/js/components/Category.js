@@ -1,10 +1,10 @@
-import { Body, Content, Sidebar, View } from '../../../common/AppComponents';
-import { CATEGORY_DOMAIN, ITEM_DOMAIN } from '../../../common/AppConstants';
-import { ListLimit, ListPages } from '../../../app-list/js/AppListComponent';
-import { action, getActionData, isApiActionDone } from '../../../common/AppUtils';
-import { get, query } from '../../../api/ApiActions';
+import { Body, Content, Sidebar, View } from '../../../../common/AppComponents';
+import { CATEGORY_DOMAIN, ITEM_DOMAIN } from '../../../../common/AppConstants';
+import { ListLimit, ListPages } from '../../../../app-list/js/AppListComponent';
+import { action, getActionData, isApiActionDone } from '../../../../common/AppUtils';
+import { get, query } from '../../../../api/ApiActions';
 
-import AppInterceptor from '../../../app-interceptor/AppInterceptor';
+import AppInterceptor from '../../../../app-interceptor/AppInterceptor';
 import DisplayOptions from './DisplayOptions';
 import React from 'react';
 import RecendlyAddedItems from './RecenltyAddedItems';

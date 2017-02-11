@@ -6,7 +6,7 @@ import { CATEGORY_DOMAIN } from '../../../common/AppConstants';
 import GridItem from './GridItem';
 import React from 'react';
 import { connect } from 'react-redux';
-import { searchItemsDone } from '../../../app-category/js/AppCategoryActions';
+import { searchItemsDone } from '../../../app/-category/js/AppCategoryActions';
 
 const GET_ITEM_CATEGORY = 'getItemCategory';
 const GET_CATEGORY_BY_ID = 'getCategoryById';
@@ -90,6 +90,6 @@ export default class Grid extends React.Component {
         this.props.dispatch(searchItemsDone());
     }
     render() {
-        return (<AppList id="categoryGridList" onComplete={this.handleOnComplete.bind(this) } listManager={this.listManager} />)
+        return (<AppList id="categoryGridList" onComplete={this.handleOnComplete.bind(this)} listManager={this.listManager} />)
     }
 }

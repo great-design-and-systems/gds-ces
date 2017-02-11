@@ -4,12 +4,12 @@
 @import "~slick-carousel/slick/slick.scss";
 @import "~slick-carousel/slick/slick-theme.scss";
 @import "../../app-form/css/app-form.scss";
-@import "../../app-settings/css/app-settings.scss";
+@import "../-settings/css/app-settings.scss";
+@import "../-splash/css/app-splash.scss";
+@import "../-category/css/app-category.scss";
+@import "../-home/css/app-home.scss";
 @import "../../app-list/css/app-list.scss";
-@import "../../app-splash/css/app-splash.scss";
 @import "../../app-sidebar/css/app-burger.scss";
-@import "../../app-home/css/app-home.scss";
-@import "../../app-category/css/app-category.scss";
 @import "../../common/common.scss";
 @import "../../categories-fields/css/categories-fields.scss";
 @import "../../settings-logger/css/logger-list.scss";

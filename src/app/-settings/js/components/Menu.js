@@ -1,9 +1,9 @@
-import { Links } from '../../../common/AppComponents';
+import { Links } from '../../../../common/AppComponents';
 import React from 'react';
 
 export default class Menu extends React.Component {
     componentWillMount() {
-        this.links = [
+        this.adminLinks = [
             {
                 faIcon: 'fa fa-puzzle-piece fa-fw fa-lg',
                 label: 'Categories',
@@ -22,13 +22,37 @@ export default class Menu extends React.Component {
                 path: '/settings/logs',
                 createsNew: false
             }];
+
+        this.cataloguingLinks = [
+            {
+                faIcon: 'fa fa-file-text-o fa-fw fa-lg',
+                label: 'Manual entry',
+                path: '/settings/catalog/manual_entry',
+            },
+            {
+                faIcon: 'fa fa-barcode fa-fw fa-lg',
+                label: 'Scan barcode',
+                path: '/settings/catalog/scan_barcode',
+            },
+            {
+                faIcon: 'fa fa-book fa-fw fa-lg',
+                label: 'Search ISBN',
+                path: '/settings/catalog/search_isbn',
+            }
+        ]
     }
     render() {
         return (<div class="settings-menu">
             <fieldset>
                 <legend><h4 class="menu-legend"> <i class="fa fa-user fa-fw fa-lg" />Admin</h4></legend>
                 <div class="menu-links">
-                    <Links links={this.links}></Links>
+                    <Links links={this.adminLinks}></Links>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend><h4 class="menu-legend"><i class="fa fa-archive fa-fw fa-lg" />Cataloguing</h4></legend>
+                <div class="menu-links">
+                    <Links links={this.cataloguingLinks}></Links>
                 </div>
             </fieldset>
         </div>)
