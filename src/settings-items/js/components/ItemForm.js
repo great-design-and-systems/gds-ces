@@ -32,7 +32,6 @@ export default class ItemForm extends React.Component {
             item: {}
         });
         this.createFormManager();
-        this.createFieldTemplates();
         this.createFormFields();
         if (this.props.params && this.props.params.itemId) {
             this.props.dispatch(setId(this.props.params.itemId));
@@ -64,13 +63,6 @@ export default class ItemForm extends React.Component {
                 message: 'Do you want to remove this item?',
                 okButton: 'Yes',
                 cancelButton: 'No, wait!'
-            }
-        };
-    }
-    createFieldTemplates() {
-        this.fieldTemplates = {
-            categoryFields: (field, formManager) => {
-                return <ItemCategoryFormFields field={field} formManager={formManager} />
             }
         };
     }

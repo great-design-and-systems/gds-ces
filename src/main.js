@@ -28,7 +28,7 @@ ReactDOM.render(<Provider store={AppStores}>
                 <IndexRoute components={{ homeContent: Home.content.categories }} />
             </Route>
             <Route path="settings" components={{ contentBody: Settings.body, contentMenu: Settings.menu }}>
-                <IndexRoute components={{ settingsBody: SettingsMenu }} />
+                <IndexRoute components={{ settingsBody: Settings.menu }} />
                 <Route path="categories" components={{ settingsBody: SettingsCategoryList, controls: SettingsCategoryListControls }} />
                 <Route path="categories/new" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />
                 <Route path="categories/:categoryId" components={{ settingsBody: SettingsCategoryForm, controls: SettingsCategoryControls }} />

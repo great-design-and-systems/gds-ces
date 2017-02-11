@@ -1,6 +1,5 @@
-import { Body, Content, Sidebar, View } from '../../../../common/AppComponents';
+import { Body, Content, ListLimit, ListPages, Sidebar, View } from '../../../../common/AppComponents';
 import { CATEGORY_DOMAIN, ITEM_DOMAIN } from '../../../../common/AppConstants';
-import { ListLimit, ListPages } from '../../../../app-list/js/AppListComponent';
 import { action, getActionData, isApiActionDone } from '../../../../common/AppUtils';
 import { get, query } from '../../../../api/ApiActions';
 

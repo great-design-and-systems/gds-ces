@@ -1,4 +1,4 @@
-import { AppList, AppListActions } from '../../../../app-list/js/AppListComponent';
+import { AList, AListActions } from '../../../../common/AppComponents';
 
 import { CATEGORY_DOMAIN } from '../../../../common/AppConstants';
 import { Link } from 'react-router';
@@ -10,7 +10,7 @@ import { getRandomColor } from '../../../../common/AppUtils';
 export default class Categories extends React.Component {
     constructor(props) {
         super();
-        this.actions = new AppListActions('homeCategories', props.dispatch);
+        this.actions = new AListActions('homeCategories', props.dispatch);
     }
     componentWillMount() {
         this.listManager = {
@@ -39,7 +39,7 @@ export default class Categories extends React.Component {
     }
     render() {
         return (<div class="home-categories expanded small-10 small-offset-1">
-            <AppList id="homeCategories" listManager={this.listManager} />
+            <AList id="homeCategories" listManager={this.listManager} />
         </div>);
     }
 }

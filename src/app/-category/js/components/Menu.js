@@ -1,4 +1,4 @@
-import { AppList, AppListActions } from '../../../../app-list/js/AppListComponent';
+import { AList, AListActions } from '../../../../common/AppComponents';
 
 import { CATEGORY_DOMAIN } from '../../../../common/AppConstants';
 import { Link } from 'react-router';
@@ -49,12 +49,12 @@ export default class Menu extends React.Component {
                 }
             }
         }
-        this.actions = new AppListActions('categoryItemMenu', props.dispatch);
+        this.actions = new AListActions('categoryItemMenu', props.dispatch);
     }
     componentWillMount() {
         this.actions.setDirty(true);
     }
     render() {
-        return <AppList id="categoryItemMenu" listManager={this.listManager} />
+        return <AList id="categoryItemMenu" listManager={this.listManager} />
     }
 }

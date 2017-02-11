@@ -1,0 +1,15 @@
+.items-category-forms {
+    .form-element {
+        margin: 2vh;
+    }
+    .boolean-element {
+        span.input-group-label {
+            height: 35.33px;
+        }
+    }
+    .date-element {
+        div.react-datepicker__input-container {
+            width: 100%;
+        }
+    }
+}
