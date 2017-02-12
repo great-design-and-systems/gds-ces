@@ -1,4 +1,4 @@
-import AppInterceptor from '../../../app-interceptor/AppInterceptor';
+import AppInterceptor from '../../../app/-interceptor/AppInterceptor';
 import CommonView from '../../view/js/CommonView';
 import React from 'react';
 import { connect } from 'react-redux';

@@ -3,7 +3,7 @@ import { CATEGORY_DOMAIN, ITEM_DOMAIN } from '../../../../common/AppConstants';
 import { action, getActionData, isApiActionDone } from '../../../../common/AppUtils';
 import { get, query } from '../../../../api/ApiActions';
 
-import AppInterceptor from '../../../../app-interceptor/AppInterceptor';
+import AppInterceptor from '../../../-interceptor/AppInterceptor';
 import DisplayOptions from './DisplayOptions';
 import React from 'react';
 import RecendlyAddedItems from './RecenltyAddedItems';

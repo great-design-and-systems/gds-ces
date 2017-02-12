@@ -1,4 +1,4 @@
-import { AList, AListActions } from '../../async-list/js/CommonAsyncList';
+import { CommonAList, CommonAListActions } from '../../async-list/js/CommonAsyncList';
 
 import FormItemElement from './components/FormItemElement';
 import React from 'react';
@@ -8,7 +8,7 @@ import { isApiActionDone } from '../../AppUtils';
 import lodash from 'lodash';
 
 @connect()
-export class CommonCategoryForm extends React.Component {
+export default class CommonCategoryForm extends React.Component {
     constructor(props) {
         super();
         if (!props.id) {
@@ -33,7 +33,7 @@ export class CommonCategoryForm extends React.Component {
                 component: (field, index) => <FormItemElement value={this.getFieldValue(field)} onChange={this.handleFormItemChange.bind(this)} key={field._id} field={field} />
             }
         };
-        this.actions = new AListActions(props.id, props.dispatch);
+        this.actions = new CommonAListActions(props.id, props.dispatch);
     }
     componentWillUnmount() {
         this.model = undefined;
@@ -46,7 +46,7 @@ export class CommonCategoryForm extends React.Component {
         } else {
             switch (field.fieldType) {
                 case 'date':
-                    value = null
+                    value = null;
                     break;
                 case 'number':
                     value = 0;
@@ -95,6 +95,6 @@ export class CommonCategoryForm extends React.Component {
         }
     }
     render() {
-        return (<AList onComplete={this.handleOnComplete.bind(this)} id={this.props.id} listManager={this.listManager} />)
+        return (<CommonAList onComplete={this.handleOnComplete.bind(this)} id={this.props.id} listManager={this.listManager} />)
     }
 }

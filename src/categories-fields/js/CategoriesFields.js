@@ -1,8 +1,8 @@
-import AppFormCheckbox from '../../app-form/js/components/AppFormCheckbox';
-import AppFormInput from './../../app-form/js/components/AppFormInput';
-import AppFormSelect from './../../app-form/js/components/AppFormSelect';
+import AppFormCheckbox from '../../app/-form/js/components/AppFormCheckbox';
+import AppFormInput from '../../app/-form/js/components/AppFormInput';
+import AppFormSelect from '../../app/-form/js/components/AppFormSelect';
 import CategoryField from './components/CategoryField';
-import { Field } from './../../app-form/js/AppForm';
+import { Field } from '../../app/-form/js/AppForm';
 import React from 'react';
 import { connect } from 'react-redux';
 import { get } from '../../api/ApiActions';

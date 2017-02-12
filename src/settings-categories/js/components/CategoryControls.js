@@ -1,7 +1,7 @@
 import { Toolbar, View } from '../../../common/AppComponents';
-import { clearForm, formRemove, formSubmit } from '../../../app-form/js/AppFormActions';
+import { clearForm, formRemove, formSubmit } from '../../../app/-form/js/AppFormActions';
 
-import AppInterceptor from '../../../app-interceptor/AppInterceptor';
+import AppInterceptor from '../../../app/-interceptor/AppInterceptor';
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { wrapComponent } from '../../../common/AppUtils';

@@ -1,0 +1,13 @@
+.manual-entry {
+  &.body {
+    .header {
+      padding: 0 1em 0 1em;
+      h5 {
+        padding-top: 1em;
+      }
+    }
+    .app-form {
+      padding: 0 2em 0 2em;
+    }
+  }
+}

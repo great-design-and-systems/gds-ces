@@ -27,17 +27,17 @@ export default class Menu extends React.Component {
             {
                 faIcon: 'fa fa-file-text-o fa-fw fa-lg',
                 label: 'Manual entry',
-                path: '/settings/catalog/manual_entry',
+                path: '/settings/cataloguing/manual_entry',
             },
             {
                 faIcon: 'fa fa-barcode fa-fw fa-lg',
                 label: 'Scan barcode',
-                path: '/settings/catalog/scan_barcode',
+                path: '/settings/cataloguing/scan_barcode',
             },
             {
                 faIcon: 'fa fa-book fa-fw fa-lg',
                 label: 'Search ISBN',
-                path: '/settings/catalog/search_isbn',
+                path: '/settings/cataloguing/search_isbn',
             }
         ]
     }

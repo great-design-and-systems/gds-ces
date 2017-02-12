@@ -1,6 +1,6 @@
 import { Body, Content, Sidebar, View } from '../../../../common/AppComponents';
 
-import AppInterceptor from '../../../../app-interceptor/AppInterceptor';
+import AppInterceptor from '../../../-interceptor/AppInterceptor';
 import {Link} from 'react-router';
 import React from 'react';
 import { wrapComponent } from '../../../../common/AppUtils';

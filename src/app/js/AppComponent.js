@@ -1,11 +1,10 @@
 import { Api } from '../../api/ApiService';
-import AppContent from '../../app-content/js/AppContent';
-import AppSidebar from '../../app-sidebar/js/AppSidebar';
+import AppContent from '../-content/js/AppContent';
+import AppSidebar from '../-sidebar/js/AppSidebar';
 import AppSplash from '../-splash/js/AppSplash';
 import { GDS_API } from '../../common/AppConstants';
-import Menu from 'react-burger-menu';
 import React from 'react';
-import SidebarStore from '../../app-sidebar/js/AppSidebarStore';
+import SidebarStore from '../-sidebar/js/AppSidebarStore';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
 
@@ -15,7 +14,7 @@ export default class App extends React.Component {
         this.setState({});
         new Api().init(GDS_API, err => {
             if (!err) {
-                this.setState({ loaded: true });
+                this.setState({loaded: true});
             } else {
                 this.setState({
                     loaded: true,
@@ -25,19 +24,21 @@ export default class App extends React.Component {
         });
         this.componentWillReceiveProps(this.props);
     }
+
     componentWillReceiveProps(nextProps) {
         this.setState({
             contentBody: nextProps.contentBody,
             contentMenu: nextProps.contentMenu
         });
     }
+
     render() {
         const {headerForm} = this.props;
-        let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />
+        let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'}/>
         if (this.state.loaded) {
             app = (
                 <StickyContainer id="appComponent">
-                    <AppContent contentBody={this.state.contentBody} />
+                    <AppContent contentBody={this.state.contentBody}/>
                 </StickyContainer>
             );
         }

@@ -1,6 +1,6 @@
 import { AppList, AppListActions, ListFilter, ListLimit, ListPages, ListSort } from '../../app-list/js/AppListComponent';
 
-import AppInterceptor from '../../app-interceptor/AppInterceptor';
+import AppInterceptor from '../../app/-interceptor/AppInterceptor';
 import React from 'react';
 import { View } from '../../common/AppComponents';
 import { connect } from 'react-redux';

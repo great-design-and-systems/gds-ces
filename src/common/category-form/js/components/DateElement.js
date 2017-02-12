@@ -17,7 +17,7 @@ export default class DateElement extends React.Component {
     handleOnChange(date) {
         this.setState({
             value: moment(date)
-        })
+        });
         if (this.props.onChange) {
             const event = {
                 target: {
@@ -25,7 +25,7 @@ export default class DateElement extends React.Component {
                     value: date._d,
                     fieldName: this.props.field.name
                 }
-            }
+            };
             this.props.onChange(event, this.props.field.name);
         }
     }

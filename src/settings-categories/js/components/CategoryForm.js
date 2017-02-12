@@ -1,8 +1,8 @@
-import { Field, FieldValidator } from '../../../app-form/js/AppForm';
-import { setId, setManaged } from '../../../app-form/js/AppFormActions';
+import { Field, FieldValidator } from '../../../app/-form/js/AppForm';
+import { setId, setManaged } from '../../../app/-form/js/AppFormActions';
 
-import AppFormComponent from '../../../app-form/js/AppFormComponent';
-import AppInterceptor from '../../../app-interceptor/AppInterceptor';
+import AppFormComponent from '../../../app/-form/js/AppFormComponent';
+import AppInterceptor from '../../../app/-interceptor/AppInterceptor';
 import CategoriesFields from '../../../categories-fields/js/CategoriesFields';
 import { CategoriesRulesField } from '../../../categories-rules/js/CategoriesRules';
 import React from 'react';

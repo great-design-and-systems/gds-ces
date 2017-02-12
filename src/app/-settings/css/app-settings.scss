@@ -1,30 +1,31 @@
 .app-settings {
-    .link-control-div {
-        padding-right: 1em;
-        a {
-            color: $success-color;
-        }
+  @import "../-cataloguing/css/cataloguing";
+  .link-control-div {
+    padding-right: 1em;
+    a {
+      color: $success-color;
     }
-    .common-sidebar {
-        ul {
-            li {
-                margin: 1vh 0 1vh 0;
-                &.control {
-                    text-align: right;
-                }
-                &:hover {
-                    border-bottom: 1px solid $success-color
-                }
-            }
+  }
+  .common-sidebar {
+    ul {
+      li {
+        margin: 1vh 0 1vh 0;
+        &.control {
+          text-align: right;
         }
+        &:hover {
+          border-bottom: 1px solid $success-color
+        }
+      }
     }
+  }
 }
 
 .settings-menu {
-    .menu-legend {
-        color: darken($primary-color, 2.0);
-    }
-    .menu-links {
-        padding-left: 15px;
-    }
+  .menu-legend {
+    color: darken($primary-color, 2.0);
+  }
+  .menu-links {
+    padding-left: 15px;
+  }
 }

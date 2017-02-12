@@ -1,4 +1,4 @@
-import AppFormLink from '../../../app-form/js/components/AppFormLink';
+import AppFormLink from '../../../app/-form/js/components/AppFormLink';
 import { Link } from 'react-router';
 import React from 'react';
 
