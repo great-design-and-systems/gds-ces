@@ -2,6 +2,7 @@ import { Api } from '../../api/ApiService';
 import AppContent from '../-content/js/AppContent';
 import AppSidebar from '../-sidebar/js/AppSidebar';
 import AppSplash from '../-splash/js/AppSplash';
+import CommonListInput from '../../common/list-input/js/CommonListInput';
 import { GDS_API } from '../../common/AppConstants';
 import React from 'react';
 import SidebarStore from '../-sidebar/js/AppSidebarStore';
@@ -14,7 +15,7 @@ export default class App extends React.Component {
         this.setState({});
         new Api().init(GDS_API, err => {
             if (!err) {
-                this.setState({loaded: true});
+                this.setState({ loaded: true });
             } else {
                 this.setState({
                     loaded: true,

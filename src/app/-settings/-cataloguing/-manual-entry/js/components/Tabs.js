@@ -1,5 +1,5 @@
-import React from 'react';
 import {Link} from 'react-router';
+import React from 'react';
 
 export default class Tabs extends React.Component {
     componentWillMount() {
@@ -7,32 +7,28 @@ export default class Tabs extends React.Component {
             label: 'Basic',
             path: '/settings/cataloguing/manual_entry/basic'
         }, {
-            label: 'Additional',
-            path: '/settings/cataloguing/manual_entry/additional'
-        }, {
-            label: 'Copies',
-            path: '/settings/cataloguing/manual_entry/copies'
-        }]
+                label: 'Additional',
+                path: '/settings/cataloguing/manual_entry/additional'
+            }, {
+                label: 'Copies',
+                path: '/settings/cataloguing/manual_entry/copies'
+            }]
     }
 
-    getLinkClass(tab) {
-        let className = 'tabs-title';
-        if (this.props.location.pathname === tab.path) {
-            className += ' is-active';
-        }
-        return className;
+    isActive(tab) {
+        return this.props.location.pathname === tab.path;
     }
 
     render() {
         const tabLinks = [];
         this.tabs.forEach(tab => {
-            tabLinks.push(<li key={tab.label} className={this.getLinkClass(tab)}><Link
-                to={tab.path}>{tab.label}</Link></li>)
+            tabLinks.push(<Link disabled={this.isActive(tab) } key={tab.label} className={'button primary'}
+                to={tab.path}>{tab.label}</Link>)
         });
         return (
-            <ul class="tabs" data-tabs>
+            <div class="button-group">
                 {tabLinks}
-            </ul>
+            </div>
         )
     }
 }
