@@ -3,12 +3,22 @@ import { AppFormManager } from '../../../../../-form/js/AppForm';
 import { Field } from '../../../../../-form/js/AppForm';
 import React from 'react';
 import { wrapComponent } from '../../../../../../common/AppUtils';
+import {withRouter} from 'react-router';
 
-export default class Basic extends React.Component {
-    constructor() {
-        super();
+class Basic extends React.Component {
+
+    constructor(props) {
+        super(props);
         this.formFields = this.createFormFields();
         this.formManager = new AppFormManager();
+    }
+
+    componentDidMount() {
+        this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave)
+    }
+
+    routerWillLeave(nextLocation) {
+        console.log('nextLocation', nextLocation);return 'Your work is not saved! Are you sure you want to leave?'
     }
 
     createTitleField() {
@@ -178,8 +188,10 @@ export default class Basic extends React.Component {
         formFields.push(this.createColumnField());
         return formFields;
     }
+
     handleOnChangeBasic(model) {
     }
+
     render() {
         return wrapComponent('manual_entry_basic', AppForm)({
             id: 'basicForm',
@@ -191,3 +203,5 @@ export default class Basic extends React.Component {
         });
     }
 }
+
+export default withRouter(Basic);

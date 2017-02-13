@@ -1,15 +1,19 @@
 .common-body {
-    padding: 1em;
-    .body-title {
-        padding: 15px 2px 2px 2px;
-        color: $primary-color;
-        position: absolute;
-        right: 0;
-        margin-right: 30px;
+  padding: 1em;
+  .body-title {
+    padding: 15px 1em 2px 2px;
+    color: $primary-color;
+    position: absolute;
+    right: 0;
+    margin-right: 30px;
+    .active {
+      color: $secondary-color;
+      border-bottom: 1px solid $primary-color;
     }
-    .common-content {
-        height: 100%;
-        overflow-y: auto;
-        padding-top: 56px;
-    }
+  }
+  .common-content {
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 56px;
+  }
 }
