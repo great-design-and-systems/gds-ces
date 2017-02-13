@@ -2,7 +2,6 @@ import { Api } from '../../api/ApiService';
 import AppContent from '../-content/js/AppContent';
 import AppSidebar from '../-sidebar/js/AppSidebar';
 import AppSplash from '../-splash/js/AppSplash';
-import CommonListInput from '../../common/list-input/js/CommonListInput';
 import { GDS_API } from '../../common/AppConstants';
 import React from 'react';
 import SidebarStore from '../-sidebar/js/AppSidebarStore';
@@ -35,11 +34,11 @@ export default class App extends React.Component {
 
     render() {
         const {headerForm} = this.props;
-        let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'}/>
+        let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />
         if (this.state.loaded) {
             app = (
                 <StickyContainer id="appComponent">
-                    <AppContent contentBody={this.state.contentBody}/>
+                    <AppContent contentBody={this.state.contentBody} />
                 </StickyContainer>
             );
         }

@@ -3,12 +3,13 @@ import { invalid, setFormValue, setModelValue, valid, validate } from './AppForm
 import AppFormCategories from './components/AppFormCategories';
 import AppFormCategoryFields from './components/AppFormCategoryFields';
 import AppFormCheckBox from './components/AppFormCheckbox';
+import AppFormDate from './components/AppFormDate';
 import AppFormImageupload from './components/AppFormImageupload';
 import AppFormInput from './components/AppFormInput';
+import AppFormListInput from './components/AppFormListInput';
 import AppFormRadio from './components/AppFormRadio';
 import AppFormSelect from './components/AppFormSelect';
 import AppIconBox from './components/AppIconBox';
-import AppFormDate from './components/AppFormDate';
 import React from 'react';
 import lodash from 'lodash';
 import { renderField } from '../-fields/js/FormFieldAction';
@@ -82,7 +83,7 @@ export class Field {
 export class FieldCreator {
     constructor(field, dispatch, templates) {
         this.field = field;
-        this.fieldTemplates = {...DEFAULT_TEMPLATES};
+        this.fieldTemplates = { ...DEFAULT_TEMPLATES };
         if (templates) {
             lodash.forIn(templates, (value, field) => {
                 lodash.set(this.fieldTemplates, field, value);
@@ -221,13 +222,54 @@ export class FormManager {
     }
 }
 const DEFAULT_TEMPLATES = {
-    input: (field, formManager) => <AppFormInput field={field} formManager={formManager}/>,
-    checkbox: (field, formManager) => <AppFormCheckBox field={field} formManager={formManager}/>,
-    select: (field, formManager) => <AppFormSelect field={field} formManager={formManager}/>,
-    radio: (field, formManager) => <AppFormRadio field={field} formManager={formManager}/>,
-    iconBox: (field, formManager) => <AppIconBox field={field} formManager={formManager}/>,
-    categories: (field, formManager) => <AppFormCategories field={field} formManager={formManager}/>,
-    imageupload: (field, formManager) => <AppFormImageupload field={field} formManager={formManager}/>,
-    categoryFields: (field, formManager) => <AppFormCategoryFields field={field} formManager={formManager}/>,
-    date: (field, formManager) => <AppFormDate field={field} formManager={formManager}/>
+    input: (field, formManager) => <AppFormInput field={field} formManager={formManager} />,
+    checkbox: (field, formManager) => <AppFormCheckBox field={field} formManager={formManager} />,
+    select: (field, formManager) => <AppFormSelect field={field} formManager={formManager} />,
+    radio: (field, formManager) => <AppFormRadio field={field} formManager={formManager} />,
+    iconBox: (field, formManager) => <AppIconBox field={field} formManager={formManager} />,
+    categories: (field, formManager) => <AppFormCategories field={field} formManager={formManager} />,
+    imageupload: (field, formManager) => <AppFormImageupload field={field} formManager={formManager} />,
+    categoryFields: (field, formManager) => <AppFormCategoryFields field={field} formManager={formManager} />,
+    date: (field, formManager) => <AppFormDate field={field} formManager={formManager} />,
+    listinput: (field, formManager) => <AppFormListInput field={field} formManager={formManager} />
 };
+
+export class AppFormManager {
+    constructor() {
+        this.create = {};
+        this.update = {};
+        this.get = {};
+        this.delete = {};
+        this.deletePopup = {};
+    }
+    setCreate(action, params) {
+        this.create.action = action;
+        this.create.params = params;
+        return this;
+    }
+    setUpdate(action, params) {
+        this.update.action = action;
+        this.update.params = params;
+        return this;
+    }
+    setDelete(action, params) {
+        this.delete.action = action;
+        this.delete.params = params;
+        return this;
+    }
+    setGet(action, params, peval) {
+        this.get.action = action;
+        this.get.params = params;
+        this.get.eval = peval;
+        return this;
+    }
+    setDeletePopup(title, message, okButton, cancelButton, okAction, cancelAction) {
+        this.deletePopup.title = title;
+        this.deletePopup.message = message;
+        this.deletePopup.okButton = okButton;
+        this.deletePopup.cancelButton = cancelButton;
+        this.deletePopup.okAction = okAction;
+        this.deletePopup.cancelAction = cancelAction;
+        return this;
+    }
+}

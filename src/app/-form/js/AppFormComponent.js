@@ -3,6 +3,7 @@ import { clearForm, formCleared, formReinstate, formRemoved, formSubmit, formSub
 
 import AppFormMessages from './components/AppFormMessages';
 import AppModal from '../../-modal/js/AppModal';
+import CreateModel from './control/CreateModel';
 import DeleteModel from './control/DeleteModel';
 import FormFields from './components/FormFields';
 import GetModel from './control/GetModel';
@@ -25,7 +26,6 @@ export default class AppForm extends React.Component {
             throw new Error('Property id is required.');
         }
     }
-
     componentWillMount() {
         this.setState({});
         if (this.props.form.id) {
@@ -61,6 +61,9 @@ export default class AppForm extends React.Component {
                     if (!this.props.form.batchProcessor.isRunning()) {
                         this.props.form.batchProcessor.execute(() => {
                             this.props.dispatch(modelSet());
+                            if (this.props.onChange) {
+                                this.props.onChange(new CreateModel(this.props.formFields, this.props.formManager).getModel());
+                            }
                         });
                     }
                 }
@@ -87,7 +90,7 @@ export default class AppForm extends React.Component {
                 if (!!this.props.form.id && !this.props.form.managed) {
                     if (!this.props.api.error) {
                         const formFields = new GetModel(this.props.api, this.props.formFields, this.props.formManager).getFormFields();
-                        this.setState({formFields});
+                        this.setState({ formFields });
                         this.props.dispatch(setManaged(true));
                     }
                 }
@@ -159,10 +162,10 @@ export default class AppForm extends React.Component {
         if (this.props.className) {
             className += ' ' + this.props.className;
         }
-        const noButtonForm = React.createElement('button', {
+        const noButtonForm = !this.props.overrideSubmit ? React.createElement('button', {
             className: 'form-no-button',
             type: 'submit'
-        });
+        }) : '';
         return (
             <div className={className}>
                 {wrapComponent('AppForm', AppModal)({
@@ -181,3 +184,4 @@ export default class AppForm extends React.Component {
     }
 
 }
+

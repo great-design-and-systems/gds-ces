@@ -19,6 +19,7 @@ import CommonImage from './image/js/CommonImage';
 import CommonImageupload from './imageupload/js/CommonImageupload';
 import CommonImageviewer from './imageviewer/js/CommonImageviewer';
 import CommonLinks from './links/js/CommonLinks';
+import CommonListInput from './list-input/js/CommonListInput';
 import CommonMessages from './messages/js/CommonMessages';
 import CommonProgressbar from './progressbar/js/CommonProgressbar';
 import CommonSideBar from './sidebar/js/CommonSidebar';
@@ -49,6 +50,7 @@ export const Imageviewer = CommonImageviewer;
 export const CategoryForm = CommonCategoryForm;
 export const Links = CommonLinks;
 export const Image = CommonImage;
+export const ListInput = CommonListInput;
 export const MessagesActions = {
     addError: addError,
     clearErrors: clearErrors,

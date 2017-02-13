@@ -1,10 +1,14 @@
-import React from 'react';
 import AppForm from '../../../../../-form/js/AppFormComponent';
-import {Field} from  '../../../../../-form/js/AppForm';
+import { AppFormManager } from '../../../../../-form/js/AppForm';
+import { Field } from '../../../../../-form/js/AppForm';
+import React from 'react';
+import { wrapComponent } from '../../../../../../common/AppUtils';
+
 export default class Basic extends React.Component {
     constructor() {
         super();
         this.formFields = this.createFormFields();
+        this.formManager = new AppFormManager();
     }
 
     createTitleField() {
@@ -102,12 +106,10 @@ export default class Basic extends React.Component {
     }
 
     createAuthorField() {
-        const field = new Field('input');
+        const field = new Field('listinput');
         field.setLabel('Author');
         field.setName('author');
-        field.setProperties({
-            type: 'text'
-        });
+        field.setRequired(true);
         return field;
     }
 
@@ -176,8 +178,16 @@ export default class Basic extends React.Component {
         formFields.push(this.createColumnField());
         return formFields;
     }
-
+    handleOnChangeBasic(model) {
+    }
     render() {
-        return (<AppForm id="basicForm" className="basic" formFields={this.formFields}/>);
+        return wrapComponent('manual_entry_basic', AppForm)({
+            id: 'basicForm',
+            overrideSubmit: true,
+            onChange: this.handleOnChangeBasic.bind(this),
+            className: 'basic',
+            formFields: this.formFields,
+            formManager: this.formManager
+        });
     }
 }
