@@ -1,6 +1,6 @@
 import ApiServiceReducer from '../api/ApiServiceReducer';
 import AppModalReducer from '../app/-modal/js/AppModalReducer';
-import { CategoryReducer, FieldReducer, FormReducer } from '../app/js/AppReducers';
+import { CategoryReducer, FieldReducer, FormReducer ,ManualEntryReducer} from '../app/js/AppReducers';
 import CommonAsyncListReducer from './async-list/js/CommonAsyncListReducer';
 import CommonMessagesReducers from './messages/js/CommonMessagesReducer';
 import CommonViewReducer from './view/js/CommonViewReducer';
@@ -15,6 +15,7 @@ const AppReducers = combineReducers({
     messages: CommonMessagesReducers,
     field: FieldReducer,
     appCategory: CategoryReducer,
+    manualEntry: ManualEntryReducer
 });
 
 export default AppReducers;

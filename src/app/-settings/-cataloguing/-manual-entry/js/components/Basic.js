@@ -4,7 +4,9 @@ import { Field } from '../../../../../-form/js/AppForm';
 import React from 'react';
 import { wrapComponent } from '../../../../../../common/AppUtils';
 import {withRouter} from 'react-router';
-
+import {connect} from 'react-redux';
+import {setBasic} from '../ManualEntryActions';
+@connect()
 class Basic extends React.Component {
 
     constructor(props) {
@@ -18,7 +20,8 @@ class Basic extends React.Component {
     }
 
     routerWillLeave(nextLocation) {
-        console.log('nextLocation', nextLocation);return 'Your work is not saved! Are you sure you want to leave?'
+        console.log('nextLocation', nextLocation);
+        return 'Your work is not saved! Are you sure you want to leave?'
     }
 
     createTitleField() {
@@ -190,6 +193,7 @@ class Basic extends React.Component {
     }
 
     handleOnChangeBasic(model) {
+        this.props.dispatch(setBasic(model));
     }
 
     render() {
