@@ -48,6 +48,9 @@ ReactDOM.render(<Provider store={AppStores}>
                         <Route path="basic"
                                components={{ tabContent: Settings.content.cataloguing.content.manualEntry.tabs.basic }}>
                         </Route>
+                        <Route path="additional"
+                               components={{ tabContent: Settings.content.cataloguing.content.manualEntry.tabs.additional }}>
+                        </Route>
                     </Route>
                 </Route>
             </Route>
