@@ -35,9 +35,9 @@ export default class Menu extends React.Component {
                 path: '/settings/cataloguing/scan_barcode',
             },
             {
-                faIcon: 'fa fa-book fa-fw fa-lg',
-                label: 'Search ISBN',
-                path: '/settings/cataloguing/search_isbn',
+                faIcon: 'fa fa-search fa-fw fa-lg',
+                label: 'Online Search',
+                path: '/settings/cataloguing/online_search',
             }
         ]
     }

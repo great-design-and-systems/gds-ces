@@ -52,6 +52,8 @@ ReactDOM.render(<Provider store={AppStores}>
                                components={{ tabContent: Settings.content.cataloguing.content.manualEntry.tabs.additional }}>
                         </Route>
                     </Route>
+                    <Route path="online_search"
+                           components={{cataloguingContent: Settings.content.cataloguing.onlineSearch.body}}/>
                 </Route>
             </Route>
             <Route path="category/:categoryId" components={{ contentBody: Category.body, contentMenu: Category.menu }}>
