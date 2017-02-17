@@ -7,7 +7,7 @@ import { Category, Home, Settings } from './app/js/AppRoutes';
 import { IndexRedirect, IndexRoute, Route, Router, browserHistory } from 'react-router'
 import { SettingsCategoryControls, SettingsCategoryForm, SettingsCategoryList, SettingsCategoryListControls } from './settings-categories/js/SettingsCategories';
 
-import App from './app/js/AppComponent';
+import App from './app/js/App';
 import AppStores from './common/AppStores';
 import { CategoryGrid } from './category-grid/js/CategoryGrid';
 import LoggerList from './settings-logger/js/LoggerList';
@@ -53,7 +53,10 @@ ReactDOM.render(<Provider store={AppStores}>
                         </Route>
                     </Route>
                     <Route path="online_search"
-                           components={{cataloguingContent: Settings.content.cataloguing.onlineSearch.body}}/>
+                           components={{cataloguingContent: Settings.content.cataloguing.content.onlineSearch.body}}>
+                        <Route path="results"
+                               components={{searchContent: Settings.content.cataloguing.content.onlineSearch.content.searchResults}}/>
+                    </Route>
                 </Route>
             </Route>
             <Route path="category/:categoryId" components={{ contentBody: Category.body, contentMenu: Category.menu }}>

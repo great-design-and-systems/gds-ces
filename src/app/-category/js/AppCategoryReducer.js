@@ -5,21 +5,21 @@ const DEFAULT_STATE = {
     field: null,
     searchPending: false,
     batchProcessor: new BatchProcessor()
-}
+};
 
 const AppCategoryReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
         case 'SEARCH_CATEGORY_ITEMS':
             if (!state.searchPending) {
-                state = { ...state, search: action.payload.search, field: action.payload.field };
+                state = {...state, search: action.payload.search, field: action.payload.field};
             }
             break;
         case 'SEARCH_CATEGORY_ITEMS_DONE':
-            state = { ...state };
+            state = {...state};
             break;
     }
 
     return state;
-}
+};
 
 export default AppCategoryReducer;

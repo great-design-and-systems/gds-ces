@@ -112,3 +112,13 @@ export function setJson(json, target) {
         }
     };
 }
+
+export function setQuery(query, target) {
+    return {
+        type: 'SET_QUERY',
+        payload: {
+            query: query,
+            target: target
+        }
+    }
+}

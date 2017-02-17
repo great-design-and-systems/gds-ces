@@ -51,7 +51,7 @@ export default class AsyncList extends React.Component {
                 if (thisList.dirty) {
                     const newQuery = new CreateQuery(nextProps, this.query, nextProps.id).getQuery();
                     this.query = newQuery;
-                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, thisList.json, nextProps.id);
+                    new GetList(this.props.dispatch, this.props.listManager, this.query, thisList.params, thisList.json, nextProps.id, thisList.query);
                 } else {
                     this.setState({
                         value: nextProps.value

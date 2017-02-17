@@ -1,4 +1,4 @@
-import { setDirty, setFilter, setJson, setLimit, setPage, setParams, setPending, setStart, setTotal, togglePending } from './CommonAsyncListActions';
+import { setDirty, setFilter, setJson, setLimit, setPage, setParams, setPending, setStart, setTotal, togglePending, setQuery } from './CommonAsyncListActions';
 
 import AsyncList from './components/AsyncList';
 import FilterBox from './components/FilterBox';
@@ -16,13 +16,20 @@ export class CommonAListActions {
         this.dispatch = dispatch;
         this.target = target;
     }
+
     setDirty(dirty) {
         this.dispatch(setDirty(dirty, this.target));
     }
+
     setParams(params) {
         this.dispatch(setParams(params, this.target));
     }
+
     setJson(json) {
         this.dispatch(setJson(json, this.target));
+    }
+
+    setQuery(query) {
+        this.dispatch(setQuery(query, this.target));
     }
 }

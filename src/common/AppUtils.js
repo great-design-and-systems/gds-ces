@@ -7,6 +7,7 @@ export function wrapComponent(name, WrappedComponent) {
     function wrap(props) {
         return <WrappedComponent {...props} />
     }
+
     const wrappedComponentName = WrappedComponent.displayName
         || WrappedComponent.name
         || 'Component';
@@ -19,6 +20,7 @@ export function wrapComponentChildren(name, RootComponent) {
     function wrap(props, children) {
         return (<RootComponent {...props} >{children}</RootComponent>);
     }
+
     const wrappedComponentName = RootComponent.displayName
         || RootComponent.name
         || 'Component';
@@ -41,6 +43,23 @@ export function isApiActionDone(api, action) {
         }
     }
     return isDone;
+}
+
+
+export function isApiActionLoading(api, action) {
+    let isLoading = false;
+    if (action) {
+        action = action.replace('{', '').replace('}', '');
+        const splitted = action.split('.');
+        let domainContext = eval('api.' + splitted[0]);
+        if (domainContext) {
+            let actionContext = eval('domainContext.' + splitted[1]);
+            if (actionContext) {
+                isLoading = !actionContext.done && api.pending;
+            }
+        }
+    }
+    return isLoading;
 }
 
 export function getRandomColor() {
@@ -93,6 +112,7 @@ export class BatchProcessor {
     constructor(actions) {
         this.actions = actions || [];
     }
+
     push(action) {
         if (action instanceof BatchAction) {
             this.actions.push(action);
@@ -100,9 +120,11 @@ export class BatchProcessor {
             throw new Error('Adding a non BatchAction to a BatchProcessor');
         }
     }
+
     isRunning() {
         return this.running;
     }
+
     execute(callback) {
         this.running = true;
         processAsyncArray(this.actions, (result) => {

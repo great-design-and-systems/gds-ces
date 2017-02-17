@@ -4,7 +4,7 @@ import { AppSettings, SettingsMenu } from '../-settings/js/AppSettings';
 import {SettingsItemForm,SettingsItemControls,SettingItemList,SettingsItemListControls} from '../-settings/-items/js/SettingsItems';
 import {CataloguingBody, CataloguingControls} from '../-settings/-cataloguing/js/SettingsCataloguig';
 import {ManualEntryBody, ManualEntryBasic, ManualEntryAdditional} from '../-settings/-cataloguing/-manual-entry/js/ManualEntry';
-import {OnlineSearchBody} from '../-settings/-cataloguing/-online-search/js/OnlineSearch';
+import {OnlineSearchBody, OnlineSearchResults} from '../-settings/-cataloguing/-online-search/js/OnlineSearch';
 export const Category = {
     body: AppCategory,
     menu: CategoryMenu
@@ -31,7 +31,10 @@ export const Settings = {
                     }
                 },
                 onlineSearch: {
-                    body: OnlineSearchBody
+                    body: OnlineSearchBody,
+                    content: {
+                        searchResults: OnlineSearchResults
+                    }
                 }
             },
             controls: CataloguingControls
