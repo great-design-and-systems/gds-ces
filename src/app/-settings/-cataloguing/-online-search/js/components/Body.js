@@ -1,7 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import SearchBar from './SearchBar';
-import SearchSources from './SearchSources';
 import {connect} from 'react-redux';
 import {searchOnline,searchOnlineDone, changeSource} from '../OnlineSearchActions';
 import {BatchAction, action, isApiActionLoading, getRandomColor} from '../../../../../../common/AppUtils';
@@ -34,23 +33,16 @@ export default class Body extends React.Component {
             })
         }
     }
-
-    handleSourceOnChange(searchSource) {
-        this.props.dispatch(changeSource(searchSource));
-    }
-
     render() {
         return (<div class="online-search body">
             <div class="row header expanded">
                 <h5 class="header-title">Online Search</h5>
+                {isApiActionLoading(this.props.api, action(BOOK_DOMAIN, BOOK_DOMAIN_SEARCH_ONLINE)) ?
+                    <Loading type="bubbles" color={getRandomColor()}/> : <div></div>}
                 <div class="column"></div>
             </div>
             <div class="row search-container">
                 <SearchBar onChange={this.handleSearchOnChange.bind(this)}/>
-                <SearchSources onChange={this.handleSourceOnChange.bind(this)}/>
-                <div class="column"></div>
-                {isApiActionLoading(this.props.api, action(BOOK_DOMAIN, BOOK_DOMAIN_SEARCH_ONLINE)) ?
-                    <Loading type="bubbles" color={getRandomColor()}/> : <div></div>}
             </div>
 
             {this.props.searchContent}

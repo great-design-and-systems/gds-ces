@@ -25,32 +25,35 @@ export default class SearchResults extends React.Component {
             },
             get: {
                 action: action(BOOK_DOMAIN, BOOK_DOMAIN_SEARCH_ONLINE),
-                eval: 'data.results',
-                query: {
-                    fo: 'json'
-                }
+                eval: 'data.data'
             },
             each: {
-                component: (resultItem, index) => {
-                    const contributor = [];
-                    if (resultItem.contributor) {
-                        resultItem.contributor.forEach(contr=> {
-                            contributor.push(<div>{contr}</div>);
-                        });
-                    }
-                    return (<tr key={(resultItem.id+'_'+index).hashCode()}>
-                        <td>{resultItem.title}</td>
-                        <td>{contributor}</td>
-                    </tr>)
+                emptyComponent: () => (<tr>
+                    <td colSpan={6}>No records.</td>
+                </tr>),
+                component: (record, index) => {
+                    return (<tr key={record.controlField['001']}>
+                        <td>{this.getRecordElement(record, 'title')}</td>
+                        <td>{this.getRecordElement(record, 'author')}</td>
+                        <td>{this.getRecordElement(record, 'publisher')}</td>
+                        <td>{this.getRecordElement(record, 'date')}</td>
+                        <td>{this.getRecordElement(record, 'language')}</td>
+                        <td>{this.getRecordElement(record, 'description')}></td>
+                    </tr>);
                 }
             },
             query: {
-                limit: 'c={limit}',
-                start: 'si={start}'
+                limit: 'maximumRecords={limit}',
+                start: 'startRecord={start}'
+            },
+            eval: {
+                total: 'data.totalRecords'
             }
         };
     }
+    getRecordElement(record, field){
 
+    }
     componentWillMount() {
         if (this.props.onlineSearch.search) {
             this.executeSearch();
@@ -67,11 +70,10 @@ export default class SearchResults extends React.Component {
 
     executeSearch() {
         this.actions.setParams({
-            format: 'books',
             source: this.props.onlineSearch.source || 'LIBRARY_OF_CONGRESS'
         });
         this.actions.setQuery({
-            q: this.props.onlineSearch.search
+            query: this.props.onlineSearch.search
         });
         this.actions.setDirty(true);
     }
@@ -82,6 +84,10 @@ export default class SearchResults extends React.Component {
             <tr>
                 <th>Title</th>
                 <th>Contributor</th>
+                <th>Publisher</th>
+                <th>Date</th>
+                <th>Language</th>
+                <th>Description</th>
             </tr>
             </thead>
             <AList listManager={this.listManager} id="search-results"/>
