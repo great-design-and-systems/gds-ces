@@ -35,10 +35,9 @@ export default class SearchResults extends React.Component {
                     return (<tr key={record.controlField['001']}>
                         <td>{this.getRecordElement(record, 'title')}</td>
                         <td>{this.getRecordElement(record, 'author')}</td>
-                        <td>{this.getRecordElement(record, 'publisher')}</td>
                         <td>{this.getRecordElement(record, 'date')}</td>
-                        <td>{this.getRecordElement(record, 'language')}</td>
-                        <td>{this.getRecordElement(record, 'description')}></td>
+                        <td>{this.getRecordElement(record, 'edition')}</td>
+                        <td>{this.getRecordElement(record, 'isbn')}</td>
                     </tr>);
                 }
             },
@@ -51,9 +50,58 @@ export default class SearchResults extends React.Component {
             }
         };
     }
-    getRecordElement(record, field){
 
+    getRecordElement(record, field) {
+        let recordElement;
+        const _245 = record.dataField['245'];
+        const _246 = record.dataField['246'];
+        const _260 = record.dataField['260'];
+        switch (field) {
+            case 'title':
+            {
+                if (_245 && !!_245.a) {
+                    recordElement = _245.a;
+                } else if (_246 && !!_246.a) {
+                    recordElement = _246.a;
+                }
+                break;
+            }
+            case 'author':
+            {
+                if (_245) {
+                    recordElement = _245.c;
+                }
+                break;
+            }
+            case 'edition':
+            {
+                const _250 = record.dataField['250'];
+                if (_250) {
+                    recordElement = _250.a;
+                }
+                break;
+            }
+
+            case 'isbn':
+            {
+                const _020 = record.dataField['020'];
+                if (_020) {
+                    recordElement = _020.a;
+                }
+                break;
+            }
+            case 'date':
+            {
+                if (_260) {
+                    recordElement = _260.c;
+                }
+                break;
+            }
+
+        }
+        return recordElement;
     }
+
     componentWillMount() {
         if (this.props.onlineSearch.search) {
             this.executeSearch();
@@ -84,10 +132,9 @@ export default class SearchResults extends React.Component {
             <tr>
                 <th>Title</th>
                 <th>Contributor</th>
-                <th>Publisher</th>
                 <th>Date</th>
-                <th>Language</th>
-                <th>Description</th>
+                <th>Edition</th>
+                <th>ISBN</th>
             </tr>
             </thead>
             <AList listManager={this.listManager} id="search-results"/>

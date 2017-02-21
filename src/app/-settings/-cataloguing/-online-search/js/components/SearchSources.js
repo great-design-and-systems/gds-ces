@@ -4,7 +4,8 @@ export default class SearchSources extends React.Component {
     constructor(props) {
         super(props);
         this.librarySources = [
-            {label: 'Library of Congress', value: 'LIBRARY_OF_CONGRESS'}
+            {label: 'Library of Congress', value: 'LIBRARY_OF_CONGRESS'},
+            {label: 'Ministry of Education and Research in Norway', value: 'BIBSYS'}
         ];
         this.options = [];
         this.librarySources.forEach(source=> {

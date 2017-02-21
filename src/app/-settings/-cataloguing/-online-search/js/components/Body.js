@@ -1,6 +1,7 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import SearchBar from './SearchBar';
+import SearchSources from './SearchSources';
 import {connect} from 'react-redux';
 import {searchOnline,searchOnlineDone, changeSource} from '../OnlineSearchActions';
 import {BatchAction, action, isApiActionLoading, getRandomColor} from '../../../../../../common/AppUtils';
@@ -33,6 +34,11 @@ export default class Body extends React.Component {
             })
         }
     }
+
+    handleSourceOnChange(searchSource) {
+        this.props.dispatch(changeSource(searchSource));
+    }
+
     render() {
         return (<div class="online-search body">
             <div class="row header expanded">
@@ -43,6 +49,8 @@ export default class Body extends React.Component {
             </div>
             <div class="row search-container">
                 <SearchBar onChange={this.handleSearchOnChange.bind(this)}/>
+                <SearchSources onChange={this.handleSourceOnChange.bind(this)}/>
+                <div class="column"></div>
             </div>
 
             {this.props.searchContent}
