@@ -25,6 +25,10 @@ ReactDOM.render(<Provider store={AppStores}>
                 <IndexRedirect to="/cataloging/menu"/>
                 <Route path="menu" components={{catalogingContent: Cataloging.content.main}}/>
                 <Route path="entry" components={{catalogingContent: Cataloging.content.manualEntry.body}}/>
+                <Route path="search" components={{catalogingContent: Cataloging.content.search.body}}>
+                    <IndexRedirect to="/cataloging/search/results"/>
+                    <Route path="results" components={{searchContent: Cataloging.content.search.content.results}}/>
+                </Route>
             </Route>
         </Route>
     </Router>

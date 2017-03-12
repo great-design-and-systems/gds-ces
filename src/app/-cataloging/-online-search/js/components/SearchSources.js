@@ -21,6 +21,6 @@ export default class SearchSources extends React.Component {
 
     render() {
         return (
-            <div class="search-sources"><select onChange={this.handleOnChange.bind(this)}>{this.options}</select></div>)
+            <div class="search-sources column"><select onChange={this.handleOnChange.bind(this)}>{this.options}</select></div>)
     }
 }

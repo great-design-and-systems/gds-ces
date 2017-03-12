@@ -6,5 +6,5 @@ export const READ_FILE = FILE_SERVICE + '/readFile?isFile=true&param=fileId:';
 export const FILE_DOMAIN = process.env.FILE_DOMAIN || 'Files';
 export const CATEGORY_DOMAIN = process.env.CATEGORY_DOMAIN || 'Category';
 export const ITEM_DOMAIN = process.env.ITEM_DOMAIN || 'Items';
-export const BOOK_DOMAIN = process.env.BOOK_DOMAIN || 'Books';
-export const BOOK_DOMAIN_SEARCH_ONLINE = 'searchOnline';
+export const CATALOGING_DOMAIN = process.env.CATALOGING_DOMAIN || 'Cataloguing';
+export const CATALOGING_DOMAIN_SEARCH_ONLINE = 'searchOnline';

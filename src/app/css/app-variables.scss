@@ -17,6 +17,8 @@ $foundation-palette: (
         warning: #F1C40F,
         alert: #E74C3C,
 );
+$table-header-color: darken(antiquewhite, 7.90);
+$table-header-font-color: lighten(gray, 5.00);
 // Here we define the lower and upper bounds for each media size
 $small-range: (0, $small-breakpoint) !default;
 

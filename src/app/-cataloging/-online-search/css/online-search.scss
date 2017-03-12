@@ -10,4 +10,12 @@
   .search-container {
     padding: 0 1em 0 1em;
   }
+  .online-search-content {
+    padding-top: 15px;
+    .results-thead {
+      background: $table-header-color;
+      color: $table-header-font-color;
+      font-weight: 200;
+    }
+  }
 }

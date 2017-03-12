@@ -1,8 +1,8 @@
 import React from 'react';
-import {AList, AListActions} from '../../../../../../common/AppComponents';
+import {AList, AListActions} from '../../../../../common/AppComponents';
 import {connect} from 'react-redux';
-import {BOOK_DOMAIN, BOOK_DOMAIN_SEARCH_ONLINE} from '../../../../../../common/AppConstants';
-import {action} from '../../../../../../common/AppUtils';
+import {CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE} from '../../../../../common/AppConstants';
+import {action} from '../../../../../common/AppUtils';
 @connect(state => {
     return {
         onlineSearch: state.onlineSearch
@@ -24,7 +24,7 @@ export default class SearchResults extends React.Component {
                 }
             },
             get: {
-                action: action(BOOK_DOMAIN, BOOK_DOMAIN_SEARCH_ONLINE),
+                action: action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE),
                 eval: 'data.data'
             },
             each: {
@@ -38,6 +38,7 @@ export default class SearchResults extends React.Component {
                         <td>{this.getRecordElement(record, 'date')}</td>
                         <td>{this.getRecordElement(record, 'edition')}</td>
                         <td>{this.getRecordElement(record, 'isbn')}</td>
+                        <td><a href="#">import</a></td>
                     </tr>);
                 }
             },
@@ -128,13 +129,14 @@ export default class SearchResults extends React.Component {
 
     render() {
         return (<table>
-            <thead>
+            <thead class="results-thead">
             <tr>
                 <th>Title</th>
                 <th>Contributor</th>
                 <th>Date</th>
                 <th>Edition</th>
                 <th>ISBN</th>
+                <th>Action</th>
             </tr>
             </thead>
             <AList listManager={this.listManager} id="search-results"/>

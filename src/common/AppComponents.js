@@ -27,6 +27,7 @@ import CommonSwitch from './switch/js/CommonSwitch';
 import CommonToolbar from './toolbar/js/CommonToolbar';
 import CommonView from './view/js/CommonView';
 import CommonGrid from './common-grid/js/CommonGrid';
+import CommonFieldset from './common-fieldset/js/CommonFieldset';
 // CommonAsyncList
 export const AList = CommonAList;
 export const AListActions = CommonAListActions;
@@ -52,6 +53,7 @@ export const Links = CommonLinks;
 export const Image = CommonImage;
 export const ListInput = CommonListInput;
 export const Grid = CommonGrid;
+export const Fieldset = CommonFieldset;
 export const MessagesActions = {
     addError: addError,
     clearErrors: clearErrors,
