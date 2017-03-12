@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-
+import FieldConverter from '../domain/FieldConverter';
 export default class GetModel {
     constructor(api, formFields, formManager) {
         this.formFields = [...formFields];
@@ -12,7 +12,9 @@ export default class GetModel {
         }
     }
 
-    getFormFields() { return this.formFields; }
+    getFormFields() {
+        return this.formFields;
+    }
 }
 
 function getData(api, action, formManager) {
@@ -34,7 +36,15 @@ function setData(formFields, data) {
             return fd.properties.name === field
         });
         if (formField) {
-            formField.properties.value = value;
+            let  viewValue = value;
+            if (formField.converter) {
+                if (!(formField.converter instanceof FieldConverter)) {
+                    throw new Error('Converter must be an instance of -form/js/domain/FieldConverter');
+                }
+                viewValue = formField.converter.convertViewValue(value).getViewValue();
+            }
+            formField.setValue(viewValue);
+            formField.setModelValue(value);
         }
     });
 }

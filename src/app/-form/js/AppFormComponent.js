@@ -19,17 +19,18 @@ import { connect } from 'react-redux';
         api: state.api
     };
 })
-export default class AppForm extends React.Component {
+export default class AppFormComponent extends React.Component {
     constructor(props) {
         super();
         if (!props) {
             throw new Error('Property id is required.');
         }
     }
+
     componentWillMount() {
         this.setState({});
         if (this.props.form.id) {
-            this.props.dispatch(getModel(this.props.formManager.get.action, this.props.form.id, this.props.formManager.get.params));
+            this.props.dispatch(getModel(this.props.formConfig.get.action, this.props.form.id, this.props.formConfig.get.params));
         }
         if (this.props.formFields) {
             this.props.formFields.forEach(field => {
@@ -62,7 +63,7 @@ export default class AppForm extends React.Component {
                         this.props.form.batchProcessor.execute(() => {
                             this.props.dispatch(modelSet());
                             if (this.props.onChange) {
-                                this.props.onChange(new CreateModel(this.props.formFields, this.props.formManager).getModel());
+                                this.props.onChange(new CreateModel(this.props.formFields, this.props.formConfig).getModel());
                             }
                         });
                     }
@@ -89,24 +90,24 @@ export default class AppForm extends React.Component {
             if (this.props.form.id) {
                 if (!!this.props.form.id && !this.props.form.managed) {
                     if (!this.props.api.error) {
-                        const formFields = new GetModel(this.props.api, this.props.formFields, this.props.formManager).getFormFields();
-                        this.setState({ formFields });
+                        const formFields = new GetModel(this.props.api, this.props.formFields, this.props.formConfig).getFormFields();
+                        this.setState({formFields});
                         this.props.dispatch(setManaged(true));
                     }
                 }
                 else if (this.props.form.id !== prevProps.form.id) {
-                    this.props.dispatch(getModel(this.props.formManager.get.action, this.props.form.id, this.props.formManager.get.params));
+                    this.props.dispatch(getModel(this.props.formConfig.get.action, this.props.form.id, this.props.formConfig.get.params));
                     this.props.dispatch(setManaged(false));
                 }
-                else if (isApiActionDone(this.props.api, this.props.formManager.update.action)) {
-                    this.handleSubmitComplete(this.props.formManager.update.action, 'update');
+                else if (isApiActionDone(this.props.api, this.props.formConfig.update.action)) {
+                    this.handleSubmitComplete(this.props.formConfig.update.action, 'update');
                 }
             }
-            else if (isApiActionDone(this.props.api, this.props.formManager.create.action)) {
-                this.handleSubmitComplete(this.props.formManager.create.action, 'create');
+            else if (isApiActionDone(this.props.api, this.props.formConfig.create.action)) {
+                this.handleSubmitComplete(this.props.formConfig.create.action, 'create');
             }
-            else if (isApiActionDone(this.props.api, this.props.formManager.delete.action)) {
-                this.handleSubmitComplete(this.props.formManager.delete.action, 'delete');
+            else if (isApiActionDone(this.props.api, this.props.formConfig.delete.action)) {
+                this.handleSubmitComplete(this.props.formConfig.delete.action, 'delete');
             }
         }
     }
@@ -132,7 +133,7 @@ export default class AppForm extends React.Component {
 
     submit() {
         const submitModel = new SubmitModel(this.props.dispatch, this.props.formFields,
-            this.props.formManager, this.props.form.id);
+            this.props.formConfig, this.props.form.id);
         if (this.props.form.managed) {
             submitModel.update();
         } else {
@@ -146,7 +147,7 @@ export default class AppForm extends React.Component {
     }
 
     onDelete() {
-        new DeleteModel(this.props.dispatch, this.props.formManager, this.props.formFields, this.props.form.id);
+        new DeleteModel(this.props.dispatch, this.props.formConfig, this.props.formFields, this.props.form.id);
     }
 
     clearFields() {
@@ -182,6 +183,5 @@ export default class AppForm extends React.Component {
             </div>
         )
     }
-
 }
 

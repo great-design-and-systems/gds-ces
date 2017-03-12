@@ -12,18 +12,20 @@ export default class FormColumn extends React.Component {
     }
 
     componentWillMount() {
-        this.setFormColumState(this.props);
+        this.setFormColumnState(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setFormColumState(nextProps);
+        this.setFormColumnState(nextProps);
     }
-    setFormColumState(nextProps) {
+
+    setFormColumnState(nextProps) {
         this.setState({
             formField: nextProps.formField,
             fields: nextProps.fields
         });
     }
+
     createColumn(formField, fields) {
         const fieldProperties = formField.getProperties();
         fieldProperties.className = fieldProperties.className.replace('field-element', 'field-column');

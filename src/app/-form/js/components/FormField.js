@@ -1,4 +1,4 @@
-import { FieldCreator } from '../AppForm';
+import FieldCreator from '../domain/FieldCreator';
 import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';

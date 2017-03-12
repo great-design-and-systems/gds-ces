@@ -1,20 +1,19 @@
-import { Body, Content, Sidebar, View } from '../../../../common/AppComponents';
-
+import { Body, Content, View } from '../../../../common/AppComponents';
 import AppInterceptor from '../../../-interceptor/AppInterceptor';
-import {Link} from 'react-router';
 import React from 'react';
-import { wrapComponent } from '../../../../common/AppUtils';
+import HomeContent from './HomeContent';
 
 export default class Home extends React.Component {
     render() {
         return (<View load={AppInterceptor}>
             <Body id="homeBody">
-                <h3 class="body-title">LibCatalog <i class='fa fa-home fa-fw fa-lg active' /><Link title={'Go to settings'} to={'/settings'}><i class="fa fa-gears fa-fw fa-lg"/></Link></h3>
-                <Content>
-                    <div class="row expanded align-center">
-                        {this.props.homeContent}
-                    </div>
-                </Content>
+
+            <h3 class="body-title">LibCatalog
+                <i class='fa fa-home fa-fw fa-lg active'/>
+            </h3>
+            <Content>
+                {HomeContent()}
+            </Content>
             </Body>
         </View>)
     }

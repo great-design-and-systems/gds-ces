@@ -33,8 +33,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        const {headerForm} = this.props;
-        let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />
+        let app = <AppSplash header={'LibCat'} message={'Loading awesomeness...'} />;
         if (this.state.loaded) {
             app = (
                 <StickyContainer id="appComponent">

@@ -1,10 +1,10 @@
 import AppCategoryReducer from '../-category/js/AppCategoryReducer';
 import FormFieldReducer from '../-form/-fields/js/FormFieldReducer';
 import AppFormReducer from '../-form/js/AppFormReducer';
-import CataloguingManualEntryReducer from '../-settings/-cataloguing/-manual-entry/js/ManualEntryReducer';
-import CataloguingOnlineSearchReducer from '../-settings/-cataloguing/-online-search/js/OnlineSearchReducer';
+import CataloguingManualEntryReducer from '../-cataloging/-manual-entry/js/ManualEntryReducer';
+import CataloguingOnlineSearchReducer from '../-cataloging/-online-search/js/OnlineSearchReducer';
 export const CategoryReducer = AppCategoryReducer;
 export const FieldReducer = FormFieldReducer;
 export const FormReducer = AppFormReducer;
-export const ManualEntryReducer = CataloguingManualEntryReducer;
 export const OnlineSearchReducer = CataloguingOnlineSearchReducer;
+export const ManualEntryReducer = CataloguingManualEntryReducer;

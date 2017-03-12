@@ -5,14 +5,14 @@ export default class Tabs extends React.Component {
     componentWillMount() {
         this.tabs = [{
             label: 'Basic',
-            path: '/settings/cataloguing/manual_entry/basic'
+            path: '/cataloging/entry/basic'
         }, {
-                label: 'Additional',
-                path: '/settings/cataloguing/manual_entry/additional'
-            }, {
-                label: 'Copies',
-                path: '/settings/cataloguing/manual_entry/copies'
-            }]
+            label: 'Additional',
+            path: '/cataloging/entry/additional'
+        }, {
+            label: 'Copies',
+            path: '/cataloging/entry/copies'
+        }]
     }
 
     isActive(tab) {
@@ -23,7 +23,7 @@ export default class Tabs extends React.Component {
         const tabLinks = [];
         this.tabs.forEach(tab => {
             tabLinks.push(<Link disabled={this.isActive(tab) } key={tab.label} className={'button primary'}
-                to={tab.path}>{tab.label}</Link>)
+                                to={tab.path}>{tab.label}</Link>)
         });
         return (
             <div class="button-group">

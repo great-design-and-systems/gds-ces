@@ -26,7 +26,7 @@ import CommonSideBar from './sidebar/js/CommonSidebar';
 import CommonSwitch from './switch/js/CommonSwitch';
 import CommonToolbar from './toolbar/js/CommonToolbar';
 import CommonView from './view/js/CommonView';
-
+import CommonGrid from './common-grid/js/CommonGrid';
 // CommonAsyncList
 export const AList = CommonAList;
 export const AListActions = CommonAListActions;
@@ -51,6 +51,7 @@ export const CategoryForm = CommonCategoryForm;
 export const Links = CommonLinks;
 export const Image = CommonImage;
 export const ListInput = CommonListInput;
+export const Grid = CommonGrid;
 export const MessagesActions = {
     addError: addError,
     clearErrors: clearErrors,

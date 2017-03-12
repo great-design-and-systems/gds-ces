@@ -1,4 +1,5 @@
 import FormColumn from './FormColumn';
+import FormFieldSet from './FormFieldSet';
 import FormField from './FormField';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -11,11 +12,20 @@ export default class FormFields extends React.Component {
         const {formFields, fieldTemplates} = nextProps;
         this.fields = [];
         this.columns = [];
+        this.fieldSetComponents = [];
         if (formFields) {
             formFields.forEach((field, index) => {
                 switch (field.tag) {
+                    case 'fieldset':
+                        this.fieldSetComponents.push(wrapComponent('FormFields', FormFieldSet)({
+                            formField: field,
+                            fields: this.columns.length > 0 ? this.columns : this.fields,
+                            key: (field.form + '_' + index + '_' + 'form-field-set').hashCode()
+                        }));
+                        this.fields = [];
+                        this.columns = [];
+                        break;
                     case 'column':
-                        this.columnField = lodash.clone(field);
                         this.columns.push(wrapComponent('FormFields', FormColumn)({
                             formField: field,
                             fields: this.fields,
@@ -32,19 +42,22 @@ export default class FormFields extends React.Component {
                         break;
                 }
             });
-
-            if (this.columns.length) {
-                this.columns.push(wrapComponent('FormFields', FormColumn)({
-                    formField: this.columnField,
-                    fields: this.fields,
-                    key: (this.columnField.form + '_last_column').hashCode()
-                }));
-                this.setState({ formFields: this.columns });
+            if (this.columns.length > 0) {
+                if (this.fields.length > 0) {
+                    this.columns = this.columns.concat(this.fields);
+                }
+                this.setState({formFields: this.columns});
+            } else if (this.fieldSetComponents.length > 0) {
+                if (this.fields.length > 0) {
+                    this.fieldSetComponents = this.fieldSetComponents.concat(this.fields);
+                }
+                this.setState({formFields: this.fieldSetComponents});
             } else {
-                this.setState({ formFields: this.fields });
+                this.setState({formFields: this.fields});
             }
         }
     }
+
     constructor(props) {
         super();
         if (!props.formFields) {
@@ -62,6 +75,6 @@ export default class FormFields extends React.Component {
     }
 
     render() {
-        return (<div class="form-fields row expanded">{this.state.formFields}</div>)
+        return (<div class="form-fields expanded">{this.state.formFields}</div>)
     }
 }

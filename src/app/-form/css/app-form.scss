@@ -17,6 +17,24 @@
       width: 100%;
     }
   }
+  .form-field-set {
+    .field-FieldSet {
+      background: antiquewhite;
+      padding: 31px;
+      margin-top: -7px;
+      margin-bottom: 10px;
+    }
+    legend {
+      width: 40%;
+      height: 33px;
+      background: $primary-color;
+      font-weight: 400;
+      color: white;
+      cursor: pointer;
+      padding-left: 20px;
+      padding-top: 5px;
+    }
+  }
   .form-message {
     padding: 4px 0;
     color: white;

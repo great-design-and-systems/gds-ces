@@ -1,4 +1,4 @@
-import {BatchProcessor} from '../../../../../common/AppUtils';
+import {BatchProcessor} from '../../../../common/AppUtils';
 const DEFAULT_STATE = {
     search: null,
     source: null,
