@@ -3,6 +3,8 @@ import {AList, AListActions} from '../../../../../common/AppComponents';
 import {connect} from 'react-redux';
 import {CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE} from '../../../../../common/AppConstants';
 import {action} from '../../../../../common/AppUtils';
+import lodash from 'lodash';
+
 @connect(state => {
     return {
         onlineSearch: state.onlineSearch
@@ -31,7 +33,7 @@ export default class SearchResults extends React.Component {
                 emptyComponent: () => (<tr>
                     <td colSpan={6}>No records.</td>
                 </tr>),
-                component: (record, index) => {
+                component: record => {
                     return (<tr key={record.controlField['001']}>
                         <td><p>
                             {this.getRecordElement(record, 'title')}
@@ -81,9 +83,26 @@ export default class SearchResults extends React.Component {
             }
             case 'author':
             {
-                if (_245) {
-                    recordElement = _245.c;
-                }
+                const contributorFields = ['100', '400', '600', '700', '800'];
+                let index = 0;
+                let authorField;
+                do {
+                    authorField = record.dataField[contributorFields[index]];
+                    if (authorField) {
+                        if (authorField instanceof Array) {
+                            recordElement = '';
+                            lodash.forEach(authorField, (value, index)=> {
+                                if (index > 0) {
+                                    recordElement += ', ';
+                                }
+                                recordElement += value.a;
+                            });
+                        } else {
+                            recordElement = authorField.a;
+                        }
+                    }
+                    index++;
+                } while (!authorField && index < contributorFields.length);
                 break;
             }
             case 'edition':
@@ -99,7 +118,17 @@ export default class SearchResults extends React.Component {
             {
                 const _020 = record.dataField['020'];
                 if (_020) {
-                    recordElement = _020.a;
+                    if (_020 instanceof Array) {
+                        recordElement = '';
+                        lodash.forEach(_020, (value, index)=> {
+                            if (index > 0) {
+                                recordElement += ', ';
+                            }
+                            recordElement += value.a;
+                        });
+                    } else {
+                        recordElement = _020.a;
+                    }
                 }
                 break;
             }
@@ -130,12 +159,25 @@ export default class SearchResults extends React.Component {
     }
 
     executeSearch() {
+        const source = this.props.onlineSearch.source || 'LIBRARY_OF_CONGRESS'
         this.actions.setParams({
-            source: this.props.onlineSearch.source || 'LIBRARY_OF_CONGRESS'
+            source: source
         });
-        this.actions.setQuery({
-            query: this.props.onlineSearch.search
-        });
+        const search = this.props.onlineSearch.search;
+
+        if (search) {
+            const splitSearch = search.split('=');
+            const searchType = splitSearch[0];
+            const keyMap = SourceKeyMap[source][searchType];
+            this.actions.setQuery({
+                query: keyMap + '.' + search
+            });
+        } else {
+            this.actions.setQuery({
+                query: this.props.onlineSearch.search
+            });
+        }
+
         this.actions.setDirty(true);
     }
 
@@ -144,7 +186,7 @@ export default class SearchResults extends React.Component {
             <thead class="results-thead">
             <tr>
                 <th>Title</th>
-                <th>Contributor</th>
+                <th>Author</th>
                 <th>Date</th>
                 <th>Edition</th>
                 <th>ISBN</th>
@@ -155,3 +197,13 @@ export default class SearchResults extends React.Component {
         </table>)
     }
 }
+
+
+const SourceKeyMap = {
+    LIBRARY_OF_CONGRESS: {
+        isbn: 'bath',
+        title: 'dc',
+        author: 'dc',
+        subject: 'dc'
+    }
+};

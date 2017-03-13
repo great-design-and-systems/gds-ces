@@ -17,7 +17,6 @@ export default class RenderList {
     }
 
     render() {
-        console.log('renderedItems', this.renderedItems);
         return this.renderedItems;
     }
 }

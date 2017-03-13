@@ -32,22 +32,18 @@ export default class Body extends React.Component {
         }
     }
 
-    handleSourceOnChange(searchSource) {
-        this.props.dispatch(changeSource(searchSource));
-    }
-
     render() {
         return (<div class="online-search body">
             <div class="content-header">
                 <div class="row">
                     <SearchBar onChange={this.handleSearchOnChange.bind(this)}/>
-                    <SearchSources onChange={this.handleSourceOnChange.bind(this)}/>
                 </div>
             </div>
-            <div></div>
             <div class="online-search-content large-10 large-offset-1">
-                <Fieldset icon={isApiActionLoading(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE)) ? <i className="fa fa-spin fa-spinner"/>:''} alwaysOpen={true}
-                          legend={'Online Search'}>{this.props.searchContent}</Fieldset>
+                <Fieldset
+                    icon={isApiActionLoading(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE)) ? <i className="fa fa-spin fa-spinner"/>:''}
+                    alwaysOpen={true}
+                    legend={'Online Search'}>{this.props.searchContent}</Fieldset>
             </div>
         </div>)
     }
