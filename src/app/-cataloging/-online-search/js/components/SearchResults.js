@@ -33,7 +33,10 @@ export default class SearchResults extends React.Component {
                 </tr>),
                 component: (record, index) => {
                     return (<tr key={record.controlField['001']}>
-                        <td>{this.getRecordElement(record, 'title')}</td>
+                        <td><p>
+                            {this.getRecordElement(record, 'title')}
+                            {this.getRecordElement(record, 'description')}
+                        </p></td>
                         <td>{this.getRecordElement(record, 'author')}</td>
                         <td>{this.getRecordElement(record, 'date')}</td>
                         <td>{this.getRecordElement(record, 'edition')}</td>
@@ -58,6 +61,15 @@ export default class SearchResults extends React.Component {
         const _246 = record.dataField['246'];
         const _260 = record.dataField['260'];
         switch (field) {
+            case 'description':
+            {
+                if (_245 && !!_245.b) {
+                    recordElement = _245.b;
+                } else if (_246 && !!_246.b) {
+                    recordElement = _246.b;
+                }
+                break;
+            }
             case 'title':
             {
                 if (_245 && !!_245.a) {

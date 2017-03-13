@@ -18,9 +18,17 @@ export default class Body extends React.Component {
     setFormState() {
         this.formFields = [];
         this.formConfig = new Config();
+        this.setUpConfig();
         this.formFields = this.formFields.concat(CreateBasicFormFields());
         this.formFields = this.formFields.concat(CreateAdditionalFormFields());
         this.formFields = this.formFields.concat(CreateCopiesFormFields());
+    }
+
+    setUpConfig() {
+        this.formConfig.setTransformRequestModel(model=> {
+            console.log('transforming model', model);
+            return model;
+        });
     }
 
     render() {

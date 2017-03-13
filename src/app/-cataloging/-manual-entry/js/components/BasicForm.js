@@ -36,7 +36,7 @@ function createFieldSet() {
 function createTitleField() {
     const field = new Field('input');
     field.setLabel('Title');
-    field.setName('title');
+    field.setName('245.a');
     field.setProperties({
         type: 'text'
     });
@@ -47,7 +47,7 @@ function createTitleField() {
 function createStatementOfResponsibilityField() {
     const field = new Field('input');
     field.setLabel('Statement of Responsibility');
-    field.setName('responsibility');
+    field.setName('245.c');
     field.setProperties({
         type: 'text'
     });
@@ -57,7 +57,7 @@ function createStatementOfResponsibilityField() {
 function createSeriesTitleField() {
     const field = new Field('input');
     field.setLabel('Series Title');
-    field.setName('seriesTitle');
+    field.setName('440.a');
     field.setProperties({
         type: 'text'
     });
@@ -67,7 +67,7 @@ function createSeriesTitleField() {
 function createISBNField() {
     const field = new Field('input');
     field.setLabel('ISBN');
-    field.setName('isbn');
+    field.setName('020.a');
     field.setProperties({
         type: 'text'
     });
@@ -78,7 +78,7 @@ function createISBNField() {
 function createISSNField() {
     const field = new Field('input');
     field.setLabel('ISSN');
-    field.setName('issn');
+    field.setName('022.a');
     field.setProperties({
         type: 'text'
     });
@@ -89,7 +89,7 @@ function createISSNField() {
 function createPublisherField() {
     const field = new Field('input');
     field.setLabel('Publisher');
-    field.setName('publisher');
+    field.setName('260.b');
     field.setProperties({
         type: 'text'
     });
@@ -100,7 +100,7 @@ function createPublisherField() {
 function createNumberOfPagesField() {
     const field = new Field('input');
     field.setLabel('Number of pages');
-    field.setName('numberOfPages');
+    field.setName('300.a');
     field.setProperties({
         type: 'number'
     });
@@ -110,7 +110,7 @@ function createNumberOfPagesField() {
 function createSubTitleField() {
     const field = new Field('input');
     field.setLabel('Sub-Title');
-    field.setName('subTitle');
+    field.setName('245.b');
     field.setProperties({
         type: 'text'
     });
@@ -120,7 +120,7 @@ function createSubTitleField() {
 function createEditionField() {
     const field = new Field('input');
     field.setLabel('Edition');
-    field.setName('edition');
+    field.setName('250.a');
     field.setProperties({
         type: 'text'
     });
@@ -130,7 +130,7 @@ function createEditionField() {
 function createAuthorField() {
     const field = new Field('listinput');
     field.setLabel('Author');
-    field.setName('author');
+    field.setName('100.a');
     field.setRequired(true);
     return field;
 }
@@ -138,7 +138,7 @@ function createAuthorField() {
 function createLCCNField() {
     const field = new Field('input');
     field.setLabel('LCCN');
-    field.setName('lccn');
+    field.setName('010.a');
     field.setProperties({
         type: 'text'
     });
@@ -148,7 +148,7 @@ function createLCCNField() {
 function createPlaceOfPublicationField() {
     const field = new Field('input');
     field.setLabel('Place of Publication');
-    field.setName('placeOfPublication');
+    field.setName('260.a');
     field.setProperties({
         type: 'text'
     });
@@ -158,7 +158,7 @@ function createPlaceOfPublicationField() {
 function createPublishedDateField() {
     const field = new Field('date');
     field.setLabel('Published Date');
-    field.setName('publishedDate');
+    field.setName('260.c');
     field.setRequired(true);
     return field;
 }
