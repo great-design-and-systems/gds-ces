@@ -1,5 +1,5 @@
 import React from 'react';
-import {AList, AListActions} from '../../../../../common/AppComponents';
+import {AList, AListActions, ListPages} from '../../../../../common/AppComponents';
 import {connect} from 'react-redux';
 import {CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE} from '../../../../../common/AppConstants';
 import {action} from '../../../../../common/AppUtils';
@@ -182,8 +182,15 @@ export default class SearchResults extends React.Component {
     }
 
     render() {
-        return (<table>
+        return (<table class="search-results">
             <thead class="results-thead">
+            <tr>
+                <th colSpan={6}>
+                    <div class="search-results-controls">
+                        <ListPages target="search-results"/>
+                    </div>
+                </th>
+            </tr>
             <tr>
                 <th>Title</th>
                 <th>Author</th>
@@ -194,6 +201,23 @@ export default class SearchResults extends React.Component {
             </tr>
             </thead>
             <AList listManager={this.listManager} id="search-results"/>
+            <tfoot class="results-thead">
+            <tr>
+                <td>Title</td>
+                <td>Author</td>
+                <td>Date</td>
+                <td>Edition</td>
+                <td>ISBN</td>
+                <td>Action</td>
+            </tr>
+            <tr>
+                <td colSpan={6}>
+                    <div class="search-results-controls">
+                        <ListPages target="search-results"/>
+                    </div>
+                </td>
+            </tr>
+            </tfoot>
         </table>)
     }
 }
