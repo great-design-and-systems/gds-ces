@@ -1,4 +1,5 @@
 @import "app-variables.scss";
+@import "app-mixin.scss";
 @import "~foundation-sites/scss/foundation.scss";
 @import "~react-datepicker/dist/react-datepicker.css";
 @import "~slick-carousel/slick/slick.scss";
@@ -27,4 +28,12 @@ html {
 
 .error {
   color: $alert-color;
+}
+
+.clicker {
+  &:hover {
+    background: $menu-item-background-active;
+    color: $menu-item-color-active;
+  }
+  cursor: pointer;
 }

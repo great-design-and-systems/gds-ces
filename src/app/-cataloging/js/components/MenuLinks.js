@@ -8,6 +8,11 @@ const MenuLinks = [
         path: '/cataloging/search',
         label: 'Search',
         faIcon: 'fa fa-book'
+    },
+    {
+        path: '/cataloging/card-catalog',
+        label: 'Card',
+        faIcon: 'fa fa-id-card-o'
     }
 ];
 

@@ -2,9 +2,10 @@ import React from 'react';
 import {AList, AListActions, ListPages} from '../../../../../common/AppComponents';
 import {connect} from 'react-redux';
 import {CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE} from '../../../../../common/AppConstants';
+import {browserHistory} from 'react-router';
 import {action} from '../../../../../common/AppUtils';
 import lodash from 'lodash';
-
+import {setMarc} from '../../../-card-catalog/js/CardCatalogActions';
 @connect(state => {
     return {
         onlineSearch: state.onlineSearch
@@ -15,6 +16,11 @@ export default class SearchResults extends React.Component {
         super(props);
         this.actions = new AListActions('search-results', this.props.dispatch);
         this.loadItems();
+    }
+
+    handleOnImport(record) {
+        this.props.dispatch(setMarc(record));
+        browserHistory.push('/cataloging/card-catalog');
     }
 
     loadItems() {
@@ -30,7 +36,7 @@ export default class SearchResults extends React.Component {
                 eval: 'data.data'
             },
             each: {
-                emptyComponent: () => (<tr>
+                emptyComponent: () => (<tr key={'no_records_key'}>
                     <td colSpan={6}>No records.</td>
                 </tr>),
                 component: record => {
@@ -43,7 +49,7 @@ export default class SearchResults extends React.Component {
                         <td>{this.getRecordElement(record, 'date')}</td>
                         <td>{this.getRecordElement(record, 'edition')}</td>
                         <td>{this.getRecordElement(record, 'isbn')}</td>
-                        <td><a href="#">import</a></td>
+                        <td><a onClick={this.handleOnImport.bind(this, record)} class="clicker">import</a></td>
                     </tr>);
                 }
             },

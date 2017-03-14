@@ -1,0 +1,5 @@
+@mixin appBoxShadow() {
+  -webkit-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+  -moz-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+  box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+}

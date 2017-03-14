@@ -23,6 +23,7 @@
       padding: 31px;
       margin-top: -7px;
       margin-bottom: 10px;
+      @include appBoxShadow();
     }
     legend {
       width: 40%;

@@ -11,7 +11,10 @@ fieldset {
       padding-top: 5px;
     }
     .fieldset-content {
-      background: antiquewhite;
+      -webkit-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+      -moz-box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+      box-shadow: 8px 9px 22px 1px rgba(156, 139, 139, 1);
+      background: $form-background;
       padding: 31px;
       margin-top: -7px;
       margin-bottom: 10px;
