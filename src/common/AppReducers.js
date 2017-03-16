@@ -1,6 +1,6 @@
 import ApiServiceReducer from '../api/ApiServiceReducer';
 import AppModalReducer from '../app/-modal/js/AppModalReducer';
-import { CategoryReducer, FieldReducer, FormReducer ,ManualEntryReducer, OnlineSearchReducer, CardCatalogReducere} from '../app/js/AppReducers';
+import { CategoryReducer, FieldReducer, FormReducer ,ManualEntryReducer, OnlineSearchReducer, CatalogingReducer} from '../app/js/AppReducers';
 import CommonAsyncListReducer from './async-list/js/CommonAsyncListReducer';
 import CommonMessagesReducers from './messages/js/CommonMessagesReducer';
 import CommonViewReducer from './view/js/CommonViewReducer';
@@ -17,7 +17,7 @@ const AppReducers = combineReducers({
     appCategory: CategoryReducer,
     manualEntry: ManualEntryReducer,
     onlineSearch: OnlineSearchReducer,
-    card: CardCatalogReducere
+    cataloging: CatalogingReducer
 });
 
 export default AppReducers;

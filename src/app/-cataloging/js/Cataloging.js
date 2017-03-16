@@ -4,6 +4,7 @@ import Menu from './components/Menu';
 import {ManualEntryBody} from '../-manual-entry/js/ManualEntry';
 import {OnlineSearchBody, OnlineSearchResults} from '../-online-search/js/OnlineSearch';
 import {CardCatalogBody} from '../-card-catalog/js/CardCatalog';
+import {ImportBody} from '../-online-search/-search-results-import/js/SearchResultsImport';
 export const CatalogingBody = Body;
 export const CatalogingControls = Controls;
 export const Content = {
@@ -14,7 +15,8 @@ export const Content = {
     search: {
         body: OnlineSearchBody,
         content: {
-            results: OnlineSearchResults
+            results: OnlineSearchResults,
+            searchResultsImport: ImportBody
         }
     },
     cardCatalog: {

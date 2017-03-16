@@ -5,7 +5,8 @@ import {CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE} from '../../../../..
 import {browserHistory} from 'react-router';
 import {action} from '../../../../../common/AppUtils';
 import lodash from 'lodash';
-import {setMarc} from '../../../-card-catalog/js/CardCatalogActions';
+import {setMarc} from '../../../js/CatalogingActions';
+import GetRecordElement from '../control/GetRecordElement';
 @connect(state => {
     return {
         onlineSearch: state.onlineSearch
@@ -20,7 +21,7 @@ export default class SearchResults extends React.Component {
 
     handleOnImport(record) {
         this.props.dispatch(setMarc(record));
-        browserHistory.push('/cataloging/card-catalog');
+        browserHistory.push('/cataloging/import');
     }
 
     loadItems() {
@@ -42,13 +43,13 @@ export default class SearchResults extends React.Component {
                 component: record => {
                     return (<tr key={record.controlField['001']}>
                         <td><p>
-                            {this.getRecordElement(record, 'title')}
-                            {this.getRecordElement(record, 'description')}
+                            {GetRecordElement(record, 'title')}
+                            {GetRecordElement(record, 'description')}
                         </p></td>
-                        <td>{this.getRecordElement(record, 'author')}</td>
-                        <td>{this.getRecordElement(record, 'date')}</td>
-                        <td>{this.getRecordElement(record, 'edition')}</td>
-                        <td>{this.getRecordElement(record, 'isbn')}</td>
+                        <td>{GetRecordElement(record, 'author')}</td>
+                        <td>{GetRecordElement(record, 'date')}</td>
+                        <td>{GetRecordElement(record, 'edition')}</td>
+                        <td>{GetRecordElement(record, 'isbn')}</td>
                         <td><a onClick={this.handleOnImport.bind(this, record)} class="clicker">import</a></td>
                     </tr>);
                 }
@@ -61,93 +62,6 @@ export default class SearchResults extends React.Component {
                 total: 'data.totalRecords'
             }
         };
-    }
-
-    getRecordElement(record, field) {
-        let recordElement;
-        const _245 = record.dataField['245'];
-        const _246 = record.dataField['246'];
-        const _260 = record.dataField['260'];
-        switch (field) {
-            case 'description':
-            {
-                if (_245 && !!_245.b) {
-                    recordElement = _245.b;
-                } else if (_246 && !!_246.b) {
-                    recordElement = _246.b;
-                }
-                break;
-            }
-            case 'title':
-            {
-                if (_245 && !!_245.a) {
-                    recordElement = _245.a;
-                } else if (_246 && !!_246.a) {
-                    recordElement = _246.a;
-                }
-                break;
-            }
-            case 'author':
-            {
-                const contributorFields = ['100', '400', '600', '700', '800'];
-                let index = 0;
-                let authorField;
-                do {
-                    authorField = record.dataField[contributorFields[index]];
-                    if (authorField) {
-                        if (authorField instanceof Array) {
-                            recordElement = '';
-                            lodash.forEach(authorField, (value, index)=> {
-                                if (index > 0) {
-                                    recordElement += ', ';
-                                }
-                                recordElement += value.a;
-                            });
-                        } else {
-                            recordElement = authorField.a;
-                        }
-                    }
-                    index++;
-                } while (!authorField && index < contributorFields.length);
-                break;
-            }
-            case 'edition':
-            {
-                const _250 = record.dataField['250'];
-                if (_250) {
-                    recordElement = _250.a;
-                }
-                break;
-            }
-
-            case 'isbn':
-            {
-                const _020 = record.dataField['020'];
-                if (_020) {
-                    if (_020 instanceof Array) {
-                        recordElement = '';
-                        lodash.forEach(_020, (value, index)=> {
-                            if (index > 0) {
-                                recordElement += ', ';
-                            }
-                            recordElement += value.a;
-                        });
-                    } else {
-                        recordElement = _020.a;
-                    }
-                }
-                break;
-            }
-            case 'date':
-            {
-                if (_260) {
-                    recordElement = _260.c;
-                }
-                break;
-            }
-
-        }
-        return recordElement;
     }
 
     componentWillMount() {
