@@ -37,3 +37,13 @@ html {
   }
   cursor: pointer;
 }
+
+.thead-pages {
+  height: 35px;
+}
+
+.thead-style {
+  background: $table-header-color;
+  color: $table-header-font-color;
+  font-weight: 200;
+}

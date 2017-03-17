@@ -3,7 +3,7 @@ import Controls from './components/Controls';
 import Menu from './components/Menu';
 import {ManualEntryBody} from '../-manual-entry/js/ManualEntry';
 import {OnlineSearchBody, OnlineSearchResults} from '../-online-search/js/OnlineSearch';
-import {CardCatalogBody} from '../-card-catalog/js/CardCatalog';
+import {MaterialsBody} from '../-materials/js/Materials';
 import {ImportBody} from '../-online-search/-search-results-import/js/SearchResultsImport';
 export const CatalogingBody = Body;
 export const CatalogingControls = Controls;
@@ -19,7 +19,7 @@ export const Content = {
             searchResultsImport: ImportBody
         }
     },
-    cardCatalog: {
-        body: CardCatalogBody
+    materials: {
+        body: MaterialsBody
     }
 };

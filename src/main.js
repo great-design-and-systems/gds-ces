@@ -31,7 +31,7 @@ ReactDOM.render(<Provider store={AppStores}>
                 </Route>
                 <Route path="import"
                        components={{catalogingContent: Cataloging.content.search.content.searchResultsImport}}/>
-                <Route path="card-catalog" components={{catalogingContent: Cataloging.content.cardCatalog.body}}/>
+                <Route path="card-catalog" components={{catalogingContent: Cataloging.content.materials.body}}/>
             </Route>
         </Route>
     </Router>

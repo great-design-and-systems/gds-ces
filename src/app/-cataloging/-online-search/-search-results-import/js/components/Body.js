@@ -27,6 +27,7 @@ export default class Body extends React.Component {
         const isLoading = isApiActionLoading(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_IMPORT_MARC_DATA));
         const isDone = isApiActionDone(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_IMPORT_MARC_DATA));
         const importResult = getActionData(this.props.api, CATALOGING_DOMAIN, CATALOGING_DOMAIN_IMPORT_MARC_DATA, 'data');
+        console.log('importResult', importResult);
         return (<div class="search-results-import">
             <div class="large-8 large-offset-2">
                 <Fieldset alwaysOpen={true} legend={'Control Number: '+this.state.marc.controlField['001']}>
@@ -43,7 +44,7 @@ export default class Body extends React.Component {
                         <div class="column">
                             {isLoading && !isDone ? <Loading color={getRandomColor()}/> : ''}
                             {isDone ? <div>
-                                {importResult.existing ? <h6>Control number already exists.</h6> : <h6>Done</h6>}
+                                {importResult.data.existingItem ? <h6>Control number already exists.</h6> : <h6>Done</h6>}
                             </div> : ''}
                         </div>
                     </div>
