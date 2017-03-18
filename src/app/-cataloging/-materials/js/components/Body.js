@@ -1,9 +1,13 @@
 import React from 'react';
 import {Fieldset,AList, AListActions, ListPages} from '../../../../../common/AppComponents';
 import {connect} from 'react-redux';
-import {action} from '../../../../../common/AppUtils';
+import {action,isApiActionLoading, BatchAction} from '../../../../../common/AppUtils';
 import {CATALOGING_DOMAIN, CATALOGING_DOMAIN_GET_ITEMS} from '../../../../../common/AppConstants';
-@connect()
+import SearchBar from './SearchBar';
+@connect(state=> {
+        return {cataloging: state.cataloging, api: state.api}
+    }
+)
 export default class Body extends React.Component {
     constructor(props) {
         super(props);
@@ -51,15 +55,37 @@ export default class Body extends React.Component {
         };
     }
 
+    handleSearchOnChange(searchValue) {
+        this.props.cataloging.batchProcessor.push(new BatchAction('search_online', (done) => {
+            setTimeout(()=> {
+                done(searchValue)
+            }, 200);
+        }));
+        if (!this.props.cataloging.batchProcessor.isRunning()) {
+            this.props.cataloging.batchProcessor.execute(result => {
+                this.actions.setQuery({search: result});
+                this.actions.setDirty(true);
+            });
+        }
+    }
+
     render() {
-        return (<div class="card-catalog">
-            <div class="large-8 large-offset-2">
-                <Fieldset alwaysOpen={true} legend="materials">
+        return (<div class="materials">
+            <div class="content-header">
+                <div class="row">
+                    <div><SearchBar onChange={this.handleSearchOnChange.bind(this)}/></div>
+                </div>
+            </div>
+            <div class="materials-content large-10 large-offset-1">
+                <Fieldset alwaysOpen={true} legend="Materials"
+                          icon={isApiActionLoading(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_GET_ITEMS)) ? <i className="fa fa-spin fa-spinner"/>:''}>
                     <table class="materials-results">
                         <thead class="thead-style">
                         <tr>
                             <td colSpan={4}>
-                                <div class="thead-pages"><ListPages target="materials"/></div>
+                                <div class="row">
+                                    <div class="thead-pages"><ListPages target="materials"/></div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
