@@ -13,8 +13,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import initPrototypes from './common/AppPrototypes';
-
-$(document).foundation();
 initPrototypes();
 ReactDOM.render(<Provider store={AppStores}>
     <Router history={browserHistory}>
@@ -35,4 +33,4 @@ ReactDOM.render(<Provider store={AppStores}>
             </Route>
         </Route>
     </Router>
-</Provider>, document.getElementsByTagName('app')[0]);
+</Provider>, document.getElementsByTagName('body')[0]);

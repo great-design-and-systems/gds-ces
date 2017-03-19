@@ -19,7 +19,7 @@ export default class CommonGrid extends Component {
             });
         }
         return (
-            <div class="expanded common-grid small-10 small-offset-1 large-offset-2">
+            <div class="common-grid small-10 small-offset-1 large-offset-2">
                 <div class="row small-up-2 medium-up-3 large-up-5 align-center align-middle">
                     {links}
                 </div>

@@ -27,10 +27,7 @@ export default class SearchResults extends React.Component {
     loadItems() {
         this.listManager = {
             root: {
-                element: 'tbody',
-                props: {
-                    className: 'search-results'
-                }
+                element: 'tbody'
             },
             get: {
                 action: action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_SEARCH_ONLINE),

@@ -5,10 +5,7 @@ import React from 'react';
 import { getRandomColor } from '../../../../common/AppUtils';
 
 const HomeContent = ()=> {
-    return (
-        <div class="row align-center">
-                <Grid links={MenuLinks}/>
-        </div>)
+    return <Grid links={MenuLinks}/>
 };
 
 export default HomeContent;

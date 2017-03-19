@@ -22,7 +22,10 @@
 @include foundation-everything(true);
 html {
   body {
-    background: $splash-background;
+    background: $body-background;
+    margin: 0;
+    height: 100%;
+    overflow: hidden
   }
 }
 
