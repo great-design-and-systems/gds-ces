@@ -1,10 +1,12 @@
-import React from 'react';
-import { Config, AppForm ,Field, FieldConverter } from '../../../../-form/js/AppForm';
-import { wrapComponent } from '../../../../../common/AppUtils';
-import CreateBasicFormFields from './BasicForm';
-import CreateAdditionalFormFields from './AdditionalForm';
-import CreateCopiesFormFields from './CopiesForm';
+import { AppForm, Config, Field, FieldConverter } from '../../../../-form/js/AppForm';
+
 import Controls from './Controls';
+import CreateAdditionalFormFields from './AdditionalForm';
+import CreateBasicFormFields from './BasicForm';
+import CreateCopiesFormFields from './CopiesForm';
+import React from 'react';
+import { wrapComponent } from '../../../../../common/AppUtils';
+
 $(document).foundation();
 export default class Body extends React.Component {
     constructor(props) {
@@ -37,7 +39,7 @@ export default class Body extends React.Component {
                 <div class="content-header">
                     <Controls/>
                 </div>
-                <div class="large-8 large-offset-2">
+                <div class="manual-entry-content large-10 large-offset-1">
                     {wrapComponent('entry_form', AppForm)({
                         id: 'manualEntryForm',
                         className: 'manual-entry',

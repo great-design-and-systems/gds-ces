@@ -1,5 +1,6 @@
-import React,{Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+
+import { Link } from 'react-router';
 import { getRandomColor } from '../../AppUtils';
 
 export default class CommonGrid extends Component {
@@ -9,9 +10,9 @@ export default class CommonGrid extends Component {
             this.props.links.forEach(link => {
                 links.push(
                     <Link to={link.path} key={link.label}
-                          className={'column column-block'}>
+                        className={'column column-block'}>
                         <div class="grid-content">
-                            <h3><i className={link.faIcon}/></h3>
+                            <h3><i className={link.faIcon} /></h3>
                             <span class="grid-title">{link.label}</span>
                         </div>
                     </Link>)

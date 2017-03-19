@@ -1,13 +1,16 @@
 .manual-entry {
-  &.body {
-    .header {
-      padding: 1em 1em 0 1em;
-      h5 {
-        padding-top: 1em;
-      }
+    .manual-entry-content {
+        padding-top: 15px;
     }
-    .app-form {
-      padding: 0 2em 0 2em;
+    &.body {
+        .header {
+            padding: 1em 1em 0 1em;
+            h5 {
+                padding-top: 1em;
+            }
+        }
+        .app-form {
+            padding: 0 2em 0 2em;
+        }
     }
-  }
 }

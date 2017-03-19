@@ -1,5 +1,10 @@
 .materials {
-  .materials-content {
-    padding-top: 15px;
-  }
+    .materials-content {
+        padding-top: 15px;
+    }
+    .search-bar {
+        input: {
+            height: 39px;
+        }
+    }
 }
