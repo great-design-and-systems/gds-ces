@@ -5,6 +5,7 @@ import {ManualEntryBody} from '../-manual-entry/js/ManualEntry';
 import {OnlineSearchBody, OnlineSearchResults} from '../-online-search/js/OnlineSearch';
 import {MaterialsBody} from '../-materials/js/Materials';
 import {ImportBody} from '../-online-search/-search-results-import/js/SearchResultsImport';
+import {CardViewBody} from '../-card-view/js/CardView';
 export const CatalogingBody = Body;
 export const CatalogingControls = Controls;
 export const Content = {
@@ -21,5 +22,8 @@ export const Content = {
     },
     materials: {
         body: MaterialsBody
+    },
+    card: {
+        body: CardViewBody
     }
 };

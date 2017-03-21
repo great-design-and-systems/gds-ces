@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
     success: null,
     id: null,
     isOpen: false
-}
+};
 
 const AppModalReducer = (state = DEFAULT_STATE, action) => {
     switch (action.type) {
