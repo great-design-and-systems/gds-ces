@@ -1,3 +1,4 @@
 import Body from './components/Body';
 
-export default CartCatalogBody = Body;
+const CardCatalogBody = Body;
+export default CardCatalogBody;

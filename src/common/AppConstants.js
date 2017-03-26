@@ -1,4 +1,4 @@
-export const GDS_API = process.env.GDS_API || 'http://localhost:8080/gds';
+export const GDS_API = process.env.GDS_API || 'http://gds-ms-api-arflores07468934.codeanyapp.com:8080/gds';
 export const FILE_SERVICE = GDS_API + '/fileServicePort';
 export const UPLOAD_SINGLE_FILE = FILE_SERVICE + '/uploadSingleFile';
 export const UPLOAD_BASE_URL = UPLOAD_SINGLE_FILE + '?multipart=true&multipartField=uploadFile';
@@ -10,3 +10,4 @@ export const CATALOGING_DOMAIN = process.env.CATALOGING_DOMAIN || 'Cataloguing';
 export const CATALOGING_DOMAIN_SEARCH_ONLINE = 'searchOnline';
 export const CATALOGING_DOMAIN_IMPORT_MARC_DATA = 'importMarcData';
 export const CATALOGING_DOMAIN_GET_ITEMS = 'getItems';
+export const CATALOGING_DOMAIN_GET_ITEM_CATEGORY = 'getItemCategory';

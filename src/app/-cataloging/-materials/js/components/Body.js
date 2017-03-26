@@ -1,13 +1,15 @@
+import { AList, AListActions, Fieldset, ListPages } from '../../../../../common/AppComponents';
+import { BatchAction, action, isApiActionLoading } from '../../../../../common/AppUtils';
+import { CATALOGING_DOMAIN, CATALOGING_DOMAIN_GET_ITEMS } from '../../../../../common/AppConstants';
+
+import { Link } from 'react-router';
 import React from 'react';
-import {Fieldset,AList, AListActions, ListPages} from '../../../../../common/AppComponents';
-import {connect} from 'react-redux';
-import {action,isApiActionLoading, BatchAction} from '../../../../../common/AppUtils';
-import {CATALOGING_DOMAIN, CATALOGING_DOMAIN_GET_ITEMS} from '../../../../../common/AppConstants';
 import SearchBar from './SearchBar';
-@connect(state=> {
-        return {cataloging: state.cataloging, api: state.api}
-    }
-)
+import { connect } from 'react-redux';
+
+@connect(state => {
+    return { cataloging: state.cataloging, api: state.api }
+})
 export default class Body extends React.Component {
     constructor(props) {
         super(props);
@@ -42,7 +44,7 @@ export default class Body extends React.Component {
                         {record.remainderOfTitle}
                     </p></td>
                     <td>{record.categoryName}</td>
-                    <td><a href="#">view</a></td>
+                    <td><Link to={'/cataloging/card-view/' + record.categoryName + '/' + record._id}>view</Link></td>
                 </tr>)
             },
             query: {
@@ -57,13 +59,13 @@ export default class Body extends React.Component {
 
     handleSearchOnChange(searchValue) {
         this.props.cataloging.batchProcessor.push(new BatchAction('search_online', (done) => {
-            setTimeout(()=> {
+            setTimeout(() => {
                 done(searchValue)
             }, 200);
         }));
         if (!this.props.cataloging.batchProcessor.isRunning()) {
             this.props.cataloging.batchProcessor.execute(result => {
-                this.actions.setQuery({search: result});
+                this.actions.setQuery({ search: result });
                 this.actions.setDirty(true);
             });
         }
@@ -73,29 +75,29 @@ export default class Body extends React.Component {
         return (<div class="materials">
             <div class="content-header">
                 <div class="row">
-                    <div><SearchBar onChange={this.handleSearchOnChange.bind(this)}/></div>
+                    <div><SearchBar onChange={this.handleSearchOnChange.bind(this)} /></div>
                 </div>
             </div>
             <div class="materials-content large-10 large-offset-1">
                 <Fieldset alwaysOpen={true} legend="Materials"
-                          icon={isApiActionLoading(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_GET_ITEMS)) ? <i className="fa fa-spin fa-spinner"/>:''}>
+                    icon={isApiActionLoading(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_GET_ITEMS)) ? <i className="fa fa-spin fa-spinner" /> : ''}>
                     <table class="materials-results">
                         <thead class="thead-style">
-                        <tr>
-                            <td colSpan={4}>
-                                <div class="row">
-                                    <div class="thead-pages"><ListPages target="materials"/></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Control Number</th>
-                            <th>Title</th>
-                            <th>Format</th>
-                            <th>Action</th>
-                        </tr>
+                            <tr>
+                                <td colSpan={4}>
+                                    <div class="row">
+                                        <div class="thead-pages"><ListPages target="materials" /></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Control Number</th>
+                                <th>Title</th>
+                                <th>Format</th>
+                                <th>Action</th>
+                            </tr>
                         </thead>
-                        <AList listManager={this.listManager} id="materials"/>
+                        <AList listManager={this.listManager} id="materials" />
                     </table>
                 </Fieldset>
             </div>
