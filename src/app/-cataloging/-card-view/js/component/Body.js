@@ -36,7 +36,9 @@ export default class Body extends React.Component {
         if (isDone) {
             console.log('done', this);
         }
-        return (<div class="card-view"></div>)
+        return (<div class="card-view large-10 large-offset-1">
+
+        </div>)
     }
 }
 

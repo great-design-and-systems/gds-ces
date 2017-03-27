@@ -27,25 +27,27 @@ export default class Body extends React.Component {
         const isLoading = isApiActionLoading(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_IMPORT_MARC_DATA));
         const isDone = isApiActionDone(this.props.api, action(CATALOGING_DOMAIN, CATALOGING_DOMAIN_IMPORT_MARC_DATA));
         const importResult = getActionData(this.props.api, CATALOGING_DOMAIN, CATALOGING_DOMAIN_IMPORT_MARC_DATA, 'data');
-        console.log('importResult', importResult);
         return (<div class="search-results-import">
-            <div class="large-8 large-offset-2">
+            <div class="large-10 large-offset-1">
                 <Fieldset alwaysOpen={true} legend={'Control Number: '+this.state.marc.controlField['001']}>
                     <div class="row">
-                        <div class="column"><h4>Title: {GetRecordElement(this.state.marc, 'title')}</h4></div>
+                        <div><h5>Title:</h5></div>
+                        <div class="column"><h4>{GetRecordElement(this.state.marc, 'title')}</h4></div>
                     </div>
                     <div class="row">
-                        <div class="column"><h5>ISBN: {GetRecordElement(this.state.marc, 'isbn')}</h5></div>
+                        <div><h5>ISBN:</h5></div>
+                        <div class="column"><h4>{GetRecordElement(this.state.marc, 'isbn')}</h4></div>
                     </div>
                     <div class="row">
-                        <div class="column"><h6>Date: {GetRecordElement(this.state.marc, 'date')}</h6></div>
+                        <div><h5>Date:</h5></div>
+                        <div class="column"><h4> {GetRecordElement(this.state.marc, 'date')}</h4></div>
                     </div>
                     <div class="row">
                         <div class="column">
-                            {isLoading && !isDone ? <Loading color={getRandomColor()}/> : ''}
-                            {isDone ? <div>
-                                {importResult.data.existingItem ? <h6>Control number already exists.</h6> : <h6>Done</h6>}
-                            </div> : ''}
+                            {isDone && !isLoading ? <div>
+                                {importResult.data.existingItem ? <h5>Control number already exists.</h5> :
+                                    <h5 class="success">Done</h5>}
+                            </div> : <h5><i class="fa fa-spin fa-spinner fa-fw fa-lg"/> Saving to database</h5>}
                         </div>
                     </div>
                 </Fieldset>
