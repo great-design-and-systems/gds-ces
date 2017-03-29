@@ -2,7 +2,6 @@ import React from 'react';
 
 export default class Header extends React.Component {
     render() {
-        console.log('header', this.props);
         return (<div class="card-catalog-header">
             <div>
                 <h4><b>{getAuthor(this.props.marc)}&nbsp;{getDataAssociated(this.props.marc)}</b></h4>
